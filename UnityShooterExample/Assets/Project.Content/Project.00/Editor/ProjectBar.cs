@@ -98,8 +98,8 @@ namespace Project {
             }
         }
 
-        [MenuItem( "Project/Open All (*.cs)", priority = 500 )]
-        public static void OpenAll_CSharp() {
+        [MenuItem( "Project/Open CSharp", priority = 500 )]
+        public static void OpenCSharp() {
             var paths = AssetDatabase.GetAllAssetPaths()
                 .Where( i => i.StartsWith( "Assets/Project.Content/" ) && Path.GetExtension( i ) == ".cs" )
                 .Select( i => new {
