@@ -11,7 +11,7 @@ namespace Project.UI {
 
     public class UITheme : UIThemeBase2 {
 
-        private new UIPlayListBase2? PlayList => (PlayList?) base.PlayList;
+        private new PlayList? PlayList => (PlayList?) base.PlayList;
         public new bool IsPaused {
             set => base.IsPaused = value;
         }
