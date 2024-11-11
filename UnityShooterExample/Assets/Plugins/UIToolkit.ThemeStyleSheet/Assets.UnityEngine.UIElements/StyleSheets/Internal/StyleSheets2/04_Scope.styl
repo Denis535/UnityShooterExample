@@ -1,0 +1,17 @@
+@import "../_Theme"
+
+// alias
+alias--scope = // string: .scope.{skin}.{state}
+
+// style
+.selector--scope // styles: add-theme(scope)
+
+// style
+.selector--scope        // styles: add-layout(null, auto, auto, (0px), (0px), (0px                ))
+.selector--scope.small  // styles: add-layout(null, auto, auto, (0px), (1px), (6px  6px  5px  5px ))
+.selector--scope.medium // styles: add-layout(null, auto, auto, (0px), (1px), (12px 12px 10px 10px))
+.selector--scope.large  // styles: add-layout(null, auto, auto, (0px), (1px), (24px 24px 20px 20px))
+
+// style
+.selector--scope.column // styles: add-flex(0, 1, auto, auto).add-flex2(column, flex-start, null, stretch)
+.selector--scope.row    // styles: add-flex(0, 1, auto, auto).add-flex2(row,    flex-start, null, stretch)

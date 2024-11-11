@@ -1,0 +1,33 @@
+@import "../_Theme"
+
+// alias
+alias--scroll-view                               = // string: .unity-scroll-view.{skin}.{state}
+alias--scroll-view-content-and-vertical-scroller = // string: .unity-scroll-view.{skin}.{state} #unity-content-and-vertical-scroll-container
+alias--scroll-view-content                       = // string: .unity-scroll-view.{skin}.{state} #unity-content-viewport
+alias--scroll-view-container                     = // string: .unity-scroll-view.{skin}.{state} #unity-content-container
+
+// style
+.selector--scroll-view-content // styles: add-property(overflow, hidden)
+
+// style
+.selector--scroll-view                               // styles: add-theme(view)
+.selector--scroll-view-content-and-vertical-scroller // styles: add-theme(null)
+.selector--scroll-view-content                       // styles: add-theme(null)
+.selector--scroll-view-container                     // styles: add-theme(null)
+
+// style
+.selector--scroll-view                               // styles: add-layout(null, auto, auto, (4px                ), (1px), (0px ))
+.selector--scroll-view.no-outline                    // styles: add-layout(border: 0px                                           )
+.selector--scroll-view-content-and-vertical-scroller // styles: add-layout(null, auto, auto, (0px                ), (0px), (0px ))
+.selector--scroll-view-content                       // styles: add-layout(null, auto, auto, (0px                ), (0px), (0px ))
+.selector--scroll-view-content.small                 // styles: add-layout(null, auto, auto, (6px  6px  5px  5px ), (0px), (0px ))
+.selector--scroll-view-content.medium                // styles: add-layout(null, auto, auto, (12px 12px 10px 10px), (0px), (0px ))
+.selector--scroll-view-content.large                 // styles: add-layout(null, auto, auto, (24px 24px 20px 20px), (0px), (0px ))
+.selector--scroll-view-container                     // styles: add-layout(null, auto, auto, (0px                ), (0px), (0px ))
+
+// style
+.selector--scroll-view                               // styles: add-flex(0, 1, auto, auto).add-flex2(column,         flex-start, null, stretch)
+.selector--scroll-view-content-and-vertical-scroller // styles: add-flex(1, 1, auto, auto).add-flex2(row,            flex-start, null, stretch)
+.selector--scroll-view-content                       // styles: add-flex(1, 1, auto, auto).add-flex2(column,         flex-start, null, stretch)
+.selector--scroll-view-content.reverse               // styles: add-flex(1, 1, auto, auto).add-flex2(column-reverse, flex-start, null, stretch)
+.selector--scroll-view-container                     // styles: add-flex(1, 1, auto, auto).add-flex2(column,         flex-start, null, stretch)

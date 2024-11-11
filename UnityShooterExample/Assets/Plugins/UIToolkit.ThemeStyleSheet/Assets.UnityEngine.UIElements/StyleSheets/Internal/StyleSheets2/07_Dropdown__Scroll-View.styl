@@ -1,0 +1,25 @@
+@import "../_Theme"
+
+// alias
+alias--scroll-view                               = // string: .unity-base-dropdown .unity-scroll-view.{skin}.{state}
+alias--scroll-view-content-and-vertical-scroller = // string: .unity-base-dropdown .unity-scroll-view.{skin}.{state} #unity-content-and-vertical-scroll-container
+alias--scroll-view-content                       = // string: .unity-base-dropdown .unity-scroll-view.{skin}.{state} #unity-content-viewport
+alias--scroll-view-container                     = // string: .unity-base-dropdown .unity-scroll-view.{skin}.{state} #unity-content-container
+
+// style
+.selector--scroll-view                               // styles: add-theme(null)
+.selector--scroll-view-content-and-vertical-scroller // styles: add-theme(null)
+.selector--scroll-view-content                       // styles: add-theme(null)
+.selector--scroll-view-container                     // styles: add-theme(null)
+
+// style
+.selector--scroll-view                               // styles: add-layout(null, auto, auto, (0px), (0px), (0px))
+.selector--scroll-view-content-and-vertical-scroller // styles: add-layout(null, auto, auto, (0px), (0px), (0px))
+.selector--scroll-view-content                       // styles: add-layout(null, auto, auto, (0px), (0px), (0px))
+.selector--scroll-view-container                     // styles: add-layout(null, auto, auto, (0px), (0px), (0px))
+
+// style
+.selector--scroll-view                               // styles: add-flex(0, 1, auto, auto).add-flex2(column, flex-start, null, stretch)
+.selector--scroll-view-content-and-vertical-scroller // styles: add-flex(1, 1, auto, auto).add-flex2(row,    flex-start, null, stretch)
+.selector--scroll-view-content                       // styles: add-flex(1, 1, auto, auto).add-flex2(column, flex-start, null, stretch)
+.selector--scroll-view-container                     // styles: add-flex(0, 0, auto, auto).add-flex2(column, flex-start, null, stretch)
