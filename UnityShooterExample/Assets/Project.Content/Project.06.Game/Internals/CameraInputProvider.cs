@@ -6,25 +6,48 @@ namespace Project.Game {
     using UnityEngine;
     using UnityEngine.InputSystem;
 
-    internal class CameraInputProvider : ICameraInputProvider {
+    internal class CameraInputProvider : ICameraInputProvider, IDisposable {
 
-        private InputActions_Camera Input { get; }
-        //public bool IsEnabled {
-        //    get => Input.Camera.enabled;
-        //    set {
-        //        if (value) Input.Enable(); else Input.Disable();
-        //    }
-        //}
+        public bool IsEnabled {
+            get => Actions.enabled;
+            set {
+                if (value) {
+                    Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+                    Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+                    Actions.Enable();
+                } else {
+                    Actions.Disable();
+                }
+            }
+        }
+        private InputActions_Camera Actions_ { get; }
+        private InputActions_Camera.CameraActions Actions => Actions_.Camera;
+        public Player2 Player { get; }
 
-        public CameraInputProvider(InputActions_Camera input) {
-            Input = input;
+        public CameraInputProvider(Player2 player) {
+            Actions_ = new InputActions_Camera();
+            Player = player;
+        }
+        public void Dispose() {
+            Actions_.Dispose();
+        }
+
+        public PlayableCharacterBase GetTarget(out bool isChanged) {
+            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+            isChanged = false;
+            return Player.Character;
         }
 
         public Vector2 GetLookDelta() {
-            return Input.Camera.Look.ReadValue<Vector2>();
+            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+            return Actions.Look.ReadValue<Vector2>();
         }
         public float GetZoomDelta() {
-            return Input.Camera.Zoom.ReadValue<Vector2>().y;
+            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+            return Actions.Zoom.ReadValue<Vector2>().y;
         }
 
     }

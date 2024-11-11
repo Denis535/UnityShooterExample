@@ -14,7 +14,6 @@ namespace Project.Game {
 
         public override void OnInspectorGUI() {
             base.OnInspectorGUI();
-            EditorGUILayout.ObjectField( "Target", Target.Target, typeof( CharacterBase ), true );
             EditorGUILayout.Vector2Field( "Angles", Target.Angles );
             EditorGUILayout.FloatField( "Distance", Target.Distance );
         }

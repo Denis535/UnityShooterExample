@@ -46,6 +46,15 @@ namespace Project.Game {
         protected override void OnDestroy() {
         }
 
+        protected override void Start() {
+        }
+        protected override void FixedUpdate() {
+        }
+        protected override void Update() {
+        }
+        protected override void LateUpdate() {
+        }
+
         public void OnCollisionEnter(Collision collision) {
             if (enabled) {
                 var damageInfo = new HitDamageInfo( Force, Rigidbody.position, Rigidbody.velocity.normalized, transform.position, Weapon, Actor, Player );

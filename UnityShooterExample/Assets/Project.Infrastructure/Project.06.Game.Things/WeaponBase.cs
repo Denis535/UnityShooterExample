@@ -6,13 +6,20 @@ namespace Project.Game {
     using UnityEngine;
     using UnityEngine.Framework;
 
-    public abstract class WeaponBase : ThingBase2 {
+    public abstract class WeaponBase : ThingBase {
+
+        protected Rigidbody Rigidbody { get; private set; } = default!;
+        public override bool IsRigidbody {
+            get => !Rigidbody.isKinematic;
+            set {
+                Rigidbody.isKinematic = !value;
+            }
+        }
 
         protected override void Awake() {
-            base.Awake();
+            Rigidbody = gameObject.RequireComponent<Rigidbody>();
         }
         protected override void OnDestroy() {
-            base.OnDestroy();
         }
 
         public abstract void Fire(ActorBase actor, PlayerBase? player);

@@ -68,16 +68,12 @@ namespace Project.Game {
         public void OnFixedUpdate() {
         }
         public void OnUpdate() {
-            if (Player.Character != null && Player.Character.IsAlive && Player.Camera != null && Cursor.lockState == CursorLockMode.Locked && Time.timeScale != 0f) {
-                Player.CharacterInput.Enable();
-            } else {
-                Player.CharacterInput.Disable();
-            }
-            if (Player.Character != null && Player.Camera != null && Cursor.lockState == CursorLockMode.Locked && Time.timeScale != 0f) {
-                Player.CameraInput.Enable();
-            } else {
-                Player.CameraInput.Disable();
-            }
+            Player.CharacterInputProvider.IsEnabled = Cursor.lockState == CursorLockMode.Locked && Time.timeScale != 0f &&
+                Player.Character != null && Player.Character.IsAlive &&
+                Player.Camera != null;
+            Player.CameraInputProvider.IsEnabled = Cursor.lockState == CursorLockMode.Locked && Time.timeScale != 0f &&
+                Player.Character != null &&
+                Player.Camera != null;
         }
         public void OnLateUpdate() {
             if (IsDirty) {
@@ -92,7 +88,7 @@ namespace Project.Game {
         }
 
         protected virtual PlayerCharacter SpawnPlayerCharacter(PlayerPoint point, Player2 player) {
-            var character = PlayerCharacter.Factory.Create( point.transform.position, point.transform.rotation, player, (PlayerCharacter.Factory.CharacterType) player.Info.CharacterType );
+            var character = PlayerCharacter.Factory.Create( point.transform.position, point.transform.rotation, (PlayerCharacter.Factory.CharacterType) player.Info.CharacterType );
             character.OnDeathEvent += info => {
                 IsDirty = true;
             };

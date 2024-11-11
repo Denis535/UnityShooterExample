@@ -8,32 +8,42 @@ namespace Project.Game {
 
     [RequireComponent( typeof( Rigidbody ) )]
     [RequireComponent( typeof( MoveableBody ) )]
-    public abstract partial class CharacterBase : ActorBase2 {
+    public abstract partial class CharacterBase : ActorBase, IDamageable {
 
         private Facade_ Facade { get; set; } = default!;
+        public bool IsAlive { get; private set; } = true;
+        public event Action<DamageInfo>? OnDamageEvent;
+        public event Action<DamageInfo>? OnDeathEvent;
         public WeaponBase? Weapon { get => Facade.Weapon; protected set => Facade.Weapon = value; }
 
         protected override void Awake() {
-            base.Awake();
             Facade = new Facade_( gameObject );
         }
         protected override void OnDestroy() {
             Facade.Dispose();
-            base.OnDestroy();
         }
 
-        protected virtual void Start() {
+        protected override void Start() {
         }
-        protected virtual void FixedUpdate() {
+        protected override void FixedUpdate() {
         }
-        protected virtual void Update() {
+        protected override void Update() {
         }
-        protected virtual void LateUpdate() {
+        protected override void LateUpdate() {
         }
 
-        protected override void OnDamage(DamageInfo info) {
+        void IDamageable.Damage(DamageInfo info) {
+            if (IsAlive) {
+                IsAlive = false;
+                OnDamage( info );
+                OnDamageEvent?.Invoke( info );
+                OnDeath( info );
+                OnDeathEvent?.Invoke( info );
+            }
         }
-        protected override void OnDeath(DamageInfo info) {
+        protected virtual void OnDamage(DamageInfo info) {
+        }
+        protected virtual void OnDeath(DamageInfo info) {
             Facade.Weapon = null;
             if (info is HitDamageInfo bulletDamageInfo) {
                 Facade.Die( bulletDamageInfo.Direction * 5, bulletDamageInfo.Point );

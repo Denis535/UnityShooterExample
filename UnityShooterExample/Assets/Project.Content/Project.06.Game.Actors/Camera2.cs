@@ -29,7 +29,7 @@ namespace Project.Game {
     }
     [DefaultExecutionOrder( 99 )]
     public partial class Camera2 : EntityBase {
-        public record RaycastHit(GameObject GameObject, Vector3 Point, float Distance, EnemyCharacter? Enemy, ThingBase2? Thing);
+        public record RaycastHit(GameObject GameObject, Vector3 Point, float Distance, EnemyCharacter? Enemy, ThingBase? Thing);
 
         private static readonly Vector2 DefaultAngles = new Vector2( 30, 0 );
         private static readonly float DefaultDistance = 1.5f;
@@ -40,20 +40,11 @@ namespace Project.Game {
         private static readonly float AnglesInputSensitivity = 0.15f;
         private static readonly float DistanceInputSensitivity = 0.20f;
 
-        private CharacterBase? target;
-
         public ICameraInputProvider? InputProvider { get; set; }
 
-        public CharacterBase? Target {
-            get => target;
-            set {
-                if (value != target) IsTargetChanged = true;
-                target = value;
-            }
-        }
-        public bool IsTargetChanged { get; private set; }
         public Vector2 Angles { get; private set; }
         public float Distance { get; private set; }
+
         public RaycastHit? Hit { get; private set; }
 
         protected override void Awake() {
@@ -61,33 +52,33 @@ namespace Project.Game {
         protected override void OnDestroy() {
         }
 
-        protected void Update() {
-            if (Target != null) {
-                if (IsTargetChanged) {
-                    Angles = new Vector2( DefaultAngles.x, Target.transform.eulerAngles.y );
+        protected override void Start() {
+        }
+        protected override void FixedUpdate() {
+        }
+        protected override void Update() {
+            if (InputProvider != null) {
+                var target = InputProvider.GetTarget( out var isTargetChanged );
+                var lookDelta = InputProvider.GetLookDelta() * AnglesInputSensitivity;
+                var zoomDelta = InputProvider.GetZoomDelta() * DistanceInputSensitivity;
+                if (isTargetChanged) {
+                    Angles = new Vector2( DefaultAngles.x, target.transform.eulerAngles.y );
                     Distance = DefaultDistance;
-                    IsTargetChanged = false;
+                } else {
+                    var angles = Angles + new Vector2( -lookDelta.y, lookDelta.x );
+                    angles.x = Math.Clamp( angles.x, MinAngleX, MaxAngleX );
+                    Angles = angles;
+                    var distance = Distance + zoomDelta;
+                    distance = Math.Clamp( distance, MinDistance, MaxDistance );
+                    Distance = distance;
                 }
-                if (InputProvider != null) {
-                    {
-                        var delta = InputProvider.GetLookDelta() * AnglesInputSensitivity;
-                        var angles = Angles + new Vector2( -delta.y, delta.x );
-                        angles.x = Math.Clamp( angles.x, MinAngleX, MaxAngleX );
-                        Angles = angles;
-                    }
-                    {
-                        var delta = InputProvider.GetZoomDelta() * DistanceInputSensitivity;
-                        var distance = Distance + delta;
-                        distance = Math.Clamp( distance, MinDistance, MaxDistance );
-                        Distance = distance;
-                    }
-                }
-                Apply( transform, Target, Angles, Distance );
-                Apply( Camera.main, transform );
-                Hit = Raycast( new Ray( transform.position, transform.forward ), Target.transform );
+                Apply( transform, target, Angles, Distance );
+                Hit = Raycast( new Ray( transform.position, transform.forward ), target.transform );
             } else {
                 Hit = null;
             }
+        }
+        protected override void LateUpdate() {
         }
 
         // Helpers
@@ -105,10 +96,8 @@ namespace Project.Game {
                 transform.Translate( 0, 0, -distance, Space.Self );
                 transform.Translate( target.transform.up * 1.5f, Space.World );
             }
-        }
-        private static void Apply(Camera camera, Transform transform) {
-            camera.transform.localPosition = transform.localPosition;
-            camera.transform.localRotation = transform.localRotation;
+            Camera.main.transform.localPosition = transform.localPosition;
+            Camera.main.transform.localRotation = transform.localRotation;
         }
         // Helpers
         private static RaycastHit? Raycast(Ray ray, Transform character) {
@@ -132,16 +121,17 @@ namespace Project.Game {
             }
             return null;
         }
-        private static ThingBase2? GetThing(GameObject gameObject, Vector3 Point, float Distance, Transform character) {
+        private static ThingBase? GetThing(GameObject gameObject, Vector3 Point, float Distance, Transform character) {
             if (Vector3.Distance( character.position, Point ) <= 2.5f) {
                 var @object = gameObject.transform.root.gameObject;
-                return @object.GetComponent<ThingBase2>();
+                return @object.GetComponent<ThingBase>();
             }
             return null;
         }
 
     }
     public interface ICameraInputProvider {
+        PlayableCharacterBase GetTarget(out bool IsChanged);
         Vector2 GetLookDelta();
         float GetZoomDelta();
     }

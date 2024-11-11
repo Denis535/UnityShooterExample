@@ -14,5 +14,18 @@ namespace Project.Game {
             base.OnDestroy();
         }
 
+        protected override void Start() {
+            base.Start();
+        }
+        protected override void FixedUpdate() {
+            base.FixedUpdate();
+        }
+        protected override void Update() {
+            base.Update();
+        }
+        protected override void LateUpdate() {
+            base.LateUpdate();
+        }
+
     }
 }

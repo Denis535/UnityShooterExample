@@ -4,32 +4,44 @@ namespace Project.Game {
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Framework;
     using UnityEngine.InputSystem;
 
-    internal class CharacterInputProvider : ICharacterInputProvider {
+    internal class CharacterInputProvider : ICharacterInputProvider, IDisposable {
 
-        private InputActions_Character Input { get; }
-        //public bool IsEnabled {
-        //    get => Input.Character.enabled;
-        //    set {
-        //        if (value) Input.Enable(); else Input.Disable();
-        //    }
-        //}
-        private CharacterBase Character { get; }
-        private Camera2 Camera { get; }
-        private Camera2.RaycastHit? Hit => Camera.Hit;
-        private Vector3 Target => Camera.Hit?.Point ?? Camera.transform.TransformPoint( Vector3.forward * 128f );
+        public bool IsEnabled {
+            get => Actions.enabled;
+            set {
+                if (value) {
+                    Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+                    Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+                    Actions.Enable();
+                } else {
+                    Actions.Disable();
+                }
+            }
+        }
+        private InputActions_Character Actions_ { get; }
+        private InputActions_Character.CharacterActions Actions => Actions_.Character;
+        private Player2 Player { get; }
 
-        public CharacterInputProvider(InputActions_Character input, CharacterBase character, Camera2 camera) {
-            Input = input;
-            Character = character;
-            Camera = camera;
+        private Camera2.RaycastHit? Hit => Player.Camera!.Hit;
+        private Vector3 Target => Player.Camera!.Hit?.Point ?? Player.Camera.transform.TransformPoint( Vector3.forward * 128f );
+
+        public CharacterInputProvider(Player2 player) {
+            Actions_ = new InputActions_Character();
+            Player = player;
+        }
+        public void Dispose() {
+            Actions_.Dispose();
         }
 
         public Vector3 GetMoveVector() {
-            if (Input.Character.Move.IsPressed()) {
-                var vector = Input.Character.Move.ReadValue<Vector2>().Pipe( i => new Vector3( i.x, 0, i.y ) );
-                vector = Camera.transform.TransformDirection( vector );
+            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+            if (Actions.Move.IsPressed()) {
+                var vector = Actions.Move.ReadValue<Vector2>().Pipe( i => new Vector3( i.x, 0, i.y ) );
+                vector = Player.Camera!.transform.TransformDirection( vector );
                 vector = new Vector3( vector.x, 0, vector.z ).normalized * vector.magnitude;
                 return vector;
             } else {
@@ -37,55 +49,74 @@ namespace Project.Game {
             }
         }
         public Vector3? GetBodyTarget() {
-            if (Input.Character.Aim.IsPressed() || Input.Character.Fire.IsPressed()) {
+            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+            if (Actions.Aim.IsPressed() || Actions.Fire.IsPressed()) {
                 return Target;
             }
-            if (Input.Character.Move.IsPressed()) {
-                var vector = Input.Character.Move.ReadValue<Vector2>().Pipe( i => new Vector3( i.x, 0, i.y ) );
+            if (Actions.Move.IsPressed()) {
+                var vector = Actions.Move.ReadValue<Vector2>().Pipe( i => new Vector3( i.x, 0, i.y ) );
                 if (vector != Vector3.zero) {
-                    vector = Camera.transform.TransformDirection( vector );
+                    vector = Player.Camera!.transform.TransformDirection( vector );
                     vector = new Vector3( vector.x, 0, vector.z ).normalized * vector.magnitude;
-                    return Character.transform.position + vector;
+                    return Player.Character!.transform.position + vector;
                 }
             }
             return null;
         }
         public Vector3? GetHeadTarget() {
-            if (Input.Character.Aim.IsPressed() || Input.Character.Fire.IsPressed()) {
+            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+            if (Actions.Aim.IsPressed() || Actions.Fire.IsPressed()) {
                 return Target;
             }
-            if (Input.Character.Move.IsPressed()) {
+            if (Actions.Move.IsPressed()) {
                 return Target;
             }
             return Target;
         }
         public Vector3? GetWeaponTarget() {
-            if (Input.Character.Aim.IsPressed() || Input.Character.Fire.IsPressed()) {
+            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+            if (Actions.Aim.IsPressed() || Actions.Fire.IsPressed()) {
                 return Target;
             }
-            if (Input.Character.Move.IsPressed()) {
+            if (Actions.Move.IsPressed()) {
                 return null;
             }
             return null;
         }
         public bool IsJumpPressed() {
-            return Input.Character.Jump.IsPressed();
+            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+            return Actions.Jump.IsPressed();
         }
         public bool IsCrouchPressed() {
-            return Input.Character.Crouch.IsPressed();
+            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+            return Actions.Crouch.IsPressed();
         }
         public bool IsAcceleratePressed() {
-            return Input.Character.Accelerate.IsPressed();
+            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+            return Actions.Accelerate.IsPressed();
         }
-        public bool IsFirePressed() {
-            return Input.Character.Fire.IsPressed();
+        public bool IsFirePressed(out PlayerBase player) {
+            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+            player = Player;
+            return Actions.Fire.IsPressed();
         }
         public bool IsAimPressed() {
-            return Input.Character.Aim.IsPressed();
+            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+            return Actions.Aim.IsPressed();
         }
         public bool IsInteractPressed(out MonoBehaviour? interactable) {
+            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
             interactable = (MonoBehaviour?) Hit?.Enemy ?? Hit?.Thing;
-            return Input.Character.Interact.WasPressedThisFrame();
+            return Actions.Interact.WasPressedThisFrame();
         }
 
     }

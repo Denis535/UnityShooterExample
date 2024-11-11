@@ -5,7 +5,6 @@ namespace Project.Game {
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Framework;
-    using UnityEngine.InputSystem;
 
     public class Player2 : PlayerBase2 {
 
@@ -24,46 +23,34 @@ namespace Project.Game {
         }
         public event Action<PlayerState>? OnStateChangeEvent;
 
-        internal InputActions_Character CharacterInput { get; }
-        internal InputActions_Camera CameraInput { get; }
+        internal CharacterInputProvider CharacterInputProvider { get; }
+        internal CameraInputProvider CameraInputProvider { get; }
 
         public PlayerCharacter? Character {
             get => character;
             internal set {
-                CharacterInput.Disable();
-                CameraInput.Disable();
+                CharacterInputProvider.IsEnabled = false;
+                CameraInputProvider.IsEnabled = false;
                 if (Character != null) {
                     Character.InputProvider = null;
                 }
-                if (Camera != null) {
-                    Camera.InputProvider = null;
-                    Camera.Target = null;
-                }
                 character = value;
-                if (Character != null && Camera != null) {
-                    Character.InputProvider = new CharacterInputProvider( CharacterInput, Character, Camera );
-                    Camera.InputProvider = new CameraInputProvider( CameraInput );
-                    Camera.Target = Character;
+                if (Character != null) {
+                    Character.InputProvider = CharacterInputProvider;
                 }
             }
         }
         public Camera2? Camera {
             get => camera;
             internal set {
-                CharacterInput.Disable();
-                CameraInput.Disable();
-                if (Character != null) {
-                    Character.InputProvider = null;
-                }
+                CharacterInputProvider.IsEnabled = false;
+                CameraInputProvider.IsEnabled = false;
                 if (Camera != null) {
                     Camera.InputProvider = null;
-                    Camera.Target = null;
                 }
                 camera = value;
-                if (Character != null && Camera != null) {
-                    Character.InputProvider = new CharacterInputProvider( CharacterInput, Character, Camera );
-                    Camera.InputProvider = new CameraInputProvider( CameraInput );
-                    Camera.Target = Character;
+                if (Camera != null) {
+                    Camera.InputProvider = CameraInputProvider;
                 }
             }
         }
@@ -71,12 +58,12 @@ namespace Project.Game {
         public Player2(IDependencyContainer container, PlayerInfo info) : base( container ) {
             Info = info;
             State = PlayerState.Playing;
-            CharacterInput = new InputActions_Character();
-            CameraInput = new InputActions_Camera();
+            CharacterInputProvider = new CharacterInputProvider( this );
+            CameraInputProvider = new CameraInputProvider( this );
         }
         public override void Dispose() {
-            CameraInput.Dispose();
-            CharacterInput.Dispose();
+            CameraInputProvider.Dispose();
+            CharacterInputProvider.Dispose();
             base.Dispose();
         }
 

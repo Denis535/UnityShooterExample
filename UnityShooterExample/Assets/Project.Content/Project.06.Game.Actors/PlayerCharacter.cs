@@ -30,9 +30,8 @@ namespace Project.Game {
                 Prefabs.Release();
             }
 
-            public static PlayerCharacter Create(Vector3 position, Quaternion rotation, PlayerBase player, CharacterType type) {
+            public static PlayerCharacter Create(Vector3 position, Quaternion rotation, CharacterType type) {
                 var result = GameObject.Instantiate<PlayerCharacter>( Prefabs.GetValues()[ (int) type ], position, rotation );
-                result.Player = player;
                 return result;
             }
 
@@ -40,7 +39,6 @@ namespace Project.Game {
     }
     public partial class PlayerCharacter : PlayableCharacterBase {
 
-        public PlayerBase Player { get; private set; } = default!;
         public ICharacterInputProvider? InputProvider { get; set; }
 
         protected override void Awake() {
@@ -67,8 +65,8 @@ namespace Project.Game {
                     if (InputProvider.IsAimPressed()) {
 
                     }
-                    if (InputProvider.IsFirePressed()) {
-                        Weapon?.Fire( this, Player );
+                    if (InputProvider.IsFirePressed( out var player )) {
+                        Weapon?.Fire( this, player );
                     }
                     if (InputProvider.IsInteractPressed( out var interactable )) {
                         if (interactable is WeaponBase weapon) {
@@ -93,7 +91,7 @@ namespace Project.Game {
         bool IsJumpPressed();
         bool IsCrouchPressed();
         bool IsAcceleratePressed();
-        bool IsFirePressed();
+        bool IsFirePressed(out PlayerBase player);
         bool IsAimPressed();
         bool IsInteractPressed(out MonoBehaviour? interactable);
     }
