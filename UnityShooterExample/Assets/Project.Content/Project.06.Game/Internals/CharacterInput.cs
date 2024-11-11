@@ -6,7 +6,7 @@ namespace Project.Game {
     using UnityEngine;
     using UnityEngine.InputSystem;
 
-    internal class CharacterInput : ICharacterInput {
+    internal class CharacterInput : ICharacterInputProvider {
 
         private InputActions_Character Input { get; }
         //public bool IsEnabled {

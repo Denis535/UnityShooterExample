@@ -6,6 +6,7 @@ namespace Project.Game {
     using System.Linq;
     using UnityEngine;
     using UnityEngine.AddressableAssets;
+    using UnityEngine.Framework;
 
     public partial class Camera2 {
         public static class Factory {
@@ -27,7 +28,7 @@ namespace Project.Game {
         }
     }
     [DefaultExecutionOrder( 99 )]
-    public partial class Camera2 : MonoBehaviour {
+    public partial class Camera2 : EntityBase {
         public record RaycastHit(GameObject GameObject, Vector3 Point, float Distance, EnemyCharacter? Enemy, ThingBase2? Thing);
 
         private static readonly Vector2 DefaultAngles = new Vector2( 30, 0 );
@@ -41,7 +42,8 @@ namespace Project.Game {
 
         private CharacterBase? target;
 
-        public ICameraInput? Input { get; set; }
+        public ICameraInputProvider? InputProvider { get; set; }
+
         public CharacterBase? Target {
             get => target;
             set {
@@ -54,9 +56,9 @@ namespace Project.Game {
         public float Distance { get; private set; }
         public RaycastHit? Hit { get; private set; }
 
-        protected void Awake() {
+        protected override void Awake() {
         }
-        protected void OnDestroy() {
+        protected override void OnDestroy() {
         }
 
         protected void Update() {
@@ -66,15 +68,15 @@ namespace Project.Game {
                     Distance = DefaultDistance;
                     IsTargetChanged = false;
                 }
-                if (Input != null) {
+                if (InputProvider != null) {
                     {
-                        var delta = Input.GetLookDelta() * AnglesInputSensitivity;
+                        var delta = InputProvider.GetLookDelta() * AnglesInputSensitivity;
                         var angles = Angles + new Vector2( -delta.y, delta.x );
                         angles.x = Math.Clamp( angles.x, MinAngleX, MaxAngleX );
                         Angles = angles;
                     }
                     {
-                        var delta = Input.GetZoomDelta() * DistanceInputSensitivity;
+                        var delta = InputProvider.GetZoomDelta() * DistanceInputSensitivity;
                         var distance = Distance + delta;
                         distance = Math.Clamp( distance, MinDistance, MaxDistance );
                         Distance = distance;
@@ -139,7 +141,7 @@ namespace Project.Game {
         }
 
     }
-    public interface ICameraInput {
+    public interface ICameraInputProvider {
         Vector2 GetLookDelta();
         float GetZoomDelta();
     }

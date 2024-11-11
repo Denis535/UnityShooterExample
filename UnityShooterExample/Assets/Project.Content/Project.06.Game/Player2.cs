@@ -33,16 +33,16 @@ namespace Project.Game {
                 CharacterInput.Disable();
                 CameraInput.Disable();
                 if (Character != null) {
-                    Character.Input = null;
+                    Character.InputProvider = null;
                 }
                 if (Camera != null) {
-                    Camera.Input = null;
+                    Camera.InputProvider = null;
                     Camera.Target = null;
                 }
                 character = value;
                 if (Character != null && Camera != null) {
-                    Character.Input = new CharacterInput( CharacterInput, Character, Camera );
-                    Camera.Input = new CameraInput( CameraInput );
+                    Character.InputProvider = new CharacterInput( CharacterInput, Character, Camera );
+                    Camera.InputProvider = new CameraInput( CameraInput );
                     Camera.Target = Character;
                 }
             }
@@ -53,16 +53,16 @@ namespace Project.Game {
                 CharacterInput.Disable();
                 CameraInput.Disable();
                 if (Character != null) {
-                    Character.Input = null;
+                    Character.InputProvider = null;
                 }
                 if (Camera != null) {
-                    Camera.Input = null;
+                    Camera.InputProvider = null;
                     Camera.Target = null;
                 }
                 camera = value;
                 if (Character != null && Camera != null) {
-                    Character.Input = new CharacterInput( CharacterInput, Character, Camera );
-                    Camera.Input = new CameraInput( CameraInput );
+                    Character.InputProvider = new CharacterInput( CharacterInput, Character, Camera );
+                    Camera.InputProvider = new CameraInput( CameraInput );
                     Camera.Target = Character;
                 }
             }

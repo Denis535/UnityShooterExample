@@ -41,6 +41,7 @@ namespace Project.Game {
     public partial class PlayerCharacter : PlayableCharacterBase {
 
         public PlayerBase Player { get; private set; } = default!;
+        public ICharacterInputProvider? InputProvider { get; set; }
 
         protected override void Awake() {
             base.Awake();
@@ -57,19 +58,19 @@ namespace Project.Game {
         }
         protected override void Update() {
             base.Update();
-            if (IsAlive) {
-                if (Input != null) {
-                    Move( Input.GetMoveVector(), Input.IsJumpPressed(), Input.IsCrouchPressed(), Input.IsAcceleratePressed() );
-                    BodyAt( Input.GetBodyTarget() );
-                    HeadAt( Input.GetHeadTarget() );
-                    AimAt( Input.GetWeaponTarget() );
-                    if (Input.IsAimPressed()) {
+            if (InputProvider != null) {
+                if (IsAlive) {
+                    Move( InputProvider.GetMoveVector(), InputProvider.IsJumpPressed(), InputProvider.IsCrouchPressed(), InputProvider.IsAcceleratePressed() );
+                    BodyAt( InputProvider.GetBodyTarget() );
+                    HeadAt( InputProvider.GetHeadTarget() );
+                    AimAt( InputProvider.GetWeaponTarget() );
+                    if (InputProvider.IsAimPressed()) {
 
                     }
-                    if (Input.IsFirePressed()) {
+                    if (InputProvider.IsFirePressed()) {
                         Weapon?.Fire( this, Player );
                     }
-                    if (Input.IsInteractPressed( out var interactable )) {
+                    if (InputProvider.IsInteractPressed( out var interactable )) {
                         if (interactable is WeaponBase weapon) {
                             Weapon = weapon;
                         } else {
@@ -83,5 +84,17 @@ namespace Project.Game {
             base.LateUpdate();
         }
 
+    }
+    public interface ICharacterInputProvider {
+        Vector3 GetMoveVector();
+        Vector3? GetBodyTarget();
+        Vector3? GetHeadTarget();
+        Vector3? GetWeaponTarget();
+        bool IsJumpPressed();
+        bool IsCrouchPressed();
+        bool IsAcceleratePressed();
+        bool IsFirePressed();
+        bool IsAimPressed();
+        bool IsInteractPressed(out MonoBehaviour? interactable);
     }
 }

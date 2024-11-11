@@ -6,7 +6,7 @@ namespace Project.Game {
     using UnityEngine;
     using UnityEngine.InputSystem;
 
-    internal class CameraInput : ICameraInput {
+    internal class CameraInput : ICameraInputProvider {
 
         private InputActions_Camera Input { get; }
         //public bool IsEnabled {
