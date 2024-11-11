@@ -17,7 +17,6 @@ namespace Project.Game {
         public GameState State {
             get => state;
             private set {
-                Assert.Operation.Message( $"Transition from {state} to {value} is invalid" ).Valid( value != state );
                 state = value;
                 OnStateChangeEvent?.Invoke( state );
             }
@@ -43,6 +42,9 @@ namespace Project.Game {
 
         public Game2(IDependencyContainer container, GameInfo info, PlayerInfo playerInfo) : base( container ) {
             Info = info;
+            State = GameState.Playing;
+            IsPaused = false;
+            IsDirty = false;
             Player = new Player2( container, playerInfo );
             World = container.RequireDependency<World>();
             {
@@ -64,13 +66,20 @@ namespace Project.Game {
         }
 
         public void OnFixedUpdate() {
-            Player.OnFixedUpdate();
         }
         public void OnUpdate() {
-            Player.OnUpdate();
+            if (Player.Character != null && Player.Character.IsAlive && Player.Camera != null && Cursor.lockState == CursorLockMode.Locked && Time.timeScale != 0f) {
+                Player.CharacterInput.Enable();
+            } else {
+                Player.CharacterInput.Disable();
+            }
+            if (Player.Character != null && Player.Camera != null && Cursor.lockState == CursorLockMode.Locked && Time.timeScale != 0f) {
+                Player.CameraInput.Enable();
+            } else {
+                Player.CameraInput.Disable();
+            }
         }
         public void OnLateUpdate() {
-            Player.OnLateUpdate();
             if (IsDirty) {
                 if (IsLoser( Player )) {
                     OnLoser( Player );

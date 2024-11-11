@@ -18,15 +18,14 @@ namespace Project.Game {
         public PlayerState State {
             get => state;
             internal set {
-                Assert.Operation.Message( $"Transition from {State} to {value} is invalid" ).Valid( value != State );
                 state = value;
                 OnStateChangeEvent?.Invoke( State );
             }
         }
         public event Action<PlayerState>? OnStateChangeEvent;
 
-        private InputActions_Character CharacterInput { get; } = new InputActions_Character();
-        private InputActions_Camera CameraInput { get; } = new InputActions_Camera();
+        internal InputActions_Character CharacterInput { get; }
+        internal InputActions_Camera CameraInput { get; }
 
         public PlayerCharacter? Character {
             get => character;
@@ -71,28 +70,14 @@ namespace Project.Game {
 
         public Player2(IDependencyContainer container, PlayerInfo info) : base( container ) {
             Info = info;
+            State = PlayerState.Playing;
+            CharacterInput = new InputActions_Character();
+            CameraInput = new InputActions_Camera();
         }
         public override void Dispose() {
-            CharacterInput.Dispose();
             CameraInput.Dispose();
+            CharacterInput.Dispose();
             base.Dispose();
-        }
-
-        public void OnFixedUpdate() {
-        }
-        public void OnUpdate() {
-            if (Character != null && Character.IsAlive && Camera != null && Cursor.lockState == CursorLockMode.Locked && Time.timeScale != 0f) {
-                CharacterInput.Enable();
-            } else {
-                CharacterInput.Disable();
-            }
-            if (Character != null && Camera != null && Cursor.lockState == CursorLockMode.Locked && Time.timeScale != 0f) {
-                CameraInput.Enable();
-            } else {
-                CameraInput.Disable();
-            }
-        }
-        public void OnLateUpdate() {
         }
 
     }
