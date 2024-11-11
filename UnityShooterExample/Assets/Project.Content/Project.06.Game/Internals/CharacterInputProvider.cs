@@ -6,7 +6,7 @@ namespace Project.Game {
     using UnityEngine;
     using UnityEngine.InputSystem;
 
-    internal class CharacterInput : ICharacterInputProvider {
+    internal class CharacterInputProvider : ICharacterInputProvider {
 
         private InputActions_Character Input { get; }
         //public bool IsEnabled {
@@ -20,7 +20,7 @@ namespace Project.Game {
         private Camera2.RaycastHit? Hit => Camera.Hit;
         private Vector3 Target => Camera.Hit?.Point ?? Camera.transform.TransformPoint( Vector3.forward * 128f );
 
-        public CharacterInput(InputActions_Character input, CharacterBase character, Camera2 camera) {
+        public CharacterInputProvider(InputActions_Character input, CharacterBase character, Camera2 camera) {
             Input = input;
             Character = character;
             Camera = camera;
