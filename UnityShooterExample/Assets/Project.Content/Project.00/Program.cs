@@ -5,7 +5,7 @@ namespace Project {
     using System.Collections.Generic;
     using System.Text;
     using Project.App;
-    using Project.Domain.Game_;
+    using Project.Game_;
     using Project.UI;
     using UnityEditor;
     using UnityEngine;

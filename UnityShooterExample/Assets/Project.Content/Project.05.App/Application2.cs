@@ -4,12 +4,12 @@ namespace Project.App {
     using System.Collections;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Project.Domain.Game_;
+    using Project.Game_;
     using Unity.Services.Authentication;
     using Unity.Services.Core;
     using UnityEngine;
     using UnityEngine.Framework;
-    using PlayerInfo = Domain.Game_.PlayerInfo;
+    using PlayerInfo = Game_.PlayerInfo;
 
     public class Application2 : ApplicationBase2 {
 

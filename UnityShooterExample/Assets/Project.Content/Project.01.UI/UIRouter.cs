@@ -5,7 +5,7 @@ namespace Project.UI {
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Project.App;
-    using Project.Domain.Game_;
+    using Project.Game_;
     using UnityEditor;
     using UnityEngine;
     using UnityEngine.AddressableAssets;

@@ -3,7 +3,7 @@ namespace Project.UI.GameScreen {
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using Project.Domain.Game_;
+    using Project.Game_;
     using Project.UI.Common;
     using UnityEngine;
     using UnityEngine.Framework;

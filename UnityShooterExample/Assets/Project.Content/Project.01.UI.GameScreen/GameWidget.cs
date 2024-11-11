@@ -4,7 +4,7 @@ namespace Project.UI.GameScreen {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using Project.Domain.Game_;
+    using Project.Game_;
     using UnityEngine;
     using UnityEngine.Framework;
     using UnityEngine.InputSystem;

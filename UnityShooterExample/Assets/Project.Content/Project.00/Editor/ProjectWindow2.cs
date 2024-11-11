@@ -14,15 +14,28 @@ namespace Project {
     [InitializeOnLoad]
     public class ProjectWindow2 : ProjectWindow {
 
-        private static readonly Color AssetsColor = HSVA( 060, 1.0f, 1.0f, 0.3f );
-        private static readonly Color ResourcesColor = HSVA( 060, 1.0f, 1.0f, 0.3f );
-        private static readonly Color SourcesColor = HSVA( 120, 1.0f, 1.0f, 0.3f );
-
         static ProjectWindow2() {
             new ProjectWindow2();
         }
 
         public ProjectWindow2() : base( GetPackagePaths(), GetModulePaths() ) {
+        }
+        public override void Dispose() {
+            base.Dispose();
+        }
+
+        protected override void OnGUI(string guid, Rect rect) {
+            base.OnGUI( guid, rect );
+        }
+
+        protected override void DrawPackageElement(Rect rect, string path, string name, string rest) {
+            base.DrawPackageElement( rect, path, name, rest );
+        }
+        protected override void DrawAssemblyElement(Rect rect, string path, string name, string rest) {
+            base.DrawAssemblyElement( rect, path, name, rest );
+        }
+        protected override void DrawAssemblyContentElement(Rect rect, string path, string name, string rest) {
+            base.DrawAssemblyContentElement( rect, path, name, rest );
         }
 
         protected override void DrawPackageItem(Rect rect, string path, string name) {
@@ -53,9 +66,9 @@ namespace Project {
                         DrawRect( rect, Settings.AssetsColor );
                         return;
                     }
-                    if (rest.Contains( ".06.Domain" )) {
+                    if (rest.Contains( ".06.Game" )) {
                         rect.xMin += 101;
-                        rect.width = 64;
+                        rect.width = 54;
                         DrawRect( rect, Settings.AssetsColor );
                         return;
                     }
@@ -93,9 +106,9 @@ namespace Project {
                         DrawRect( rect, Settings.SourcesColor );
                         return;
                     }
-                    if (rest.Contains( ".06.Domain" )) {
+                    if (rest.Contains( ".06.Game" )) {
                         rect.xMin += 60;
-                        rect.width = 64;
+                        rect.width = 54;
                         DrawRect( rect, Settings.SourcesColor );
                         return;
                     }
