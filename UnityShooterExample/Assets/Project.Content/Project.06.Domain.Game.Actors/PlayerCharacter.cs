@@ -17,10 +17,10 @@ namespace Project.Domain.Game_ {
             }
 
             private static readonly PrefabListHandle<PlayerCharacter> Prefabs = new PrefabListHandle<PlayerCharacter>( new[] {
-                R.Project.Domain.Game.Actors.Value_PlayerCharacter_Gray,
-                R.Project.Domain.Game.Actors.Value_PlayerCharacter_Red,
-                R.Project.Domain.Game.Actors.Value_PlayerCharacter_Green,
-                R.Project.Domain.Game.Actors.Value_PlayerCharacter_Blue
+                R.Project.Game.Actors.Value_PlayerCharacter_Gray,
+                R.Project.Game.Actors.Value_PlayerCharacter_Red,
+                R.Project.Game.Actors.Value_PlayerCharacter_Green,
+                R.Project.Game.Actors.Value_PlayerCharacter_Blue
             } );
 
             public static void Load() {

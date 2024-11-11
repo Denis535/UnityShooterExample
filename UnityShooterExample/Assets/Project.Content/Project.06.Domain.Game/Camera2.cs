@@ -10,7 +10,7 @@ namespace Project.Domain.Game_ {
     public partial class Camera2 {
         public static class Factory {
 
-            private static readonly PrefabHandle<Camera2> Prefab = new PrefabHandle<Camera2>( R.Project.Domain.Game.Value_Camera );
+            private static readonly PrefabHandle<Camera2> Prefab = new PrefabHandle<Camera2>( R.Project.Game.Value_Camera );
 
             public static void Load() {
                 Prefab.Load().Wait();

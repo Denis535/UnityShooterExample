@@ -181,9 +181,9 @@ namespace Project.UI {
         // Helpers
         private static string GetWorldSceneAddress(GameInfo.Level_ level) {
             switch (level) {
-                case GameInfo.Level_.Level1: return R.Project.Domain.Game.Worlds.Value_World_01;
-                case GameInfo.Level_.Level2: return R.Project.Domain.Game.Worlds.Value_World_02;
-                case GameInfo.Level_.Level3: return R.Project.Domain.Game.Worlds.Value_World_03;
+                case GameInfo.Level_.Level1: return R.Project.Game.Worlds.Value_World_01;
+                case GameInfo.Level_.Level2: return R.Project.Game.Worlds.Value_World_02;
+                case GameInfo.Level_.Level3: return R.Project.Game.Worlds.Value_World_03;
                 default: throw Exceptions.Internal.NotSupported( $"Level {level} is not supported" );
             }
         }
