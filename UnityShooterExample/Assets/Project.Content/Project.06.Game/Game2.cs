@@ -35,7 +35,7 @@ namespace Project.Game {
             }
         }
         public event Action<bool>? OnPauseChangeEvent;
-        
+
         private bool IsDirty { get; set; }
 
         public Player2 Player { get; }
@@ -72,35 +72,44 @@ namespace Project.Game {
         public void OnLateUpdate() {
             Player.OnLateUpdate();
             if (IsDirty) {
-                if (IsLoser()) {
-                    OnLoser();
+                if (IsLoser( Player )) {
+                    OnLoser( Player );
                 }
-                if (IsWinner()) {
-                    OnWinner();
+                if (IsWinner( Player )) {
+                    OnWinner( Player );
                 }
                 IsDirty = false;
             }
         }
 
-        protected PlayerCharacter SpawnPlayerCharacter(PlayerPoint point, Player2 player) {
+        protected virtual PlayerCharacter SpawnPlayerCharacter(PlayerPoint point, Player2 player) {
             var character = PlayerCharacter.Factory.Create( point.transform.position, point.transform.rotation, player, (PlayerCharacter.Factory.CharacterType) player.Info.CharacterType );
             character.OnDeathEvent += info => {
                 IsDirty = true;
             };
             return character;
         }
-        protected void SpawnEnemyCharacter(EnemyPoint point) {
+        protected virtual void SpawnEnemyCharacter(EnemyPoint point) {
             var character = EnemyCharacter.Factory.Create( point.transform.position, point.transform.rotation );
             character.OnDeathEvent += info => {
                 IsDirty = true;
             };
         }
-        protected void SpawnThing(ThingPoint point) {
+        protected virtual void SpawnThing(ThingPoint point) {
             var thing = Gun.Factory.Create( point.transform.position, point.transform.rotation );
         }
 
-        protected bool IsWinner() {
-            if (State is GameState.Playing) {
+        protected virtual void OnWinner(Player2 player) {
+            State = GameState.Completed;
+            player.State = PlayerState.Winner;
+        }
+        protected virtual void OnLoser(Player2 player) {
+            State = GameState.Completed;
+            player.State = PlayerState.Loser;
+        }
+
+        protected virtual bool IsWinner(Player2 player) {
+            if (player.State is PlayerState.Playing) {
                 var enemies = GameObject.FindObjectsByType<EnemyCharacter>( FindObjectsInactive.Exclude, FindObjectsSortMode.None );
                 if (enemies.All( i => !i.IsAlive )) {
                     return true;
@@ -108,22 +117,13 @@ namespace Project.Game {
             }
             return false;
         }
-        protected bool IsLoser() {
-            if (State is GameState.Playing) {
-                if (!Player.Character!.IsAlive) {
+        protected virtual bool IsLoser(Player2 player) {
+            if (player.State is PlayerState.Playing) {
+                if (!player.Character!.IsAlive) {
                     return true;
                 }
             }
             return false;
-        }
-
-        protected void OnWinner() {
-            Player.State = PlayerState.Winner;
-            State = GameState.Completed;
-        }
-        protected void OnLoser() {
-            Player.State = PlayerState.Loser;
-            State = GameState.Completed;
         }
 
     }
