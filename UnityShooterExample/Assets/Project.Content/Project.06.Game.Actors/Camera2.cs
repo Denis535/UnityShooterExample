@@ -58,13 +58,13 @@ namespace Project.Game {
         }
         protected override void Update() {
             if (InputProvider != null) {
-                var target = InputProvider.GetTarget( out var isTargetChanged );
-                var lookDelta = InputProvider.GetLookDelta() * AnglesInputSensitivity;
-                var zoomDelta = InputProvider.GetZoomDelta() * DistanceInputSensitivity;
-                if (isTargetChanged) {
+                var target = InputProvider.GetTarget();
+                if (InputProvider.IsDefaultPressed()) {
                     Angles = new Vector2( DefaultAngles.x, target.transform.eulerAngles.y );
                     Distance = DefaultDistance;
                 } else {
+                    var lookDelta = InputProvider.GetLookDelta() * AnglesInputSensitivity;
+                    var zoomDelta = InputProvider.GetZoomDelta() * DistanceInputSensitivity;
                     var angles = Angles + new Vector2( -lookDelta.y, lookDelta.x );
                     var distance = Distance + zoomDelta;
                     angles.x = Math.Clamp( angles.x, MinAngleX, MaxAngleX );
@@ -126,7 +126,8 @@ namespace Project.Game {
 
     }
     public interface ICameraInputProvider {
-        PlayableCharacterBase GetTarget(out bool isChanged);
+        PlayableCharacterBase GetTarget();
+        bool IsDefaultPressed();
         Vector2 GetLookDelta();
         float GetZoomDelta();
     }

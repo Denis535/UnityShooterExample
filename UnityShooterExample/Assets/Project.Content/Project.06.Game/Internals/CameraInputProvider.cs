@@ -25,6 +25,7 @@ namespace Project.Game {
         public Player2 Player { get; }
         private PlayerCharacter Character => Player.Character!;
         private Camera2 Camera => Player.Camera!;
+        private bool IsCharacterChanged => false;
 
         public CameraInputProvider(Player2 player) {
             Actions_ = new InputActions_Camera();
@@ -34,11 +35,16 @@ namespace Project.Game {
             Actions_.Dispose();
         }
 
-        public PlayableCharacterBase GetTarget(out bool isChanged) {
+        public PlayableCharacterBase GetTarget() {
             Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
             Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
-            isChanged = false;
             return Character;
+        }
+
+        public bool IsDefaultPressed() {
+            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
+            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
+            return IsCharacterChanged;
         }
 
         public Vector2 GetLookDelta() {
