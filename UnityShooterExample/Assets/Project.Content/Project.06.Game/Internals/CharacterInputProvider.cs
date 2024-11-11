@@ -24,6 +24,8 @@ namespace Project.Game {
         private InputActions_Character Actions_ { get; }
         private InputActions_Character.CharacterActions Actions => Actions_.Character;
         private Player2 Player { get; }
+        private PlayerCharacter Character => Player.Character!;
+        private Camera2 Camera => Player.Camera!;
 
         private Camera2.RaycastHit? Hit => Player.Camera!.Hit;
         private Vector3 Target => Player.Camera!.Hit?.Point ?? Player.Camera.transform.TransformPoint( Vector3.forward * 128f );
@@ -41,7 +43,7 @@ namespace Project.Game {
             Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
             if (Actions.Move.IsPressed()) {
                 var vector = Actions.Move.ReadValue<Vector2>().Pipe( i => new Vector3( i.x, 0, i.y ) );
-                vector = Player.Camera!.transform.TransformDirection( vector );
+                vector = Camera.transform.TransformDirection( vector );
                 vector = new Vector3( vector.x, 0, vector.z ).normalized * vector.magnitude;
                 return vector;
             } else {
@@ -57,9 +59,9 @@ namespace Project.Game {
             if (Actions.Move.IsPressed()) {
                 var vector = Actions.Move.ReadValue<Vector2>().Pipe( i => new Vector3( i.x, 0, i.y ) );
                 if (vector != Vector3.zero) {
-                    vector = Player.Camera!.transform.TransformDirection( vector );
+                    vector = Camera.transform.TransformDirection( vector );
                     vector = new Vector3( vector.x, 0, vector.z ).normalized * vector.magnitude;
-                    return Player.Character!.transform.position + vector;
+                    return Character.transform.position + vector;
                 }
             }
             return null;

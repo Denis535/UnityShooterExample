@@ -29,7 +29,7 @@ namespace Project.Game {
     }
     [DefaultExecutionOrder( 99 )]
     public partial class Camera2 : EntityBase {
-        public record RaycastHit(GameObject GameObject, Vector3 Point, float Distance, EnemyCharacter? Enemy, ThingBase? Thing);
+        public record RaycastHit(Vector3 Point, float Distance, GameObject GameObject, EnemyCharacter? Enemy, ThingBase? Thing);
 
         private static readonly Vector2 DefaultAngles = new Vector2( 30, 0 );
         private static readonly float DefaultDistance = 1.5f;
@@ -66,13 +66,27 @@ namespace Project.Game {
                     Distance = DefaultDistance;
                 } else {
                     var angles = Angles + new Vector2( -lookDelta.y, lookDelta.x );
-                    angles.x = Math.Clamp( angles.x, MinAngleX, MaxAngleX );
-                    Angles = angles;
                     var distance = Distance + zoomDelta;
+                    angles.x = Math.Clamp( angles.x, MinAngleX, MaxAngleX );
                     distance = Math.Clamp( distance, MinDistance, MaxDistance );
+                    Angles = angles;
                     Distance = distance;
                 }
-                Apply( transform, target, Angles, Distance );
+                if (target.IsAlive) {
+                    var distance01 = Mathf.InverseLerp( MinDistance, MaxDistance, Distance );
+                    transform.localPosition = target.transform.position;
+                    transform.localEulerAngles = Angles;
+                    transform.Translate( 0, 0, -Distance, Space.Self );
+                    transform.Translate( Vector3.LerpUnclamped( Vector3.right * 0.2f, Vector3.right * 0.6f, distance01 ), Space.Self );
+                    transform.Translate( Vector3.LerpUnclamped( target.transform.up * 1.8f, target.transform.up * 2.2f, distance01 ), Space.World );
+                } else {
+                    transform.localPosition = target.transform.position;
+                    transform.localEulerAngles = Angles;
+                    transform.Translate( 0, 0, -Distance, Space.Self );
+                    transform.Translate( target.transform.up * 1.5f, Space.World );
+                }
+                Camera.main.transform.localPosition = transform.localPosition;
+                Camera.main.transform.localRotation = transform.localRotation;
                 Hit = Raycast( new Ray( transform.position, transform.forward ), target.transform );
             } else {
                 Hit = null;
@@ -82,47 +96,28 @@ namespace Project.Game {
         }
 
         // Helpers
-        private static void Apply(Transform transform, CharacterBase target, Vector2 angles, float distance) {
-            if (target.IsAlive) {
-                var distance01 = Mathf.InverseLerp( MinDistance, MaxDistance, distance );
-                transform.localPosition = target.transform.position;
-                transform.localEulerAngles = angles;
-                transform.Translate( 0, 0, -distance, Space.Self );
-                transform.Translate( Vector3.LerpUnclamped( Vector3.right * 0.2f, Vector3.right * 0.6f, distance01 ), Space.Self );
-                transform.Translate( Vector3.LerpUnclamped( target.transform.up * 1.8f, target.transform.up * 2.2f, distance01 ), Space.World );
-            } else {
-                transform.localPosition = target.transform.position;
-                transform.localEulerAngles = angles;
-                transform.Translate( 0, 0, -distance, Space.Self );
-                transform.Translate( target.transform.up * 1.5f, Space.World );
-            }
-            Camera.main.transform.localPosition = transform.localPosition;
-            Camera.main.transform.localRotation = transform.localRotation;
-        }
-        // Helpers
         private static RaycastHit? Raycast(Ray ray, Transform character) {
             var mask = ~(Masks.Entity_Approximate | Masks.Trivial);
             var hit = Utils.RaycastAll( ray, 128, mask, QueryTriggerInteraction.Ignore ).Where( i => i.transform.root != character ).OrderBy( i => i.distance ).FirstOrDefault();
             if (hit.collider) {
                 return new RaycastHit(
-                    hit.collider.gameObject,
                     hit.point,
                     hit.distance,
+                    hit.collider.gameObject,
                     GetEnemy( hit.collider.gameObject, hit.point, hit.distance, character ),
                     GetThing( hit.collider.gameObject, hit.point, hit.distance, character ) );
-            } else {
-                return null;
             }
+            return null;
         }
-        private static EnemyCharacter? GetEnemy(GameObject gameObject, Vector3 Point, float Distance, Transform character) {
-            if (Vector3.Distance( character.position, Point ) <= 16f) {
+        private static EnemyCharacter? GetEnemy(GameObject gameObject, Vector3 point, float distance, Transform character) {
+            if (Vector3.Distance( point, character.position ) <= 16f) {
                 var @object = gameObject.transform.root.gameObject;
                 return @object.GetComponent<EnemyCharacter>();
             }
             return null;
         }
-        private static ThingBase? GetThing(GameObject gameObject, Vector3 Point, float Distance, Transform character) {
-            if (Vector3.Distance( character.position, Point ) <= 2.5f) {
+        private static ThingBase? GetThing(GameObject gameObject, Vector3 point, float distance, Transform character) {
+            if (Vector3.Distance( point, character.position ) <= 2.5f) {
                 var @object = gameObject.transform.root.gameObject;
                 return @object.GetComponent<ThingBase>();
             }
@@ -131,7 +126,7 @@ namespace Project.Game {
 
     }
     public interface ICameraInputProvider {
-        PlayableCharacterBase GetTarget(out bool IsChanged);
+        PlayableCharacterBase GetTarget(out bool isChanged);
         Vector2 GetLookDelta();
         float GetZoomDelta();
     }

@@ -23,6 +23,8 @@ namespace Project.Game {
         private InputActions_Camera Actions_ { get; }
         private InputActions_Camera.CameraActions Actions => Actions_.Camera;
         public Player2 Player { get; }
+        private PlayerCharacter Character => Player.Character!;
+        private Camera2 Camera => Player.Camera!;
 
         public CameraInputProvider(Player2 player) {
             Actions_ = new InputActions_Camera();
@@ -36,7 +38,7 @@ namespace Project.Game {
             Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
             Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
             isChanged = false;
-            return Player.Character;
+            return Character;
         }
 
         public Vector2 GetLookDelta() {
