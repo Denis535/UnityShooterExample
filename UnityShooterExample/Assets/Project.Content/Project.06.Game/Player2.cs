@@ -1,5 +1,5 @@
 #nullable enable
-namespace Project.Game_ {
+namespace Project.Game {
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -7,16 +7,13 @@ namespace Project.Game_ {
     using UnityEngine.Framework;
     using UnityEngine.InputSystem;
 
-    public class Player : PlayerBase2 {
+    public class Player2 : PlayerBase2 {
 
         private PlayerState state;
         private PlayerCharacter? character;
         private Camera2? camera;
 
         public PlayerInfo Info { get; }
-
-        private InputActions_Character CharacterInput { get; set; }
-        private InputActions_Camera CameraInput { get; set; }
 
         public PlayerState State {
             get => state;
@@ -27,6 +24,9 @@ namespace Project.Game_ {
             }
         }
         public event Action<PlayerState>? OnStateChangeEvent;
+
+        private InputActions_Character CharacterInput { get; set; }
+        private InputActions_Camera CameraInput { get; set; }
 
         public PlayerCharacter? Character {
             get => character;
@@ -69,7 +69,7 @@ namespace Project.Game_ {
             }
         }
 
-        public Player(IDependencyContainer container, PlayerInfo info) : base( container ) {
+        public Player2(IDependencyContainer container, PlayerInfo info) : base( container ) {
             Info = info;
             CharacterInput = new InputActions_Character();
             CameraInput = new InputActions_Camera();

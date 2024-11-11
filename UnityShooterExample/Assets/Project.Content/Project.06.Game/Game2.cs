@@ -1,5 +1,5 @@
 #nullable enable
-namespace Project.Game_ {
+namespace Project.Game {
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -7,7 +7,7 @@ namespace Project.Game_ {
     using UnityEngine;
     using UnityEngine.Framework;
 
-    public class Game : GameBase2 {
+    public class Game2 : GameBase2 {
 
         private GameState state;
         private bool isPaused;
@@ -35,15 +35,15 @@ namespace Project.Game_ {
             }
         }
         public event Action<bool>? OnPauseChangeEvent;
-
-        public Player Player { get; }
-        public World World { get; }
-
+        
         private bool IsDirty { get; set; }
 
-        public Game(IDependencyContainer container, GameInfo info, PlayerInfo playerInfo) : base( container ) {
+        public Player2 Player { get; }
+        public World World { get; }
+
+        public Game2(IDependencyContainer container, GameInfo info, PlayerInfo playerInfo) : base( container ) {
             Info = info;
-            Player = new Player( container, playerInfo );
+            Player = new Player2( container, playerInfo );
             World = container.RequireDependency<World>();
             {
                 var point = World.PlayerPoints.First();
@@ -82,7 +82,7 @@ namespace Project.Game_ {
             }
         }
 
-        protected PlayerCharacter SpawnPlayerCharacter(PlayerPoint point, Player player) {
+        protected PlayerCharacter SpawnPlayerCharacter(PlayerPoint point, Player2 player) {
             var character = PlayerCharacter.Factory.Create( point.transform.position, point.transform.rotation, player, (PlayerCharacter.Factory.CharacterType) player.Info.CharacterType );
             character.OnDeathEvent += info => {
                 IsDirty = true;

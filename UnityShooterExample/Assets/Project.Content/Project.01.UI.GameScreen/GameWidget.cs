@@ -4,7 +4,7 @@ namespace Project.UI.GameScreen {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using Project.Game_;
+    using Project.Game;
     using UnityEngine;
     using UnityEngine.Framework;
     using UnityEngine.InputSystem;
@@ -12,7 +12,7 @@ namespace Project.UI.GameScreen {
 
     public class GameWidget : UIWidgetBase2<GameWidgetView> {
 
-        private Game Game { get; }
+        private Game2 Game { get; }
         private InputActions_UI Input { get; }
         private bool IsCursorVisible {
             get => UnityEngine.Cursor.lockState == CursorLockMode.None;
@@ -20,7 +20,7 @@ namespace Project.UI.GameScreen {
         }
 
         public GameWidget(IDependencyContainer container) : base( container ) {
-            Game = container.RequireDependency<Game>();
+            Game = container.RequireDependency<Game2>();
             Input = new InputActions_UI();
             Input.UI.Cancel.performed += ctx => {
                 if (View.focusController.focusedElement == null) View.Focus();

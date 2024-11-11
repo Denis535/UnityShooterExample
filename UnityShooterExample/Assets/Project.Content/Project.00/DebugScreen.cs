@@ -5,7 +5,7 @@ namespace Project {
     using System.Collections;
     using System.Collections.Generic;
     using Project.App;
-    using Project.Game_;
+    using Project.Game;
     using Project.UI;
     using UnityEngine;
 
@@ -17,7 +17,7 @@ namespace Project {
         private UIScreen Screen { get; set; } = default!;
         private UIRouter Router { get; set; } = default!;
         private Application2 Application { get; set; } = default!;
-        private Game? Game => Application.Game;
+        private Game2? Game => Application.Game;
 
         public void Awake() {
             Contairner = gameObject.RequireComponent<IDependencyContainer>();

@@ -4,12 +4,12 @@ namespace Project.App {
     using System.Collections;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Project.Game_;
+    using Project.Game;
     using Unity.Services.Authentication;
     using Unity.Services.Core;
     using UnityEngine;
     using UnityEngine.Framework;
-    using PlayerInfo = Game_.PlayerInfo;
+    using PlayerInfo = Game.PlayerInfo;
 
     public class Application2 : ApplicationBase2 {
 
@@ -20,7 +20,7 @@ namespace Project.App {
         public Storage.Preferences Preferences { get; }
         public Task InitializeTask { get; }
         public IAuthenticationService AuthenticationService => Unity.Services.Authentication.AuthenticationService.Instance;
-        public Game? Game { get; private set; }
+        public Game2? Game { get; private set; }
 
         public Application2(IDependencyContainer container) : base( container ) {
             Storage = new Storage();
@@ -65,7 +65,7 @@ namespace Project.App {
                 Gun.Factory.Load();
                 Bullet.Factory.Load();
             }
-            Game = new Game( Container, gameInfo, playerInfo );
+            Game = new Game2( Container, gameInfo, playerInfo );
         }
         public void StopGame() {
             Assert.Operation.Message( $"Game must be non-null" ).Valid( Game is not null );

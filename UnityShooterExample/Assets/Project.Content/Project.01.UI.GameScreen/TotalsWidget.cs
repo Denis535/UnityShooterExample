@@ -3,7 +3,7 @@ namespace Project.UI.GameScreen {
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using Project.Game_;
+    using Project.Game;
     using Project.UI.Common;
     using UnityEngine;
     using UnityEngine.Framework;
@@ -12,11 +12,11 @@ namespace Project.UI.GameScreen {
     public class TotalsWidget : UIWidgetBase2<TotalsWidgetView> {
 
         private UIRouter Router { get; }
-        private Game Game { get; }
+        private Game2 Game { get; }
 
         public TotalsWidget(IDependencyContainer container) : base( container ) {
             Router = container.RequireDependency<UIRouter>();
-            Game = container.RequireDependency<Game>();
+            Game = container.RequireDependency<Game2>();
             View = CreateView( this );
         }
         public override void Dispose() {

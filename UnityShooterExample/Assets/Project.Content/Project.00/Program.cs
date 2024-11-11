@@ -5,20 +5,20 @@ namespace Project {
     using System.Collections.Generic;
     using System.Text;
     using Project.App;
-    using Project.Game_;
+    using Project.Game;
     using Project.UI;
     using UnityEditor;
     using UnityEngine;
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class Program : ProgramBase2<UITheme, UIScreen, UIRouter, Application2, Game> {
+    public class Program : ProgramBase2<UITheme, UIScreen, UIRouter, Application2, Game2> {
 
         protected override UITheme Theme { get; set; } = default!;
         protected override UIScreen Screen { get; set; } = default!;
         protected override UIRouter Router { get; set; } = default!;
         protected override Application2 Application { get; set; } = default!;
-        protected override Game? Game => Application.Game;
+        protected override Game2? Game => Application.Game;
 
         [RuntimeInitializeOnLoadMethod( RuntimeInitializeLoadType.BeforeSplashScreen )]
         private static void OnLoad() {

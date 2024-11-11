@@ -1,6 +1,6 @@
 #if UNITY_EDITOR
 #nullable enable
-namespace Project.Game_ {
+namespace Project.Game {
     using System;
     using System.Collections;
     using System.Collections.Generic;
