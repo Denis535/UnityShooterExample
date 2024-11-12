@@ -33,7 +33,7 @@ namespace Project {
             message.AppendLine( "- Tutorial: https://udemy.com/user/denis-84102" );
             Debug.Log( message );
             if (!EditorApplication.isPlaying) {
-                UnityEditor.SceneManagement.EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>( "Assets/Project/Assets.Project.00/Scenes/Main.unity" );
+                UnityEditor.SceneManagement.EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>( "Assets/Project.Content/Assets.Project.00/Scenes/Main.unity" );
                 //EditorSceneManager.playModeStartScene = null;
             }
         }
