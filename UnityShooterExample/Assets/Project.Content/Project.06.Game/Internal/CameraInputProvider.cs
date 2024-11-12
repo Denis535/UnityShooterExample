@@ -8,6 +8,8 @@ namespace Project.Game {
 
     internal class CameraInputProvider : ICameraInputProvider, IDisposable {
 
+        private readonly WeakReference<PlayerCharacter?> prevCharacter = new WeakReference<PlayerCharacter?>( null );
+
         public bool IsEnabled {
             get => Actions.enabled;
             set {
@@ -20,33 +22,29 @@ namespace Project.Game {
                 }
             }
         }
+        public Player2 Player { get; }
         private InputActions_Camera Actions_ { get; }
         private InputActions_Camera.CameraActions Actions => Actions_.Camera;
-        public Player2 Player { get; }
-        private PlayerCharacter Character => Player.Character!;
-        private Camera2 Camera => Player.Camera!;
-        private bool IsCharacterChanged => false;
 
         public CameraInputProvider(Player2 player) {
-            Actions_ = new InputActions_Camera();
             Player = player;
+            Actions_ = new InputActions_Camera();
         }
         public void Dispose() {
             Actions_.Dispose();
         }
 
-        public PlayableCharacterBase GetTarget() {
+        public PlayableCharacterBase GetTarget(out bool isNewTarget) {
             Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
             Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
-            return Character;
+            if (prevCharacter.TryGetTarget( out var _prevCharacter ) == true) {
+                isNewTarget = Player.Character != _prevCharacter;
+            } else {
+                isNewTarget = true;
+            }
+            prevCharacter.SetTarget( Player.Character );
+            return Player.Character;
         }
-
-        public bool IsDefaultPressed() {
-            Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
-            Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
-            return IsCharacterChanged;
-        }
-
         public Vector2 GetLookDelta() {
             Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
             Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );

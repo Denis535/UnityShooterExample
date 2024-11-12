@@ -58,8 +58,8 @@ namespace Project.Game {
         }
         protected override void Update() {
             if (InputProvider != null) {
-                var target = InputProvider.GetTarget();
-                if (InputProvider.IsDefaultPressed()) {
+                var target = InputProvider.GetTarget( out var isNewTarget );
+                if (isNewTarget) {
                     Angles = new Vector2( DefaultAngles.x, target.transform.eulerAngles.y );
                     Distance = DefaultDistance;
                 } else {
@@ -126,8 +126,7 @@ namespace Project.Game {
 
     }
     public interface ICameraInputProvider {
-        PlayableCharacterBase GetTarget();
-        bool IsDefaultPressed();
+        PlayableCharacterBase GetTarget(out bool isNewTarget);
         Vector2 GetLookDelta();
         float GetZoomDelta();
     }
