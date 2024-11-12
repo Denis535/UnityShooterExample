@@ -48,25 +48,25 @@ namespace Project {
             base.DrawAssetsItem( rect, path, name, rest );
             if (name is "Project" or "Project.Content" or "Project.Infrastructure" && !rest.Contains( '/' )) {
                 if (rect.height == 16) {
-                    if (rest.Contains( ".00" )) {
+                    if (rest.StartsWith( "Assets.Project.00" )) {
                         rect.xMin += 101;
                         rect.width = 18;
                         DrawRect( rect, Settings.AssetsColor );
                         return;
                     }
-                    if (rest.Contains( ".01.UI" )) {
+                    if (rest.StartsWith( "Assets.Project.01.UI" )) {
                         rect.xMin += 101;
                         rect.width = 31;
                         DrawRect( rect, Settings.AssetsColor );
                         return;
                     }
-                    if (rest.Contains( ".05.App" )) {
+                    if (rest.StartsWith( "Assets.Project.05.App" )) {
                         rect.xMin += 101;
                         rect.width = 44;
                         DrawRect( rect, Settings.AssetsColor );
                         return;
                     }
-                    if (rest.Contains( ".06.Game" )) {
+                    if (rest.StartsWith( "Assets.Project.06.Game" )) {
                         rect.xMin += 101;
                         rect.width = 54;
                         DrawRect( rect, Settings.AssetsColor );
@@ -82,31 +82,31 @@ namespace Project {
             base.DrawSourcesItem( rect, path, name, rest );
             if (name is "Project" or "Project.Content" or "Project.Infrastructure" && !rest.Contains( '/' )) {
                 if (rect.height == 16) {
-                    if (rest.Contains( ".00" )) {
+                    if (rest.StartsWith( "Project.00" )) {
                         rect.xMin += 60;
                         rect.width = 18;
                         DrawRect( rect, Settings.SourcesColor );
                         return;
                     }
-                    if (rest.Contains( ".01.UI" )) {
+                    if (rest.StartsWith( "Project.01.UI" )) {
                         rect.xMin += 60;
                         rect.width = 31;
                         DrawRect( rect, Settings.SourcesColor );
                         return;
                     }
-                    if (rest.Contains( ".02.UI" )) {
+                    if (rest.StartsWith( "Project.02.UI" )) {
                         rect.xMin += 60;
                         rect.width = 33;
                         DrawRect( rect, Settings.SourcesColor );
                         return;
                     }
-                    if (rest.Contains( ".05.App" )) {
+                    if (rest.StartsWith( "Project.05.App" )) {
                         rect.xMin += 60;
                         rect.width = 44;
                         DrawRect( rect, Settings.SourcesColor );
                         return;
                     }
-                    if (rest.Contains( ".06.Game" )) {
+                    if (rest.StartsWith( "Project.06.Game" )) {
                         rect.xMin += 60;
                         rect.width = 54;
                         DrawRect( rect, Settings.SourcesColor );
