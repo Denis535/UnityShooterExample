@@ -1,4 +1,4 @@
-# Third-party Notices
+# Third-party notices
 This package contains the third-party packages under their own respective licenses.
 
 ## Clean Architecture Game Framework

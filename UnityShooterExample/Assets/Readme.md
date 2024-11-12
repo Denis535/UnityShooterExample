@@ -3,15 +3,15 @@ This project is an example of a third person shooter game with high-quality modu
 
 # Reference
 The project contains the following modules:
-- Project                     - The root module.
-- Project.UI                  - The presentation module.
-- Project.UI.Internal         - The presentation module.
-- Project.App                 - The application module that contains all entities, services and objects.
-- Project.Domain.Game         - The domain module that contains all entities of subject area.
-- Project.Domain.Game.Actors  - The domain module that contains all entities of subject area.
-- Project.Domain.Game.Things  - The domain module that contains all entities of subject area.
-- Project.Domain.Game.Worlds  - The domain module that contains all entities of subject area.
-- Project.Infrastructure      - The infrastructure module that contains everything common and any low-level stuff.
+- Project                - The root module.
+- Project.UI             - The presentation module.
+- Project.UI.Internal    - The presentation module.
+- Project.App            - The application module that contains all entities, services and objects.
+- Project.Game           - The domain module that contains all entities of subject area.
+- Project.Game.Actors    - The domain module that contains all entities of subject area.
+- Project.Game.Things    - The domain module that contains all entities of subject area.
+- Project.Game.Worlds    - The domain module that contains all entities of subject area.
+- Project.Infrastructure - The infrastructure module that contains everything common and any low-level stuff.
 
 The project contains the following source codes:
 - Project
@@ -55,15 +55,15 @@ The project contains the following source codes:
   - Assets/Project/Project.05.App/Storage.ProfileSettings.cs
   - Assets/Project/Project.05.App/Storage.VideoSettings.cs
   - Assets/Project/Project.05.App/Storage.AudioSettings.cs
-- Project.Domain.Game
-  - Assets/Project/Project.06.Domain.Game/Game.cs
-  - Assets/Project/Project.06.Domain.Game/Player.cs
-  - Assets/Project/Project.06.Domain.Game/Camera2.cs
-  - Assets/Project/Project.06.Domain.Game/Actors/PlayerCharacter.cs
-  - Assets/Project/Project.06.Domain.Game/Actors/EnemyCharacter.cs
-  - Assets/Project/Project.06.Domain.Game/Things/Gun.cs
-  - Assets/Project/Project.06.Domain.Game/Things/Bullet.cs
-  - Assets/Project/Project.06.Domain.Game/Worlds/World.cs
+- Project.Game
+  - Assets/Project/Project.06.Game/Game2.cs
+  - Assets/Project/Project.06.Game/Player2.cs
+  - Assets/Project/Project.06.Game.Actors/Camera2.cs
+  - Assets/Project/Project.06.Game.Actors/PlayerCharacter.cs
+  - Assets/Project/Project.06.Game.Actors/EnemyCharacter.cs
+  - Assets/Project/Project.06.Game.Things/Gun.cs
+  - Assets/Project/Project.06.Game.Things/Bullet.cs
+  - Assets/Project/Project.06.Game.Worlds/World.cs
 
 The project has the following dependencies:
 - Clean Architecture Game Framework - The framework that helps you develop your project following best practices.
@@ -80,7 +80,7 @@ The project has the following dependencies:
   "dependencies": {
     "com.denis535.addressables-extensions": "1.0.19",
     "com.denis535.addressables-source-generator": "1.0.43",
-    "com.denis535.clean-architecture-game-framework": "1.4.4",
+    "com.denis535.clean-architecture-game-framework": "1.4.5",
     "com.denis535.colorful-project-window": "1.0.46",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "1.21.21",
