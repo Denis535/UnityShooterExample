@@ -6,16 +6,16 @@ namespace Project.UI.GameScreen {
     using UnityEngine;
     using UnityEngine.UIElements;
 
-    public abstract class TotalsWidgetView : SmallWidgetView {
+    public abstract class GameTotalsWidgetView : SmallWidgetView {
 
-        public TotalsWidgetView(string name) : base( name ) {
+        public GameTotalsWidgetView(string name) : base( name ) {
         }
         public override void Dispose() {
             base.Dispose();
         }
 
     }
-    public class TotalsWidgetView_LevelCompleted : TotalsWidgetView {
+    public class TotalsWidgetView_LevelCompleted : GameTotalsWidgetView {
 
         public Card Card { get; }
         public Header Header { get; }
@@ -53,7 +53,7 @@ namespace Project.UI.GameScreen {
         }
 
     }
-    public class TotalsWidgetView_GameCompleted : TotalsWidgetView {
+    public class TotalsWidgetView_GameCompleted : GameTotalsWidgetView {
 
         public Card Card { get; }
         public Header Header { get; }
@@ -88,7 +88,7 @@ namespace Project.UI.GameScreen {
         }
 
     }
-    public class TotalsWidgetView_LevelFailed : TotalsWidgetView {
+    public class TotalsWidgetView_LevelFailed : GameTotalsWidgetView {
 
         public Card Card { get; }
         public Header Header { get; }

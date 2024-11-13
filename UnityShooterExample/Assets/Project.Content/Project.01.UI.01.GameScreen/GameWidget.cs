@@ -38,7 +38,7 @@ namespace Project.UI.GameScreen {
                 try {
                     if (state is GameState.Completed) {
                         await Awaitable.WaitForSecondsAsync( 2, DisposeCancellationToken );
-                        AddChild( new TotalsWidget( Container ) );
+                        AddChild( new GameTotalsWidget( Container ) );
                     }
                 } catch (OperationCanceledException) {
                 }
@@ -54,8 +54,8 @@ namespace Project.UI.GameScreen {
         }
 
         protected override void OnBeforeDescendantActivate(UIWidgetBase descendant, object? argument) {
-            Game.IsPaused = Children.Any( i => i is MenuWidget );
-            IsCursorVisible = Children.Any( i => i is MenuWidget or TotalsWidget );
+            Game.IsPaused = Children.Any( i => i is GameMenuWidget );
+            IsCursorVisible = Children.Any( i => i is GameMenuWidget or GameTotalsWidget );
         }
         protected override void OnAfterDescendantActivate(UIWidgetBase descendant, object? argument) {
         }
@@ -63,8 +63,8 @@ namespace Project.UI.GameScreen {
         }
         protected override void OnAfterDescendantDeactivate(UIWidgetBase descendant, object? argument) {
             if (State is State_.Active) {
-                Game.IsPaused = Children.Where( i => i.State is State_.Active ).Any( i => i is MenuWidget );
-                IsCursorVisible = Children.Where( i => i.State is State_.Active ).Any( i => i is MenuWidget or TotalsWidget );
+                Game.IsPaused = Children.Where( i => i.State is State_.Active ).Any( i => i is GameMenuWidget );
+                IsCursorVisible = Children.Where( i => i.State is State_.Active ).Any( i => i is GameMenuWidget or GameTotalsWidget );
             }
         }
 
@@ -73,8 +73,8 @@ namespace Project.UI.GameScreen {
         }
         private static int GetOrderOf(UIWidgetBase widget) {
             return widget switch {
-                TotalsWidget => 0,
-                MenuWidget => 1,
+                GameTotalsWidget => 0,
+                GameMenuWidget => 1,
                 _ => 2,
             };
         }
@@ -91,8 +91,8 @@ namespace Project.UI.GameScreen {
         private static GameWidgetView CreateView(GameWidget widget) {
             var view = new GameWidgetView();
             view.RegisterCallback<NavigationCancelEvent>( evt => {
-                if (!widget.Children.Any( i => i is MenuWidget )) {
-                    widget.AddChild( new MenuWidget( widget.Container ) );
+                if (!widget.Children.Any( i => i is GameMenuWidget )) {
+                    widget.AddChild( new GameMenuWidget( widget.Container ) );
                 }
             } );
             return view;

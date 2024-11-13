@@ -6,7 +6,7 @@ namespace Project.UI.GameScreen {
     using UnityEngine;
     using UnityEngine.UIElements;
 
-    public class MenuWidgetView : LeftWidgetView {
+    public class GameMenuWidgetView : LeftWidgetView {
 
         public Card Card { get; }
         public Header Header { get; }
@@ -16,7 +16,7 @@ namespace Project.UI.GameScreen {
         public Button Settings { get; }
         public Button Back { get; }
 
-        public MenuWidgetView() : base( "menu-widget-view" ) {
+        public GameMenuWidgetView() : base( "menu-widget-view" ) {
             Add(
                 Card = VisualElementFactory.Card().Children(
                     Header = VisualElementFactory.Header().Children(

@@ -20,7 +20,7 @@ namespace Project.UI.MainScreen {
             Router = container.RequireDependency<UIRouter>();
             Application = container.RequireDependency<Application2>();
             View = CreateView( this );
-            AddChild( new MenuWidget( Container ) );
+            AddChild( new MainMenuWidget( Container ) );
         }
         public override void Dispose() {
             View.Dispose();
@@ -29,10 +29,10 @@ namespace Project.UI.MainScreen {
 
         protected override async void OnActivate(object? argument) {
             ShowSelf();
-            Children.OfType<MenuWidget>().First().__GetView__().style.display = DisplayStyle.None;
+            Children.OfType<MainMenuWidget>().First().__GetView__().style.display = DisplayStyle.None;
             try {
                 await Application.InitializeTask.WaitAsync( DisposeCancellationToken );
-                Children.OfType<MenuWidget>().First().__GetView__().style.display = StyleKeyword.Null;
+                Children.OfType<MainMenuWidget>().First().__GetView__().style.display = StyleKeyword.Null;
             } catch (OperationCanceledException) {
             } catch (Exception ex) {
                 ((RootWidget) Root).AddChild( new ErrorDialogWidget( Container, "Error", ex.Message ).OnSubmit( "Ok", () => Router.Quit() ) );
@@ -56,7 +56,7 @@ namespace Project.UI.MainScreen {
         }
         private static int GetOrderOf(UIWidgetBase widget) {
             return widget switch {
-                MenuWidget => 0,
+                MainMenuWidget => 0,
                 _ => 1,
             };
         }

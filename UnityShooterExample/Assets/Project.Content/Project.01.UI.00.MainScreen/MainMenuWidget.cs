@@ -10,13 +10,13 @@ namespace Project.UI.MainScreen {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class MenuWidget : UIWidgetBase2<MenuWidgetView> {
+    public class MainMenuWidget : UIWidgetBase2<MainMenuWidgetView> {
 
         private UIRouter Router { get; }
         private Application2 Application { get; }
         private Storage.ProfileSettings ProfileSettings => Application.ProfileSettings;
 
-        public MenuWidget(IDependencyContainer container) : base( container ) {
+        public MainMenuWidget(IDependencyContainer container) : base( container ) {
             Router = container.RequireDependency<UIRouter>();
             Application = container.RequireDependency<Application2>();
             View = CreateView( this );
@@ -43,12 +43,12 @@ namespace Project.UI.MainScreen {
         }
 
         // Helpers
-        private static MenuWidgetView CreateView(MenuWidget widget) {
-            var view = new MenuWidgetView();
+        private static MainMenuWidgetView CreateView(MainMenuWidget widget) {
+            var view = new MainMenuWidgetView();
             view.AddViewRecursive( CreateView_Initial( widget ) );
             return view;
         }
-        private static MenuWidgetView_Initial CreateView_Initial(MenuWidget widget) {
+        private static MenuWidgetView_Initial CreateView_Initial(MainMenuWidget widget) {
             var view = new MenuWidgetView_Initial();
             view.StartGame.RegisterCallback<ClickEvent>( evt => {
                 view.AddViewRecursive( CreateView_StartGame( widget ) );
@@ -61,7 +61,7 @@ namespace Project.UI.MainScreen {
             } );
             return view;
         }
-        private static MenuWidgetView_StartGame CreateView_StartGame(MenuWidget widget) {
+        private static MenuWidgetView_StartGame CreateView_StartGame(MainMenuWidget widget) {
             var view = new MenuWidgetView_StartGame();
             view.NewGame.RegisterCallback<ClickEvent>( evt => {
                 view.AddViewRecursive( CreateView_SelectLevel( widget ) );
@@ -74,7 +74,7 @@ namespace Project.UI.MainScreen {
             } );
             return view;
         }
-        private static MenuWidgetView_SelectLevel CreateView_SelectLevel(MenuWidget widget) {
+        private static MenuWidgetView_SelectLevel CreateView_SelectLevel(MainMenuWidget widget) {
             var view = new MenuWidgetView_SelectLevel();
             view.Level1.RegisterCallback<ClickEvent>( evt => {
                 view.AddViewRecursive( CreateView_SelectCharacter( widget, GameInfo.Level_.Level1 ) );
@@ -90,7 +90,7 @@ namespace Project.UI.MainScreen {
             } );
             return view;
         }
-        private static MenuWidgetView_SelectCharacter CreateView_SelectCharacter(MenuWidget widget, GameInfo.Level_ level) {
+        private static MenuWidgetView_SelectCharacter CreateView_SelectCharacter(MainMenuWidget widget, GameInfo.Level_ level) {
             var view = new MenuWidgetView_SelectCharacter();
             view.Gray.RegisterCallback<ClickEvent>( evt => {
                 widget.Router.LoadGameScene( new GameInfo( "Game", GameInfo.Mode_.None, level ), new PlayerInfo( widget.ProfileSettings.Name, PlayerInfo.CharacterType_.Gray ) );

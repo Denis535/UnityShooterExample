@@ -8,11 +8,11 @@ namespace Project.UI.GameScreen {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class MenuWidget : UIWidgetBase2<MenuWidgetView> {
+    public class GameMenuWidget : UIWidgetBase2<GameMenuWidgetView> {
 
         private UIRouter Router { get; }
 
-        public MenuWidget(IDependencyContainer container) : base( container ) {
+        public GameMenuWidget(IDependencyContainer container) : base( container ) {
             Router = container.RequireDependency<UIRouter>();
             View = CreateView( this );
         }
@@ -38,8 +38,8 @@ namespace Project.UI.GameScreen {
         }
 
         // Helpers
-        private static MenuWidgetView CreateView(MenuWidget widget) {
-            var view = new MenuWidgetView();
+        private static GameMenuWidgetView CreateView(GameMenuWidget widget) {
+            var view = new GameMenuWidgetView();
             view.Resume.RegisterCallback<ClickEvent>( evt => {
                 widget.RemoveSelf();
             } );

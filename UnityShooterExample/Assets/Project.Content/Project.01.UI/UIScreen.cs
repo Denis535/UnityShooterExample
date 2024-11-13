@@ -123,11 +123,11 @@ namespace Project.UI {
             return view switch {
                 // MainScreen
                 MainScreen.MainWidgetView => 0,
-                MainScreen.MenuWidgetView => 100,
+                MainScreen.MainMenuWidgetView => 100,
                 // GameScreen
                 GameScreen.GameWidgetView => 0,
-                GameScreen.TotalsWidgetView => 0,
-                GameScreen.MenuWidgetView => 100,
+                GameScreen.GameTotalsWidgetView => 0,
+                GameScreen.GameMenuWidgetView => 100,
                 // Common
                 Common.LoadingWidgetView => 100,
                 Common.UnloadingWidgetView => 100,

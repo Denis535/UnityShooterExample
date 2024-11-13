@@ -8,14 +8,14 @@ namespace Project.UI.MainScreen {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class MenuWidgetView : LeftWidgetView {
+    public class MainMenuWidgetView : LeftWidgetView {
 
         public Card Card { get; }
         public Header Header { get; }
         public Label Title { get; }
         public VisualElement Content { get; }
 
-        public MenuWidgetView() : base( "menu-widget-view" ) {
+        public MainMenuWidgetView() : base( "menu-widget-view" ) {
             Add(
                 Card = VisualElementFactory.Card().Children(
                     Header = VisualElementFactory.Header().Children(

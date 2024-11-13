@@ -9,12 +9,12 @@ namespace Project.UI.GameScreen {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class TotalsWidget : UIWidgetBase2<TotalsWidgetView> {
+    public class GameTotalsWidget : UIWidgetBase2<GameTotalsWidgetView> {
 
         private UIRouter Router { get; }
         private Game2 Game { get; }
 
-        public TotalsWidget(IDependencyContainer container) : base( container ) {
+        public GameTotalsWidget(IDependencyContainer container) : base( container ) {
             Router = container.RequireDependency<UIRouter>();
             Game = container.RequireDependency<Game2>();
             View = CreateView( this );
@@ -41,7 +41,7 @@ namespace Project.UI.GameScreen {
         }
 
         // Helpers
-        private static TotalsWidgetView CreateView(TotalsWidget widget) {
+        private static GameTotalsWidgetView CreateView(GameTotalsWidget widget) {
             if (widget.Game.Player.State is PlayerState.Winner) {
                 if (!widget.Game.Info.Level.IsLast()) {
                     var view = new TotalsWidgetView_LevelCompleted();
