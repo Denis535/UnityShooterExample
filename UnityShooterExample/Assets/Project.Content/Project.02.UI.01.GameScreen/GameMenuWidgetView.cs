@@ -16,7 +16,7 @@ namespace Project.UI {
         public Button Settings { get; }
         public Button Back { get; }
 
-        public GameMenuWidgetView() : base( "menu-widget-view" ) {
+        public GameMenuWidgetView() : base( "game-menu-widget-view" ) {
             Add(
                 Card = VisualElementFactory.Card().Children(
                     Header = VisualElementFactory.Header().Children(

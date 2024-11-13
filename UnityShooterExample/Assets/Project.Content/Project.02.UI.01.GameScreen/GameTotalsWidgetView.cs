@@ -15,7 +15,7 @@ namespace Project.UI {
         }
 
     }
-    public class TotalsWidgetView_LevelCompleted : GameTotalsWidgetView {
+    public class GameTotalsWidgetView_LevelCompleted : GameTotalsWidgetView {
 
         public Card Card { get; }
         public Header Header { get; }
@@ -26,7 +26,7 @@ namespace Project.UI {
         public Button Continue { get; }
         public Button Back { get; }
 
-        public TotalsWidgetView_LevelCompleted() : base( "level-completed-totals-widget-view" ) {
+        public GameTotalsWidgetView_LevelCompleted() : base( "game-totals-widget-view (level-completed)" ) {
             Add(
                 Card = VisualElementFactory.Card().Children(
                     Header = VisualElementFactory.Header().Children(
@@ -53,7 +53,7 @@ namespace Project.UI {
         }
 
     }
-    public class TotalsWidgetView_GameCompleted : GameTotalsWidgetView {
+    public class GameTotalsWidgetView_GameCompleted : GameTotalsWidgetView {
 
         public Card Card { get; }
         public Header Header { get; }
@@ -63,7 +63,7 @@ namespace Project.UI {
         public Label Message { get; }
         public Button Okey { get; }
 
-        public TotalsWidgetView_GameCompleted() : base( "game-completed-totals-widget-view" ) {
+        public GameTotalsWidgetView_GameCompleted() : base( "game-totals-widget-view (game-completed)" ) {
             Add(
                 Card = VisualElementFactory.Card().Children(
                     Header = VisualElementFactory.Header().Children(
@@ -88,7 +88,7 @@ namespace Project.UI {
         }
 
     }
-    public class TotalsWidgetView_LevelFailed : GameTotalsWidgetView {
+    public class GameTotalsWidgetView_LevelFailed : GameTotalsWidgetView {
 
         public Card Card { get; }
         public Header Header { get; }
@@ -99,7 +99,7 @@ namespace Project.UI {
         public Button Retry { get; }
         public Button Back { get; }
 
-        public TotalsWidgetView_LevelFailed() : base( "level-failed-totals-widget-view" ) {
+        public GameTotalsWidgetView_LevelFailed() : base( "game-totals-widget-view (level-failed)" ) {
             Add(
                 Card = VisualElementFactory.Card().Children(
                     Header = VisualElementFactory.Header().Children(

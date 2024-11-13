@@ -15,7 +15,7 @@ namespace Project.UI {
         public Label Title { get; }
         public VisualElement Content { get; }
 
-        public MainMenuWidgetView() : base( "menu-widget-view" ) {
+        public MainMenuWidgetView() : base( "main-menu-widget-view" ) {
             Add(
                 Card = VisualElementFactory.Card().Children(
                     Header = VisualElementFactory.Header().Children(

@@ -43,7 +43,7 @@ namespace Project.UI {
         private static GameTotalsWidgetView CreateView(GameTotalsWidget widget) {
             if (widget.Game.Player.State is PlayerState.Winner) {
                 if (!widget.Game.Info.Level.IsLast()) {
-                    var view = new TotalsWidgetView_LevelCompleted();
+                    var view = new GameTotalsWidgetView_LevelCompleted();
                     view.Continue.RegisterCallback<ClickEvent>( evt => {
                         var gameInfo = widget.Game.Info;
                         gameInfo = gameInfo with { Level = gameInfo.Level.GetNext() };
@@ -55,7 +55,7 @@ namespace Project.UI {
                     } );
                     return view;
                 } else {
-                    var view = new TotalsWidgetView_GameCompleted();
+                    var view = new GameTotalsWidgetView_GameCompleted();
                     view.Okey.RegisterCallback<ClickEvent>( evt => {
                         widget.Router.UnloadGameScene();
                     } );
@@ -63,7 +63,7 @@ namespace Project.UI {
                 }
             }
             if (widget.Game.Player.State is PlayerState.Loser) {
-                var view = new TotalsWidgetView_LevelFailed();
+                var view = new GameTotalsWidgetView_LevelFailed();
                 view.Retry.RegisterCallback<ClickEvent>( evt => {
                     var gameInfo = widget.Game.Info;
                     var playerInfo = widget.Game.Player.Info;

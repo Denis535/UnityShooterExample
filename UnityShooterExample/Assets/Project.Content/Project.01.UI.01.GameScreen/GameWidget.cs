@@ -26,6 +26,7 @@ namespace Project.UI {
                 if (View.focusController.focusedElement == null) View.Focus();
             };
             View = CreateView( this );
+            AddChild( new PlayerWidget( Container ) );
         }
         public override void Dispose() {
             Input.Dispose();
@@ -48,8 +49,8 @@ namespace Project.UI {
             IsCursorVisible = false;
         }
         protected override void OnDeactivate(object? argument) {
-            Input.Disable();
             IsCursorVisible = true;
+            Input.Disable();
             HideSelf();
         }
 
@@ -63,8 +64,8 @@ namespace Project.UI {
         }
         protected override void OnAfterDescendantDeactivate(UIWidgetBase descendant, object? argument) {
             if (State is State_.Active) {
-                Game.IsPaused = Children.Where( i => i.State is State_.Active ).Any( i => i is GameMenuWidget );
                 IsCursorVisible = Children.Where( i => i.State is State_.Active ).Any( i => i is GameMenuWidget or GameTotalsWidget );
+                Game.IsPaused = Children.Where( i => i.State is State_.Active ).Any( i => i is GameMenuWidget );
             }
         }
 
@@ -73,17 +74,18 @@ namespace Project.UI {
         }
         private static int GetOrderOf(UIWidgetBase widget) {
             return widget switch {
-                GameTotalsWidget => 0,
-                GameMenuWidget => 1,
+                PlayerWidget => 0,
+                GameTotalsWidget => 1,
+                GameMenuWidget => 2,
                 _ => 2,
             };
         }
 
         public void OnUpdate() {
-            if (Game.Player.Camera != null) {
-                View.Target.style.color = GetTargetColor( Game.Player.Camera );
-            } else {
-                View.Target.style.color = default;
+            foreach (var child in Children) {
+                if (child is PlayerWidget playerWidget) {
+                    playerWidget.OnUpdate();
+                }
             }
         }
 
@@ -91,17 +93,12 @@ namespace Project.UI {
         private static GameWidgetView CreateView(GameWidget widget) {
             var view = new GameWidgetView();
             view.RegisterCallback<NavigationCancelEvent>( evt => {
+                Debug.Log( "Cancel" );
                 if (!widget.Children.Any( i => i is GameMenuWidget )) {
                     widget.AddChild( new GameMenuWidget( widget.Container ) );
                 }
             } );
             return view;
-        }
-        // Helpers
-        private static Color GetTargetColor(Camera2 camera) {
-            if (camera.Hit?.Thing != null) return Color.yellow;
-            if (camera.Hit?.Enemy != null) return Color.red;
-            return Color.white;
         }
 
     }

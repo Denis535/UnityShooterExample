@@ -146,7 +146,14 @@ namespace Project {
                 .ThenByDescending( i => i.dir.Equals( "Assets/Project.Content/Project.06.Game.Actors" ) )
                 .ThenByDescending( i => i.dir.Equals( "Assets/Project.Content/Project.06.Game.Things" ) )
                 .ThenByDescending( i => i.dir.Equals( "Assets/Project.Content/Project.06.Game.Worlds" ) )
-                // UI/
+                // Root
+                .ThenByDescending( i => i.name.Equals( "Launcher.cs" ) )
+                .ThenByDescending( i => i.name.Equals( "Program.cs" ) )
+                .ThenByDescending( i => i.name.Equals( "DebugScreen.cs" ) )
+                .ThenByDescending( i => i.name.Equals( "ProjectBar.cs" ) )
+                .ThenByDescending( i => i.name.Equals( "ProjectBuilder.cs" ) )
+                .ThenByDescending( i => i.name.Equals( "ProjectWindow2.cs" ) )
+                // UI
                 .ThenByDescending( i => i.name.Equals( "UITheme.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "UIScreen.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "UIRouter.cs" ) )
@@ -155,6 +162,7 @@ namespace Project {
                 .ThenByDescending( i => i.name.Equals( "GameWidget.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "GameTotalsWidget.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "GameMenuWidget.cs" ) )
+                .ThenByDescending( i => i.name.Equals( "PlayerWidget.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "DialogWidget.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "LoadingWidget.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "UnloadingWidget.cs" ) )
@@ -162,12 +170,13 @@ namespace Project {
                 .ThenByDescending( i => i.name.Equals( "ProfileSettingsWidget.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "VideoSettingsWidget.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "AudioSettingsWidget.cs" ) )
-                // UI.Internal/
+                // UI.Internal
                 .ThenByDescending( i => i.name.Equals( "MainWidgetView.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "MainMenuWidgetView.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "GameWidgetView.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "GameTotalsWidgetView.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "GameMenuWidgetView.cs" ) )
+                .ThenByDescending( i => i.name.Equals( "PlayerWidgetView.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "DialogWidgetView.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "LoadingWidgetView.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "UnloadingWidgetView.cs" ) )
@@ -175,14 +184,14 @@ namespace Project {
                 .ThenByDescending( i => i.name.Equals( "ProfileSettingsWidgetView.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "VideoSettingsWidgetView.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "AudioSettingsWidgetView.cs" ) )
-                // App/
+                // App
                 .ThenByDescending( i => i.name.Equals( "Application2.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Storage.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Storage.ProfileSettings.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Storage.VideoSettings.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Storage.AudioSettings.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Storage.Preferences.cs" ) )
-                // Game/
+                // Game
                 .ThenByDescending( i => i.name.Equals( "Game2.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Player2.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Camera2.cs" ) )
