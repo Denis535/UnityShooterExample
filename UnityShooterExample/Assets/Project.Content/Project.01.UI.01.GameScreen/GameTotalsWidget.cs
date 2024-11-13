@@ -1,10 +1,9 @@
 #nullable enable
-namespace Project.UI.GameScreen {
+namespace Project.UI {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using Project.Game;
-    using Project.UI.Common;
     using UnityEngine;
     using UnityEngine.Framework;
     using UnityEngine.UIElements;

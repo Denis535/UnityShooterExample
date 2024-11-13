@@ -1,5 +1,5 @@
 ﻿#nullable enable
-namespace Project.UI.MainScreen {
+namespace Project.UI {
     using System;
     using System.Collections;
     using System.Collections.Generic;

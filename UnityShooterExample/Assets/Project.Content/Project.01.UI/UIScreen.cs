@@ -3,9 +3,6 @@ namespace Project.UI {
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using Project.UI.Common;
-    using Project.UI.GameScreen;
-    using Project.UI.MainScreen;
     using UnityEngine;
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
@@ -122,25 +119,25 @@ namespace Project.UI {
         protected override int GetLayerOf(UIViewBase view) {
             return view switch {
                 // MainScreen
-                MainScreen.MainWidgetView => 0,
-                MainScreen.MainMenuWidgetView => 100,
+                MainWidgetView => 0,
+                MainMenuWidgetView => 100,
                 // GameScreen
-                GameScreen.GameWidgetView => 0,
-                GameScreen.GameTotalsWidgetView => 0,
-                GameScreen.GameMenuWidgetView => 100,
+                GameWidgetView => 0,
+                GameTotalsWidgetView => 0,
+                GameMenuWidgetView => 100,
                 // Common
-                Common.LoadingWidgetView => 100,
-                Common.UnloadingWidgetView => 100,
+                LoadingWidgetView => 100,
+                UnloadingWidgetView => 100,
                 // Common
-                Common.SettingsWidgetView => 100,
-                Common.ProfileSettingsWidgetView => 100,
-                Common.VideoSettingsWidgetView => 100,
-                Common.AudioSettingsWidgetView => 100,
+                SettingsWidgetView => 100,
+                ProfileSettingsWidgetView => 100,
+                VideoSettingsWidgetView => 100,
+                AudioSettingsWidgetView => 100,
                 // Common
-                Common.DialogWidgetView => 1000,
-                Common.InfoDialogWidgetView => 1001,
-                Common.WarningDialogWidgetView => 1002,
-                Common.ErrorDialogWidgetView => 1003,
+                DialogWidgetView => 1000,
+                InfoDialogWidgetView => 1001,
+                WarningDialogWidgetView => 1002,
+                ErrorDialogWidgetView => 1003,
                 _ => 0
             };
         }
