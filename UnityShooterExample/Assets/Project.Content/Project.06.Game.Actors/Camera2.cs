@@ -52,11 +52,11 @@ namespace Project.Game {
         protected override void OnDestroy() {
         }
 
-        protected override void Start() {
+        protected void Start() {
         }
-        protected override void FixedUpdate() {
+        protected void FixedUpdate() {
         }
-        protected override void Update() {
+        protected void Update() {
             if (InputProvider != null) {
                 var target = InputProvider.GetTarget( out var isNewTarget );
                 if (isNewTarget) {
@@ -92,7 +92,7 @@ namespace Project.Game {
                 Hit = null;
             }
         }
-        protected override void LateUpdate() {
+        protected void LateUpdate() {
         }
 
         // Helpers

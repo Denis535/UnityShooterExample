@@ -100,9 +100,17 @@ namespace Project {
                 if (Application != null) return new Option<object?>( Application );
                 return default;
             }
-            // Entities
+            // Game
             if (type.IsAssignableTo( typeof( GameBase ) )) {
                 if (Game != null) return new Option<object?>( Game );
+                return default;
+            }
+            if (type.IsAssignableTo( typeof( World ) )) {
+                var result = FindAnyObjectByType<World>( FindObjectsInactive.Exclude );
+                if (result is not null) {
+                    result.ThrowIfInvalid();
+                    return new Option<object?>( result );
+                }
                 return default;
             }
             // Misc
@@ -126,25 +134,6 @@ namespace Project {
                 var result = gameObject.GetComponentInChildren<UIDocument>();
                 if (result is not null) {
                     result.ThrowIfInvalid();
-                    return new Option<object?>( result );
-                }
-                return default;
-            }
-            // Misc
-            if (type.IsAssignableTo( typeof( UnityEngine.Object ) )) {
-                var result = FindAnyObjectByType( type, FindObjectsInactive.Exclude );
-                if (result is not null) {
-                    result.ThrowIfInvalid();
-                    return new Option<object?>( result );
-                }
-                return default;
-            }
-            if (type.IsArray && type.GetElementType().IsAssignableTo( typeof( UnityEngine.Object ) )) {
-                var result = FindObjectsByType( type.GetElementType(), FindObjectsInactive.Exclude, FindObjectsSortMode.None ).NullIfEmpty();
-                if (result is not null) {
-                    result.ForEach( i => i.ThrowIfInvalid() );
-                    var result2 = Array.CreateInstance( type.GetElementType(), result.Length );
-                    result.CopyTo( result2, 0 );
                     return new Option<object?>( result );
                 }
                 return default;

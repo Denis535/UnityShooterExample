@@ -23,13 +23,13 @@ namespace Project.Game {
             Facade.Dispose();
         }
 
-        protected override void Start() {
+        protected virtual void Start() {
         }
-        protected override void FixedUpdate() {
+        protected virtual void FixedUpdate() {
         }
-        protected override void Update() {
+        protected virtual void Update() {
         }
-        protected override void LateUpdate() {
+        protected virtual void LateUpdate() {
         }
 
         void IDamageable.Damage(DamageInfo info) {

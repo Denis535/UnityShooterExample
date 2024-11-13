@@ -48,15 +48,6 @@ namespace Project.Game {
             base.OnDestroy();
         }
 
-        protected override void Start() {
-        }
-        protected override void FixedUpdate() {
-        }
-        protected override void Update() {
-        }
-        protected override void LateUpdate() {
-        }
-
         public override void Fire(ActorBase actor, PlayerBase? player) {
             if (FireDelay.CanFire) {
                 FireDelay.Fire();
