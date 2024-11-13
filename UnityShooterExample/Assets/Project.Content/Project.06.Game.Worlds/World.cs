@@ -4,8 +4,9 @@ namespace Project.Game {
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Framework;
 
-    public class World : MonoBehaviour {
+    public class World : EntityBase {
 
         private PlayerPoint[] playerPoints = default!;
         private EnemyPoint[] enemyPoints = default!;
@@ -31,12 +32,12 @@ namespace Project.Game {
         //}
 #endif
 
-        protected virtual void Awake() {
+        protected override void Awake() {
             playerPoints = gameObject.GetComponentsInChildren<PlayerPoint>();
             enemyPoints = gameObject.GetComponentsInChildren<EnemyPoint>();
             thingPoints = gameObject.GetComponentsInChildren<ThingPoint>();
         }
-        protected virtual void OnDestroy() {
+        protected override void OnDestroy() {
         }
 
     }

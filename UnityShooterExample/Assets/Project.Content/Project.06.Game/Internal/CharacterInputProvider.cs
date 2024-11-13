@@ -109,7 +109,7 @@ namespace Project.Game {
             Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
             return Actions.Aim.IsPressed();
         }
-        public bool IsInteractPressed(out MonoBehaviour? interactable) {
+        public bool IsInteractPressed(out EntityBase? interactable) {
             Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
             Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
             interactable = GetInteractable( Player.Camera );
@@ -120,8 +120,8 @@ namespace Project.Game {
         private static Vector3 GetTarget(Camera2 camera) {
             return camera.Hit?.Point ?? camera.transform.TransformPoint( Vector3.forward * 128f );
         }
-        private static MonoBehaviour? GetInteractable(Camera2 camera) {
-            return (MonoBehaviour?) camera.Hit?.Enemy ?? camera.Hit?.Thing;
+        private static EntityBase? GetInteractable(Camera2 camera) {
+            return (EntityBase?) camera.Hit?.Enemy ?? camera.Hit?.Thing;
         }
 
     }

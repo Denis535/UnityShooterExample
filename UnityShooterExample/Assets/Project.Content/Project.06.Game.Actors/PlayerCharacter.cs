@@ -93,6 +93,6 @@ namespace Project.Game {
         bool IsAcceleratePressed();
         bool IsFirePressed(out PlayerBase player);
         bool IsAimPressed();
-        bool IsInteractPressed(out MonoBehaviour? interactable);
+        bool IsInteractPressed(out EntityBase? interactable);
     }
 }
