@@ -25,30 +25,32 @@ The project contains the following source codes:
   - Assets/Project/Project.01.UI/UIScreen.cs
   - Assets/Project/Project.01.UI/UIRouter.cs
   - Assets/Project/Project.01.UI.MainScreen/MainWidget.cs
-  - Assets/Project/Project.01.UI.MainScreen/MenuWidget.cs
+  - Assets/Project/Project.01.UI.MainScreen/MainMenuWidget.cs
   - Assets/Project/Project.01.UI.GameScreen/GameWidget.cs
-  - Assets/Project/Project.01.UI.GameScreen/TotalsWidget.cs
-  - Assets/Project/Project.01.UI.GameScreen/MenuWidget.cs
-  - Assets/Project/Project.01.UI.Common/DialogWidget.cs
+  - Assets/Project/Project.01.UI.GameScreen/PlayerWidget.cs
+  - Assets/Project/Project.01.UI.GameScreen/GameTotalsWidget.cs
+  - Assets/Project/Project.01.UI.GameScreen/GameMenuWidget.cs
   - Assets/Project/Project.01.UI.Common/LoadingWidget.cs
   - Assets/Project/Project.01.UI.Common/UnloadingWidget.cs
   - Assets/Project/Project.01.UI.Common/SettingsWidget.cs
   - Assets/Project/Project.01.UI.Common/ProfileSettingsWidget.cs
   - Assets/Project/Project.01.UI.Common/VideoSettingsWidget.cs
   - Assets/Project/Project.01.UI.Common/AudioSettingsWidget.cs
+  - Assets/Project/Project.01.UI.Common/DialogWidget.cs
 - Project.UI.Internal
   - Assets/Project/Project.02.UI.MainScreen/MainWidgetView.cs
-  - Assets/Project/Project.02.UI.MainScreen/MenuWidgetView.cs
+  - Assets/Project/Project.02.UI.MainScreen/MainMenuWidgetView.cs
   - Assets/Project/Project.02.UI.GameScreen/GameWidgetView.cs
-  - Assets/Project/Project.02.UI.GameScreen/TotalsWidgetView.cs
-  - Assets/Project/Project.02.UI.GameScreen/MenuWidgetView.cs
-  - Assets/Project/Project.02.UI.Common/DialogWidgetView.cs
+  - Assets/Project/Project.02.UI.GameScreen/PlayerWidgetView.cs
+  - Assets/Project/Project.02.UI.GameScreen/GameTotalsWidgetView.cs
+  - Assets/Project/Project.02.UI.GameScreen/GameMenuWidgetView.cs
   - Assets/Project/Project.02.UI.Common/LoadingWidgetView.cs
   - Assets/Project/Project.02.UI.Common/UnloadingWidgetView.cs
   - Assets/Project/Project.02.UI.Common/SettingsWidgetView.cs
   - Assets/Project/Project.02.UI.Common/ProfileSettingsWidgetView.cs
   - Assets/Project/Project.02.UI.Common/VideoSettingsWidgetView.cs
   - Assets/Project/Project.02.UI.Common/AudioSettingsWidgetView.cs
+  - Assets/Project/Project.02.UI.Common/DialogWidgetView.cs
 - Project.App
   - Assets/Project/Project.05.App/Application2.cs
   - Assets/Project/Project.05.App/Storage.cs
@@ -80,7 +82,7 @@ The project has the following dependencies:
   "dependencies": {
     "com.denis535.addressables-extensions": "1.0.19",
     "com.denis535.addressables-source-generator": "1.0.43",
-    "com.denis535.clean-architecture-game-framework": "1.4.5",
+    "com.denis535.clean-architecture-game-framework": "1.4.7",
     "com.denis535.colorful-project-window": "1.0.46",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "1.21.21",
@@ -120,8 +122,9 @@ The project has the following dependencies:
   ]
 }
 ```
-- Or you can install the ```Embedded Dependencies``` package.
-- Link project with Unity Gaming Services.
+Or you can install the ```Embedded dependencies``` package.
+- Link project with ```Unity Gaming Services```.
+- Install the ```Node.js``` and ```Stylus``` package (not necessarily).
 
 # Build
 - Prepare your project for build (MenuBar/Project/Pre Build).
@@ -133,14 +136,6 @@ The project has the following dependencies:
 
 # Tutorial
 - https://www.udemy.com/user/denis-84102
-
-# FAQ
-- Why can not I compile the stylus files?
-    * You need to install the ```Node.js``` and ```Stylus``` package.
-- Why is the ```ThemeStyleSheet.styl``` compiled with errors?
-    * The ```UIToolkit Theme Style Sheet``` package must be embedded.
-- Why is the UI broken?
-    * Sometimes you need to reimport the ```UIToolkit Theme Style Sheet``` package.
 
 # Links
 - https://denis535.github.io
