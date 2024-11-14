@@ -21,11 +21,13 @@ namespace Project.UI {
 
         public GameWidget(IDependencyContainer container) : base( container ) {
             Game = container.RequireDependency<Game2>();
+            View = CreateView( this );
             Input = new InputActions_UI();
             Input.UI.Cancel.performed += ctx => {
-                if (View.focusController.focusedElement == null) View.Focus();
+                if (View.focusController.focusedElement == null) {
+                    View.Focus();
+                }
             };
-            View = CreateView( this );
             AddChild( new PlayerWidget( Container ) );
         }
         public override void Dispose() {
@@ -77,7 +79,7 @@ namespace Project.UI {
                 PlayerWidget => 0,
                 GameTotalsWidget => 1,
                 GameMenuWidget => 2,
-                _ => 2,
+                _ => 100,
             };
         }
 
@@ -93,9 +95,9 @@ namespace Project.UI {
         private static GameWidgetView CreateView(GameWidget widget) {
             var view = new GameWidgetView();
             view.RegisterCallback<NavigationCancelEvent>( evt => {
-                Debug.Log( "Cancel" );
                 if (!widget.Children.Any( i => i is GameMenuWidget )) {
                     widget.AddChild( new GameMenuWidget( widget.Container ) );
+                    evt.StopPropagation();
                 }
             } );
             return view;

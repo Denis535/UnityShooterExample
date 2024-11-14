@@ -112,10 +112,47 @@ namespace Project.UI {
             base.Dispose();
         }
 
-        protected override int GetOrderOf(UIViewBase view) {
-            return GetLayerOf( view );
+        protected override bool AddView(UIViewBase view) {
+            return base.AddView( view );
+        }
+        protected override bool RemoveView(UIViewBase view) {
+            return base.RemoveView( view );
         }
 
+        protected override void Sort() {
+            base.Sort();
+        }
+        protected override int GetOrderOf(UIViewBase view) {
+            return view switch {
+                // MainScreen
+                MainWidgetView => 0,
+                MainMenuWidgetView => 1,
+                // GameScreen
+                GameWidgetView => 10,
+                PlayerWidgetView => 11,
+                GameTotalsWidgetView => 12,
+                GameMenuWidgetView => 13,
+                // Common
+                LoadingWidgetView => 20,
+                UnloadingWidgetView => 21,
+                SettingsWidgetView => 22,
+                DialogWidgetView => 23,
+                InfoDialogWidgetView => 24,
+                WarningDialogWidgetView => 25,
+                ErrorDialogWidgetView => 26,
+                _ => 100_000
+            };
+        }
+
+        protected override void SetVisibility(IReadOnlyList<VisualElement> views) {
+            base.SetVisibility( views );
+        }
+        protected override void SetVisibility(UIViewBase view, UIViewBase? next) {
+            if (view is MainWidgetView or GameWidgetView) {
+                return;
+            }
+            base.SetVisibility( view, next );
+        }
         protected override int GetLayerOf(UIViewBase view) {
             return view switch {
                 // MainScreen
@@ -123,22 +160,18 @@ namespace Project.UI {
                 MainMenuWidgetView => 100,
                 // GameScreen
                 GameWidgetView => 0,
-                GameTotalsWidgetView => 0,
+                PlayerWidgetView => 100,
+                GameTotalsWidgetView => 100,
                 GameMenuWidgetView => 100,
                 // Common
-                LoadingWidgetView => 100,
-                UnloadingWidgetView => 100,
-                // Common
+                LoadingWidgetView => 0,
+                UnloadingWidgetView => 0,
                 SettingsWidgetView => 100,
-                ProfileSettingsWidgetView => 100,
-                VideoSettingsWidgetView => 100,
-                AudioSettingsWidgetView => 100,
-                // Common
-                DialogWidgetView => 1000,
-                InfoDialogWidgetView => 1001,
-                WarningDialogWidgetView => 1002,
-                ErrorDialogWidgetView => 1003,
-                _ => 0
+                DialogWidgetView => 500,
+                InfoDialogWidgetView => 501,
+                WarningDialogWidgetView => 502,
+                ErrorDialogWidgetView => 503,
+                _ => 100_000
             };
         }
 
