@@ -84,32 +84,32 @@ namespace Project {
             this.ThrowIfInvalid();
             // UI
             if (type.IsAssignableTo( typeof( UIThemeBase ) )) {
-                if (Theme != null) return new Option<object?>( Theme );
+                if (Theme != null) return Option.Create( (object?) Theme );
                 return default;
             }
             if (type.IsAssignableTo( typeof( UIScreenBase ) )) {
-                if (Screen != null) return new Option<object?>( Screen );
+                if (Screen != null) return Option.Create( (object?) Screen );
                 return default;
             }
             if (type.IsAssignableTo( typeof( UIRouterBase ) )) {
-                if (Router != null) return new Option<object?>( Router );
+                if (Router != null) return Option.Create( (object?) Router );
                 return default;
             }
             // App
             if (type.IsAssignableTo( typeof( ApplicationBase ) )) {
-                if (Application != null) return new Option<object?>( Application );
+                if (Application != null) return Option.Create( (object?) Application );
                 return default;
             }
             // Game
             if (type.IsAssignableTo( typeof( GameBase ) )) {
-                if (Game != null) return new Option<object?>( Game );
+                if (Game != null) return Option.Create( (object?) Game );
                 return default;
             }
             if (type.IsAssignableTo( typeof( World ) )) {
                 var result = FindAnyObjectByType<World>( FindObjectsInactive.Exclude );
                 if (result is not null) {
                     result.ThrowIfInvalid();
-                    return new Option<object?>( result );
+                    return Option.Create( (object?) result );
                 }
                 return default;
             }
@@ -118,7 +118,7 @@ namespace Project {
                 var result = transform.Find( "MusicAudioSource" )?.gameObject.GetComponent<AudioSource?>();
                 if (result is not null) {
                     result.ThrowIfInvalid();
-                    return new Option<object?>( result );
+                    return Option.Create( (object?) result );
                 }
                 return default;
             }
@@ -126,7 +126,7 @@ namespace Project {
                 var result = transform.Find( "SfxAudioSource" )?.gameObject.GetComponent<AudioSource?>();
                 if (result is not null) {
                     result.ThrowIfInvalid();
-                    return new Option<object?>( result );
+                    return Option.Create( (object?) result );
                 }
                 return default;
             }
@@ -134,7 +134,7 @@ namespace Project {
                 var result = gameObject.GetComponentInChildren<UIDocument>();
                 if (result is not null) {
                     result.ThrowIfInvalid();
-                    return new Option<object?>( result );
+                    return Option.Create( (object?) result );
                 }
                 return default;
             }

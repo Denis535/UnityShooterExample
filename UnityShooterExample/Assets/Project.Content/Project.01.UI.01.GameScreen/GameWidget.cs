@@ -65,9 +65,9 @@ namespace Project.UI {
         protected override void OnBeforeDescendantDeactivate(UIWidgetBase descendant, object? argument) {
         }
         protected override void OnAfterDescendantDeactivate(UIWidgetBase descendant, object? argument) {
-            if (State is State_.Active) {
-                IsCursorVisible = Children.Where( i => i.State is State_.Active ).Any( i => i is GameMenuWidget or GameTotalsWidget );
-                Game.IsPaused = Children.Where( i => i.State is State_.Active ).Any( i => i is GameMenuWidget );
+            if (Activity is Activity_.Active) {
+                IsCursorVisible = Children.Where( i => i.Activity is Activity_.Active ).Any( i => i is GameMenuWidget or GameTotalsWidget );
+                Game.IsPaused = Children.Where( i => i.Activity is Activity_.Active ).Any( i => i is GameMenuWidget );
             }
         }
 
