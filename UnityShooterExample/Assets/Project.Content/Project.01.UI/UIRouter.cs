@@ -78,10 +78,12 @@ namespace Project.UI {
                     await LoadAsync_GameScene();
                     await LoadAsync_WorldScene( GetWorldSceneAddress( gameInfo.Level ) );
                     Application.RunGame( gameInfo, playerInfo );
-                    Application.Game!.OnPauseChangeEvent += i => Theme.IsPaused = i;
                     Theme.PlayGameTheme();
                     Screen.ShowGameScreen();
                 }
+                Application.Game!.OnPauseChangeEvent += i => {
+                    if (i) Theme.Pause(); else Theme.UnPause();
+                };
             }
         }
 
@@ -104,10 +106,12 @@ namespace Project.UI {
                     await LoadAsync_GameScene();
                     await LoadAsync_WorldScene( GetWorldSceneAddress( gameInfo.Level ) );
                     Application.RunGame( gameInfo, playerInfo );
-                    Application.Game!.OnPauseChangeEvent += i => Theme.IsPaused = i;
                     Theme.PlayGameTheme();
                     Screen.ShowGameScreen();
                 }
+                Application.Game!.OnPauseChangeEvent += i => {
+                    if (i) Theme.Pause(); else Theme.UnPause();
+                };
             }
         }
 

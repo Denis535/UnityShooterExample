@@ -18,10 +18,10 @@ namespace Project.UI {
             VisualElementFactory.OnPlayCancel += evt => { };
             VisualElementFactory.OnPlayChange += evt => { };
             VisualElementFactory.OnPlayFocus += evt => { };
-            VisualElementFactory.OnPlayDialog += evt => { };
-            VisualElementFactory.OnPlayInfoDialog += evt => { };
-            VisualElementFactory.OnPlayWarningDialog += evt => { };
-            VisualElementFactory.OnPlayErrorDialog += evt => { };
+            VisualElementFactory.OnPlayOpenDialog += evt => { };
+            VisualElementFactory.OnPlayOpenInfoDialog += evt => { };
+            VisualElementFactory.OnPlayOpenWarningDialog += evt => { };
+            VisualElementFactory.OnPlayOpenErrorDialog += evt => { };
             SetWidget( new RootWidget( container ) );
         }
         public override void Dispose() {
@@ -98,8 +98,23 @@ namespace Project.UI {
         }
         private static int GetOrderOf(UIWidgetBase widget) {
             return widget switch {
-                MainWidget or GameWidget or LoadingWidget or UnloadingWidget => 0,
-                _ => 1,
+                // MainScreen
+                MainWidget => 0,
+                //MainMenuWidget => 1,
+                // GameScreen
+                GameWidget => 10,
+                //PlayerWidget => 11,
+                //GameTotalsWidget => 12,
+                //GameMenuWidget => 13,
+                // Common
+                LoadingWidget => 20,
+                UnloadingWidget => 21,
+                //SettingsWidget => 22,
+                DialogWidget => 23,
+                InfoDialogWidget => 24,
+                WarningDialogWidget => 25,
+                ErrorDialogWidget => 26,
+                _ => 100_000
             };
         }
 
@@ -148,10 +163,9 @@ namespace Project.UI {
             base.SetVisibility( views );
         }
         protected override void SetVisibility(UIViewBase view, UIViewBase? next) {
-            if (view is MainWidgetView or GameWidgetView) {
-                return;
+            if (view is not MainWidgetView and not GameWidgetView) {
+                base.SetVisibility( view, next );
             }
-            base.SetVisibility( view, next );
         }
         protected override int GetLayerOf(UIViewBase view) {
             return view switch {

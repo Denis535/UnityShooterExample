@@ -18,10 +18,10 @@ namespace Project.UI {
         public static event EventCallback<ClickEvent>? OnPlayCancel;
         public static event EventCallback<IChangeEvent>? OnPlayChange;
         public static event EventCallback<FocusEvent>? OnPlayFocus;
-        public static EventCallback<AttachToPanelEvent>? OnPlayDialog;
-        public static EventCallback<AttachToPanelEvent>? OnPlayInfoDialog;
-        public static EventCallback<AttachToPanelEvent>? OnPlayWarningDialog;
-        public static EventCallback<AttachToPanelEvent>? OnPlayErrorDialog;
+        public static EventCallback<AttachToPanelEvent>? OnPlayOpenDialog;
+        public static EventCallback<AttachToPanelEvent>? OnPlayOpenInfoDialog;
+        public static EventCallback<AttachToPanelEvent>? OnPlayOpenWarningDialog;
+        public static EventCallback<AttachToPanelEvent>? OnPlayOpenErrorDialog;
 
         public static VisualElement VisualElement() {
             var result = Create<VisualElement>( null, null );
@@ -256,6 +256,9 @@ namespace Project.UI {
             base.name = name;
             AddToClassList( "view" );
         }
+        public override void Dispose() {
+            base.Dispose();
+        }
 
     }
     public abstract class WidgetView : UIViewBase {
@@ -263,6 +266,9 @@ namespace Project.UI {
         public WidgetView(string? name) {
             base.name = name;
             AddToClassList( "widget-view" );
+        }
+        public override void Dispose() {
+            base.Dispose();
         }
 
     }
@@ -272,6 +278,9 @@ namespace Project.UI {
             base.name = name;
             AddToClassList( "left-widget-view" );
         }
+        public override void Dispose() {
+            base.Dispose();
+        }
 
     }
     public abstract class SmallWidgetView : UIViewBase {
@@ -279,6 +288,9 @@ namespace Project.UI {
         public SmallWidgetView(string? name) {
             base.name = name;
             AddToClassList( "small-widget-view" );
+        }
+        public override void Dispose() {
+            base.Dispose();
         }
 
     }
@@ -288,6 +300,9 @@ namespace Project.UI {
             base.name = name;
             AddToClassList( "medium-widget-view" );
         }
+        public override void Dispose() {
+            base.Dispose();
+        }
 
     }
     public abstract class LargeWidgetView : UIViewBase {
@@ -296,6 +311,9 @@ namespace Project.UI {
             base.name = name;
             AddToClassList( "large-widget-view" );
         }
+        public override void Dispose() {
+            base.Dispose();
+        }
 
     }
     public abstract class DialogWidgetViewBase : UIViewBase {
@@ -303,7 +321,10 @@ namespace Project.UI {
         public DialogWidgetViewBase(string? name) {
             base.name = name;
             AddToClassList( "dialog-widget-view" );
-            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayDialog?.Invoke( evt ) );
+            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenDialog?.Invoke( evt ) );
+        }
+        public override void Dispose() {
+            base.Dispose();
         }
 
     }
@@ -312,7 +333,10 @@ namespace Project.UI {
         public InfoDialogWidgetViewBase(string? name) {
             base.name = name;
             AddToClassList( "info-dialog-widget-view" );
-            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayInfoDialog?.Invoke( evt ) );
+            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenInfoDialog?.Invoke( evt ) );
+        }
+        public override void Dispose() {
+            base.Dispose();
         }
 
     }
@@ -321,7 +345,10 @@ namespace Project.UI {
         public WarningDialogWidgetViewBase(string? name) {
             base.name = name;
             AddToClassList( "warning-dialog-widget-view" );
-            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayWarningDialog?.Invoke( evt ) );
+            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenWarningDialog?.Invoke( evt ) );
+        }
+        public override void Dispose() {
+            base.Dispose();
         }
 
     }
@@ -330,7 +357,10 @@ namespace Project.UI {
         public ErrorDialogWidgetViewBase(string? name) {
             base.name = name;
             AddToClassList( "error-dialog-widget-view" );
-            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayErrorDialog?.Invoke( evt ) );
+            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenErrorDialog?.Invoke( evt ) );
+        }
+        public override void Dispose() {
+            base.Dispose();
         }
 
     }

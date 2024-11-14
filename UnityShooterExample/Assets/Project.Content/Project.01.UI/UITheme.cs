@@ -12,9 +12,6 @@ namespace Project.UI {
     public class UITheme : UIThemeBase2 {
 
         private new PlayList? PlayList => (PlayList?) base.PlayList;
-        public new bool IsPaused {
-            set => base.IsPaused = value;
-        }
 
         public UITheme(IDependencyContainer container) : base( container, container.RequireDependency<AudioSource>( "MusicAudioSource" ) ) {
         }
@@ -46,6 +43,13 @@ namespace Project.UI {
         }
         public void StopTheme() {
             SetPlayList( null );
+        }
+
+        public void Pause() {
+            IsPaused = true;
+        }
+        public void UnPause() {
+            IsPaused = false;
         }
 
     }

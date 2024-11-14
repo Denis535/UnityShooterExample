@@ -40,11 +40,12 @@ namespace Project.App {
         }
 
         private async Task InitializeAsync() {
-            if (UnityServices.State != ServicesInitializationState.Initialized) {
-                //var options = new InitializationOptions();
-                //if (Storage.Profile != null) options.SetProfile( Storage.Profile );
-                //await UnityServices.InitializeAsync( options ).WaitAsync( DisposeCancellationToken );
-            }
+            await Task.Delay( 1000 );
+            //if (UnityServices.State != ServicesInitializationState.Initialized) {
+            //    var options = new InitializationOptions();
+            //    if (Storage.Profile != null) options.SetProfile( Storage.Profile );
+            //    await UnityServices.InitializeAsync( options ).WaitAsync( DisposeCancellationToken );
+            //}
             //if (!AuthenticationService.IsSignedIn) {
             //    var options = new SignInOptions() {
             //        CreateAccount = true,
