@@ -11,13 +11,16 @@
 .vscode/
 
 # Unity
-StreamingAssets/
-UserSettings/
-UIElementsSchema/
 Library/
 Obj/
 Logs/
 Temp/
+UserSettings/
+UIElementsSchema/
+StreamingAssets/
+
+# Godot
+.godot/
 
 # Misc
 Build/
