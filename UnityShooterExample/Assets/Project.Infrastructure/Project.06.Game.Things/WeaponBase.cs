@@ -22,7 +22,22 @@ namespace Project.Game {
         protected override void OnDestroy() {
         }
 
-        public abstract void Fire(ActorBase actor, PlayerBase? player);
+        public abstract bool TryFire(ActorBase actor, PlayerBase? player);
+
+    }
+    public class FireDelay {
+
+        private float Interval { get; }
+        private float? FireTime { get; set; }
+        public bool CanFire => FireTime.HasValue ? (FireTime.Value + Interval - Time.time) <= 0 : true;
+
+        public FireDelay(float interval) {
+            Interval = interval;
+        }
+
+        public void Fire() {
+            FireTime = Time.time;
+        }
 
     }
 }

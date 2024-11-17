@@ -61,7 +61,7 @@ namespace Project.Game {
                 HeadAt( GetHeadTarget( Environment ) );
                 AimAt( GetWeaponTarget( Environment ) );
                 if (Environment.Player != null && Environment.Player.IsAlive) {
-                    Weapon?.Fire( this, null );
+                    var _ = Weapon?.TryFire( this, null );
                 }
             }
         }

@@ -63,10 +63,9 @@ namespace Project.Game {
                     HeadAt( InputProvider.GetHeadTarget() );
                     AimAt( InputProvider.GetWeaponTarget() );
                     if (InputProvider.IsAimPressed()) {
-
                     }
                     if (InputProvider.IsFirePressed( out var player )) {
-                        Weapon?.Fire( this, player );
+                        var _ = Weapon?.TryFire( this, player );
                     }
                     if (InputProvider.IsInteractPressed( out var interactable )) {
                         if (interactable is WeaponBase weapon) {

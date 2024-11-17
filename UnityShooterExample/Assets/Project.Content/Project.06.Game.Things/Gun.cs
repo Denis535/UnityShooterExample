@@ -48,12 +48,14 @@ namespace Project.Game {
             base.OnDestroy();
         }
 
-        public override void Fire(ActorBase actor, PlayerBase? player) {
+        public override bool TryFire(ActorBase actor, PlayerBase? player) {
             if (FireDelay.CanFire) {
                 FireDelay.Fire();
                 var bullet = Bullet.Factory.Create( FirePoint.transform.position, FirePoint.transform.rotation, 5, this, actor, player );
                 Physics.IgnoreCollision( gameObject.RequireComponentInChildren<Collider>(), bullet.gameObject.RequireComponentInChildren<Collider>() );
+                return true;
             }
+            return false;
         }
 
     }
