@@ -6,15 +6,15 @@ namespace Project.Game {
     using UnityEngine;
     using UnityEngine.Framework;
 
-    public class World : EntityBase {
+    public class World : WorldBase {
 
-        private PlayerPoint[] playerPoints = default!;
-        private EnemyPoint[] enemyPoints = default!;
-        private ThingPoint[] thingPoints = default!;
+        private IReadOnlyList<PlayerPoint> playerPoints = default!;
+        private IReadOnlyList<EnemyPoint> enemyPoints = default!;
+        private IReadOnlyList<ThingPoint> thingPoints = default!;
 
-        public PlayerPoint[] PlayerPoints => this.Chain( i => i.ThrowIfInvalid() ).playerPoints;
-        public EnemyPoint[] EnemyPoints => this.Chain( i => i.ThrowIfInvalid() ).enemyPoints;
-        public ThingPoint[] ThingPoints => this.Chain( i => i.ThrowIfInvalid() ).thingPoints;
+        public IReadOnlyList<PlayerPoint> PlayerPoints => this.Chain( i => i.ThrowIfInvalid() ).playerPoints;
+        public IReadOnlyList<EnemyPoint> EnemyPoints => this.Chain( i => i.ThrowIfInvalid() ).enemyPoints;
+        public IReadOnlyList<ThingPoint> ThingPoints => this.Chain( i => i.ThrowIfInvalid() ).thingPoints;
 
 #if UNITY_EDITOR
         //public void OnValidate() {

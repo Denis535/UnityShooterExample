@@ -9,7 +9,7 @@ namespace Project.Game {
     public abstract class WeaponBase : ThingBase {
 
         protected Rigidbody Rigidbody { get; private set; } = default!;
-        public override bool IsRigidbody {
+        public bool IsRigidbody {
             get => !Rigidbody.isKinematic;
             set {
                 Rigidbody.isKinematic = !value;
