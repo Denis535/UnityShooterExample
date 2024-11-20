@@ -71,8 +71,8 @@ namespace Project.UI {
             }
         }
 
-        protected override void Sort(List<NodeBase> children) {
-            children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( (UIWidgetBase) a ), GetOrderOf( (UIWidgetBase) b ) ) );
+        protected override void Sort(List<UIWidgetBase> children) {
+            children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( a ), GetOrderOf( b ) ) );
         }
         private static int GetOrderOf(UIWidgetBase widget) {
             return widget switch {
