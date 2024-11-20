@@ -82,7 +82,7 @@ The project has the following dependencies:
   "dependencies": {
     "com.denis535.addressables-extensions": "1.0.19",
     "com.denis535.addressables-source-generator": "1.0.43",
-    "com.denis535.clean-architecture-game-framework": "1.4.8",
+    "com.denis535.clean-architecture-game-framework": "1.4.9",
     "com.denis535.colorful-project-window": "1.0.46",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "1.21.21",
