@@ -27,11 +27,7 @@ namespace Project {
 #if UNITY_EDITOR
         [InitializeOnLoadMethod]
         private static void OnLoad_Editor() {
-            var message = new StringBuilder();
-            message.AppendLine( "Links:" );
-            message.AppendLine( "- GitHub: https://github.com/Denis535/UnityShooterExample" );
-            message.AppendLine( "- Tutorial: https://udemy.com/user/denis-84102" );
-            Debug.Log( message );
+            Debug.Log( "https://denis535.github.io/#unity-shooter-example" );
             if (!EditorApplication.isPlaying) {
                 UnityEditor.SceneManagement.EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>( "Assets/Project.Content/Assets.Project.00/Scenes/Main.unity" );
                 //EditorSceneManager.playModeStartScene = null;
