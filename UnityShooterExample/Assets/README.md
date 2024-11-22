@@ -134,20 +134,19 @@ The ```Launcher``` scene just contains simple script that loads the ```Main``` s
 The ```Main``` scene is loaded throughout the entire lifecycle of the application.
 All other scenes are loaded and unloaded depending on the state of the application.
 
-Secondly, the ```Main``` scene contains the ```Program``` entity.
-The ```Program``` is main entity that contains an enty point of the application.
-This entity initializes and runs the application, and stores all other entities, services and objects:
-- UITheme - the audio theme entity. This entity plays various playlists.
-- UIScreen - the visual screen entity. This entity shows various widgets.
-- UIRouter - the application manager service. This services allows you to change the state of application.
-- Application - the application entity. This entity contains Game entity and all other entities, services and objects:
-  * Game - the game entity that contains game's informations, rules and states.
-  * Player - the entity representing a real player and that contains player's informations, states and input providers.
-  * PlayerCharacter - the player's avatar character entity.
-  * EnemyCharacter - the enemy character entity.
-  * Camera - the player's camera entity.
-  * Gun - the gun entity.
-  * World - the world entity.
+Secondly, the ```Main``` scene contains the ```Program``` entity:
+- ```Program``` - the most main entity of application. This entity contains an enty point, initializes and runs the application and stores all other entities, services and objects:
+  * ```UITheme``` - the audio theme entity. This entity plays various playlists.
+  * ```UIScreen``` - the visual screen entity. This entity shows various widgets.
+  * ```UIRouter``` - the application manager service. This services allows you to change the state of application.
+  * ```Application``` - the application entity. This entity contains Game entity and all other entities, services and objects:
+    * ```Game``` - the game entity that contains game's informations, rules, states and other entities:
+      * ```Player``` - the entity representing a real player and that contains player's informations, states and input providers.
+      * ```PlayerCharacter``` - the player's avatar character entity.
+      * ```EnemyCharacter``` - the enemy character entity.
+      * ```Camera``` - the player's camera entity.
+      * ```Gun``` - the gun entity.
+      * ```World``` - the world entity.
 
 # How to setup it
 - Fill the ```manifest.json``` with the following content (unfortunately Asset Store Tools does not export ```scopedRegistries``` section):
@@ -196,7 +195,7 @@ This entity initializes and runs the application, and stores all other entities,
       ]
     }
     ```
-- Then delete assemblies in ```Plugins``` folder:
+- Then delete modules in ```Plugins``` folder:
     * ```Denis535.Addressables.Extensions```
     * ```Denis535.Addressables.SourceGenerator```
     * ```Denis535.CleanArchitectureGameFramework```
@@ -213,12 +212,6 @@ This entity initializes and runs the application, and stores all other entities,
 
 # Links
 - https://denis535.github.io/#unity-shooter-example
-- https://www.nuget.org/profiles/Denis535
-- https://openupm.com/packages/?sort=downloads&q=denis535
-- https://www.fab.com/sellers/Denis535
-- https://assetstore.unity.com/publishers/90787
-- https://www.youtube.com/channel/UCLFdZl0pFkCkHpDWmodBUFg
-- https://www.udemy.com/user/denis-84102
 
 # If you want to support me
 If you want to support me, please rate my packages, subscribe to my YouTube channel and like my videos.
