@@ -100,8 +100,7 @@ The project has the following dependencies:
   * https://assetstore.unity.com/packages/audio/music/fc-game-audio-pack-1-lite-182311
 
 # Setup
-- You must install the ```Embedded dependencies``` package.
-  Or better you can fill the ```manifest.json``` with the following content:
+- You must fill the ```manifest.json``` with the following content (unfortunately Asset Store Tools does not export ```scopedRegistries``` section):
     ```
     {
       "dependencies": {
@@ -147,8 +146,16 @@ The project has the following dependencies:
       ]
     }
     ```
-- Link project with ```Unity Gaming Services```.
-- Install the ```Node.js``` and ```Stylus``` package (not necessarily).
+- Then you must delete assemblies in Plugins folder:
+    * ```Denis535.Addressables.Extensions```
+    * ```Denis535.Addressables.SourceGenerator```
+    * ```Denis535.CleanArchitectureGameFramework```
+    * ```Denis535.CleanArchitectureGameFramework.Internal```
+    * ```Denis535.CleanArchitectureGameFramework.Additions```
+    * ```Denis535.CleanArchitectureGameFramework.Editor```
+    * ```Denis535.ColorfulProjectWindow```
+- You must link project with Unity Gaming Services.
+- You must install the ```Node.js``` and ```Stylus``` package (if you are going to compile stylus files).
 
 # How it works
 
