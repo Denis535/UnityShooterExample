@@ -1,17 +1,25 @@
 # Overview
-This project is an example of a third person shooter game with high-quality modular architecture.
+This is a third-person shooter example that uses a modular architecture.
+In this example, I implemented my best ideas for organizing the architecture and structure of the game project.
+And now I want to share my experience with you!
 
 # Reference
+The project has the following structure:
+- Project - the folder that contains all definitions of main modules.
+- Project.Content - the folder that contains all sources and assets of main modules.
+- Project.Infrastructure - the folder that contains everything common and all low-level staff.
+- Plugins - the folder that contains various libraries, frameworks and packages.
+
 The project contains the following modules:
-- Project                - The root module that contains the entry point.
-- Project.UI             - The presentation module that contains UI.
-- Project.UI.Internal    - The presentation module that contains low-level UI.
-- Project.App            - The application module that contains all entities, services and objects.
-- Project.Game           - The domain module that contains all entities of subject area.
-- Project.Game.Actors    - The domain module that contains all entities of subject area.
-- Project.Game.Things    - The domain module that contains all entities of subject area.
-- Project.Game.Worlds    - The domain module that contains all entities of subject area.
-- Project.Infrastructure - The infrastructure module that contains everything common and any low-level stuff.
+- Project                - the root module that contains the entry point.
+- Project.UI             - the presentation module that contains UI.
+- Project.UI.Internal    - the presentation module that contains low-level UI.
+- Project.App            - the application module that contains all entities, services and objects.
+- Project.Game           - the domain module that contains all entities of subject area.
+- Project.Game.Actors    - the domain module that contains all entities of subject area.
+- Project.Game.Things    - the domain module that contains all entities of subject area.
+- Project.Game.Worlds    - the domain module that contains all entities of subject area.
+- Project.Infrastructure - the infrastructure module that contains everything common and any low-level stuff.
 
 The project contains the following source codes:
 - Project
@@ -70,13 +78,13 @@ The project contains the following source codes:
   * Assets/Project.Infrastructure/System/Lock.cs
   * Assets/Project.Infrastructure/UnityEngine/GameObjectExtensions.cs
   * Assets/Project.Infrastructure/UnityEngine/Utils.cs
-  * Assets/Project.Infrastructure/UnityEngine/Point/Point.cs
-  * Assets/Project.Infrastructure/UnityEngine/Point/PlayerPoint.cs
-  * Assets/Project.Infrastructure/UnityEngine/Point/EnemyPoint.cs
-  * Assets/Project.Infrastructure/UnityEngine/Point/ThingPoint.cs
-  * Assets/Project.Infrastructure/UnityEngine/Point/FirePoint.cs
-  * Assets/Project.Infrastructure/UnityEngine/Socket/Socket.cs
-  * Assets/Project.Infrastructure/UnityEngine/Socket/WeaponSocket.cs
+  * Assets/Project.Infrastructure/UnityEngine/Points/Point.cs
+  * Assets/Project.Infrastructure/UnityEngine/Points/PlayerPoint.cs
+  * Assets/Project.Infrastructure/UnityEngine/Points/EnemyPoint.cs
+  * Assets/Project.Infrastructure/UnityEngine/Points/ThingPoint.cs
+  * Assets/Project.Infrastructure/UnityEngine/Points/FirePoint.cs
+  * Assets/Project.Infrastructure/UnityEngine/Sockets/Socket.cs
+  * Assets/Project.Infrastructure/UnityEngine/Sockets/WeaponSocket.cs
   * Assets/Project.Infrastructure/Project.01.UI/VisualElementFactory.cs
   * Assets/Project.Infrastructure/Project.01.UI/VisualElementExtensions.cs
   * Assets/Project.Infrastructure/Project.06.Game.Actors/CharacterBase.cs
@@ -86,17 +94,17 @@ The project contains the following source codes:
   * Assets/Project.Infrastructure/Project.06.Game.Things/WeaponBase.cs
 
 The project has the following dependencies:
-- Clean Architecture Game Framework - The framework that helps you develop your project using a modular clean architecture.
+- Clean Architecture Game Framework - the framework that helps you develop your project using a modular clean architecture.
   * https://denis535.github.io/#clean-architecture-game-framework-unity
-- Addressables Extensions           - The addressables additions that gives you the ability to use your assets in more convenient way.
+- Addressables Extensions           - the addressables additions that gives you the ability to use your assets in more convenient way.
   * https://denis535.github.io/#addressables-extensions-unity
-- Addressables Source Generator     - The addressables additions that gives you the ability to reference your assets and labels in more convenient way with compile time checking support.
+- Addressables Source Generator     - the addressables additions that gives you the ability to reference your assets and labels in more convenient way with compile time checking support.
   * https://denis535.github.io/#addressables-source-generator-unity
-- Colorful Project Window           - The editor extensions that provides you with the more convenient project window.
+- Colorful Project Window           - the editor extensions that provides you with the more convenient project window.
   * https://denis535.github.io/#colorful-project-window-unity
-- UIToolkit Theme Style Sheet       - The UIToolkit styles and some additions.
+- UIToolkit Theme Style Sheet       - the UIToolkit styles and some additions.
   * https://denis535.github.io/#uitoolkit-theme-style-sheet-unity
-- FC Game Audio Pack 1 [Lite]       - The audio themes.
+- FC Game Audio Pack 1 [Lite]       - the audio themes.
   * https://assetstore.unity.com/packages/audio/music/fc-game-audio-pack-1-lite-182311
 
 # Setup
@@ -146,7 +154,7 @@ The project has the following dependencies:
       ]
     }
     ```
-- Then you must delete assemblies in Plugins folder:
+- Then you must delete assemblies in ```Plugins``` folder:
     * ```Denis535.Addressables.Extensions```
     * ```Denis535.Addressables.SourceGenerator```
     * ```Denis535.CleanArchitectureGameFramework```
@@ -156,8 +164,6 @@ The project has the following dependencies:
     * ```Denis535.ColorfulProjectWindow```
 - You must link project with Unity Gaming Services.
 - You must install the ```Node.js``` and ```Stylus``` package (if you are going to compile stylus files).
-
-# How it works
 
 # How to build it
 - Prepare your project for build (MenuBar/Project/Pre Build).
