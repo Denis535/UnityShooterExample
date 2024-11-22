@@ -3,6 +3,7 @@ namespace UnityEditor.UIElements {
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.IO;
     using System.Linq;
     using UnityEditor;
@@ -41,7 +42,11 @@ namespace UnityEditor.UIElements {
 
         // Helpers
         private static void CompilePug(string src, string dist) {
-            NodeJS.Run( "Assets/Plugins/UIToolkit.ThemeStyleSheet.Editor/PugCompiler.js", src, dist );
+            try {
+                NodeJS.Run( "Assets/Plugins/UIToolkit.ThemeStyleSheet.Editor/PugCompiler.js", src, dist );
+            } catch (Win32Exception) {
+                Debug.LogWarning( $"Can not compile '{src}' pug, Node.Js is probably not installed" );
+            }
         }
         private static bool IsPug(string path) {
             return Path.GetExtension( path ) == ".pug";
