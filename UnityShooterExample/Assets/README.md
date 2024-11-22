@@ -66,6 +66,24 @@ The project contains the following source codes:
   * Assets/Project/Project.06.Game.Things/Gun.cs
   * Assets/Project/Project.06.Game.Things/Bullet.cs
   * Assets/Project/Project.06.Game.Worlds/World.cs
+- Project.Infrastructure
+  * Assets/Project.Infrastructure/System/Lock.cs
+  * Assets/Project.Infrastructure/UnityEngine/GameObjectExtensions.cs
+  * Assets/Project.Infrastructure/UnityEngine/Utils.cs
+  * Assets/Project.Infrastructure/UnityEngine/Point/Point.cs
+  * Assets/Project.Infrastructure/UnityEngine/Point/PlayerPoint.cs
+  * Assets/Project.Infrastructure/UnityEngine/Point/EnemyPoint.cs
+  * Assets/Project.Infrastructure/UnityEngine/Point/ThingPoint.cs
+  * Assets/Project.Infrastructure/UnityEngine/Point/FirePoint.cs
+  * Assets/Project.Infrastructure/UnityEngine/Socket/Socket.cs
+  * Assets/Project.Infrastructure/UnityEngine/Socket/WeaponSocket.cs
+  * Assets/Project.Infrastructure/Project.01.UI/VisualElementFactory.cs
+  * Assets/Project.Infrastructure/Project.01.UI/VisualElementExtensions.cs
+  * Assets/Project.Infrastructure/Project.06.Game.Actors/CharacterBase.cs
+  * Assets/Project.Infrastructure/Project.06.Game.Actors/PlayableCharacterBase.cs
+  * Assets/Project.Infrastructure/Project.06.Game.Actors/NonPlayableCharacterBase.cs
+  * Assets/Project.Infrastructure/Project.06.Game.Actors/MoveableBody.cs
+  * Assets/Project.Infrastructure/Project.06.Game.Things/WeaponBase.cs
 
 The project has the following dependencies:
 - Clean Architecture Game Framework - The framework that helps you develop your project using a modular clean architecture.
@@ -79,7 +97,7 @@ The project has the following dependencies:
 - UIToolkit Theme Style Sheet       - The UIToolkit styles and some additions.
   * https://denis535.github.io/#uitoolkit-theme-style-sheet-unity
 - FC Game Audio Pack 1 [Lite]       - The audio themes.
-  * https://assetstore.unity.com/packages/audio/music/fc-game-audio-pack-1-lite-182311?srsltid=AfmBOoqUp9rVT7N-sQrwcYYY-WqVcXWl5tQdaVEWAcrzT68DzZLVFl1R
+  * https://assetstore.unity.com/packages/audio/music/fc-game-audio-pack-1-lite-182311
 
 # Setup
 - You must install the ```Embedded dependencies``` package.
@@ -132,7 +150,9 @@ The project has the following dependencies:
 - Link project with ```Unity Gaming Services```.
 - Install the ```Node.js``` and ```Stylus``` package (not necessarily).
 
-# Build
+# How it works
+
+# How to build it
 - Prepare your project for build (MenuBar/Project/Pre Build).
 - Build your project (MenuBar/Project/Build).
 
