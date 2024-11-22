@@ -1,6 +1,6 @@
 # Overview
-This is a third-person shooter example that uses a modular architecture.
-In this example, I implemented my best ideas for organizing the architecture and structure of the game project.
+This is the third-person shooter example.
+In this example, I implemented my best ideas for organizing the structure and architecture of the game project.
 And now I want to share my experience with you!
 
 # Reference
