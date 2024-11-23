@@ -45,7 +45,7 @@ namespace UnityEditor.UIElements {
             try {
                 NodeJS.Run( "Assets/Plugins/UIToolkit.ThemeStyleSheet.Editor/PugCompiler.js", src, dist );
             } catch (Win32Exception) {
-                Debug.LogWarning( $"Can not compile '{src}' pug, Node.Js is probably not installed" );
+                Debug.LogWarning( $"Can not compile '{src}', probably the Node.js is not installed" );
             }
         }
         private static bool IsPug(string path) {

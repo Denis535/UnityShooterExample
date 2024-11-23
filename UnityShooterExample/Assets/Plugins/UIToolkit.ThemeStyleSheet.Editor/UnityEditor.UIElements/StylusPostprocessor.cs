@@ -45,7 +45,7 @@ namespace UnityEditor.UIElements {
             try {
                 NodeJS.Run( "Assets/Plugins/UIToolkit.ThemeStyleSheet.Editor/StylusCompiler.js", src, dist );
             } catch (Win32Exception) {
-                Debug.LogWarning( $"Can not compile '{src}' stylus, Node.Js is probably not installed" );
+                Debug.LogWarning( $"Can not compile '{src}', probably the Node.js is not installed" );
             }
         }
         private static bool IsStylus(string path) {
