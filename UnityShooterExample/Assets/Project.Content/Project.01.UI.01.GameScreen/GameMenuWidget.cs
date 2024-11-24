@@ -13,10 +13,10 @@ namespace Project.UI {
 
         public GameMenuWidget(IDependencyContainer container) : base( container ) {
             Router = container.RequireDependency<UIRouter>();
-            View = CreateView( this );
+            View2 = CreateView( this );
         }
         public override void Dispose() {
-            View.Dispose();
+            View2.Dispose();
             base.Dispose();
         }
 

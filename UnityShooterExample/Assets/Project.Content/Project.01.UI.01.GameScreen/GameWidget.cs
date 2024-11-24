@@ -21,18 +21,18 @@ namespace Project.UI {
 
         public GameWidget(IDependencyContainer container) : base( container ) {
             Game = container.RequireDependency<Game2>();
-            View = CreateView( this );
+            View2 = CreateView( this );
             Input = new InputActions_UI();
             Input.UI.Cancel.performed += ctx => {
-                if (View.focusController.focusedElement == null) {
-                    View.Focus();
+                if (View2.focusController.focusedElement == null) {
+                    View2.Focus();
                 }
             };
             AddChild( new PlayerWidget( Container ) );
         }
         public override void Dispose() {
             Input.Dispose();
-            View.Dispose();
+            View2.Dispose();
             base.Dispose();
         }
 

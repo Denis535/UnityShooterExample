@@ -14,10 +14,10 @@ namespace Project.UI {
 
         public ProfileSettingsWidget(IDependencyContainer container) : base( container ) {
             Application = container.RequireDependency<Application2>();
-            View = CreateView( this );
+            View2 = CreateView( this );
         }
         public override void Dispose() {
-            View.Dispose();
+            View2.Dispose();
             base.Dispose();
         }
 
@@ -26,7 +26,7 @@ namespace Project.UI {
         }
         protected override void OnDeactivate(object? argument) {
             if (argument is DeactivateReason.Submit) {
-                ProfileSettings.Name = View.Name.value;
+                ProfileSettings.Name = View2.Name.value;
                 ProfileSettings.Save();
             } else {
                 ProfileSettings.Load();

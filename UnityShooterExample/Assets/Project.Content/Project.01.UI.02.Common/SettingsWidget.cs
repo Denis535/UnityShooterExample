@@ -10,13 +10,13 @@ namespace Project.UI {
     public class SettingsWidget : UIWidgetBase2<SettingsWidgetView> {
 
         public SettingsWidget(IDependencyContainer container) : base( container ) {
-            View = CreateView( this );
+            View2 = CreateView( this );
             AddChild( new ProfileSettingsWidget( container ) );
             AddChild( new VideoSettingsWidget( container ) );
             AddChild( new AudioSettingsWidget( container ) );
         }
         public override void Dispose() {
-            View.Dispose();
+            View2.Dispose();
             base.Dispose();
         }
 

@@ -9,10 +9,10 @@ namespace Project.UI {
     public class UnloadingWidget : UIWidgetBase2<UnloadingWidgetView> {
 
         public UnloadingWidget(IDependencyContainer container) : base( container ) {
-            View = CreateView( this );
+            View2 = CreateView( this );
         }
         public override void Dispose() {
-            View.Dispose();
+            View2.Dispose();
             base.Dispose();
         }
 

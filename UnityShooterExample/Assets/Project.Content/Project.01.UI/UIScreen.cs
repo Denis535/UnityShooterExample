@@ -62,12 +62,12 @@ namespace Project.UI {
     public class RootWidget : UIRootWidgetBase<RootWidgetView> {
 
         public RootWidget(IDependencyContainer container) : base( container ) {
-            View = new RootWidgetView();
-            View.OnSubmitEvent += OnSubmit;
-            View.OnCancelEvent += OnCancel;
+            View2 = new RootWidgetView();
+            View2.OnSubmitEvent += OnSubmit;
+            View2.OnCancelEvent += OnCancel;
         }
         public override void Dispose() {
-            View.Dispose();
+            View2.Dispose();
             base.Dispose();
         }
 
@@ -127,11 +127,11 @@ namespace Project.UI {
             base.Dispose();
         }
 
-        protected override bool AddView(UIViewBase view) {
-            return base.AddView( view );
+        protected override bool TryAddView(UIViewBase view) {
+            return base.TryAddView( view );
         }
-        protected override bool RemoveView(UIViewBase view) {
-            return base.RemoveView( view );
+        protected override bool TryRemoveView(UIViewBase view) {
+            return base.TryRemoveView( view );
         }
 
         protected override void Sort() {
