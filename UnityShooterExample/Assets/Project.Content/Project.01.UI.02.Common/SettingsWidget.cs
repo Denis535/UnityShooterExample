@@ -16,6 +16,9 @@ namespace Project.UI {
             AddChild( new AudioSettingsWidget( container ) );
         }
         public override void Dispose() {
+            foreach (var child in Children) {
+                child.Dispose();
+            }
             View2.Dispose();
             base.Dispose();
         }

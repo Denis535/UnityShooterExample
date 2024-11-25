@@ -21,6 +21,9 @@ namespace Project.UI {
             View2 = CreateView( this );
         }
         public override void Dispose() {
+            foreach (var child in Children) {
+                child.Dispose();
+            }
             View2.Dispose();
             base.Dispose();
         }

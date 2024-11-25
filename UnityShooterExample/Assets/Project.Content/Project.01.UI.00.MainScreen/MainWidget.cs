@@ -22,6 +22,9 @@ namespace Project.UI {
             AddChild( new MainMenuWidget( Container ) );
         }
         public override void Dispose() {
+            foreach (var child in Children) {
+                child.Dispose();
+            }
             View2.Dispose();
             base.Dispose();
         }

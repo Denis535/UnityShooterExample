@@ -31,6 +31,9 @@ namespace Project.UI {
             AddChild( new PlayerWidget( Container ) );
         }
         public override void Dispose() {
+            foreach (var child in Children) {
+                child.Dispose();
+            }
             Input.Dispose();
             View2.Dispose();
             base.Dispose();
