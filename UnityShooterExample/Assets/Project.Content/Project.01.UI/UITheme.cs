@@ -23,6 +23,10 @@ namespace Project.UI {
         public void OnFixedUpdate() {
         }
         public void OnUpdate() {
+            if (PlayList != null && PlayList.IsFading) {
+                Volume = Mathf.MoveTowards( Volume, 0, Volume * 1.0f * Time.deltaTime );
+                Pitch = Mathf.MoveTowards( Pitch, 0, Pitch * 0.5f * Time.deltaTime );
+            }
         }
 
         public void PlayMainTheme() {
@@ -55,11 +59,10 @@ namespace Project.UI {
     }
     public abstract class PlayList : UIPlayListBase2 {
 
-        private readonly CancellationTokenSource stopCancellationTokenSource = new CancellationTokenSource();
-
-        private CancellationToken StopCancellationToken => stopCancellationTokenSource.Token;
-        protected AssetHandle<AudioClip>[] Clips { get; }
-        public bool IsFading { get; internal set; }
+        private CancellationTokenSource DeactivateCancellationTokenSource { get; } = new CancellationTokenSource();
+        private CancellationToken DeactivateCancellationToken => DeactivateCancellationTokenSource.Token;
+        private AssetHandle<AudioClip>[] Clips { get; }
+        internal bool IsFading { get; set; }
 
         public PlayList(IDependencyContainer container, AssetHandle<AudioClip>[] clips) : base( container ) {
             Clips = clips;
@@ -70,45 +73,32 @@ namespace Project.UI {
 
         protected override async void OnActivate(object? argument) {
             try {
-                for (var i = 0; true; i++) {
-                    await PlayAsync( Clips[ i % Clips.Length ] );
+                for (var i = 0; true; i = ++i % Clips.Length) {
+                    await PlayAsync( Clips[ i ], DeactivateCancellationToken );
                 }
             } catch (OperationCanceledException) {
             }
         }
         protected override void OnDeactivate(object? argument) {
-            stopCancellationTokenSource.Cancel();
+            DeactivateCancellationTokenSource.Cancel();
         }
 
-        private async Task PlayAsync(AssetHandle<AudioClip> clip) {
+        private async Task PlayAsync(AssetHandle<AudioClip> clip, CancellationToken cancellationToken) {
             try {
-                await PlayAsync( await clip.Load().GetValueAsync( StopCancellationToken ) );
-            } finally {
-                clip.Release();
-            }
-        }
-        private async Task PlayAsync(AudioClip clip) {
-            try {
-                Play( clip );
+                var clip_ = await clip.Load().GetValueAsync( cancellationToken );
                 IsFading = false;
                 Volume = 1;
                 Pitch = 1;
-                while (IsPlaying) {
-                    if (IsFading) {
-                        Volume = Mathf.MoveTowards( Volume, 0, Volume * 1.0f * Time.deltaTime );
-                        Pitch = Mathf.MoveTowards( Pitch, 0, Pitch * 0.5f * Time.deltaTime );
-                    }
-                    await Awaitable.NextFrameAsync( StopCancellationToken );
-                }
+                await PlayAsync( clip_, cancellationToken );
             } finally {
-                Stop();
+                clip.Release();
             }
         }
 
     }
     public class MainPlayList : PlayList {
 
-        private static readonly new AssetHandle<AudioClip>[] Clips = Shuffle( new[] {
+        private static readonly AssetHandle<AudioClip>[] Clips = Shuffle( new[] {
             new AssetHandle<AudioClip>( R.Project.UI.MainScreen.Music.Value_Theme )
         } );
 
@@ -121,7 +111,7 @@ namespace Project.UI {
     }
     public class GamePlayList : PlayList {
 
-        private static readonly new AssetHandle<AudioClip>[] Clips = Shuffle( new[] {
+        private static readonly AssetHandle<AudioClip>[] Clips = Shuffle( new[] {
             new AssetHandle<AudioClip>( R.Project.UI.GameScreen.Music.Value_Theme_1 ),
             new AssetHandle<AudioClip>( R.Project.UI.GameScreen.Music.Value_Theme_2 ),
         } );
