@@ -52,7 +52,7 @@ namespace Project.UI {
             base.Dispose();
         }
 
-        protected override bool TryAddView(UIViewBase view) {
+        protected override bool AddView(UIViewBase view) {
             if (view is ProfileSettingsWidgetView profileSettings) {
                 ProfileSettingsTab.Add( profileSettings );
                 return true;
@@ -67,7 +67,7 @@ namespace Project.UI {
             }
             return false;
         }
-        protected override bool TryRemoveView(UIViewBase view) {
+        protected override bool RemoveView(UIViewBase view) {
             if (view is ProfileSettingsWidgetView profileSettings) {
                 ProfileSettingsTab.Clear();
                 return true;

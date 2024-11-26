@@ -47,13 +47,13 @@ namespace Project.UI {
         // Helpers
         private static MainMenuWidgetView CreateView(MainMenuWidget widget) {
             var view = new MainMenuWidgetView();
-            view.AddViewRecursive( CreateView_Initial( widget ) );
+            view.AddView( CreateView_Initial( widget ) );
             return view;
         }
         private static MenuWidgetView_Initial CreateView_Initial(MainMenuWidget widget) {
             var view = new MenuWidgetView_Initial();
             view.StartGame.RegisterCallback<ClickEvent>( evt => {
-                view.AddViewRecursive( CreateView_StartGame( widget ) );
+                widget.ShowView( CreateView_StartGame( widget ) );
             } );
             view.Settings.RegisterCallback<ClickEvent>( evt => {
                 widget.AddChild( new SettingsWidget( widget.Container ) );
@@ -66,29 +66,29 @@ namespace Project.UI {
         private static MenuWidgetView_StartGame CreateView_StartGame(MainMenuWidget widget) {
             var view = new MenuWidgetView_StartGame();
             view.NewGame.RegisterCallback<ClickEvent>( evt => {
-                view.AddViewRecursive( CreateView_SelectLevel( widget ) );
+                widget.ShowView( CreateView_SelectLevel( widget ) );
             } );
             view.Continue.RegisterCallback<ClickEvent>( evt => {
-                view.AddViewRecursive( CreateView_SelectLevel( widget ) );
+                widget.ShowView( CreateView_SelectLevel( widget ) );
             } );
             view.Back.RegisterCallback<ClickEvent>( evt => {
-                view.RemoveViewRecursive( view );
+                widget.HideView( view );
             } );
             return view;
         }
         private static MenuWidgetView_SelectLevel CreateView_SelectLevel(MainMenuWidget widget) {
             var view = new MenuWidgetView_SelectLevel();
             view.Level1.RegisterCallback<ClickEvent>( evt => {
-                view.AddViewRecursive( CreateView_SelectCharacter( widget, GameInfo.Level_.Level1 ) );
+                widget.ShowView( CreateView_SelectCharacter( widget, GameInfo.Level_.Level1 ) );
             } );
             view.Level2.RegisterCallback<ClickEvent>( evt => {
-                view.AddViewRecursive( CreateView_SelectCharacter( widget, GameInfo.Level_.Level2 ) );
+                widget.ShowView( CreateView_SelectCharacter( widget, GameInfo.Level_.Level2 ) );
             } );
             view.Level3.RegisterCallback<ClickEvent>( evt => {
-                view.AddViewRecursive( CreateView_SelectCharacter( widget, GameInfo.Level_.Level3 ) );
+                widget.ShowView( CreateView_SelectCharacter( widget, GameInfo.Level_.Level3 ) );
             } );
             view.Back.RegisterCallback<ClickEvent>( evt => {
-                view.RemoveViewRecursive( view );
+                widget.HideView( view );
             } );
             return view;
         }
@@ -107,7 +107,7 @@ namespace Project.UI {
                 widget.Router.LoadGameScene( new GameInfo( "Game", GameInfo.Mode_.None, level ), new PlayerInfo( widget.ProfileSettings.Name, PlayerInfo.CharacterType_.Blue ) );
             } );
             view.Back.RegisterCallback<ClickEvent>( evt => {
-                view.RemoveViewRecursive( view );
+                widget.HideView( view );
             } );
             return view;
         }

@@ -127,11 +127,11 @@ namespace Project.UI {
             base.Dispose();
         }
 
-        protected override bool TryAddView(UIViewBase view) {
-            return base.TryAddView( view );
+        protected override bool AddView(UIViewBase view) {
+            return base.AddView( view );
         }
-        protected override bool TryRemoveView(UIViewBase view) {
-            return base.TryRemoveView( view );
+        protected override bool RemoveView(UIViewBase view) {
+            return base.RemoveView( view );
         }
 
         protected override void Sort() {
