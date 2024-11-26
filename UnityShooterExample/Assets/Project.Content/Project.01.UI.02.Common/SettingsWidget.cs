@@ -10,7 +10,7 @@ namespace Project.UI {
     public class SettingsWidget : UIWidgetBase2<SettingsWidgetView> {
 
         public SettingsWidget(IDependencyContainer container) : base( container ) {
-            View2 = CreateView( this );
+            View = CreateView( this );
             AddChild( new ProfileSettingsWidget( container ) );
             AddChild( new VideoSettingsWidget( container ) );
             AddChild( new AudioSettingsWidget( container ) );
@@ -19,7 +19,7 @@ namespace Project.UI {
             foreach (var child in Children) {
                 child.Dispose();
             }
-            View2.Dispose();
+            View.Dispose();
             base.Dispose();
         }
 

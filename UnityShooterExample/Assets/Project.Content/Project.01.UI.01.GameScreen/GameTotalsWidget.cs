@@ -16,13 +16,13 @@ namespace Project.UI {
         public GameTotalsWidget(IDependencyContainer container) : base( container ) {
             Router = container.RequireDependency<UIRouter>();
             Game = container.RequireDependency<Game2>();
-            View2 = CreateView( this );
+            View = CreateView( this );
         }
         public override void Dispose() {
             foreach (var child in Children) {
                 child.Dispose();
             }
-            View2.Dispose();
+            View.Dispose();
             base.Dispose();
         }
 

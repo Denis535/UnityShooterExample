@@ -14,13 +14,13 @@ namespace Project.UI {
 
         public PlayerWidget(IDependencyContainer container) : base( container ) {
             Game = container.RequireDependency<Game2>();
-            View2 = CreateView( this );
+            View = CreateView( this );
         }
         public override void Dispose() {
             foreach (var child in Children) {
                 child.Dispose();
             }
-            View2.Dispose();
+            View.Dispose();
             base.Dispose();
         }
 
@@ -42,9 +42,9 @@ namespace Project.UI {
 
         public void OnUpdate() {
             if (Game.Player.Camera != null) {
-                View2.Target.style.color = GetTargetColor( Game.Player.Camera );
+                View.Target.style.color = GetTargetColor( Game.Player.Camera );
             } else {
-                View2.Target.style.color = default;
+                View.Target.style.color = default;
             }
         }
 

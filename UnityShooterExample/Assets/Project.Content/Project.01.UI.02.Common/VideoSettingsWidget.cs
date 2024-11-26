@@ -14,13 +14,13 @@ namespace Project.UI {
 
         public VideoSettingsWidget(IDependencyContainer container) : base( container ) {
             Application = container.RequireDependency<Application2>();
-            View2 = CreateView( this );
+            View = CreateView( this );
         }
         public override void Dispose() {
             foreach (var child in Children) {
                 child.Dispose();
             }
-            View2.Dispose();
+            View.Dispose();
             base.Dispose();
         }
 
@@ -29,9 +29,9 @@ namespace Project.UI {
         }
         protected override void OnDeactivate(object? argument) {
             if (argument is DeactivateReason.Submit) {
-                VideoSettings.IsFullScreen = View2.IsFullScreen.value;
-                VideoSettings.ScreenResolution = (Resolution) View2.ScreenResolution.value!;
-                VideoSettings.IsVSync = View2.IsVSync.value;
+                VideoSettings.IsFullScreen = View.IsFullScreen.value;
+                VideoSettings.ScreenResolution = (Resolution) View.ScreenResolution.value!;
+                VideoSettings.IsVSync = View.IsVSync.value;
                 VideoSettings.Save();
             } else {
                 VideoSettings.Load();

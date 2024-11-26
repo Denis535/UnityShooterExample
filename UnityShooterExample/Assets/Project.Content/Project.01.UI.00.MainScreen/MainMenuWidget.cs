@@ -18,13 +18,13 @@ namespace Project.UI {
         public MainMenuWidget(IDependencyContainer container) : base( container ) {
             Router = container.RequireDependency<UIRouter>();
             Application = container.RequireDependency<Application2>();
-            View2 = CreateView( this );
+            View = CreateView( this );
         }
         public override void Dispose() {
             foreach (var child in Children) {
                 child.Dispose();
             }
-            View2.Dispose();
+            View.Dispose();
             base.Dispose();
         }
 

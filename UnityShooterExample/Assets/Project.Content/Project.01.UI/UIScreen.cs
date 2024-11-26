@@ -62,12 +62,12 @@ namespace Project.UI {
     public class RootWidget : UIRootWidgetBase<RootWidgetView> {
 
         public RootWidget(IDependencyContainer container) : base( container ) {
-            View2 = new RootWidgetView();
-            View2.OnSubmitEvent += OnSubmit;
-            View2.OnCancelEvent += OnCancel;
+            View = new RootWidgetView();
+            View.OnSubmitEvent += OnSubmit;
+            View.OnCancelEvent += OnCancel;
         }
         public override void Dispose() {
-            View2.Dispose();
+            View.Dispose();
             base.Dispose();
         }
 

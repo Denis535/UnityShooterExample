@@ -21,11 +21,11 @@ namespace Project.UI {
 
         public GameWidget(IDependencyContainer container) : base( container ) {
             Game = container.RequireDependency<Game2>();
-            View2 = CreateView( this );
+            View = CreateView( this );
             Input = new InputActions_UI();
             Input.UI.Cancel.performed += ctx => {
-                if (View2.focusController.focusedElement == null) {
-                    View2.Focus();
+                if (View.focusController.focusedElement == null) {
+                    View.Focus();
                 }
             };
             AddChild( new PlayerWidget( Container ) );
@@ -35,7 +35,7 @@ namespace Project.UI {
                 child.Dispose();
             }
             Input.Dispose();
-            View2.Dispose();
+            View.Dispose();
             base.Dispose();
         }
 

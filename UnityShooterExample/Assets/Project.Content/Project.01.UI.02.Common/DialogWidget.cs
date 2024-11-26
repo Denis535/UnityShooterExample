@@ -16,22 +16,22 @@ namespace Project.UI {
     public class DialogWidget : UIWidgetBase2<DialogWidgetView>, IDialogWidget<DialogWidget> {
 
         public string? Title {
-            get => View2.Title.text;
+            get => View.Title.text;
             set {
-                View2.Title.text = value;
-                View2.Header.SetDisplayed( value != null );
+                View.Title.text = value;
+                View.Header.SetDisplayed( value != null );
             }
         }
         public string? Message {
-            get => View2.Message.text;
+            get => View.Message.text;
             set {
-                View2.Message.text = value;
-                View2.Content.SetDisplayed( value != null );
+                View.Message.text = value;
+                View.Content.SetDisplayed( value != null );
             }
         }
 
         public DialogWidget(IDependencyContainer container, string? title, string? message) : base( container ) {
-            View2 = new DialogWidgetView();
+            View = new DialogWidgetView();
             Title = title;
             Message = message;
         }
@@ -39,7 +39,7 @@ namespace Project.UI {
             foreach (var child in Children) {
                 child.Dispose();
             }
-            View2.Dispose();
+            View.Dispose();
             base.Dispose();
         }
 
@@ -67,8 +67,8 @@ namespace Project.UI {
                     if (Activity is Activity_.Active) RemoveSelf();
                 }
             } );
-            View2.Footer.Add( button );
-            View2.Footer.SetDisplayed( true );
+            View.Footer.Add( button );
+            View.Footer.SetDisplayed( true );
             return this;
         }
         public DialogWidget OnCancel(string text, Action? callback) {
@@ -79,8 +79,8 @@ namespace Project.UI {
                     if (Activity is Activity_.Active) RemoveSelf();
                 }
             } );
-            View2.Footer.Add( button );
-            View2.Footer.SetDisplayed( true );
+            View.Footer.Add( button );
+            View.Footer.SetDisplayed( true );
             return this;
         }
 
@@ -88,27 +88,27 @@ namespace Project.UI {
     public class InfoDialogWidget : UIWidgetBase2<InfoDialogWidgetView>, IDialogWidget<InfoDialogWidget> {
 
         public string? Title {
-            get => View2.Title.text;
+            get => View.Title.text;
             set {
-                View2.Title.text = value;
-                View2.Header.SetDisplayed( value != null );
+                View.Title.text = value;
+                View.Header.SetDisplayed( value != null );
             }
         }
         public string? Message {
-            get => View2.Message.text;
+            get => View.Message.text;
             set {
-                View2.Message.text = value;
-                View2.Content.SetDisplayed( value != null );
+                View.Message.text = value;
+                View.Content.SetDisplayed( value != null );
             }
         }
 
         public InfoDialogWidget(IDependencyContainer container, string? title, string? message) : base( container ) {
-            View2 = new InfoDialogWidgetView();
+            View = new InfoDialogWidgetView();
             Title = title;
             Message = message;
         }
         public override void Dispose() {
-            View2.Dispose();
+            View.Dispose();
             base.Dispose();
         }
 
@@ -136,8 +136,8 @@ namespace Project.UI {
                     if (Activity is Activity_.Active) RemoveSelf();
                 }
             } );
-            View2.Footer.Add( button );
-            View2.Footer.SetDisplayed( true );
+            View.Footer.Add( button );
+            View.Footer.SetDisplayed( true );
             return this;
         }
         public InfoDialogWidget OnCancel(string text, Action? callback) {
@@ -148,8 +148,8 @@ namespace Project.UI {
                     if (Activity is Activity_.Active) RemoveSelf();
                 }
             } );
-            View2.Footer.Add( button );
-            View2.Footer.SetDisplayed( true );
+            View.Footer.Add( button );
+            View.Footer.SetDisplayed( true );
             return this;
         }
 
@@ -157,27 +157,27 @@ namespace Project.UI {
     public class WarningDialogWidget : UIWidgetBase2<WarningDialogWidgetView>, IDialogWidget<WarningDialogWidget> {
 
         public string? Title {
-            get => View2.Title.text;
+            get => View.Title.text;
             set {
-                View2.Title.text = value;
-                View2.Header.SetDisplayed( value != null );
+                View.Title.text = value;
+                View.Header.SetDisplayed( value != null );
             }
         }
         public string? Message {
-            get => View2.Message.text;
+            get => View.Message.text;
             set {
-                View2.Message.text = value;
-                View2.Content.SetDisplayed( value != null );
+                View.Message.text = value;
+                View.Content.SetDisplayed( value != null );
             }
         }
 
         public WarningDialogWidget(IDependencyContainer container, string? title, string? message) : base( container ) {
-            View2 = new WarningDialogWidgetView();
+            View = new WarningDialogWidgetView();
             Title = title;
             Message = message;
         }
         public override void Dispose() {
-            View2.Dispose();
+            View.Dispose();
             base.Dispose();
         }
 
@@ -205,8 +205,8 @@ namespace Project.UI {
                     if (Activity is Activity_.Active) RemoveSelf();
                 }
             } );
-            View2.Footer.Add( button );
-            View2.Footer.SetDisplayed( true );
+            View.Footer.Add( button );
+            View.Footer.SetDisplayed( true );
             return this;
         }
         public WarningDialogWidget OnCancel(string text, Action? callback) {
@@ -217,8 +217,8 @@ namespace Project.UI {
                     if (Activity is Activity_.Active) RemoveSelf();
                 }
             } );
-            View2.Footer.Add( button );
-            View2.Footer.SetDisplayed( true );
+            View.Footer.Add( button );
+            View.Footer.SetDisplayed( true );
             return this;
         }
 
@@ -226,27 +226,27 @@ namespace Project.UI {
     public class ErrorDialogWidget : UIWidgetBase2<ErrorDialogWidgetView>, IDialogWidget<ErrorDialogWidget> {
 
         public string? Title {
-            get => View2.Title.text;
+            get => View.Title.text;
             set {
-                View2.Title.text = value;
-                View2.Header.SetDisplayed( value != null );
+                View.Title.text = value;
+                View.Header.SetDisplayed( value != null );
             }
         }
         public string? Message {
-            get => View2.Message.text;
+            get => View.Message.text;
             set {
-                View2.Message.text = value;
-                View2.Content.SetDisplayed( value != null );
+                View.Message.text = value;
+                View.Content.SetDisplayed( value != null );
             }
         }
 
         public ErrorDialogWidget(IDependencyContainer container, string? title, string? message) : base( container ) {
-            View2 = new ErrorDialogWidgetView();
+            View = new ErrorDialogWidgetView();
             Title = title;
             Message = message;
         }
         public override void Dispose() {
-            View2.Dispose();
+            View.Dispose();
             base.Dispose();
         }
 
@@ -274,8 +274,8 @@ namespace Project.UI {
                     if (Activity is Activity_.Active) RemoveSelf();
                 }
             } );
-            View2.Footer.Add( button );
-            View2.Footer.SetDisplayed( true );
+            View.Footer.Add( button );
+            View.Footer.SetDisplayed( true );
             return this;
         }
         public ErrorDialogWidget OnCancel(string text, Action? callback) {
@@ -286,8 +286,8 @@ namespace Project.UI {
                     if (Activity is Activity_.Active) RemoveSelf();
                 }
             } );
-            View2.Footer.Add( button );
-            View2.Footer.SetDisplayed( true );
+            View.Footer.Add( button );
+            View.Footer.SetDisplayed( true );
             return this;
         }
 

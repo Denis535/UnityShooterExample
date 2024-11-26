@@ -15,13 +15,13 @@ namespace Project.UI {
 
         public AudioSettingsWidget(IDependencyContainer container) : base( container ) {
             Application = container.RequireDependency<Application2>();
-            View2 = CreateView( this );
+            View = CreateView( this );
         }
         public override void Dispose() {
             foreach (var child in Children) {
                 child.Dispose();
             }
-            View2.Dispose();
+            View.Dispose();
             base.Dispose();
         }
 
@@ -30,10 +30,10 @@ namespace Project.UI {
         }
         protected override void OnDeactivate(object? argument) {
             if (argument is DeactivateReason.Submit) {
-                AudioSettings.MasterVolume = View2.MasterVolume.value;
-                AudioSettings.MusicVolume = View2.MusicVolume.value;
-                AudioSettings.SfxVolume = View2.SfxVolume.value;
-                AudioSettings.GameVolume = View2.GameVolume.value;
+                AudioSettings.MasterVolume = View.MasterVolume.value;
+                AudioSettings.MusicVolume = View.MusicVolume.value;
+                AudioSettings.SfxVolume = View.SfxVolume.value;
+                AudioSettings.GameVolume = View.GameVolume.value;
                 AudioSettings.Save();
             } else {
                 AudioSettings.Load();

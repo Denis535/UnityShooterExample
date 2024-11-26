@@ -9,13 +9,13 @@ namespace Project.UI {
     public class LoadingWidget : UIWidgetBase2<LoadingWidgetView> {
 
         public LoadingWidget(IDependencyContainer container) : base( container ) {
-            View2 = CreateView( this );
+            View = CreateView( this );
         }
         public override void Dispose() {
             foreach (var child in Children) {
                 child.Dispose();
             }
-            View2.Dispose();
+            View.Dispose();
             base.Dispose();
         }
 
