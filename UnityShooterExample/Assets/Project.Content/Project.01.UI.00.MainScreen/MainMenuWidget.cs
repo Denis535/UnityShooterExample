@@ -50,8 +50,8 @@ namespace Project.UI {
             view.AddView( CreateView_Initial( widget ) );
             return view;
         }
-        private static MenuWidgetView_Initial CreateView_Initial(MainMenuWidget widget) {
-            var view = new MenuWidgetView_Initial();
+        private static MainMenuWidgetView_Initial CreateView_Initial(MainMenuWidget widget) {
+            var view = new MainMenuWidgetView_Initial();
             view.StartGame.RegisterCallback<ClickEvent>( evt => {
                 widget.ShowView( CreateView_StartGame( widget ) );
             } );
@@ -63,8 +63,8 @@ namespace Project.UI {
             } );
             return view;
         }
-        private static MenuWidgetView_StartGame CreateView_StartGame(MainMenuWidget widget) {
-            var view = new MenuWidgetView_StartGame();
+        private static MainMenuWidgetView_StartGame CreateView_StartGame(MainMenuWidget widget) {
+            var view = new MainMenuWidgetView_StartGame();
             view.NewGame.RegisterCallback<ClickEvent>( evt => {
                 widget.ShowView( CreateView_SelectLevel( widget ) );
             } );
@@ -76,8 +76,8 @@ namespace Project.UI {
             } );
             return view;
         }
-        private static MenuWidgetView_SelectLevel CreateView_SelectLevel(MainMenuWidget widget) {
-            var view = new MenuWidgetView_SelectLevel();
+        private static MainMenuWidgetView_SelectLevel CreateView_SelectLevel(MainMenuWidget widget) {
+            var view = new MainMenuWidgetView_SelectLevel();
             view.Level1.RegisterCallback<ClickEvent>( evt => {
                 widget.ShowView( CreateView_SelectCharacter( widget, GameInfo.Level_.Level1 ) );
             } );
@@ -92,8 +92,8 @@ namespace Project.UI {
             } );
             return view;
         }
-        private static MenuWidgetView_SelectCharacter CreateView_SelectCharacter(MainMenuWidget widget, GameInfo.Level_ level) {
-            var view = new MenuWidgetView_SelectCharacter();
+        private static MainMenuWidgetView_SelectCharacter CreateView_SelectCharacter(MainMenuWidget widget, GameInfo.Level_ level) {
+            var view = new MainMenuWidgetView_SelectCharacter();
             view.Gray.RegisterCallback<ClickEvent>( evt => {
                 widget.Router.LoadGameScene( new GameInfo( "Game", GameInfo.Mode_.None, level ), new PlayerInfo( widget.ProfileSettings.Name, PlayerInfo.CharacterType_.Gray ) );
             } );

@@ -32,14 +32,14 @@ namespace Project.UI {
             base.Dispose();
         }
 
-        public void AddView(MenuWidgetView_Initial view) {
+        public void AddView(MainMenuWidgetView_Initial view) {
             Content.Add( view );
             SetVisibility( Content.Children().Cast<UIViewBase>().ToArray() );
             Title.text = GetTitle( Content.Children().Cast<UIViewBase>().Last() );
         }
 
         protected override bool AddView(UIViewBase view) {
-            if (view is MenuWidgetView_Initial or MenuWidgetView_StartGame or MenuWidgetView_SelectLevel or MenuWidgetView_SelectCharacter) {
+            if (view is MainMenuWidgetView_Initial or MainMenuWidgetView_StartGame or MainMenuWidgetView_SelectLevel or MainMenuWidgetView_SelectCharacter) {
                 Content.Add( view );
                 SetVisibility( Content.Children().Cast<UIViewBase>().ToArray() );
                 Title.text = GetTitle( Content.Children().Cast<UIViewBase>().Last() );
@@ -48,7 +48,7 @@ namespace Project.UI {
             return false;
         }
         protected override bool RemoveView(UIViewBase view) {
-            if (view is MenuWidgetView_Initial or MenuWidgetView_StartGame or MenuWidgetView_SelectLevel or MenuWidgetView_SelectCharacter) {
+            if (view is MainMenuWidgetView_Initial or MainMenuWidgetView_StartGame or MainMenuWidgetView_SelectLevel or MainMenuWidgetView_SelectCharacter) {
                 Content.Remove( view );
                 SetVisibility( Content.Children().Cast<UIViewBase>().ToArray() );
                 Title.text = GetTitle( Content.Children().Cast<UIViewBase>().Last() );
@@ -80,29 +80,29 @@ namespace Project.UI {
         }
         // Helpers
         private static string GetTitle(UIViewBase view) {
-            if (view is MenuWidgetView_Initial) {
+            if (view is MainMenuWidgetView_Initial) {
                 return "Menu";
             }
-            if (view is MenuWidgetView_StartGame) {
+            if (view is MainMenuWidgetView_StartGame) {
                 return "Start Game";
             }
-            if (view is MenuWidgetView_SelectLevel) {
+            if (view is MainMenuWidgetView_SelectLevel) {
                 return "Select Level";
             }
-            if (view is MenuWidgetView_SelectCharacter) {
+            if (view is MainMenuWidgetView_SelectCharacter) {
                 return "Select Your Character";
             }
             throw Exceptions.Internal.NotSupported( $"View {view} is not supported" );
         }
 
     }
-    public class MenuWidgetView_Initial : View {
+    public class MainMenuWidgetView_Initial : View {
 
         public Button StartGame { get; }
         public Button Settings { get; }
         public Button Quit { get; }
 
-        public MenuWidgetView_Initial() : base( "initial-view" ) {
+        public MainMenuWidgetView_Initial() : base( "initial-view" ) {
             this.Add(
                 StartGame = VisualElementFactory.Select( "Start Game" ),
                 Settings = VisualElementFactory.Select( "Settings" ),
@@ -114,13 +114,13 @@ namespace Project.UI {
         }
 
     }
-    public class MenuWidgetView_StartGame : View {
+    public class MainMenuWidgetView_StartGame : View {
 
         public Button NewGame { get; }
         public Button Continue { get; }
         public Button Back { get; }
 
-        public MenuWidgetView_StartGame() : base( "start-game-view" ) {
+        public MainMenuWidgetView_StartGame() : base( "start-game-view" ) {
             this.Add(
                 NewGame = VisualElementFactory.Select( "New Game" ),
                 Continue = VisualElementFactory.Select( "Continue" ),
@@ -132,14 +132,14 @@ namespace Project.UI {
         }
 
     }
-    public class MenuWidgetView_SelectLevel : View {
+    public class MainMenuWidgetView_SelectLevel : View {
 
         public Button Level1 { get; }
         public Button Level2 { get; }
         public Button Level3 { get; }
         public Button Back { get; }
 
-        public MenuWidgetView_SelectLevel() : base( "select-level-view" ) {
+        public MainMenuWidgetView_SelectLevel() : base( "select-level-view" ) {
             this.Add(
                 VisualElementFactory.ColumnScope().Classes( "margin-bottom-4px" ).Children(
                     Level1 = VisualElementFactory.Select( "Level 1" ),
@@ -154,7 +154,7 @@ namespace Project.UI {
         }
 
     }
-    public class MenuWidgetView_SelectCharacter : View {
+    public class MainMenuWidgetView_SelectCharacter : View {
 
         public Button Gray { get; }
         public Button Red { get; }
@@ -162,7 +162,7 @@ namespace Project.UI {
         public Button Blue { get; }
         public Button Back { get; }
 
-        public MenuWidgetView_SelectCharacter() : base( "select-character-view" ) {
+        public MainMenuWidgetView_SelectCharacter() : base( "select-character-view" ) {
             this.Add(
                 VisualElementFactory.ColumnScope().Classes( "margin-bottom-4px" ).Children(
                     Gray = VisualElementFactory.Select( "Gray" ),

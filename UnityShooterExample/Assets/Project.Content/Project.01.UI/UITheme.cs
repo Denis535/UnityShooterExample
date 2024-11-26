@@ -59,8 +59,6 @@ namespace Project.UI {
     }
     public abstract class PlayList : UIPlayListBase2 {
 
-        private CancellationTokenSource DeactivateCancellationTokenSource { get; } = new CancellationTokenSource();
-        private CancellationToken DeactivateCancellationToken => DeactivateCancellationTokenSource.Token;
         private AssetHandle<AudioClip>[] Clips { get; }
         internal bool IsFading { get; set; }
 
@@ -72,15 +70,15 @@ namespace Project.UI {
         }
 
         protected override async void OnActivate(object? argument) {
+            var cancellationToken = WhenOnBeforeDeactivateEvent();
             try {
                 for (var i = 0; true; i = ++i % Clips.Length) {
-                    await PlayAsync( Clips[ i ], DeactivateCancellationToken );
+                    await PlayAsync( Clips[ i ], cancellationToken );
                 }
             } catch (OperationCanceledException) {
             }
         }
         protected override void OnDeactivate(object? argument) {
-            DeactivateCancellationTokenSource.Cancel();
         }
 
         private async Task PlayAsync(AssetHandle<AudioClip> clip, CancellationToken cancellationToken) {
