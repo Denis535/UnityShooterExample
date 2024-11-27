@@ -19,7 +19,7 @@
       "url": "https://package.openupm.com"
     },
     "com.denis535.clean-architecture-game-framework": {
-      "version": "1.4.20",
+      "version": "1.4.21",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -29,7 +29,7 @@
       "url": "https://package.openupm.com"
     },
     "com.denis535.colorful-project-window": {
-      "version": "1.0.46",
+      "version": "1.0.47",
       "depth": 0,
       "source": "registry",
       "dependencies": {},

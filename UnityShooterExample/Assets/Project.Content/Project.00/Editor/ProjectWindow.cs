@@ -4,6 +4,7 @@ namespace Project {
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
     using System.Text;
@@ -12,13 +13,13 @@ namespace Project {
     using UnityEngine;
 
     [InitializeOnLoad]
-    public class ProjectWindow2 : ProjectWindow {
+    public class ProjectWindow : ProjectWindowBase2 {
 
-        static ProjectWindow2() {
-            new ProjectWindow2();
+        static ProjectWindow() {
+            new ProjectWindow();
         }
 
-        public ProjectWindow2() : base( GetPackagePaths(), GetModulePaths() ) {
+        public ProjectWindow() : base( GetPackagePaths(), GetModulePaths() ) {
         }
         public override void Dispose() {
             base.Dispose();
@@ -26,6 +27,22 @@ namespace Project {
 
         protected override void OnGUI(string guid, Rect rect) {
             base.OnGUI( guid, rect );
+        }
+
+        protected override bool IsPackage(string path, [NotNullWhen( true )] out string? name, [NotNullWhen( true )] out string? rest) {
+            return base.IsPackage( path, out name, out rest );
+        }
+        protected override bool IsAssembly(string path, [NotNullWhen( true )] out string? name, [NotNullWhen( true )] out string? rest) {
+            return base.IsAssembly( path, out name, out rest );
+        }
+        protected override bool IsAssets(string path, string name, string rest) {
+            return base.IsAssets( path, name, rest );
+        }
+        protected override bool IsResources(string path, string name, string rest) {
+            return base.IsResources( path, name, rest );
+        }
+        protected override bool IsSources(string path, string name, string rest) {
+            return base.IsSources( path, name, rest );
         }
 
         protected override void DrawPackageElement(Rect rect, string path, string name, string rest) {
