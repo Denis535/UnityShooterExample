@@ -17,8 +17,17 @@ namespace Project.Game {
         public PlayerState State {
             get => state;
             internal set {
-                state = value;
-                OnStateChangeEvent?.Invoke( State );
+                if (state is PlayerState.None && value is PlayerState.Playing) {
+                    state = value;
+                    OnStateChangeEvent?.Invoke( State );
+                    return;
+                }
+                if (state is PlayerState.None && value is PlayerState.Won or PlayerState.Lost) {
+                    state = value;
+                    OnStateChangeEvent?.Invoke( State );
+                    return;
+                }
+                throw Exceptions.Operation.InvalidOperationException( $"Transition from {state} to {value} is invalid" );
             }
         }
         public event Action<PlayerState>? OnStateChangeEvent;
@@ -77,8 +86,9 @@ namespace Project.Game {
         }
     }
     public enum PlayerState {
+        None,
         Playing,
-        Winner,
-        Loser
+        Won,
+        Lost
     }
 }

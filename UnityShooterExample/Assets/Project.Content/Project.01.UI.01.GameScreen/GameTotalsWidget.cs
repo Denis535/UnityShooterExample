@@ -35,7 +35,7 @@ namespace Project.UI {
 
         // Helpers
         private static GameTotalsWidgetView CreateView(GameTotalsWidget widget) {
-            if (widget.Game.Player.State is PlayerState.Winner) {
+            if (widget.Game.Player.State is PlayerState.Won) {
                 if (!widget.Game.Info.Level.IsLast()) {
                     var view = new GameTotalsWidgetView_LevelCompleted();
                     view.Continue.RegisterCallback<ClickEvent>( evt => {
@@ -56,7 +56,7 @@ namespace Project.UI {
                     return view;
                 }
             }
-            if (widget.Game.Player.State is PlayerState.Loser) {
+            if (widget.Game.Player.State is PlayerState.Lost) {
                 var view = new GameTotalsWidgetView_LevelFailed();
                 view.Retry.RegisterCallback<ClickEvent>( evt => {
                     var gameInfo = widget.Game.Info;
