@@ -27,8 +27,7 @@ namespace Project {
 #if UNITY_EDITOR
         [InitializeOnLoadMethod]
         private static void OnLoad_Editor() {
-            var message = new StringBuilder().AppendLine( "You can check the latest version:" ).Append( "https://denis535.github.io/#unity-shooter-example" );
-            Debug.Log( message );
+            Debug.Log( new StringBuilder().AppendLine( "You can check the latest version and more:" ).Append( "https://denis535.github.io/#unity-shooter-example" ) );
             if (!EditorApplication.isPlaying) {
                 UnityEditor.SceneManagement.EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>( "Assets/Project.Content/Assets.Project.00/Scenes/Main.unity" );
                 //EditorSceneManager.playModeStartScene = null;
