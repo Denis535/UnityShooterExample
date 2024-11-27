@@ -78,13 +78,13 @@ namespace Project.Game {
         public void OnFixedUpdate() {
         }
         public void OnUpdate() {
-            if (State is GameState.Playing && !IsPaused) {
+            if (State is GameState.Playing or GameState.Completed && !IsPaused && Cursor.lockState == CursorLockMode.Locked) {
                 Player.CharacterInputProvider.IsEnabled =
-                    Player.State is PlayerState.Playing &&
+                    Player.State is PlayerState.Playing or PlayerState.Won or PlayerState.Lost &&
                     Player.Character != null && Player.Character.IsAlive &&
                     Player.Camera != null;
                 Player.CameraInputProvider.IsEnabled =
-                    Player.State is PlayerState.Playing &&
+                    Player.State is PlayerState.Playing or PlayerState.Won or PlayerState.Lost &&
                     Player.Character != null &&
                     Player.Camera != null;
             } else {
@@ -94,11 +94,13 @@ namespace Project.Game {
         }
         public void OnLateUpdate() {
             if (State is GameState.Playing) {
-                if (Player.State is PlayerState.Playing && IsDirty && IsLoser( Player )) {
-                    OnLoser( Player );
-                }
-                if (Player.State is PlayerState.Playing && IsDirty && IsWinner( Player )) {
-                    OnWinner( Player );
+                if (Player.State is PlayerState.Playing) {
+                    if (IsDirty && IsLoser( Player )) {
+                        OnLoser( Player );
+                    }
+                    if (IsDirty && IsWinner( Player )) {
+                        OnWinner( Player );
+                    }
                 }
             }
             IsDirty = false;
