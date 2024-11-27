@@ -66,6 +66,7 @@ namespace Project.UI {
             } );
             view.Back.RegisterCallback<ClickEvent>( evt => {
                 widget.HideView( view );
+                view.Dispose();
             } );
             return view;
         }
@@ -82,6 +83,7 @@ namespace Project.UI {
             } );
             view.Back.RegisterCallback<ClickEvent>( evt => {
                 widget.HideView( view );
+                view.Dispose();
             } );
             return view;
         }
@@ -101,6 +103,7 @@ namespace Project.UI {
             } );
             view.Back.RegisterCallback<ClickEvent>( evt => {
                 widget.HideView( view );
+                view.Dispose();
             } );
             return view;
         }
