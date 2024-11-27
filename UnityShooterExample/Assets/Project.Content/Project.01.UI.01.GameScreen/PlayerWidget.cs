@@ -31,15 +31,6 @@ namespace Project.UI {
             HideSelf();
         }
 
-        protected override void OnBeforeDescendantActivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantActivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnBeforeDescendantDeactivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantDeactivate(UIWidgetBase descendant, object? argument) {
-        }
-
         public void OnUpdate() {
             if (Game.Player.Camera != null) {
                 View.Target.style.color = GetTargetColor( Game.Player.Camera );

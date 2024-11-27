@@ -35,19 +35,12 @@ namespace Project.UI {
             HideSelf();
         }
 
-        protected override void OnBeforeDescendantActivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantActivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnBeforeDescendantDeactivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantDeactivate(UIWidgetBase descendant, object? argument) {
-        }
-
         // Helpers
         private static MainMenuWidgetView CreateView(MainMenuWidget widget) {
             var view = new MainMenuWidgetView();
-            view.AddView( CreateView_Initial( widget ) );
+            view.RegisterCallbackOnce<AttachToPanelEvent>( evt => {
+                widget.ShowView( CreateView_Initial( widget ) );
+            } );
             return view;
         }
         private static MainMenuWidgetView_Initial CreateView_Initial(MainMenuWidget widget) {

@@ -37,15 +37,6 @@ namespace Project.UI {
             HideSelf();
         }
 
-        protected override void OnBeforeDescendantActivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantActivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnBeforeDescendantDeactivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantDeactivate(UIWidgetBase descendant, object? argument) {
-        }
-
         // Helpers
         private static ProfileSettingsWidgetView CreateView(ProfileSettingsWidget widget) {
             var view = new ProfileSettingsWidgetView( widget.ProfileSettings.IsNameValid );

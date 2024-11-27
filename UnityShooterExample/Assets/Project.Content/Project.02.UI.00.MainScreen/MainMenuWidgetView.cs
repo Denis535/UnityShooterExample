@@ -32,12 +32,6 @@ namespace Project.UI {
             base.Dispose();
         }
 
-        public void AddView(MainMenuWidgetView_Initial view) {
-            Content.Add( view );
-            SetVisibility( Content.Children().Cast<UIViewBase>().ToArray() );
-            Title.text = GetTitle( Content.Children().Cast<UIViewBase>().Last() );
-        }
-
         protected override bool AddView(UIViewBase view) {
             if (view is MainMenuWidgetView_Initial or MainMenuWidgetView_StartGame or MainMenuWidgetView_SelectLevel or MainMenuWidgetView_SelectCharacter) {
                 Content.Add( view );
@@ -50,6 +44,7 @@ namespace Project.UI {
         protected override bool RemoveView(UIViewBase view) {
             if (view is MainMenuWidgetView_Initial or MainMenuWidgetView_StartGame or MainMenuWidgetView_SelectLevel or MainMenuWidgetView_SelectCharacter) {
                 Content.Remove( view );
+                view.Dispose(); // dispose view !!!
                 SetVisibility( Content.Children().Cast<UIViewBase>().ToArray() );
                 Title.text = GetTitle( Content.Children().Cast<UIViewBase>().Last() );
                 return true;

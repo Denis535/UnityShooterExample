@@ -50,15 +50,6 @@ namespace Project.UI {
             HideSelf();
         }
 
-        protected override void OnBeforeDescendantActivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantActivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnBeforeDescendantDeactivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantDeactivate(UIWidgetBase descendant, object? argument) {
-        }
-
         public DialogWidget OnSubmit(string text, Action? callback) {
             var button = VisualElementFactory.Submit( text );
             button.RegisterCallback<ClickEvent>( evt => {
@@ -117,15 +108,6 @@ namespace Project.UI {
         }
         protected override void OnDeactivate(object? argument) {
             HideSelf();
-        }
-
-        protected override void OnBeforeDescendantActivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantActivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnBeforeDescendantDeactivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantDeactivate(UIWidgetBase descendant, object? argument) {
         }
 
         public InfoDialogWidget OnSubmit(string text, Action? callback) {
@@ -188,15 +170,6 @@ namespace Project.UI {
             HideSelf();
         }
 
-        protected override void OnBeforeDescendantActivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantActivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnBeforeDescendantDeactivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantDeactivate(UIWidgetBase descendant, object? argument) {
-        }
-
         public WarningDialogWidget OnSubmit(string text, Action? callback) {
             var button = VisualElementFactory.Submit( text );
             button.RegisterCallback<ClickEvent>( evt => {
@@ -255,15 +228,6 @@ namespace Project.UI {
         }
         protected override void OnDeactivate(object? argument) {
             HideSelf();
-        }
-
-        protected override void OnBeforeDescendantActivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantActivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnBeforeDescendantDeactivate(UIWidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantDeactivate(UIWidgetBase descendant, object? argument) {
         }
 
         public ErrorDialogWidget OnSubmit(string text, Action? callback) {

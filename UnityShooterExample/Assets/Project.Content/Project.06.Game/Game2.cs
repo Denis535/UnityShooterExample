@@ -30,6 +30,7 @@ namespace Project.Game {
                     isPaused = value;
                     //Time.timeScale = isPaused ? 0f : 1f;
                     OnPauseChangeEvent?.Invoke( isPaused );
+                    //GC.Collect();
                 }
             }
         }
