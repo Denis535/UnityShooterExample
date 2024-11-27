@@ -150,59 +150,59 @@ Secondly, the ```Main``` scene contains the ```Program``` entity:
 
 # How to setup it
 - Fill the ```manifest.json``` with the following content (unfortunately Asset Store Tools does not export ```scopedRegistries``` section):
-    ```
+```
+{
+  "dependencies": {
+    "com.denis535.addressables-extensions": "1.0.19",
+    "com.denis535.addressables-source-generator": "1.0.43",
+    "com.denis535.clean-architecture-game-framework": "1.4.21",
+    "com.denis535.colorful-project-window": "1.0.47",
+    "com.unity.2d.sprite": "1.0.0",
+    "com.unity.addressables": "1.21.21",
+    "com.unity.ide.visualstudio": "2.0.22",
+    "com.unity.inputsystem": "1.7.0",
+    "com.unity.nuget.mono-cecil": "1.11.4",
+    "com.unity.profiling.core": "1.0.2",
+    "com.unity.render-pipelines.universal": "16.0.6",
+    "com.unity.services.qos": "1.3.2",
+    "com.unity.terrain-tools": "5.1.2",
+    "com.unity.test-framework": "1.3.9",
+    "com.unity.modules.animation": "1.0.0",
+    "com.unity.modules.assetbundle": "1.0.0",
+    "com.unity.modules.audio": "1.0.0",
+    "com.unity.modules.imageconversion": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.screencapture": "1.0.0",
+    "com.unity.modules.terrain": "1.0.0",
+    "com.unity.modules.terrainphysics": "1.0.0",
+    "com.unity.modules.uielements": "1.0.0",
+    "com.unity.modules.umbra": "1.0.0",
+    "com.unity.modules.unityanalytics": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.modules.unitywebrequestwww": "1.0.0"
+  },
+  "scopedRegistries": [
     {
-      "dependencies": {
-        "com.denis535.addressables-extensions": "1.0.19",
-        "com.denis535.addressables-source-generator": "1.0.43",
-        "com.denis535.clean-architecture-game-framework": "1.4.13",
-        "com.denis535.colorful-project-window": "1.0.46",
-        "com.unity.2d.sprite": "1.0.0",
-        "com.unity.addressables": "1.21.21",
-        "com.unity.ide.visualstudio": "2.0.22",
-        "com.unity.inputsystem": "1.7.0",
-        "com.unity.nuget.mono-cecil": "1.11.4",
-        "com.unity.profiling.core": "1.0.2",
-        "com.unity.render-pipelines.universal": "16.0.6",
-        "com.unity.services.qos": "1.3.2",
-        "com.unity.terrain-tools": "5.1.2",
-        "com.unity.test-framework": "1.3.9",
-        "com.unity.modules.animation": "1.0.0",
-        "com.unity.modules.assetbundle": "1.0.0",
-        "com.unity.modules.audio": "1.0.0",
-        "com.unity.modules.imageconversion": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0",
-        "com.unity.modules.screencapture": "1.0.0",
-        "com.unity.modules.terrain": "1.0.0",
-        "com.unity.modules.terrainphysics": "1.0.0",
-        "com.unity.modules.uielements": "1.0.0",
-        "com.unity.modules.umbra": "1.0.0",
-        "com.unity.modules.unityanalytics": "1.0.0",
-        "com.unity.modules.unitywebrequest": "1.0.0",
-        "com.unity.modules.unitywebrequestwww": "1.0.0"
-      },
-      "scopedRegistries": [
-        {
-          "name": "package.openupm.com",
-          "url": "https://package.openupm.com",
-          "scopes": [
-            "com.denis535.addressables-extensions",
-            "com.denis535.addressables-source-generator",
-            "com.denis535.clean-architecture-game-framework",
-            "com.denis535.colorful-project-window"
-          ]
-        }
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.denis535.addressables-extensions",
+        "com.denis535.addressables-source-generator",
+        "com.denis535.clean-architecture-game-framework",
+        "com.denis535.colorful-project-window"
       ]
     }
-    ```
+  ]
+}
+```
 - Then delete modules in ```Plugins``` folder:
-    * ```Denis535.Addressables.Extensions```
-    * ```Denis535.Addressables.SourceGenerator```
-    * ```Denis535.CleanArchitectureGameFramework```
-    * ```Denis535.CleanArchitectureGameFramework.Internal```
-    * ```Denis535.CleanArchitectureGameFramework.Additions```
-    * ```Denis535.CleanArchitectureGameFramework.Editor```
-    * ```Denis535.ColorfulProjectWindow```
+  * ```Denis535.Addressables.Extensions```
+  * ```Denis535.Addressables.SourceGenerator```
+  * ```Denis535.CleanArchitectureGameFramework```
+  * ```Denis535.CleanArchitectureGameFramework.Internal```
+  * ```Denis535.CleanArchitectureGameFramework.Additions```
+  * ```Denis535.CleanArchitectureGameFramework.Editor```
+  * ```Denis535.ColorfulProjectWindow```
 - Link project with Unity Gaming Services.
 - Install the ```Node.js``` and ```Stylus``` package (if you are going to compile stylus files).
 
