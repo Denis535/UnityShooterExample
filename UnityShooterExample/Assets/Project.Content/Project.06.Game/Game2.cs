@@ -78,23 +78,30 @@ namespace Project.Game {
         public void OnFixedUpdate() {
         }
         public void OnUpdate() {
-            Player.CharacterInputProvider.IsEnabled = Cursor.lockState == CursorLockMode.Locked && Time.timeScale != 0f &&
-                Player.Character != null && Player.Character.IsAlive &&
-                Player.Camera != null;
-            Player.CameraInputProvider.IsEnabled = Cursor.lockState == CursorLockMode.Locked && Time.timeScale != 0f &&
-                Player.Character != null &&
-                Player.Camera != null;
+            if (State is GameState.Playing && !IsPaused) {
+                Player.CharacterInputProvider.IsEnabled =
+                    Player.State is PlayerState.Playing &&
+                    Player.Character != null && Player.Character.IsAlive &&
+                    Player.Camera != null;
+                Player.CameraInputProvider.IsEnabled =
+                    Player.State is PlayerState.Playing &&
+                    Player.Character != null &&
+                    Player.Camera != null;
+            } else {
+                Player.CharacterInputProvider.IsEnabled = false;
+                Player.CameraInputProvider.IsEnabled = false;
+            }
         }
         public void OnLateUpdate() {
-            if (IsDirty) {
-                if (IsLoser( Player )) {
+            if (State is GameState.Playing) {
+                if (Player.State is PlayerState.Playing && IsDirty && IsLoser( Player )) {
                     OnLoser( Player );
                 }
-                if (IsWinner( Player )) {
+                if (Player.State is PlayerState.Playing && IsDirty && IsWinner( Player )) {
                     OnWinner( Player );
                 }
-                IsDirty = false;
             }
+            IsDirty = false;
         }
 
         protected virtual PlayerCharacter SpawnPlayerCharacter(PlayerPoint point, Player2 player) {
@@ -114,6 +121,20 @@ namespace Project.Game {
             var thing = Gun.Factory.Create( point.transform.position, point.transform.rotation );
         }
 
+        protected virtual bool IsWinner(Player2 player) {
+            var enemies = GameObject.FindObjectsByType<EnemyCharacter>( FindObjectsInactive.Exclude, FindObjectsSortMode.None );
+            if (enemies.All( i => !i.IsAlive )) {
+                return true;
+            }
+            return false;
+        }
+        protected virtual bool IsLoser(Player2 player) {
+            if (!player.Character!.IsAlive) {
+                return true;
+            }
+            return false;
+        }
+
         protected virtual void OnWinner(Player2 player) {
             State = GameState.Completed;
             player.State = PlayerState.Won;
@@ -121,24 +142,6 @@ namespace Project.Game {
         protected virtual void OnLoser(Player2 player) {
             State = GameState.Completed;
             player.State = PlayerState.Lost;
-        }
-
-        protected virtual bool IsWinner(Player2 player) {
-            if (player.State is PlayerState.Playing) {
-                var enemies = GameObject.FindObjectsByType<EnemyCharacter>( FindObjectsInactive.Exclude, FindObjectsSortMode.None );
-                if (enemies.All( i => !i.IsAlive )) {
-                    return true;
-                }
-            }
-            return false;
-        }
-        protected virtual bool IsLoser(Player2 player) {
-            if (player.State is PlayerState.Playing) {
-                if (!player.Character!.IsAlive) {
-                    return true;
-                }
-            }
-            return false;
         }
 
     }

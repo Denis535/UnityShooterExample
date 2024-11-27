@@ -22,7 +22,7 @@ namespace Project.Game {
                     OnStateChangeEvent?.Invoke( State );
                     return;
                 }
-                if (state is PlayerState.None && value is PlayerState.Won or PlayerState.Lost) {
+                if (state is PlayerState.Playing && value is PlayerState.Won or PlayerState.Lost) {
                     state = value;
                     OnStateChangeEvent?.Invoke( State );
                     return;
