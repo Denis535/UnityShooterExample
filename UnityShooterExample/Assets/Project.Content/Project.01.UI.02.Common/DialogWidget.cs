@@ -55,7 +55,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Activity is Activity_.Active) RemoveSelf();
+                    if (Activity is Activity_.Active) RemoveSelf( null );
                 }
             } );
             View.Footer.Add( button );
@@ -67,7 +67,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Activity is Activity_.Active) RemoveSelf();
+                    if (Activity is Activity_.Active) RemoveSelf( null );
                 }
             } );
             View.Footer.Add( button );
@@ -115,7 +115,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Activity is Activity_.Active) RemoveSelf();
+                    if (Activity is Activity_.Active) RemoveSelf( null );
                 }
             } );
             View.Footer.Add( button );
@@ -127,7 +127,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Activity is Activity_.Active) RemoveSelf();
+                    if (Activity is Activity_.Active) RemoveSelf( null );
                 }
             } );
             View.Footer.Add( button );
@@ -175,7 +175,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Activity is Activity_.Active) RemoveSelf();
+                    if (Activity is Activity_.Active) RemoveSelf( null );
                 }
             } );
             View.Footer.Add( button );
@@ -187,7 +187,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Activity is Activity_.Active) RemoveSelf();
+                    if (Activity is Activity_.Active) RemoveSelf( null );
                 }
             } );
             View.Footer.Add( button );
@@ -235,7 +235,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Activity is Activity_.Active) RemoveSelf();
+                    if (Activity is Activity_.Active) RemoveSelf( null );
                 }
             } );
             View.Footer.Add( button );
@@ -247,7 +247,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Activity is Activity_.Active) RemoveSelf();
+                    if (Activity is Activity_.Active) RemoveSelf( null );
                 }
             } );
             View.Footer.Add( button );

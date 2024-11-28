@@ -34,7 +34,7 @@ namespace Project.UI {
         private static GameMenuWidgetView CreateView(GameMenuWidget widget) {
             var view = new GameMenuWidgetView();
             view.Resume.RegisterCallback<ClickEvent>( evt => {
-                widget.RemoveSelf();
+                widget.RemoveSelf( null );
             } );
             view.Settings.RegisterCallback<ClickEvent>( evt => {
                 widget.AddChild( new SettingsWidget( widget.Container ) );

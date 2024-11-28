@@ -90,7 +90,7 @@ namespace Project.UI {
             base.AddChild( widget );
         }
         internal void Clear() {
-            RemoveChildren( i => i is not (DialogWidget or InfoDialogWidget or WarningDialogWidget or ErrorDialogWidget) );
+            RemoveChildren( i => i is not (DialogWidget or InfoDialogWidget or WarningDialogWidget or ErrorDialogWidget), null );
         }
 
         protected override void Sort(List<UIWidgetBase> children) {
