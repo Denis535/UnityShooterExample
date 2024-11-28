@@ -84,6 +84,11 @@ namespace Project.UI {
                 Application.Game!.OnPauseChangeEvent += i => {
                     if (i) Theme.Pause(); else Theme.UnPause();
                 };
+                Application.Game!.OnStateChangeEvent += i => {
+                    if (i is GameState.Completed) Theme.PlayGameCompletedTheme();
+                };
+                Application.Game!.Player!.OnStateChangeEvent += i => {
+                };
             }
         }
 
@@ -111,6 +116,11 @@ namespace Project.UI {
                 }
                 Application.Game!.OnPauseChangeEvent += i => {
                     if (i) Theme.Pause(); else Theme.UnPause();
+                };
+                Application.Game!.OnStateChangeEvent += i => {
+                    if (i is GameState.Completed) Theme.PlayGameCompletedTheme();
+                };
+                Application.Game!.Player!.OnStateChangeEvent += i => {
                 };
             }
         }

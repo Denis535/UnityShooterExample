@@ -40,9 +40,9 @@ namespace Project.UI {
         }
 
         protected override void OnActivate(object? argument) {
-            Game.OnStateChangeEvent += async state => {
+            Game.OnStateChangeEvent += async i => {
                 try {
-                    if (state is GameState.Completed) {
+                    if (i is GameState.Completed) {
                         await Awaitable.WaitForSecondsAsync( 2, DisposeCancellationToken );
                         AddChild( new GameTotalsWidget( Container ) );
                     }

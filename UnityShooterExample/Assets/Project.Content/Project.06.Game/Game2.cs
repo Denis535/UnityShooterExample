@@ -14,36 +14,35 @@ namespace Project.Game {
 
         public GameInfo Info { get; }
 
-        public GameState State {
-            get => state;
-            private set {
-                if (state is GameState.None && value is GameState.Playing) {
-                    state = value;
-                    OnStateChangeEvent?.Invoke( state );
-                    return;
-                }
-                if (state is GameState.Playing && value is GameState.Completed) {
-                    state = value;
-                    OnStateChangeEvent?.Invoke( state );
-                    return;
-                }
-                throw Exceptions.Operation.InvalidOperationException( $"Transition from {state} to {value} is invalid" );
-            }
-        }
-        public event Action<GameState>? OnStateChangeEvent;
-
         public bool IsPaused {
             get => isPaused;
             set {
-                if (value != isPaused) {
+                if (value != IsPaused) {
                     isPaused = value;
-                    //Time.timeScale = isPaused ? 0f : 1f;
-                    OnPauseChangeEvent?.Invoke( isPaused );
-                    //GC.Collect();
+                    //Time.timeScale = IsPaused ? 0f : 1f;
+                    OnPauseChangeEvent?.Invoke( IsPaused );
                 }
             }
         }
         public event Action<bool>? OnPauseChangeEvent;
+
+        public GameState State {
+            get => state;
+            private set {
+                if (State is GameState.None && value is GameState.Playing) {
+                    state = value;
+                    OnStateChangeEvent?.Invoke( State );
+                    return;
+                }
+                if (State is GameState.Playing && value is GameState.Completed) {
+                    state = value;
+                    OnStateChangeEvent?.Invoke( State );
+                    return;
+                }
+                throw Exceptions.Operation.InvalidOperationException( $"Transition from {State} to {value} is invalid" );
+            }
+        }
+        public event Action<GameState>? OnStateChangeEvent;
 
         private bool IsDirty { get; set; }
 
@@ -52,8 +51,8 @@ namespace Project.Game {
 
         public Game2(IDependencyContainer container, GameInfo info, PlayerInfo playerInfo) : base( container ) {
             Info = info;
-            State = GameState.Playing;
             IsPaused = false;
+            State = GameState.Playing;
             IsDirty = false;
             Player = new Player2( container, playerInfo );
             World = container.RequireDependency<World>();
@@ -138,12 +137,12 @@ namespace Project.Game {
         }
 
         protected virtual void OnWinner(Player2 player) {
-            State = GameState.Completed;
             player.State = PlayerState.Won;
+            State = GameState.Completed;
         }
         protected virtual void OnLoser(Player2 player) {
-            State = GameState.Completed;
             player.State = PlayerState.Lost;
+            State = GameState.Completed;
         }
 
     }

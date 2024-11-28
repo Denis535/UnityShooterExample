@@ -35,6 +35,9 @@ namespace Project.UI {
         public void PlayGameTheme() {
             SetPlayList( new GamePlayList( Container ) );
         }
+        public void PlayGameCompletedTheme() {
+            SetPlayList( null );
+        }
         public void PlayLoadingTheme() {
             if (PlayList is MainPlayList mainStrategy) {
                 mainStrategy.IsFading = true;
