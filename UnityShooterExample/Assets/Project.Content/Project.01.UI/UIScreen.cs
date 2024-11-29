@@ -9,7 +9,7 @@ namespace Project.UI {
 
     public class UIScreen : UIScreenBase2 {
 
-        private new RootWidget Widget => (RootWidget?) base.Widget!;
+        private new RootWidget Widget => (RootWidget?) base.Widget ?? throw Exceptions.Internal.NullReference( $"Reference 'Widget' is null" );
 
         public UIScreen(IDependencyContainer container) : base( container, container.RequireDependency<UIDocument>(), container.RequireDependency<AudioSource>( "SfxAudioSource" ) ) {
             VisualElementFactory.OnPlayClick += evt => { };

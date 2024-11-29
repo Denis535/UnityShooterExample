@@ -21,6 +21,15 @@ namespace Project.UI {
 
         public GameWidget(IDependencyContainer container) : base( container ) {
             Game = container.RequireDependency<Game2>();
+            Game.OnStateChangeEvent += async i => {
+                try {
+                    if (i is GameState.Completed) {
+                        await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
+                        AddChild( new GameTotalsWidget( Container ) );
+                    }
+                } catch (OperationCanceledException) {
+                }
+            };
             View = CreateView( this );
             Input = new InputActions_UI();
             Input.UI.Cancel.performed += ctx => {
@@ -40,15 +49,6 @@ namespace Project.UI {
         }
 
         protected override void OnActivate(object? argument) {
-            Game.OnStateChangeEvent += async i => {
-                try {
-                    if (i is GameState.Completed) {
-                        await Awaitable.WaitForSecondsAsync( 2, DisposeCancellationToken );
-                        AddChild( new GameTotalsWidget( Container ) );
-                    }
-                } catch (OperationCanceledException) {
-                }
-            };
             ShowSelf();
             Input.Enable();
             IsCursorVisible = false;

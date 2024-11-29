@@ -79,11 +79,11 @@ namespace Project.Game {
         public void OnUpdate() {
             if (State is GameState.Playing or GameState.Completed && !IsPaused && Cursor.lockState == CursorLockMode.Locked) {
                 Player.CharacterInputProvider.IsEnabled =
-                    Player.State is PlayerState.Playing or PlayerState.Won or PlayerState.Lost &&
+                    Player.State is PlayerState.Playing or PlayerState.Winner or PlayerState.Loser &&
                     Player.Character != null && Player.Character.IsAlive &&
                     Player.Camera != null;
                 Player.CameraInputProvider.IsEnabled =
-                    Player.State is PlayerState.Playing or PlayerState.Won or PlayerState.Lost &&
+                    Player.State is PlayerState.Playing or PlayerState.Winner or PlayerState.Loser &&
                     Player.Character != null &&
                     Player.Camera != null;
             } else {
@@ -100,6 +100,9 @@ namespace Project.Game {
                     if (IsDirty && IsWinner( Player )) {
                         OnWinner( Player );
                     }
+                }
+                if (Player.State is PlayerState.Winner or PlayerState.Loser) {
+                    OnCompleted();
                 }
             }
             IsDirty = false;
@@ -137,11 +140,12 @@ namespace Project.Game {
         }
 
         protected virtual void OnWinner(Player2 player) {
-            player.State = PlayerState.Won;
-            State = GameState.Completed;
+            player.State = PlayerState.Winner;
         }
         protected virtual void OnLoser(Player2 player) {
-            player.State = PlayerState.Lost;
+            player.State = PlayerState.Loser;
+        }
+        protected virtual void OnCompleted() {
             State = GameState.Completed;
         }
 

@@ -77,18 +77,10 @@ namespace Project.UI {
                 {
                     await LoadAsync_GameScene();
                     await LoadAsync_WorldScene( GetWorldSceneAddress( gameInfo.Level ) );
-                    Application.RunGame( gameInfo, playerInfo );
+                    RunGame( gameInfo, playerInfo );
                     Theme.PlayGameTheme();
                     Screen.ShowGameScreen();
                 }
-                Application.Game!.OnPauseChangeEvent += i => {
-                    if (i) Theme.Pause(); else Theme.UnPause();
-                };
-                Application.Game!.OnStateChangeEvent += i => {
-                    if (i is GameState.Completed) Theme.PlayGameCompletedTheme();
-                };
-                Application.Game!.Player!.OnStateChangeEvent += i => {
-                };
             }
         }
 
@@ -110,18 +102,10 @@ namespace Project.UI {
                 {
                     await LoadAsync_GameScene();
                     await LoadAsync_WorldScene( GetWorldSceneAddress( gameInfo.Level ) );
-                    Application.RunGame( gameInfo, playerInfo );
+                    RunGame( gameInfo, playerInfo );
                     Theme.PlayGameTheme();
                     Screen.ShowGameScreen();
                 }
-                Application.Game!.OnPauseChangeEvent += i => {
-                    if (i) Theme.Pause(); else Theme.UnPause();
-                };
-                Application.Game!.OnStateChangeEvent += i => {
-                    if (i is GameState.Completed) Theme.PlayGameCompletedTheme();
-                };
-                Application.Game!.Player!.OnStateChangeEvent += i => {
-                };
             }
         }
 
@@ -168,6 +152,18 @@ namespace Project.UI {
                 UnityEngine.Application.Quit();
 #endif
             }
+        }
+
+        private void RunGame(GameInfo gameInfo, PlayerInfo playerInfo) {
+            var game = Application.RunGame( gameInfo, playerInfo );
+            game.OnPauseChangeEvent += i => {
+                if (i) Theme.Pause(); else Theme.UnPause();
+            };
+            game.OnStateChangeEvent += i => {
+                if (i is GameState.Completed) Theme.PlayGameCompletedTheme( game.Player.State is PlayerState.Winner );
+            };
+            //game.Player.OnStateChangeEvent += i => {
+            //};
         }
 
         // Helpers

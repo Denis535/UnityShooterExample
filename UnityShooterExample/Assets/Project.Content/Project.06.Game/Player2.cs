@@ -22,7 +22,7 @@ namespace Project.Game {
                     OnStateChangeEvent?.Invoke( State );
                     return;
                 }
-                if (state is PlayerState.Playing && value is PlayerState.Won or PlayerState.Lost) {
+                if (state is PlayerState.Playing && value is PlayerState.Winner or PlayerState.Loser) {
                     state = value;
                     OnStateChangeEvent?.Invoke( State );
                     return;
@@ -88,7 +88,7 @@ namespace Project.Game {
     public enum PlayerState {
         None,
         Playing,
-        Won,
-        Lost
+        Winner,
+        Loser
     }
 }

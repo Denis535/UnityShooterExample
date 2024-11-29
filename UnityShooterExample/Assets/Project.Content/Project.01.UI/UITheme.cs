@@ -35,7 +35,7 @@ namespace Project.UI {
         public void PlayGameTheme() {
             SetPlayList( new GamePlayList( Container ) );
         }
-        public void PlayGameCompletedTheme() {
+        public void PlayGameCompletedTheme(bool isPlayerWinner) {
             SetPlayList( null );
         }
         public void PlayLoadingTheme() {
@@ -75,7 +75,7 @@ namespace Project.UI {
         protected override async void OnActivate(object? argument) {
             var cancellationToken = this.GetCancellationToken_OnAfterDeactivateEvent();
             try {
-                for (var i = 0; true; i = ++i % Clips.Length) {
+                for (var i = 0; true; i = (i + 1) % Clips.Length) {
                     await PlayAsync( Clips[ i ], cancellationToken );
                 }
             } catch (OperationCanceledException) {

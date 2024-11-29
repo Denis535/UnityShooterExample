@@ -54,7 +54,7 @@ namespace Project.App {
             //}
         }
 
-        public void RunGame(GameInfo gameInfo, PlayerInfo playerInfo) {
+        public Game2 RunGame(GameInfo gameInfo, PlayerInfo playerInfo) {
             Assert.Operation.Message( $"Game must be null" ).Valid( Game is null );
 #if !UNITY_EDITOR
             Debug.LogFormat( "Run Game" );
@@ -67,6 +67,7 @@ namespace Project.App {
                 Bullet.Factory.Load();
             }
             Game = new Game2( Container, gameInfo, playerInfo );
+            return Game;
         }
         public void StopGame() {
             Assert.Operation.Message( $"Game must be non-null" ).Valid( Game is not null );
