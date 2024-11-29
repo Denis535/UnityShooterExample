@@ -58,7 +58,7 @@ namespace Project.Game {
             World = container.RequireDependency<World>();
             {
                 var point = World.PlayerPoints.First();
-                Player.Character = SpawnPlayerCharacter( point, Player );
+                Player.Character = SpawnPlayerCharacter( point, playerInfo.CharacterType );
                 Player.Camera = Camera2.Factory.Create();
             }
             foreach (var point in World.EnemyPoints) {
@@ -108,8 +108,8 @@ namespace Project.Game {
             IsDirty = false;
         }
 
-        protected virtual PlayerCharacter SpawnPlayerCharacter(PlayerPoint point, Player2 player) {
-            var character = PlayerCharacter.Factory.Create( point.transform.position, point.transform.rotation, (PlayerCharacter.Factory.CharacterType) player.Info.CharacterType );
+        protected virtual PlayerCharacter SpawnPlayerCharacter(PlayerPoint point, PlayerInfo.CharacterType_ type) {
+            var character = PlayerCharacter.Factory.Create( point.transform.position, point.transform.rotation, (PlayerCharacter.Factory.CharacterType) type );
             character.OnDeathEvent += info => {
                 IsDirty = true;
             };

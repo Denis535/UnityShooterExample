@@ -24,7 +24,7 @@ namespace Project.UI {
             Game.OnStateChangeEvent += async i => {
                 try {
                     if (i is GameState.Completed) {
-                        await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
+                        await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken ); // for some unknown reason this doesn't work
                         AddChild( new GameTotalsWidget( Container ) );
                     }
                 } catch (OperationCanceledException) {
