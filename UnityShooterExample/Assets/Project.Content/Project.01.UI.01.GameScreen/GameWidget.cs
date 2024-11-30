@@ -25,7 +25,7 @@ namespace Project.UI {
                 try {
                     if (i is GameState.Completed) {
                         if (Game.Player.State is PlayerState.Winner) {
-                            if (!Game.Info.Level.IsLast()) {
+                            if (Game.Info.Level.IsLast()) {
                                 await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
                                 AddChild( new GameTotalsWidget_GameCompleted( Container ) );
                             } else {
