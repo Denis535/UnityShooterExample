@@ -43,7 +43,7 @@ namespace UnityEditor.UIElements {
         // Helpers
         private static void CompilePug(string src, string dist) {
             try {
-                NodeJS.Run( "Assets/Plugins/UIToolkit.ThemeStyleSheet.Editor/PugCompiler.js", src, dist );
+                NodeJS.Run( "Packages/com.denis535.uitoolkit-theme-style-sheet/Editor/UIToolkit.ThemeStyleSheet.Editor/PugCompiler.js", src, dist );
             } catch (Win32Exception) {
                 Debug.LogWarning( $"Can not compile '{src}', probably the Node.js is not installed" );
             }

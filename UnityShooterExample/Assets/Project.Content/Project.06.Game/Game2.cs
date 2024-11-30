@@ -100,8 +100,7 @@ namespace Project.Game {
                     if (IsDirty && IsWinner( Player )) {
                         OnWinner( Player );
                     }
-                }
-                if (Player.State is PlayerState.Winner or PlayerState.Loser) {
+                } else if (Player.State is PlayerState.Winner or PlayerState.Loser) {
                     OnCompleted();
                 }
             }

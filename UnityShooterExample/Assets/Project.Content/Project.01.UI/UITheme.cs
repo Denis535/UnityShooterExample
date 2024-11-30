@@ -73,7 +73,7 @@ namespace Project.UI {
         }
 
         protected override async void OnActivate(object? argument) {
-            var cancellationToken = this.GetCancellationToken_OnAfterDeactivateEvent();
+            var cancellationToken = this.GetEventCancellationToken_OnAfterDeactivate();
             try {
                 for (var i = 0; true; i = (i + 1) % Clips.Length) {
                     await PlayAsync( Clips[ i ], cancellationToken );

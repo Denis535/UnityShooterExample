@@ -1,5 +1,5 @@
 {
-    "name": "InputActions_Player",
+    "name": "InputActions_Camera",
     "maps": [
         {
             "name": "Camera",

@@ -48,7 +48,7 @@ namespace Project.Game {
 
         public void OnCollisionEnter(Collision collision) {
             if (enabled) {
-                var damageInfo = new HitDamageInfo( Force, Rigidbody.position, Rigidbody.velocity.normalized, transform.position, Weapon, Actor, Player );
+                var damageInfo = new HitDamageInfo( Force, Rigidbody.position, Rigidbody.linearVelocity.normalized, transform.position, Weapon, Actor, Player );
                 collision.transform.TryDamage( damageInfo, i => i != (IDamageable) Actor, out _ );
                 enabled = false;
             }
