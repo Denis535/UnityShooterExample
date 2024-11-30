@@ -5,11 +5,11 @@ namespace UnityEngine.UIElements {
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
-    using UnityEngine.Scripting;
 
-    public class Card : VisualElement {
-        [Preserve]
-        public new class UxmlFactory : UxmlFactory<Card, UxmlTraits> { }
+    [UxmlElement]
+    public partial class Card : VisualElement {
+        //[Preserve]
+        //public new class UxmlFactory : UxmlFactory<Card, UxmlTraits> { }
 
         public Header? Header => Children().OfType<Header>().FirstOrDefault();
         public Content? Content => Children().OfType<Content>().FirstOrDefault();
@@ -21,9 +21,10 @@ namespace UnityEngine.UIElements {
 
     }
     // Header
-    public class Header : VisualElement {
-        [Preserve]
-        public new class UxmlFactory : UxmlFactory<Header, UxmlTraits> { }
+    [UxmlElement]
+    public partial class Header : VisualElement {
+        //[Preserve]
+        //public new class UxmlFactory : UxmlFactory<Header, UxmlTraits> { }
 
         public Header() {
             AddToClassList( "header" );
@@ -31,9 +32,10 @@ namespace UnityEngine.UIElements {
 
     }
     // Content
-    public class Content : VisualElement {
-        [Preserve]
-        public new class UxmlFactory : UxmlFactory<Content, UxmlTraits> { }
+    [UxmlElement]
+    public partial class Content : VisualElement {
+        //[Preserve]
+        //public new class UxmlFactory : UxmlFactory<Content, UxmlTraits> { }
 
         public Content() {
             AddToClassList( "content" );
@@ -41,9 +43,10 @@ namespace UnityEngine.UIElements {
 
     }
     // Footer
-    public class Footer : VisualElement {
-        [Preserve]
-        public new class UxmlFactory : UxmlFactory<Footer, UxmlTraits> { }
+    [UxmlElement]
+    public partial class Footer : VisualElement {
+        //[Preserve]
+        //public new class UxmlFactory : UxmlFactory<Footer, UxmlTraits> { }
 
         public Footer() {
             AddToClassList( "footer" );

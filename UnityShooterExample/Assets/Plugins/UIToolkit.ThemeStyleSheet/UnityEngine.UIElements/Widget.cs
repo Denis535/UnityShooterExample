@@ -3,11 +3,12 @@ namespace UnityEngine.UIElements {
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using UnityEngine.Scripting;
+    using UnityEngine;
 
-    public class Widget : VisualElement {
-        [Preserve]
-        public new class UxmlFactory : UxmlFactory<Widget, UxmlTraits> { }
+    [UxmlElement]
+    public partial class Widget : VisualElement {
+        //[Preserve]
+        //public new class UxmlFactory : UxmlFactory<Widget, UxmlTraits> { }
 
         public Widget() {
             AddToClassList( "widget" );
