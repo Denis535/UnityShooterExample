@@ -53,41 +53,6 @@ namespace Project.UI {
         }
 
     }
-    public class GameTotalsWidgetView_GameCompleted : GameTotalsWidgetView {
-
-        public Card Card { get; }
-        public Header Header { get; }
-        public Label Title { get; }
-        public Content Content { get; }
-        public Footer Footer { get; }
-        public Label Message { get; }
-        public Button Okey { get; }
-
-        public GameTotalsWidgetView_GameCompleted() : base( "game-totals-widget-view (game-completed)" ) {
-            Add(
-                Card = VisualElementFactory.Card().Children(
-                    Header = VisualElementFactory.Header().Children(
-                        Title = VisualElementFactory.Label( "Game Completed" )
-                    ),
-                    Content = VisualElementFactory.Content().Children(
-                        VisualElementFactory.ColumnGroup().Classes( "gray", "medium", "grow-1", "justify-content-center", "align-items-center" ).Children(
-                            Message = VisualElementFactory.Label(
-                                "Congratulations!\n" +
-                                "You have completed the game!"
-                                ).Classes( "text-align-middle-center" )
-                        )
-                    ),
-                    Footer = VisualElementFactory.Footer().Children(
-                        Okey = VisualElementFactory.Submit( "Ok" )
-                    )
-                )
-            );
-        }
-        public override void Dispose() {
-            base.Dispose();
-        }
-
-    }
     public class GameTotalsWidgetView_LevelFailed : GameTotalsWidgetView {
 
         public Card Card { get; }
@@ -117,6 +82,41 @@ namespace Project.UI {
                     Footer = VisualElementFactory.Footer().Children(
                         Retry = VisualElementFactory.Submit( "Retry" ),
                         Back = VisualElementFactory.Cancel( "Back To Menu" )
+                    )
+                )
+            );
+        }
+        public override void Dispose() {
+            base.Dispose();
+        }
+
+    }
+    public class GameTotalsWidgetView_GameCompleted : GameTotalsWidgetView {
+
+        public Card Card { get; }
+        public Header Header { get; }
+        public Label Title { get; }
+        public Content Content { get; }
+        public Footer Footer { get; }
+        public Label Message { get; }
+        public Button Okey { get; }
+
+        public GameTotalsWidgetView_GameCompleted() : base( "game-totals-widget-view (game-completed)" ) {
+            Add(
+                Card = VisualElementFactory.Card().Children(
+                    Header = VisualElementFactory.Header().Children(
+                        Title = VisualElementFactory.Label( "Game Completed" )
+                    ),
+                    Content = VisualElementFactory.Content().Children(
+                        VisualElementFactory.ColumnGroup().Classes( "gray", "medium", "grow-1", "justify-content-center", "align-items-center" ).Children(
+                            Message = VisualElementFactory.Label(
+                                "Congratulations!\n" +
+                                "You have completed the game!"
+                                ).Classes( "text-align-middle-center" )
+                        )
+                    ),
+                    Footer = VisualElementFactory.Footer().Children(
+                        Okey = VisualElementFactory.Submit( "Ok" )
                     )
                 )
             );

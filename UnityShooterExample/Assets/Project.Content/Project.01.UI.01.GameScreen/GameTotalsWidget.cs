@@ -8,15 +8,14 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class GameTotalsWidget : UIWidgetBase2<GameTotalsWidgetView> {
+    public abstract class GameTotalsWidget<TView> : UIWidgetBase2<TView> where TView : notnull, GameTotalsWidgetView {
 
-        private UIRouter Router { get; }
-        private Game2 Game { get; }
+        protected UIRouter Router { get; }
+        protected Game2 Game { get; }
 
         public GameTotalsWidget(IDependencyContainer container) : base( container ) {
             Router = container.RequireDependency<UIRouter>();
             Game = container.RequireDependency<Game2>();
-            View = CreateView( this );
         }
         public override void Dispose() {
             foreach (var child in Children) {
@@ -34,41 +33,87 @@ namespace Project.UI {
         }
 
         // Helpers
-        private static GameTotalsWidgetView CreateView(GameTotalsWidget widget) {
-            if (widget.Game.Player.State is PlayerState.Winner) {
-                if (!widget.Game.Info.Level.IsLast()) {
-                    var view = new GameTotalsWidgetView_LevelCompleted();
-                    view.Continue.RegisterCallback<ClickEvent>( evt => {
-                        var gameInfo = widget.Game.Info;
-                        gameInfo = gameInfo with { Level = gameInfo.Level.GetNext() };
-                        var playerInfo = widget.Game.Player.Info;
-                        widget.Router.ReloadGameScene( gameInfo, playerInfo );
-                    } );
-                    view.Back.RegisterCallback<ClickEvent>( evt => {
-                        widget.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ) );
-                    } );
-                    return view;
-                } else {
-                    var view = new GameTotalsWidgetView_GameCompleted();
-                    view.Okey.RegisterCallback<ClickEvent>( evt => {
-                        widget.Router.UnloadGameScene();
-                    } );
-                    return view;
-                }
-            }
-            if (widget.Game.Player.State is PlayerState.Loser) {
-                var view = new GameTotalsWidgetView_LevelFailed();
-                view.Retry.RegisterCallback<ClickEvent>( evt => {
-                    var gameInfo = widget.Game.Info;
-                    var playerInfo = widget.Game.Player.Info;
-                    widget.Router.ReloadGameScene( gameInfo, playerInfo );
-                } );
-                view.Back.RegisterCallback<ClickEvent>( evt => {
-                    widget.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ) );
-                } );
-                return view;
-            }
-            throw Exceptions.Internal.NotSupported( $"PlayerState {widget.Game.Player.State} is not supported" );
+        //private static GameTotalsWidgetView CreateView(GameTotalsWidget widget) {
+        //    if (widget.Game.Player.State is PlayerState.Winner) {
+        //        if (!widget.Game.Info.Level.IsLast()) {
+        //        } else {
+        //        }
+        //    }
+        //    if (widget.Game.Player.State is PlayerState.Loser) {
+        //    }
+        //    throw Exceptions.Internal.NotSupported( $"PlayerState {widget.Game.Player.State} is not supported" );
+        //}
+
+    }
+    // LevelCompleted
+    public class GameTotalsWidget_LevelCompleted : GameTotalsWidget<GameTotalsWidgetView_LevelCompleted> {
+
+        public GameTotalsWidget_LevelCompleted(IDependencyContainer container) : base( container ) {
+            View = CreateView( this );
+        }
+        public override void Dispose() {
+            base.Dispose();
+        }
+
+        // Helpers
+        private static GameTotalsWidgetView_LevelCompleted CreateView(GameTotalsWidget_LevelCompleted widget) {
+            var view = new GameTotalsWidgetView_LevelCompleted();
+            view.Continue.RegisterCallback<ClickEvent>( evt => {
+                var gameInfo = widget.Game.Info with {
+                    Level = widget.Game.Info.Level.GetNext()
+                };
+                var playerInfo = widget.Game.Player.Info;
+                widget.Router.ReloadGameScene( gameInfo, playerInfo );
+            } );
+            view.Back.RegisterCallback<ClickEvent>( evt => {
+                widget.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ) );
+            } );
+            return view;
+        }
+
+    }
+    // LevelFailed
+    public class GameTotalsWidget_LevelFailed : GameTotalsWidget<GameTotalsWidgetView_LevelFailed> {
+
+        public GameTotalsWidget_LevelFailed(IDependencyContainer container) : base( container ) {
+            View = CreateView( this );
+        }
+        public override void Dispose() {
+            base.Dispose();
+        }
+
+        // Helpers
+        private static GameTotalsWidgetView_LevelFailed CreateView(GameTotalsWidget_LevelFailed widget) {
+            var view = new GameTotalsWidgetView_LevelFailed();
+            view.Retry.RegisterCallback<ClickEvent>( evt => {
+                var gameInfo = widget.Game.Info;
+                var playerInfo = widget.Game.Player.Info;
+                widget.Router.ReloadGameScene( gameInfo, playerInfo );
+            } );
+            view.Back.RegisterCallback<ClickEvent>( evt => {
+                widget.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ) );
+            } );
+            return view;
+        }
+
+    }
+    // GameCompleted
+    public class GameTotalsWidget_GameCompleted : GameTotalsWidget<GameTotalsWidgetView_GameCompleted> {
+
+        public GameTotalsWidget_GameCompleted(IDependencyContainer container) : base( container ) {
+            View = CreateView( this );
+        }
+        public override void Dispose() {
+            base.Dispose();
+        }
+
+        // Helpers
+        private static GameTotalsWidgetView_GameCompleted CreateView(GameTotalsWidget_GameCompleted widget) {
+            var view = new GameTotalsWidgetView_GameCompleted();
+            view.Okey.RegisterCallback<ClickEvent>( evt => {
+                widget.Router.UnloadGameScene();
+            } );
+            return view;
         }
 
     }

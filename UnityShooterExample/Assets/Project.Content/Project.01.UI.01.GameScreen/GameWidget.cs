@@ -24,8 +24,20 @@ namespace Project.UI {
             Game.OnStateChangeEvent += async i => {
                 try {
                     if (i is GameState.Completed) {
-                        await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken ); // for some unknown reason this doesn't work
-                        AddChild( new GameTotalsWidget( Container ) );
+                        if (Game.Player.State is PlayerState.Winner) {
+                            if (!Game.Info.Level.IsLast()) {
+                                await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
+                                AddChild( new GameTotalsWidget_GameCompleted( Container ) );
+                            } else {
+                                await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
+                                AddChild( new GameTotalsWidget_LevelCompleted( Container ) );
+                            }
+                        } else if (Game.Player.State is PlayerState.Loser) {
+                            await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
+                            AddChild( new GameTotalsWidget_LevelFailed( Container ) );
+                        } else {
+                            throw Exceptions.Internal.NotSupported( $"PlayerState {Game.Player.State} is not supported" );
+                        }
                     }
                 } catch (OperationCanceledException) {
                 }
@@ -61,7 +73,7 @@ namespace Project.UI {
 
         protected override void OnBeforeDescendantActivate(UIWidgetBase descendant, object? argument) {
             Game.IsPaused = Children.Any( i => i is GameMenuWidget );
-            IsCursorVisible = Children.Any( i => i is GameMenuWidget or GameTotalsWidget );
+            IsCursorVisible = Children.Any( i => i is GameMenuWidget or GameTotalsWidget_LevelCompleted or GameTotalsWidget_LevelFailed or GameTotalsWidget_GameCompleted );
         }
         //protected override void OnAfterDescendantActivate(UIWidgetBase descendant, object? argument) {
         //}
@@ -69,7 +81,7 @@ namespace Project.UI {
         //}
         protected override void OnAfterDescendantDeactivate(UIWidgetBase descendant, object? argument) {
             if (Activity is Activity_.Active) {
-                IsCursorVisible = Children.Where( i => i.Activity is Activity_.Active ).Any( i => i is GameMenuWidget or GameTotalsWidget );
+                IsCursorVisible = Children.Where( i => i.Activity is Activity_.Active ).Any( i => i is GameMenuWidget or GameTotalsWidget_LevelCompleted or GameTotalsWidget_LevelFailed or GameTotalsWidget_GameCompleted );
                 Game.IsPaused = Children.Where( i => i.Activity is Activity_.Active ).Any( i => i is GameMenuWidget );
             }
         }
@@ -80,7 +92,9 @@ namespace Project.UI {
         private static int GetOrderOf(UIWidgetBase widget) {
             return widget switch {
                 PlayerWidget => 0,
-                GameTotalsWidget => 1,
+                GameTotalsWidget_LevelCompleted => 1,
+                GameTotalsWidget_LevelFailed => 1,
+                GameTotalsWidget_GameCompleted => 1,
                 GameMenuWidget => 2,
                 _ => 100,
             };
