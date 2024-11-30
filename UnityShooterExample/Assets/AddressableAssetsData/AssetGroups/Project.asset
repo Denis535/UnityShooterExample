@@ -13,27 +13,20 @@ MonoBehaviour:
   m_Name: Project
   m_EditorClassIdentifier: 
   m_GroupName: Project
-  m_Data:
-    m_SerializedData: []
   m_GUID: 12b846aacc10c6440bad170613e70ed7
   m_SerializeEntries:
-  - m_GUID: 1be6f882a7de4df448447c4798f35ae1
-    m_Address: Project
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a29260584c80e3d40ad2c5076c412886
-    m_Address: Project.UI
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 186ff454600b43c449aba1bd1b2bd1b2
     m_Address: Project.App
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 925374fb0fa1f8e40b9210efb3615f67
-    m_Address: Project.UI.MainScreen
+  - m_GUID: 1be6f882a7de4df448447c4798f35ae1
+    m_Address: Project
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 515b5a99b555f844181be43f2f649d8d
+    m_Address: Project.UI.Common
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -42,8 +35,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 515b5a99b555f844181be43f2f649d8d
-    m_Address: Project.UI.Common
+  - m_GUID: 925374fb0fa1f8e40b9210efb3615f67
+    m_Address: Project.UI.MainScreen
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a29260584c80e3d40ad2c5076c412886
+    m_Address: Project.UI
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
