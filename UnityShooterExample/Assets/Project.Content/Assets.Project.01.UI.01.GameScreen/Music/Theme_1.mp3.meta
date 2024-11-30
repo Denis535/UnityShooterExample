@@ -1,15 +1,8 @@
 fileFormatVersion: 2
-guid: c12abe952b7164f5b8d90a49682a3e8a
-AssetOrigin:
-  serializedVersion: 1
-  productId: 182311
-  packageName: 'FC Game Audio Pack 1 [Lite]'
-  packageVersion: 1.0
-  assetPath: Assets/FC Game Audio Pack 1 [Lite]/Ambiences/Warm Guitar Swells.wav
-  uploadId: 611538
+guid: f2885ba26d0d8704898ae60daa5f0907
 AudioImporter:
   externalObjects: {}
-  serializedVersion: 7
+  serializedVersion: 8
   defaultSettings:
     serializedVersion: 2
     loadType: 0

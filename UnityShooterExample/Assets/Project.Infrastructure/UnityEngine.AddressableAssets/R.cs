@@ -24,13 +24,13 @@ namespace UnityEngine.AddressableAssets {
                         }
                     }
                     public static class @Music {
-                        public const string @Value_Theme = "Project.UI.MainScreen/Music/Theme #Slowly Building Motif.wav";
+                        public const string @Value_Theme = "Project.UI.MainScreen/Music/Theme.ogg";
                     }
                 }
                 public static class @GameScreen {
                     public static class @Music {
-                        public const string @Value_Theme_1 = "Project.UI.GameScreen/Music/Theme_1 #Long Calm Ambience.wav";
-                        public const string @Value_Theme_2 = "Project.UI.GameScreen/Music/Theme_2 #Warm Guitar Swells.wav";
+                        public const string @Value_Theme_1 = "Project.UI.GameScreen/Music/Theme_1.mp3";
+                        public const string @Value_Theme_2 = "Project.UI.GameScreen/Music/Theme_2.mp3";
                     }
                 }
                 public static class @StyleSheets {

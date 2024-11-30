@@ -37,7 +37,7 @@ The project contains the following source codes:
   * Launcher.cs
   * Program.cs
   * DebugScreen.cs
-  * Editor/ProjectBar.cs
+  * Editor/ProjectMenuBar.cs
   * Editor/ProjectWindow.cs
 - Project.UI
   * UITheme.cs
