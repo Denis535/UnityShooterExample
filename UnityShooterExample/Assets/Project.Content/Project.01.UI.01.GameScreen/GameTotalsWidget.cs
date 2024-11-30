@@ -32,20 +32,7 @@ namespace Project.UI {
             HideSelf();
         }
 
-        // Helpers
-        //private static GameTotalsWidgetView CreateView(GameTotalsWidget widget) {
-        //    if (widget.Game.Player.State is PlayerState.Winner) {
-        //        if (!widget.Game.Info.Level.IsLast()) {
-        //        } else {
-        //        }
-        //    }
-        //    if (widget.Game.Player.State is PlayerState.Loser) {
-        //    }
-        //    throw Exceptions.Internal.NotSupported( $"PlayerState {widget.Game.Player.State} is not supported" );
-        //}
-
     }
-    // LevelCompleted
     public class GameTotalsWidget_LevelCompleted : GameTotalsWidget<GameTotalsWidgetView_LevelCompleted> {
 
         public GameTotalsWidget_LevelCompleted(IDependencyContainer container) : base( container ) {
@@ -72,7 +59,6 @@ namespace Project.UI {
         }
 
     }
-    // LevelFailed
     public class GameTotalsWidget_LevelFailed : GameTotalsWidget<GameTotalsWidgetView_LevelFailed> {
 
         public GameTotalsWidget_LevelFailed(IDependencyContainer container) : base( container ) {
@@ -97,7 +83,6 @@ namespace Project.UI {
         }
 
     }
-    // GameCompleted
     public class GameTotalsWidget_GameCompleted : GameTotalsWidget<GameTotalsWidgetView_GameCompleted> {
 
         public GameTotalsWidget_GameCompleted(IDependencyContainer container) : base( container ) {
