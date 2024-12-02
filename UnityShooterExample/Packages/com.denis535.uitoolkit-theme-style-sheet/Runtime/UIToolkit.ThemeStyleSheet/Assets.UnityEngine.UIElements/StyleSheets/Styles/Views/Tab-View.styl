@@ -1,0 +1,55 @@
+@import "../../Themes/_Themes"
+
+// alias
+alias--tab-view              = // string: .unity-tab-view.{skin}
+alias--tab-view-headers      = // string: .unity-tab-view.{skin} .unity-tab-view__header-container
+alias--tab-view-contents     = // string: .unity-tab-view.{skin} .unity-tab-view__content-container
+alias--tab-header            = // string: .unity-tab-view.{skin} .unity-tab__header.{state}
+alias--tab-header-icon       = // string: .unity-tab-view.{skin} .unity-tab__header.{state} .unity-tab__header-image
+alias--tab-header-text       = // string: .unity-tab-view.{skin} .unity-tab__header.{state} .unity-tab__header-label
+alias--tab-header-underline  = // string: .unity-tab-view.{skin} .unity-tab__header.{state} .unity-tab__header-underline
+alias--tab-content           = // string: .unity-tab-view.{skin} .unity-tab.{state}
+alias--tab-content-container = // string: .unity-tab-view.{skin} .unity-tab.{state} .unity-tab__content-container
+
+// style
+.selector--tab-view                 // styles: null
+.selector--tab-view-headers         // styles: null
+.selector--tab-view-contents        // styles: null
+.selector--tab-header               // styles: add-text(middle-center, null, null)
+.selector--tab-content              // styles: add-property(display, none)
+.selector--tab-content.null:checked // styles: add-property(display, flex)
+
+// style
+.selector--tab-view              // styles: add-theme(null                )
+.selector--tab-view-headers      // styles: add-theme(null                )
+.selector--tab-view-contents     // styles: add-theme(null                )
+.selector--tab-header            // styles: add-theme(tab-header          )
+.selector--tab-header-underline  // styles: add-theme(tab-header-underline)
+.selector--tab-content           // styles: add-theme(view                )
+.selector--tab-content-container // styles: add-theme(null                )
+
+// style
+.selector--tab-view               // styles: add-layout(null,                        auto, auto, ( 4px             ), (0px), (0px                ))
+.selector--tab-view-headers       // styles: add-layout(null,                        auto, auto, (-3px -3px 0px 0px), (0px), (0px                ))
+.selector--tab-view-contents      // styles: add-layout(null,                        auto, auto, ( 0px  0px 6px 0px), (0px), (0px                ))
+.selector--tab-header             // styles: add-layout(null,                        auto, auto, ( 3px  3px 0px 0px), (1px), (12px 12px 10px 10px))
+.selector--tab-header-icon        // styles: add-layout(null,                        auto, auto, ( 0px             ), (0px), (0px                ))
+.selector--tab-header-text        // styles: add-layout(null,                        auto, auto, ( 0px             ), (0px), (0px                ))
+.selector--tab-header-underline   // styles: add-layout(absolute null null null 0px, 100%, 4px,  ( 0px             ), (1px), (0px                ))
+.selector--tab-content            // styles: add-layout(null,                        auto, auto, ( 0px             ), (1px), (0px                ))
+.selector--tab-content.small      // styles: add-layout(null,                        auto, auto, ( 0px             ), (1px), (6px  6px  5px  5px ))
+.selector--tab-content.medium     // styles: add-layout(null,                        auto, auto, ( 0px             ), (1px), (12px 12px 10px 10px))
+.selector--tab-content.large      // styles: add-layout(null,                        auto, auto, ( 0px             ), (1px), (24px 24px 20px 20px))
+.selector--tab-content.no-outline // styles: add-layout(border: 0px                                                                               )
+.selector--tab-content-container  // styles: add-layout(null,                        auto, auto, ( 0px             ), (0px), (0px                ))
+
+// style
+.selector--tab-view              // styles: add-flex(0, 1, auto, auto).add-flex2(column, flex-start, null, stretch)
+.selector--tab-view-headers      // styles: add-flex(0, 1, auto, auto).add-flex2(row,    flex-start, null, stretch)
+.selector--tab-view-contents     // styles: add-flex(1, 1, auto, auto).add-flex2(column, flex-start, null, stretch)
+.selector--tab-header            // styles: add-flex(1, 1, auto, auto).add-flex2(row,    center,     null, stretch)
+.selector--tab-header-icon       // styles: add-flex(0, 1, auto, auto)
+.selector--tab-header-text       // styles: add-flex(0, 1, auto, auto)
+.selector--tab-header-underline  // styles: add-flex(0, 1, auto, auto)
+.selector--tab-content           // styles: add-flex(1, 1, auto, auto).add-flex2(column, flex-start, null, stretch)
+.selector--tab-content-container // styles: add-flex(1, 1, auto, auto).add-flex2(column, flex-start, null, stretch)

@@ -1,5 +1,48 @@
 {
   "dependencies": {
+    "com.denis535.addressables-extensions": {
+      "version": "1.0.19",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.addressables": "1.0.0"
+      },
+      "url": "https://package.openupm.com"
+    },
+    "com.denis535.addressables-source-generator": {
+      "version": "1.0.43",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.addressables": "1.0.0"
+      },
+      "url": "https://package.openupm.com"
+    },
+    "com.denis535.clean-architecture-game-framework": {
+      "version": "1.4.26",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0",
+        "com.unity.modules.audio": "1.0.0"
+      },
+      "url": "https://package.openupm.com"
+    },
+    "com.denis535.colorful-project-window": {
+      "version": "1.0.47",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "com.denis535.uitoolkit-theme-style-sheet": {
+      "version": "file:com.denis535.uitoolkit-theme-style-sheet",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0"
+      }
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,

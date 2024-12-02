@@ -1,0 +1,16 @@
+@import "../../Themes/_Themes"
+
+// alias
+alias--box = // string: .unity-box.{skin}.{state}
+
+// style
+.selector--box // styles: add-theme(box)
+
+// style
+.selector--box        // styles: add-layout(null, auto, auto, (4px), (1px), (0px                ))
+.selector--box.small  // styles: add-layout(null, auto, auto, (4px), (1px), (6px  6px  5px  5px ))
+.selector--box.medium // styles: add-layout(null, auto, auto, (4px), (1px), (12px 12px 10px 10px))
+.selector--box.large  // styles: add-layout(null, auto, auto, (4px), (1px), (24px 24px 20px 20px))
+
+// style
+.selector--box // styles: add-flex(0, 1, auto, auto).add-flex2(column, flex-start, null, stretch)

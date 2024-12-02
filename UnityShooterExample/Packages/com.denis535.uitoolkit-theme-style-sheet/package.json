@@ -1,0 +1,28 @@
+{
+  "name": "com.denis535.uitoolkit-theme-style-sheet",
+  "displayName": "UIToolkit Theme Style Sheet",
+  "version": "1.3.0",
+  "description": "This package provides you with the UIToolkit theme stylesheets, as well as some additional visual elements and tools.",
+  "author": {
+    "name": "Denis535",
+    "url": "https://denis535.github.io"
+  },
+  "unity": "2023.2",
+  "dependencies": {
+    "com.unity.modules.uielements": "1.0.0"
+  },
+  "keywords": [
+    "UI",
+    "GUI",
+    "UIElements",
+    "UIToolkit",
+    "Style Sheet",
+    "Theme Style Sheet",
+    "CSS",
+    "USS",
+    "Less",
+    "Sass",
+    "Stylus",
+    "Pug"
+  ]
+}
