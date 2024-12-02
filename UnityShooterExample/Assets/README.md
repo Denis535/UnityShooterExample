@@ -1,5 +1,5 @@
 # Overview
-This is the third-person shooter example.
+This is the ```Modular Third-Person Shooter Example```.
 In this example, I implemented my best ideas for organizing the structure and architecture of the game project.
 And now I want to share my experience with you!
 

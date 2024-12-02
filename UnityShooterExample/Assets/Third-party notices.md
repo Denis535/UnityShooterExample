@@ -30,7 +30,7 @@ Links:
 - https://github.com/rsms/inter/blob/master/LICENSE.txt
 
 ## Assets of com.unity.ui package
-These assets are developed by Unity.
+These assets are developed by ```Unity Technologies```.
 And it's licensed under the ```Unity Companion License``` for Unity-dependent projects.
 Files:
 - UIToolkit.ThemeStyleSheet/Assets.UnityEngine.UIElements/Images/
