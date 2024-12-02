@@ -43,7 +43,7 @@ namespace UnityEditor.UIElements {
         // Helpers
         private static void CompileStylus(string src, string dist) {
             try {
-                NodeJS.Run( "Packages/com.denis535.uitoolkit-theme-style-sheet/Editor/UIToolkit.ThemeStyleSheet.Editor/StylusCompiler.js", src, dist );
+                NodeJS.Run( "Assets/Plugins/UIToolkit.ThemeStyleSheet.Editor/StylusCompiler.js", src, dist );
             } catch (Win32Exception) {
                 Debug.LogWarning( $"Can not compile '{src}', probably the Node.js is not installed" );
             }

@@ -1,3 +1,3 @@
-@import url("/Packages/com.denis535.uitoolkit-theme-style-sheet/Runtime/UIToolkit.ThemeStyleSheet/Assets.UnityEngine.UIElements/StyleSheets/ThemeStyleSheet.uss");
-@import url("/Packages/com.denis535.uitoolkit-theme-style-sheet/Runtime/UIToolkit.ThemeStyleSheet/Assets.UnityEngine.UIElements/StyleSheets/LibraryStyleSheet.uss");
+@import url("/Assets/Plugins/UIToolkit.ThemeStyleSheet/Assets.UnityEngine.UIElements/StyleSheets/ThemeStyleSheet.uss");
+@import url("/Assets/Plugins/UIToolkit.ThemeStyleSheet/Assets.UnityEngine.UIElements/StyleSheets/LibraryStyleSheet.uss");
 @import url("/Assets/Project.Content/Assets.Project.01.UI/StyleSheets/ThemeStyleSheet.uss");
