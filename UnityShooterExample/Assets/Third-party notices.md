@@ -20,7 +20,7 @@ Links:
 - https://assetstore.unity.com/packages/essentials/tutorial-projects/tower-defense-template-107692
 - https://unity.com/ru/legal/licenses/unity-companion-license
 
-## Inter Font
+## Inter font
 These assets are developed by ```Rasmus Andersson```.
 And it's licensed under the ```SIL Open Font License, Version 1.1```.
 Files:
@@ -29,7 +29,7 @@ Links:
 - https://rsms.me/inter/
 - https://github.com/rsms/inter/blob/master/LICENSE.txt
 
-## Assets of com.unity.ui package
+## com.unity.ui package
 These assets are developed by ```Unity Technologies```.
 And it's licensed under the ```Unity Companion License``` for Unity-dependent projects.
 Files:
