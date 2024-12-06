@@ -19,7 +19,7 @@ namespace Project {
             new ProjectWindow();
         }
 
-        public ProjectWindow() : base( GetPackagePaths(), GetModulePaths() ) {
+        public ProjectWindow() : base( GetPackagePaths(), GetAssemblyPaths() ) {
         }
         public override void Dispose() {
             base.Dispose();
@@ -32,34 +32,38 @@ namespace Project {
         protected override void DrawElement(Rect rect, string path) {
             if (path.Equals( "Assets/Assets" ) || path.StartsWith( "Assets/Assets/" ) || path.StartsWith( "Assets/Assets." )) {
                 Highlight( rect, Settings.AssetsColor, path.Count( i => i == '/' ) >= 2 );
-                if (rect.height == 16) {
-                    if (path.StartsWith( "Assets/Assets.Project.00" )) {
-                        rect.xMin += 59;
-                        rect.width = 60;
-                        DrawRect( rect, Settings.AssetsColor );
-                        return;
-                    }
-                    if (path.StartsWith( "Assets/Assets.Project.01.UI" )) {
-                        rect.xMin += 59;
-                        rect.width = 73;
-                        DrawRect( rect, Settings.AssetsColor );
-                        return;
-                    }
-                    if (path.StartsWith( "Assets/Assets.Project.05.App" )) {
-                        rect.xMin += 59;
-                        rect.width = 86;
-                        DrawRect( rect, Settings.AssetsColor );
-                        return;
-                    }
-                    if (path.StartsWith( "Assets/Assets.Project.06.Game" )) {
-                        rect.xMin += 59;
-                        rect.width = 96;
-                        DrawRect( rect, Settings.AssetsColor );
-                        return;
-                    }
-                }
+                //if (rect.height == 16) {
+                //    if (path.StartsWith( "Assets/Assets.Project.00" )) {
+                //        rect.xMin += 59;
+                //        rect.width = 60;
+                //        DrawRect( rect, Settings.AssetsColor );
+                //        return;
+                //    }
+                //    if (path.StartsWith( "Assets/Assets.Project.01.UI" )) {
+                //        rect.xMin += 59;
+                //        rect.width = 73;
+                //        DrawRect( rect, Settings.AssetsColor );
+                //        return;
+                //    }
+                //    if (path.StartsWith( "Assets/Assets.Project.05.App" )) {
+                //        rect.xMin += 59;
+                //        rect.width = 86;
+                //        DrawRect( rect, Settings.AssetsColor );
+                //        return;
+                //    }
+                //    if (path.StartsWith( "Assets/Assets.Project.06.Game" )) {
+                //        rect.xMin += 59;
+                //        rect.width = 96;
+                //        DrawRect( rect, Settings.AssetsColor );
+                //        return;
+                //    }
+                //}
                 return;
             }
+            //if (path.StartsWith( "Assets/Project" )) {
+            //    Highlight( rect, Settings.SourcesColor, path.Count( i => i == '/' ) >= 2 );
+            //    return;
+            //}
             base.DrawElement( rect, path );
         }
         protected override void DrawPackageElement(Rect rect, string path, string package, string content) {
@@ -151,11 +155,24 @@ namespace Project {
                 .Append( "Packages/com.denis535.uitoolkit-theme-style-sheet" )
                 .ToArray();
         }
-        private static string[] GetModulePaths() {
+        private static string[] GetAssemblyPaths() {
             return Enumerable.Empty<string>()
                 .Append( "Assets/Project" )
-                .Append( "Assets/Project.Content" )
-                .Append( "Assets/Project.Infrastructure" )
+                .Append( "Assets/Project.00" )
+                .Append( "Assets/Project.01.UI" )
+                .Append( "Assets/Project.01.UI.00.MainScreen" )
+                .Append( "Assets/Project.01.UI.01.GameScreen" )
+                .Append( "Assets/Project.01.UI.02.Common" )
+                .Append( "Assets/Project.02.UI" )
+                .Append( "Assets/Project.02.UI.00.MainScreen" )
+                .Append( "Assets/Project.02.UI.01.GameScreen" )
+                .Append( "Assets/Project.02.UI.02.Common" )
+                .Append( "Assets/Project.05.App" )
+                .Append( "Assets/Project.06.Game" )
+                .Append( "Assets/Project.06.Game.Actors" )
+                .Append( "Assets/Project.06.Game.Things" )
+                .Append( "Assets/Project.06.Game.Worlds" )
+                .Append( "Assets/Project.07.Infrastructure" )
                 .Append( "Assets/Plugins/Denis535.Addressables.Extensions" )
                 .Append( "Assets/Plugins/Denis535.Addressables.SourceGenerator" )
                 .Append( "Assets/Plugins/Denis535.CleanArchitectureGameFramework" )
