@@ -30,100 +30,94 @@ namespace Project {
         }
 
         protected override void DrawElement(Rect rect, string path) {
-            if (path.Equals( "Assets/Assets" ) || path.StartsWith( "Assets/Assets/" )) {
+            if (path.Equals( "Assets/Assets" ) || path.StartsWith( "Assets/Assets/" ) || path.StartsWith( "Assets/Assets." )) {
                 Highlight( rect, Settings.AssetsColor, path.Count( i => i == '/' ) >= 2 );
-                return;
-            }
-            if (path.StartsWith( "Assets/Assets." )) {
-                Highlight( rect, Settings.AssetsColor, path.Count( i => i == '/' ) >= 2 );
-                return;
-            }
-            base.DrawElement( rect, path );
-        }
-        protected override void DrawPackageElement(Rect rect, string path, string name, string rest) {
-            base.DrawPackageElement( rect, path, name, rest );
-        }
-        protected override void DrawAssemblyElement(Rect rect, string path, string name, string rest) {
-            base.DrawAssemblyElement( rect, path, name, rest );
-        }
-
-        protected override void DrawPackage(Rect rect, string path, string name) {
-            base.DrawPackage( rect, path, name );
-        }
-        protected override void DrawAssembly(Rect rect, string path, string name) {
-            base.DrawAssembly( rect, path, name );
-        }
-        protected override void DrawAssets(Rect rect, string path, string name, string rest) {
-            base.DrawAssets( rect, path, name, rest );
-            if (name is "Project" or "Project.Content" or "Project.Infrastructure" && !rest.Contains( '/' )) {
                 if (rect.height == 16) {
-                    if (rest.StartsWith( "Assets.Project.00" )) {
+                    if (path.StartsWith( "Assets/Assets.Project.00" )) {
                         rect.xMin += 101;
                         rect.width = 18;
                         DrawRect( rect, Settings.AssetsColor );
                         return;
                     }
-                    if (rest.StartsWith( "Assets.Project.01.UI" )) {
+                    if (path.StartsWith( "Assets/Assets.Project.01.UI" )) {
                         rect.xMin += 101;
                         rect.width = 31;
                         DrawRect( rect, Settings.AssetsColor );
                         return;
                     }
-                    if (rest.StartsWith( "Assets.Project.05.App" )) {
+                    if (path.StartsWith( "Assets/Assets.Project.05.App" )) {
                         rect.xMin += 101;
                         rect.width = 44;
                         DrawRect( rect, Settings.AssetsColor );
                         return;
                     }
-                    if (rest.StartsWith( "Assets.Project.06.Game" )) {
+                    if (path.StartsWith( "Assets/Assets.Project.06.Game" )) {
                         rect.xMin += 101;
                         rect.width = 54;
                         DrawRect( rect, Settings.AssetsColor );
                         return;
                     }
                 }
+                return;
             }
+            base.DrawElement( rect, path );
         }
-        protected override void DrawResources(Rect rect, string path, string name, string rest) {
-            base.DrawResources( rect, path, name, rest );
+        protected override void DrawPackageElement(Rect rect, string path, string package, string content) {
+            base.DrawPackageElement( rect, path, package, content );
         }
-        protected override void DrawSources(Rect rect, string path, string name, string rest) {
-            base.DrawSources( rect, path, name, rest );
-            if (name is "Project" or "Project.Content" or "Project.Infrastructure" && !rest.Contains( '/' )) {
+        protected override void DrawAssemblyElement(Rect rect, string path, string assembly, string content) {
+            base.DrawAssemblyElement( rect, path, assembly, content );
+        }
+
+        protected override void DrawPackage(Rect rect, string path, string assembly) {
+            base.DrawPackage( rect, path, assembly );
+        }
+        protected override void DrawAssembly(Rect rect, string path, string assembly) {
+            base.DrawAssembly( rect, path, assembly );
+        }
+        protected override void DrawAssets(Rect rect, string path, string assembly, string content) {
+            base.DrawAssets( rect, path, assembly, content );
+        }
+        protected override void DrawResources(Rect rect, string path, string assembly, string content) {
+            base.DrawResources( rect, path, assembly, content );
+        }
+        protected override void DrawSources(Rect rect, string path, string assembly, string content) {
+            base.DrawSources( rect, path, assembly, content );
+            if (assembly is "Project" or "Project.Content" or "Project.Infrastructure" && !content.Contains( '/' )) {
                 if (rect.height == 16) {
-                    if (rest.StartsWith( "Project.00" )) {
+                    if (content.StartsWith( "Project.00" )) {
                         rect.xMin += 60;
                         rect.width = 18;
                         DrawRect( rect, Settings.SourcesColor );
                         return;
                     }
-                    if (rest.StartsWith( "Project.01.UI" )) {
+                    if (content.StartsWith( "Project.01.UI" )) {
                         rect.xMin += 60;
                         rect.width = 31;
                         DrawRect( rect, Settings.SourcesColor );
                         return;
                     }
-                    if (rest.StartsWith( "Project.02.UI" )) {
+                    if (content.StartsWith( "Project.02.UI" )) {
                         rect.xMin += 60;
                         rect.width = 33;
                         DrawRect( rect, Settings.SourcesColor );
                         return;
                     }
-                    if (rest.StartsWith( "Project.05.App" )) {
+                    if (content.StartsWith( "Project.05.App" )) {
                         rect.xMin += 60;
                         rect.width = 44;
                         DrawRect( rect, Settings.SourcesColor );
                         return;
                     }
-                    if (rest.StartsWith( "Project.06.Game" )) {
+                    if (content.StartsWith( "Project.06.Game" )) {
                         rect.xMin += 60;
                         rect.width = 54;
                         DrawRect( rect, Settings.SourcesColor );
                         return;
                     }
-                    if (rest.StartsWith( "Project.07.Infrastructure" )) {
+                    if (content.StartsWith( "Project.07.Infrastructure" )) {
                         rect.xMin += 60;
-                        rect.width = 54;
+                        rect.width = 98;
                         DrawRect( rect, Settings.SourcesColor );
                         return;
                     }
@@ -131,20 +125,20 @@ namespace Project {
             }
         }
 
-        protected override bool IsPackage(string path, [NotNullWhen( true )] out string? name, [NotNullWhen( true )] out string? rest) {
-            return base.IsPackage( path, out name, out rest );
+        protected override bool IsPackage(string path, [NotNullWhen( true )] out string? package, [NotNullWhen( true )] out string? content) {
+            return base.IsPackage( path, out package, out content );
         }
-        protected override bool IsAssembly(string path, [NotNullWhen( true )] out string? name, [NotNullWhen( true )] out string? rest) {
-            return base.IsAssembly( path, out name, out rest );
+        protected override bool IsAssembly(string path, [NotNullWhen( true )] out string? assembly, [NotNullWhen( true )] out string? content) {
+            return base.IsAssembly( path, out assembly, out content );
         }
-        protected override bool IsAssets(string path, string name, string rest) {
-            return base.IsAssets( path, name, rest );
+        protected override bool IsAssets(string path, string assembly, string content) {
+            return base.IsAssets( path, assembly, content );
         }
-        protected override bool IsResources(string path, string name, string rest) {
-            return base.IsResources( path, name, rest );
+        protected override bool IsResources(string path, string assembly, string content) {
+            return base.IsResources( path, assembly, content );
         }
-        protected override bool IsSources(string path, string name, string rest) {
-            return base.IsSources( path, name, rest );
+        protected override bool IsSources(string path, string assembly, string content) {
+            return base.IsSources( path, assembly, content );
         }
 
         // Helpers

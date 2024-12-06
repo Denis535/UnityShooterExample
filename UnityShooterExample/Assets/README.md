@@ -5,8 +5,8 @@ And now I want to share my experience with you!
 
 # Reference
 The project has the following structure:
-- Project                - the folder that contains all definitions of main modules.
-- Project.Content        - the folder that contains all sources and assets of main modules.
+- Project                - the folder that contains definitions of modules.
+- Project.Content        - the folder that contains sources of main modules.
 - Project.Infrastructure - the folder that contains everything common and all low-level staff.
 - Plugins                - the folder that contains various libraries, frameworks and packages.
 
