@@ -21,7 +21,7 @@ namespace Project.App {
             //        Debug.Log( string.Join( ", ", values ) );
             //    }
             //}
-            Profile = CLI.GetValue( Environment.GetCommandLineArgs(), "--profile" );
+            Profile = CommandLineArgumentsUtils.GetValue( Environment.GetCommandLineArgs(), "--profile" );
         }
         public override void Dispose() {
             base.Dispose();
