@@ -34,26 +34,26 @@ namespace Project {
                 Highlight( rect, Settings.AssetsColor, path.Count( i => i == '/' ) >= 2 );
                 if (rect.height == 16) {
                     if (path.StartsWith( "Assets/Assets.Project.00" )) {
-                        rect.xMin += 101;
-                        rect.width = 18;
+                        rect.xMin += 59;
+                        rect.width = 60;
                         DrawRect( rect, Settings.AssetsColor );
                         return;
                     }
                     if (path.StartsWith( "Assets/Assets.Project.01.UI" )) {
-                        rect.xMin += 101;
-                        rect.width = 31;
+                        rect.xMin += 59;
+                        rect.width = 73;
                         DrawRect( rect, Settings.AssetsColor );
                         return;
                     }
                     if (path.StartsWith( "Assets/Assets.Project.05.App" )) {
-                        rect.xMin += 101;
-                        rect.width = 44;
+                        rect.xMin += 59;
+                        rect.width = 86;
                         DrawRect( rect, Settings.AssetsColor );
                         return;
                     }
                     if (path.StartsWith( "Assets/Assets.Project.06.Game" )) {
-                        rect.xMin += 101;
-                        rect.width = 54;
+                        rect.xMin += 59;
+                        rect.width = 96;
                         DrawRect( rect, Settings.AssetsColor );
                         return;
                     }
@@ -83,46 +83,46 @@ namespace Project {
         }
         protected override void DrawSources(Rect rect, string path, string assembly, string content) {
             base.DrawSources( rect, path, assembly, content );
-            if (assembly is "Project" or "Project.Content" or "Project.Infrastructure" && !content.Contains( '/' )) {
-                if (rect.height == 16) {
-                    if (content.StartsWith( "Project.00" )) {
-                        rect.xMin += 60;
-                        rect.width = 18;
-                        DrawRect( rect, Settings.SourcesColor );
-                        return;
-                    }
-                    if (content.StartsWith( "Project.01.UI" )) {
-                        rect.xMin += 60;
-                        rect.width = 31;
-                        DrawRect( rect, Settings.SourcesColor );
-                        return;
-                    }
-                    if (content.StartsWith( "Project.02.UI" )) {
-                        rect.xMin += 60;
-                        rect.width = 33;
-                        DrawRect( rect, Settings.SourcesColor );
-                        return;
-                    }
-                    if (content.StartsWith( "Project.05.App" )) {
-                        rect.xMin += 60;
-                        rect.width = 44;
-                        DrawRect( rect, Settings.SourcesColor );
-                        return;
-                    }
-                    if (content.StartsWith( "Project.06.Game" )) {
-                        rect.xMin += 60;
-                        rect.width = 54;
-                        DrawRect( rect, Settings.SourcesColor );
-                        return;
-                    }
-                    if (content.StartsWith( "Project.07.Infrastructure" )) {
-                        rect.xMin += 60;
-                        rect.width = 98;
-                        DrawRect( rect, Settings.SourcesColor );
-                        return;
-                    }
-                }
-            }
+            //if (assembly is "Project" or "Project.Content" or "Project.Infrastructure" && !content.Contains( '/' )) {
+            //    if (rect.height == 16) {
+            //        if (content.StartsWith( "Project.00" )) {
+            //            rect.xMin += 60;
+            //            rect.width = 18;
+            //            DrawRect( rect, Settings.SourcesColor );
+            //            return;
+            //        }
+            //        if (content.StartsWith( "Project.01.UI" )) {
+            //            rect.xMin += 60;
+            //            rect.width = 31;
+            //            DrawRect( rect, Settings.SourcesColor );
+            //            return;
+            //        }
+            //        if (content.StartsWith( "Project.02.UI" )) {
+            //            rect.xMin += 60;
+            //            rect.width = 33;
+            //            DrawRect( rect, Settings.SourcesColor );
+            //            return;
+            //        }
+            //        if (content.StartsWith( "Project.05.App" )) {
+            //            rect.xMin += 60;
+            //            rect.width = 44;
+            //            DrawRect( rect, Settings.SourcesColor );
+            //            return;
+            //        }
+            //        if (content.StartsWith( "Project.06.Game" )) {
+            //            rect.xMin += 60;
+            //            rect.width = 54;
+            //            DrawRect( rect, Settings.SourcesColor );
+            //            return;
+            //        }
+            //        if (content.StartsWith( "Project.07.Infrastructure" )) {
+            //            rect.xMin += 60;
+            //            rect.width = 98;
+            //            DrawRect( rect, Settings.SourcesColor );
+            //            return;
+            //        }
+            //    }
+            //}
         }
 
         protected override bool IsPackage(string path, [NotNullWhen( true )] out string? package, [NotNullWhen( true )] out string? content) {
