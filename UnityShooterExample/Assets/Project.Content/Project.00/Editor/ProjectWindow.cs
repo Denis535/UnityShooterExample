@@ -129,6 +129,12 @@ namespace Project {
                         DrawRect( rect, Settings.SourcesColor );
                         return;
                     }
+                    if (rest.StartsWith( "Project.07.Infrastructure" )) {
+                        rect.xMin += 60;
+                        rect.width = 54;
+                        DrawRect( rect, Settings.SourcesColor );
+                        return;
+                    }
                 }
             }
         }
