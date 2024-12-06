@@ -29,40 +29,32 @@ namespace Project {
             base.OnGUI( guid, rect );
         }
 
-        protected override bool IsPackage(string path, [NotNullWhen( true )] out string? name, [NotNullWhen( true )] out string? rest) {
-            return base.IsPackage( path, out name, out rest );
+        protected override void DrawElement(Rect rect, string path) {
+            if (path.Equals( "Assets/Assets" ) || path.StartsWith( "Assets/Assets/" )) {
+                Highlight( rect, Settings.AssetsColor, path.Count( i => i == '/' ) >= 2 );
+                return;
+            }
+            if (path.StartsWith( "Assets/Assets." )) {
+                Highlight( rect, Settings.AssetsColor, path.Count( i => i == '/' ) >= 2 );
+                return;
+            }
+            base.DrawElement( rect, path );
         }
-        protected override bool IsAssembly(string path, [NotNullWhen( true )] out string? name, [NotNullWhen( true )] out string? rest) {
-            return base.IsAssembly( path, out name, out rest );
-        }
-        protected override bool IsAssets(string path, string name, string rest) {
-            return base.IsAssets( path, name, rest );
-        }
-        protected override bool IsResources(string path, string name, string rest) {
-            return base.IsResources( path, name, rest );
-        }
-        protected override bool IsSources(string path, string name, string rest) {
-            return base.IsSources( path, name, rest );
-        }
-
         protected override void DrawPackageElement(Rect rect, string path, string name, string rest) {
             base.DrawPackageElement( rect, path, name, rest );
         }
         protected override void DrawAssemblyElement(Rect rect, string path, string name, string rest) {
             base.DrawAssemblyElement( rect, path, name, rest );
         }
-        protected override void DrawAssemblyContentElement(Rect rect, string path, string name, string rest) {
-            base.DrawAssemblyContentElement( rect, path, name, rest );
-        }
 
-        protected override void DrawPackageItem(Rect rect, string path, string name) {
-            base.DrawPackageItem( rect, path, name );
+        protected override void DrawPackage(Rect rect, string path, string name) {
+            base.DrawPackage( rect, path, name );
         }
-        protected override void DrawAssemblyItem(Rect rect, string path, string name) {
-            base.DrawAssemblyItem( rect, path, name );
+        protected override void DrawAssembly(Rect rect, string path, string name) {
+            base.DrawAssembly( rect, path, name );
         }
-        protected override void DrawAssetsItem(Rect rect, string path, string name, string rest) {
-            base.DrawAssetsItem( rect, path, name, rest );
+        protected override void DrawAssets(Rect rect, string path, string name, string rest) {
+            base.DrawAssets( rect, path, name, rest );
             if (name is "Project" or "Project.Content" or "Project.Infrastructure" && !rest.Contains( '/' )) {
                 if (rect.height == 16) {
                     if (rest.StartsWith( "Assets.Project.00" )) {
@@ -92,11 +84,11 @@ namespace Project {
                 }
             }
         }
-        protected override void DrawResourcesItem(Rect rect, string path, string name, string rest) {
-            base.DrawResourcesItem( rect, path, name, rest );
+        protected override void DrawResources(Rect rect, string path, string name, string rest) {
+            base.DrawResources( rect, path, name, rest );
         }
-        protected override void DrawSourcesItem(Rect rect, string path, string name, string rest) {
-            base.DrawSourcesItem( rect, path, name, rest );
+        protected override void DrawSources(Rect rect, string path, string name, string rest) {
+            base.DrawSources( rect, path, name, rest );
             if (name is "Project" or "Project.Content" or "Project.Infrastructure" && !rest.Contains( '/' )) {
                 if (rect.height == 16) {
                     if (rest.StartsWith( "Project.00" )) {
@@ -137,6 +129,22 @@ namespace Project {
                     }
                 }
             }
+        }
+
+        protected override bool IsPackage(string path, [NotNullWhen( true )] out string? name, [NotNullWhen( true )] out string? rest) {
+            return base.IsPackage( path, out name, out rest );
+        }
+        protected override bool IsAssembly(string path, [NotNullWhen( true )] out string? name, [NotNullWhen( true )] out string? rest) {
+            return base.IsAssembly( path, out name, out rest );
+        }
+        protected override bool IsAssets(string path, string name, string rest) {
+            return base.IsAssets( path, name, rest );
+        }
+        protected override bool IsResources(string path, string name, string rest) {
+            return base.IsResources( path, name, rest );
+        }
+        protected override bool IsSources(string path, string name, string rest) {
+            return base.IsSources( path, name, rest );
         }
 
         // Helpers
