@@ -33,7 +33,11 @@ namespace Project {
             if (path.Equals( "Assets/Assets" ) || path.StartsWith( "Assets/Assets/" ) || path.StartsWith( "Assets/Assets." )) {
                 Highlight( rect, Settings.AssetsColor, path.Count( i => i == '/' ) >= 2 );
                 if (rect.height == 16 && path.Count( i => i == '/' ) == 1) {
-                    if (path.StartsWith( "Assets/Assets.Project.00" )) {
+                    if (path.Equals( "Assets/Assets.Project" )) {
+                        rect.xMin += 59;
+                        rect.width = 42;
+                        DrawRect( rect, Settings.AssetsColor );
+                    } else if (path.StartsWith( "Assets/Assets.Project.00" )) {
                         rect.xMin += 59;
                         rect.width = 60;
                         DrawRect( rect, Settings.AssetsColor );
@@ -60,29 +64,33 @@ namespace Project {
         protected override void DrawAssembly(Rect rect, string path, string? package, string assembly) {
             base.DrawAssembly( rect, path, package, assembly );
             if (rect.height == 16) {
-                if (assembly.StartsWith( "Project.00" )) {
-                    rect.xMin += 60 - 42;
-                    rect.width = 18 + 42;
+                if (assembly.Equals( "Project" )) {
+                    rect.xMin += 18;
+                    rect.width = 42;
+                    DrawRect( rect, Settings.AssemblyColor );
+                } else if (assembly.StartsWith( "Project.00" )) {
+                    rect.xMin += 18;
+                    rect.width = 60;
                     DrawRect( rect, Settings.AssemblyColor );
                 } else if (assembly.StartsWith( "Project.01.UI" )) {
-                    rect.xMin += 60 - 42;
-                    rect.width = 31 + 42;
+                    rect.xMin += 18;
+                    rect.width = 73;
                     DrawRect( rect, Settings.AssemblyColor );
                 } else if (assembly.StartsWith( "Project.02.UI" )) {
-                    rect.xMin += 60 - 42;
-                    rect.width = 33 + 42;
+                    rect.xMin += 18;
+                    rect.width = 75;
                     DrawRect( rect, Settings.AssemblyColor );
                 } else if (assembly.StartsWith( "Project.05.App" )) {
-                    rect.xMin += 60 - 42;
-                    rect.width = 44 + 42;
+                    rect.xMin += 18;
+                    rect.width = 86;
                     DrawRect( rect, Settings.AssemblyColor );
                 } else if (assembly.StartsWith( "Project.06.Game" )) {
-                    rect.xMin += 60 - 42;
-                    rect.width = 54 + 42;
+                    rect.xMin += 18;
+                    rect.width = 96;
                     DrawRect( rect, Settings.AssemblyColor );
                 } else if (assembly.StartsWith( "Project.07.Infrastructure" )) {
-                    rect.xMin += 60 - 42;
-                    rect.width = 98 + 42;
+                    rect.xMin += 18;
+                    rect.width = 140;
                     DrawRect( rect, Settings.AssemblyColor );
                 }
             }
