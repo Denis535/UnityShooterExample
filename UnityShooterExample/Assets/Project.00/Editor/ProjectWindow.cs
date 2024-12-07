@@ -5,7 +5,6 @@ namespace Project {
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.IO;
     using System.Linq;
     using System.Text;
     using UnityEditor;
@@ -13,13 +12,13 @@ namespace Project {
     using UnityEngine;
 
     [InitializeOnLoad]
-    public class ProjectWindow : ProjectWindowBase2 {
+    public class ProjectWindow : ProjectWindowBase {
 
         static ProjectWindow() {
             new ProjectWindow();
         }
 
-        public ProjectWindow() : base( GetPackagePaths(), GetAssemblyPaths() ) {
+        public ProjectWindow() {
         }
         public override void Dispose() {
             base.Dispose();
@@ -30,164 +29,160 @@ namespace Project {
         }
 
         protected override void DrawElement(Rect rect, string path) {
+            base.DrawElement( rect, path );
             if (path.Equals( "Assets/Assets" ) || path.StartsWith( "Assets/Assets/" ) || path.StartsWith( "Assets/Assets." )) {
                 Highlight( rect, Settings.AssetsColor, path.Count( i => i == '/' ) >= 2 );
-                //if (rect.height == 16) {
-                //    if (path.StartsWith( "Assets/Assets.Project.00" )) {
-                //        rect.xMin += 59;
-                //        rect.width = 60;
-                //        DrawRect( rect, Settings.AssetsColor );
-                //        return;
-                //    }
-                //    if (path.StartsWith( "Assets/Assets.Project.01.UI" )) {
-                //        rect.xMin += 59;
-                //        rect.width = 73;
-                //        DrawRect( rect, Settings.AssetsColor );
-                //        return;
-                //    }
-                //    if (path.StartsWith( "Assets/Assets.Project.05.App" )) {
-                //        rect.xMin += 59;
-                //        rect.width = 86;
-                //        DrawRect( rect, Settings.AssetsColor );
-                //        return;
-                //    }
-                //    if (path.StartsWith( "Assets/Assets.Project.06.Game" )) {
-                //        rect.xMin += 59;
-                //        rect.width = 96;
-                //        DrawRect( rect, Settings.AssetsColor );
-                //        return;
-                //    }
-                //}
-                return;
+                if (rect.height == 16 && path.Count( i => i == '/' ) == 1) {
+                    if (path.StartsWith( "Assets/Assets.Project.00" )) {
+                        rect.xMin += 59;
+                        rect.width = 60;
+                        DrawRect( rect, Settings.AssetsColor );
+                    } else if (path.StartsWith( "Assets/Assets.Project.01.UI" )) {
+                        rect.xMin += 59;
+                        rect.width = 73;
+                        DrawRect( rect, Settings.AssetsColor );
+                    } else if (path.StartsWith( "Assets/Assets.Project.05.App" )) {
+                        rect.xMin += 59;
+                        rect.width = 86;
+                        DrawRect( rect, Settings.AssetsColor );
+                    } else if (path.StartsWith( "Assets/Assets.Project.06.Game" )) {
+                        rect.xMin += 59;
+                        rect.width = 96;
+                        DrawRect( rect, Settings.AssetsColor );
+                    }
+                }
             }
-            //if (path.StartsWith( "Assets/Project" )) {
-            //    Highlight( rect, Settings.SourcesColor, path.Count( i => i == '/' ) >= 2 );
-            //    return;
-            //}
-            base.DrawElement( rect, path );
-        }
-        protected override void DrawPackageElement(Rect rect, string path, string package, string content) {
-            base.DrawPackageElement( rect, path, package, content );
-        }
-        protected override void DrawAssemblyElement(Rect rect, string path, string assembly, string content) {
-            base.DrawAssemblyElement( rect, path, assembly, content );
         }
 
-        protected override void DrawPackage(Rect rect, string path, string assembly) {
-            base.DrawPackage( rect, path, assembly );
+        protected override void DrawPackage(Rect rect, string path, string package) {
+            base.DrawPackage( rect, path, package );
         }
-        protected override void DrawAssembly(Rect rect, string path, string assembly) {
-            base.DrawAssembly( rect, path, assembly );
+        protected override void DrawAssembly(Rect rect, string path, string? package, string assembly) {
+            base.DrawAssembly( rect, path, package, assembly );
+            if (rect.height == 16) {
+                if (assembly.StartsWith( "Project.00" )) {
+                    rect.xMin += 60 - 42;
+                    rect.width = 18 + 42;
+                    DrawRect( rect, Settings.AssemblyColor );
+                } else if (assembly.StartsWith( "Project.01.UI" )) {
+                    rect.xMin += 60 - 42;
+                    rect.width = 31 + 42;
+                    DrawRect( rect, Settings.AssemblyColor );
+                } else if (assembly.StartsWith( "Project.02.UI" )) {
+                    rect.xMin += 60 - 42;
+                    rect.width = 33 + 42;
+                    DrawRect( rect, Settings.AssemblyColor );
+                } else if (assembly.StartsWith( "Project.05.App" )) {
+                    rect.xMin += 60 - 42;
+                    rect.width = 44 + 42;
+                    DrawRect( rect, Settings.AssemblyColor );
+                } else if (assembly.StartsWith( "Project.06.Game" )) {
+                    rect.xMin += 60 - 42;
+                    rect.width = 54 + 42;
+                    DrawRect( rect, Settings.AssemblyColor );
+                } else if (assembly.StartsWith( "Project.07.Infrastructure" )) {
+                    rect.xMin += 60 - 42;
+                    rect.width = 98 + 42;
+                    DrawRect( rect, Settings.AssemblyColor );
+                }
+            }
         }
-        protected override void DrawAssets(Rect rect, string path, string assembly, string content) {
-            base.DrawAssets( rect, path, assembly, content );
+        protected override void DrawAssets(Rect rect, string path, string? package, string? assembly, string content) {
+            base.DrawAssets( rect, path, package, assembly, content );
         }
-        protected override void DrawResources(Rect rect, string path, string assembly, string content) {
-            base.DrawResources( rect, path, assembly, content );
+        protected override void DrawResources(Rect rect, string path, string? package, string? assembly, string content) {
+            base.DrawResources( rect, path, package, assembly, content );
         }
-        protected override void DrawSources(Rect rect, string path, string assembly, string content) {
-            base.DrawSources( rect, path, assembly, content );
-            //if (assembly is "Project" or "Project.Content" or "Project.Infrastructure" && !content.Contains( '/' )) {
-            //    if (rect.height == 16) {
-            //        if (content.StartsWith( "Project.00" )) {
-            //            rect.xMin += 60;
-            //            rect.width = 18;
-            //            DrawRect( rect, Settings.SourcesColor );
-            //            return;
-            //        }
-            //        if (content.StartsWith( "Project.01.UI" )) {
-            //            rect.xMin += 60;
-            //            rect.width = 31;
-            //            DrawRect( rect, Settings.SourcesColor );
-            //            return;
-            //        }
-            //        if (content.StartsWith( "Project.02.UI" )) {
-            //            rect.xMin += 60;
-            //            rect.width = 33;
-            //            DrawRect( rect, Settings.SourcesColor );
-            //            return;
-            //        }
-            //        if (content.StartsWith( "Project.05.App" )) {
-            //            rect.xMin += 60;
-            //            rect.width = 44;
-            //            DrawRect( rect, Settings.SourcesColor );
-            //            return;
-            //        }
-            //        if (content.StartsWith( "Project.06.Game" )) {
-            //            rect.xMin += 60;
-            //            rect.width = 54;
-            //            DrawRect( rect, Settings.SourcesColor );
-            //            return;
-            //        }
-            //        if (content.StartsWith( "Project.07.Infrastructure" )) {
-            //            rect.xMin += 60;
-            //            rect.width = 98;
-            //            DrawRect( rect, Settings.SourcesColor );
-            //            return;
-            //        }
-            //    }
-            //}
+        protected override void DrawSources(Rect rect, string path, string? package, string? assembly, string content) {
+            base.DrawSources( rect, path, package, assembly, content );
         }
 
         protected override bool IsPackage(string path, [NotNullWhen( true )] out string? package, [NotNullWhen( true )] out string? content) {
-            return base.IsPackage( path, out package, out content );
+            var patterns = new[] {
+                "Packages/com.denis535.addressables-extensions",
+                "Packages/com.denis535.addressables-source-generator",
+                "Packages/com.denis535.clean-architecture-game-framework",
+                "Packages/com.denis535.colorful-project-window",
+                "Packages/com.denis535.uitoolkit-theme-style-sheet",
+            };
+            foreach (var pattern in patterns) {
+                if (IsMatch( path, pattern, out package, out content )) {
+                    return true;
+                }
+            }
+            package = null;
+            content = null;
+            return false;
         }
-        protected override bool IsAssembly(string path, [NotNullWhen( true )] out string? assembly, [NotNullWhen( true )] out string? content) {
-            return base.IsAssembly( path, out assembly, out content );
+        protected override bool IsAssembly(string path, string? package, [NotNullWhen( true )] out string? assembly, [NotNullWhen( true )] out string? content) {
+            if (package != null) {
+                var patterns = new[] {
+                    // com.denis535.addressables-extensions
+                    "Packages/com.denis535.addressables-extensions/Runtime/Denis535.Addressables.Extensions",
+                    // com.denis535.addressables-source-generator
+                    "Packages/com.denis535.addressables-source-generator/Editor/Denis535.Addressables.SourceGenerator",
+                    // com.denis535.clean-architecture-game-framewor
+                    "Packages/com.denis535.clean-architecture-game-framework/Runtime/Denis535.CleanArchitectureGameFramework",
+                    "Packages/com.denis535.clean-architecture-game-framework/Runtime/Denis535.CleanArchitectureGameFramework.Additions",
+                    "Packages/com.denis535.clean-architecture-game-framework/Runtime/Denis535.CleanArchitectureGameFramework.Internal",
+                    "Packages/com.denis535.clean-architecture-game-framework/Editor/Denis535.CleanArchitectureGameFramework.Editor", 
+                    // com.denis535.colorful-project-window
+                    "Packages/com.denis535.colorful-project-window/Editor/Denis535.ColorfulProjectWindow", 
+                    // com.denis535.uitoolkit-theme-style-sheet
+                    "Packages/com.denis535.uitoolkit-theme-style-sheet/Runtime/UIToolkit.ThemeStyleSheet",
+                    "Packages/com.denis535.uitoolkit-theme-style-sheet/Editor/UIToolkit.ThemeStyleSheet.Editor",
+                };
+                foreach (var pattern in patterns) {
+                    if (IsMatch( path, pattern, out assembly, out content )) {
+                        return true;
+                    }
+                }
+            } else {
+                var patterns = new[] {
+                    "Assets/Project",
+                    "Assets/Project.00",
+                    "Assets/Project.01.UI",
+                    "Assets/Project.01.UI.00.MainScreen",
+                    "Assets/Project.01.UI.01.GameScreen",
+                    "Assets/Project.01.UI.02.Common",
+                    "Assets/Project.02.UI",
+                    "Assets/Project.02.UI.00.MainScreen",
+                    "Assets/Project.02.UI.01.GameScreen",
+                    "Assets/Project.02.UI.02.Common",
+                    "Assets/Project.05.App",
+                    "Assets/Project.06.Game",
+                    "Assets/Project.06.Game.Actors",
+                    "Assets/Project.06.Game.Things",
+                    "Assets/Project.06.Game.Worlds",
+                    "Assets/Project.07.Infrastructure",
+                    "Assets/Plugins/Denis535.Addressables.Extensions",
+                    "Assets/Plugins/Denis535.Addressables.SourceGenerator",
+                    "Assets/Plugins/Denis535.CleanArchitectureGameFramework",
+                    "Assets/Plugins/Denis535.CleanArchitectureGameFramework.Additions",
+                    "Assets/Plugins/Denis535.CleanArchitectureGameFramework.Internal",
+                    "Assets/Plugins/Denis535.CleanArchitectureGameFramework.Editor",
+                    "Assets/Plugins/Denis535.ColorfulProjectWindow",
+                    "Assets/Plugins/UIToolkit.ThemeStyleSheet",
+                    "Assets/Plugins/UIToolkit.ThemeStyleSheet.Editor",
+                };
+                foreach (var pattern in patterns) {
+                    if (IsMatch( path, pattern, out assembly, out content )) {
+                        return true;
+                    }
+                }
+            }
+            assembly = null;
+            content = null;
+            return false;
         }
-        protected override bool IsAssets(string path, string assembly, string content) {
-            return base.IsAssets( path, assembly, content );
+        protected override bool IsAssets(string path, string? package, string? assembly, string content) {
+            return base.IsAssets( path, package, assembly, content );
         }
-        protected override bool IsResources(string path, string assembly, string content) {
-            return base.IsResources( path, assembly, content );
+        protected override bool IsResources(string path, string? package, string? assembly, string content) {
+            return base.IsResources( path, package, assembly, content );
         }
-        protected override bool IsSources(string path, string assembly, string content) {
-            return base.IsSources( path, assembly, content );
-        }
-
-        // Helpers
-        private static string[] GetPackagePaths() {
-            return Enumerable.Empty<string>()
-                .Append( "Packages/com.denis535.clean-architecture-game-framework" )
-                .Append( "Packages/com.denis535.addressables-extensions" )
-                .Append( "Packages/com.denis535.addressables-source-generator" )
-                .Append( "Packages/com.denis535.colorful-project-window" )
-                .Append( "Packages/com.denis535.uitoolkit-theme-style-sheet" )
-                .ToArray();
-        }
-        private static string[] GetAssemblyPaths() {
-            return Enumerable.Empty<string>()
-                .Append( "Assets/Project" )
-                .Append( "Assets/Project.00" )
-                .Append( "Assets/Project.01.UI" )
-                .Append( "Assets/Project.01.UI.00.MainScreen" )
-                .Append( "Assets/Project.01.UI.01.GameScreen" )
-                .Append( "Assets/Project.01.UI.02.Common" )
-                .Append( "Assets/Project.02.UI" )
-                .Append( "Assets/Project.02.UI.00.MainScreen" )
-                .Append( "Assets/Project.02.UI.01.GameScreen" )
-                .Append( "Assets/Project.02.UI.02.Common" )
-                .Append( "Assets/Project.05.App" )
-                .Append( "Assets/Project.06.Game" )
-                .Append( "Assets/Project.06.Game.Actors" )
-                .Append( "Assets/Project.06.Game.Things" )
-                .Append( "Assets/Project.06.Game.Worlds" )
-                .Append( "Assets/Project.07.Infrastructure" )
-                .Append( "Assets/Plugins/Denis535.Addressables.Extensions" )
-                .Append( "Assets/Plugins/Denis535.Addressables.SourceGenerator" )
-                .Append( "Assets/Plugins/Denis535.CleanArchitectureGameFramework" )
-                .Append( "Assets/Plugins/Denis535.CleanArchitectureGameFramework.Additions" )
-                .Append( "Assets/Plugins/Denis535.CleanArchitectureGameFramework.Internal" )
-                .Append( "Assets/Plugins/Denis535.CleanArchitectureGameFramework.Editor" )
-                .Append( "Assets/Plugins/Denis535.ColorfulProjectWindow" )
-                .Append( "Assets/Plugins/UIToolkit.ThemeStyleSheet" )
-                .Append( "Assets/Plugins/UIToolkit.ThemeStyleSheet.Editor" )
-                .Concat( AssetDatabase.GetAllAssetPaths()
-                    .Where( i => Path.GetExtension( i ) is ".asmdef" or ".asmref" )
-                    .Where( i => i.StartsWith( "Packages/" ) )
-                    .Select( Path.GetDirectoryName )
-                    .Select( i => i.Replace( '\\', '/' ) )
-                    .Distinct() ).ToArray();
+        protected override bool IsSources(string path, string? package, string? assembly, string content) {
+            return base.IsSources( path, package, assembly, content );
         }
 
     }
