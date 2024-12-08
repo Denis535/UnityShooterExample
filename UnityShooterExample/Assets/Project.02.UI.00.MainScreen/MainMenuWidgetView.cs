@@ -35,8 +35,8 @@ namespace Project.UI {
         protected override bool AddView(UIViewBase view) {
             if (view is MainMenuWidgetView_Initial or MainMenuWidgetView_StartGame or MainMenuWidgetView_SelectLevel or MainMenuWidgetView_SelectCharacter) {
                 Content.Add( view );
+                Title.text = GetTitle( (UIViewBase) Content.Children().Last() );
                 SetVisibility( Content.Children().Cast<UIViewBase>().ToArray() );
-                Title.text = GetTitle( Content.Children().Cast<UIViewBase>().Last() );
                 return true;
             }
             return false;
@@ -44,34 +44,13 @@ namespace Project.UI {
         protected override bool RemoveView(UIViewBase view) {
             if (view is MainMenuWidgetView_Initial or MainMenuWidgetView_StartGame or MainMenuWidgetView_SelectLevel or MainMenuWidgetView_SelectCharacter) {
                 Content.Remove( view );
+                Title.text = GetTitle( (UIViewBase) Content.Children().Last() );
                 SetVisibility( Content.Children().Cast<UIViewBase>().ToArray() );
-                Title.text = GetTitle( Content.Children().Cast<UIViewBase>().Last() );
                 return true;
             }
             return false;
         }
 
-        // Helpers
-        private static void SetVisibility(UIViewBase[] views) {
-            foreach (var view in views) {
-                if (view.HasFocusedElement()) {
-                    view.SaveFocus();
-                }
-            }
-            for (var i = 0; i < views.Length; i++) {
-                var view = views[ i ];
-                var next = views.ElementAtOrDefault( i + 1 );
-                view.SetDisplayed( next == null );
-            }
-            if (views.Any()) {
-                var view = views.Last();
-                if (!view.HasFocusedElement()) {
-                    if (!view.LoadFocus()) {
-                        view.Focus();
-                    }
-                }
-            }
-        }
         // Helpers
         private static string GetTitle(UIViewBase view) {
             if (view is MainMenuWidgetView_Initial) {
@@ -87,6 +66,33 @@ namespace Project.UI {
                 return "Select Your Character";
             }
             throw Exceptions.Internal.NotSupported( $"View {view} is not supported" );
+        }
+        // Helpers
+        private static void SetVisibility(UIViewBase[] views) {
+            SaveFocus( views );
+            for (var i = 0; i < views.Length; i++) {
+                var view = views[ i ];
+                var next = views.ElementAtOrDefault( i + 1 );
+                view.SetDisplayed( next == null );
+            }
+            LoadFocus( views );
+        }
+        private static void SaveFocus(IReadOnlyList<UIViewBase> views) {
+            foreach (var view in views) {
+                if (view.HasFocusedElement()) {
+                    view.SaveFocus();
+                }
+            }
+        }
+        private static void LoadFocus(IReadOnlyList<UIViewBase> views) {
+            var view = views.LastOrDefault();
+            if (view != null) {
+                if (!view.HasFocusedElement()) {
+                    if (!view.LoadFocus()) {
+                        view.Focus();
+                    }
+                }
+            }
         }
 
     }
