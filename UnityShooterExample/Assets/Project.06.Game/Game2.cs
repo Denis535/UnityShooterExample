@@ -93,18 +93,23 @@ namespace Project.Game {
         }
         public void OnLateUpdate() {
             if (State is GameState.Playing) {
-                if (Player.State is PlayerState.Playing) {
-                    if (IsDirty && IsLoser( Player )) {
-                        OnLoser( Player );
+                if (IsDirty) {
+                    if (Player.State is PlayerState.Playing) {
+                        if (IsLoser( Player )) {
+                            Player.State = PlayerState.Loser;
+                            OnLoser( Player );
+                        } else if (IsWinner( Player )) {
+                            Player.State = PlayerState.Winner;
+                            OnWinner( Player );
+                        }
                     }
-                    if (IsDirty && IsWinner( Player )) {
-                        OnWinner( Player );
+                    if (Player.State is PlayerState.Winner or PlayerState.Loser) {
+                        State = GameState.Completed;
+                        OnCompleted();
                     }
-                } else if (Player.State is PlayerState.Winner or PlayerState.Loser) {
-                    OnCompleted();
+                    IsDirty = false;
                 }
             }
-            IsDirty = false;
         }
 
         protected virtual PlayerCharacter SpawnPlayerCharacter(PlayerPoint point, PlayerInfo.CharacterType_ type) {
@@ -139,13 +144,10 @@ namespace Project.Game {
         }
 
         protected virtual void OnWinner(Player2 player) {
-            player.State = PlayerState.Winner;
         }
         protected virtual void OnLoser(Player2 player) {
-            player.State = PlayerState.Loser;
         }
         protected virtual void OnCompleted() {
-            State = GameState.Completed;
         }
 
     }

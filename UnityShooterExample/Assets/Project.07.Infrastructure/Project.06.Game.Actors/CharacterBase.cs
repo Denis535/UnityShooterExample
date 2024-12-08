@@ -26,7 +26,7 @@ namespace Project.Game {
                     return null;
                 }
             }
-            set {
+            protected set {
                 var prevWeapon = Weapon;
                 if (prevWeapon != null) {
                     prevWeapon.gameObject.SetLayerRecursively( Layers.Entity );
@@ -124,10 +124,12 @@ namespace Project.Game {
         }
 
         void IDamageable.Damage(DamageInfo info) {
-            if (IsAlive) {
-                IsAlive = false;
+            {
                 OnDamage( info );
                 OnDamageEvent?.Invoke( info );
+            }
+            if (IsAlive) {
+                IsAlive = false;
                 OnDeath( info );
                 OnDeathEvent?.Invoke( info );
             }
