@@ -124,12 +124,10 @@ namespace Project.Game {
         }
 
         void IDamageable.Damage(DamageInfo info) {
-            {
-                OnDamage( info );
-                OnDamageEvent?.Invoke( info );
-            }
             if (IsAlive) {
                 IsAlive = false;
+                OnDamage( info );
+                OnDamageEvent?.Invoke( info );
                 OnDeath( info );
                 OnDeathEvent?.Invoke( info );
             }
