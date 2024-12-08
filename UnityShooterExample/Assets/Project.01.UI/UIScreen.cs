@@ -151,19 +151,19 @@ namespace Project.UI {
             SaveFocus( views );
             for (var i = 0; i < views.Count; i++) {
                 var view = (UIViewBase) views[ i ];
-                var next = (UIViewBase) views.ElementAtOrDefault( i + 1 );
+                var next = views.Skip( i + 1 ).Cast<UIViewBase>();
                 SetVisibility( view, next );
             }
             LoadFocus( views );
         }
-        private void SetVisibility(UIViewBase view, UIViewBase? next) {
-            if (next != null) {
+        private void SetVisibility(UIViewBase view, IEnumerable<UIViewBase> next) {
+            if (next.Any()) {
                 if (view is not MainWidgetView and not GameWidgetView) {
                     view.SetEnabled( false );
                 } else {
                     view.SetEnabled( true );
                 }
-                if (GetPriorityOf( view ) < GetPriorityOf( next )) {
+                if (GetPriorityOf( view ) < next.Max( GetPriorityOf )) {
                     view.SetDisplayed( false );
                 } else {
                     view.SetDisplayed( true );
