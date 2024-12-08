@@ -50,7 +50,7 @@ namespace Project.UI {
         private static int GetOrderOf(UIWidgetBase widget) {
             return widget switch {
                 MainMenuWidget => 0,
-                _ => 1,
+                _ => int.MaxValue,
             };
         }
 

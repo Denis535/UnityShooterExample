@@ -96,7 +96,7 @@ namespace Project.UI {
                 GameTotalsWidget_LevelFailed => 1,
                 GameTotalsWidget_GameCompleted => 1,
                 GameMenuWidget => 2,
-                _ => 100,
+                _ => int.MaxValue,
             };
         }
 

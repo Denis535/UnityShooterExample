@@ -94,27 +94,19 @@ namespace Project.UI {
         }
 
         protected override void Sort(List<UIWidgetBase> children) {
+            // sort the children of root widget
             children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( a ), GetOrderOf( b ) ) );
         }
         private static int GetOrderOf(UIWidgetBase widget) {
             return widget switch {
                 // MainScreen
                 MainWidget => 0,
-                //MainMenuWidget => 1,
                 // GameScreen
-                GameWidget => 10,
-                //PlayerWidget => 11,
-                //GameTotalsWidget => 12,
-                //GameMenuWidget => 13,
+                GameWidget => 100,
                 // Common
-                LoadingWidget => 20,
-                UnloadingWidget => 21,
-                //SettingsWidget => 22,
-                DialogWidget => 23,
-                InfoDialogWidget => 24,
-                WarningDialogWidget => 25,
-                ErrorDialogWidget => 26,
-                _ => 100_000
+                LoadingWidget => 200,
+                UnloadingWidget => 201,
+                _ => int.MaxValue
             };
         }
 
@@ -135,6 +127,7 @@ namespace Project.UI {
         }
 
         protected override void Sort() {
+            // sort the children of root widget view
             base.Sort();
         }
         protected override int GetOrderOf(UIViewBase view) {
@@ -143,19 +136,15 @@ namespace Project.UI {
                 MainWidgetView => 0,
                 MainMenuWidgetView => 1,
                 // GameScreen
-                GameWidgetView => 10,
-                PlayerWidgetView => 11,
-                GameTotalsWidgetView => 12,
-                GameMenuWidgetView => 13,
+                GameWidgetView => 100,
+                PlayerWidgetView => 101,
+                GameTotalsWidgetView => 102,
+                GameMenuWidgetView => 103,
                 // Common
-                LoadingWidgetView => 20,
-                UnloadingWidgetView => 21,
-                SettingsWidgetView => 22,
-                DialogWidgetView => 23,
-                InfoDialogWidgetView => 24,
-                WarningDialogWidgetView => 25,
-                ErrorDialogWidgetView => 26,
-                _ => 100_000
+                LoadingWidgetView => 200,
+                UnloadingWidgetView => 201,
+                SettingsWidgetView => 202,
+                _ => int.MaxValue,
             };
         }
 
@@ -163,29 +152,41 @@ namespace Project.UI {
             base.SetVisibility( views );
         }
         protected override void SetVisibility(UIViewBase view, UIViewBase? next) {
-            if (view is not MainWidgetView and not GameWidgetView) {
-                base.SetVisibility( view, next );
+            if (next != null) {
+                if (view is not MainWidgetView and not GameWidgetView) {
+                    view.SetEnabled( false );
+                } else {
+                    view.SetEnabled( true );
+                }
+                if (GetPriorityOf( view ) < GetPriorityOf( next )) {
+                    view.SetDisplayed( false );
+                } else {
+                    view.SetDisplayed( true );
+                }
+            } else {
+                view.SetEnabled( true );
+                view.SetDisplayed( true );
             }
         }
-        protected override int GetLayerOf(UIViewBase view) {
+        protected int GetPriorityOf(UIViewBase view) {
             return view switch {
                 // MainScreen
-                MainWidgetView => 0,
+                MainWidgetView => int.MaxValue,
                 MainMenuWidgetView => 100,
                 // GameScreen
-                GameWidgetView => 0,
-                PlayerWidgetView => 100,
+                GameWidgetView => int.MaxValue,
+                PlayerWidgetView => 0,
                 GameTotalsWidgetView => 100,
                 GameMenuWidgetView => 100,
                 // Common
-                LoadingWidgetView => 0,
-                UnloadingWidgetView => 0,
-                SettingsWidgetView => 100,
-                DialogWidgetView => 500,
-                InfoDialogWidgetView => 501,
-                WarningDialogWidgetView => 502,
-                ErrorDialogWidgetView => 503,
-                _ => 100_000
+                LoadingWidgetView => int.MaxValue,
+                UnloadingWidgetView => int.MaxValue,
+                SettingsWidgetView => 200,
+                DialogWidgetView => int.MinValue,
+                InfoDialogWidgetView => int.MinValue,
+                WarningDialogWidgetView => int.MinValue,
+                ErrorDialogWidgetView => int.MinValue,
+                _ => int.MaxValue
             };
         }
 

@@ -19,7 +19,7 @@
       "url": "https://package.openupm.com"
     },
     "com.denis535.clean-architecture-game-framework": {
-      "version": "1.4.27",
+      "version": "1.4.28",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -251,7 +251,7 @@
     },
     "com.unity.test-framework": {
       "version": "1.4.5",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.ext.nunit": "2.0.3",

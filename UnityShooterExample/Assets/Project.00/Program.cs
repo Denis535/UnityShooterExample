@@ -27,9 +27,12 @@ namespace Project {
 #if UNITY_EDITOR
         [InitializeOnLoadMethod]
         private static void OnLoad_Editor() {
-            Debug.Log( new StringBuilder().AppendLine( "You can check the latest version and more:" ).Append( "https://denis535.github.io/#unity-shooter-example" ) );
+            var message = new StringBuilder()
+                .Append( "You can check the latest version and watch the video tutorial: https://denis535.github.io/#unity-shooter-example" ).AppendLine()
+                .Append( "Also please rate this project on the Unity Asset Store: https://u3d.as/3pWS" );
+            Debug.Log( message );
             if (!EditorApplication.isPlaying) {
-                UnityEditor.SceneManagement.EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>( "Assets/Project.Content/Assets.Project.00/Scenes/Main.unity" );
+                UnityEditor.SceneManagement.EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>( "Assets/Assets.Project.00/Scenes/Main.unity" );
                 //EditorSceneManager.playModeStartScene = null;
             }
         }
