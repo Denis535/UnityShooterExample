@@ -3,6 +3,7 @@ namespace Project.UI {
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
@@ -94,10 +95,9 @@ namespace Project.UI {
         }
 
         protected override void Sort(List<UIWidgetBase> children) {
-            // sort the children of root widget
-            children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( a ), GetOrderOf( b ) ) );
+            base.Sort( children );
         }
-        private static int GetOrderOf(UIWidgetBase widget) {
+        protected override int GetOrderOf(UIWidgetBase widget) {
             return widget switch {
                 // MainScreen
                 MainWidget => 0,
@@ -127,7 +127,6 @@ namespace Project.UI {
         }
 
         protected override void Sort() {
-            // sort the children of root widget view
             base.Sort();
         }
         protected override int GetOrderOf(UIViewBase view) {
@@ -149,9 +148,15 @@ namespace Project.UI {
         }
 
         protected override void SetVisibility(IReadOnlyList<VisualElement> views) {
-            base.SetVisibility( views );
+            SaveFocus( views );
+            for (var i = 0; i < views.Count; i++) {
+                var view = (UIViewBase) views[ i ];
+                var next = (UIViewBase) views.ElementAtOrDefault( i + 1 );
+                SetVisibility( view, next );
+            }
+            LoadFocus( views );
         }
-        protected override void SetVisibility(UIViewBase view, UIViewBase? next) {
+        private void SetVisibility(UIViewBase view, UIViewBase? next) {
             if (next != null) {
                 if (view is not MainWidgetView and not GameWidgetView) {
                     view.SetEnabled( false );
