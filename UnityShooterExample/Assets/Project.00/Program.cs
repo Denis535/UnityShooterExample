@@ -33,7 +33,7 @@ namespace Project {
                 .Append( "Please support me and rate this project on the Unity Asset Store: https://u3d.as/3pWS" );
             Debug.Log( message );
             if (!EditorApplication.isPlaying) {
-                UnityEditor.SceneManagement.EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>( "Assets/Assets.Project.00/Scenes/Main.unity" );
+                UnityEditor.SceneManagement.EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>( "Assets/Assets.Project.00/Main.unity" );
                 //EditorSceneManager.playModeStartScene = null;
             }
         }
