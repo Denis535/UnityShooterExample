@@ -40,10 +40,10 @@ namespace Project.Game {
         private static readonly float AnglesInputSensitivity = 0.15f;
         private static readonly float DistanceInputSensitivity = 0.20f;
 
-        public ICameraInputProvider? InputProvider { get; set; }
-
         public Vector2 Angles { get; private set; }
         public float Distance { get; private set; }
+
+        public ICameraInputProvider? InputProvider { get; set; }
 
         public RaycastHit? Hit { get; private set; }
 

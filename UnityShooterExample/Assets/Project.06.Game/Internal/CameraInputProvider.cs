@@ -5,7 +5,7 @@ namespace Project.Game {
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.InputSystem;
-
+    
     internal class CameraInputProvider : ICameraInputProvider, IDisposable {
 
         private readonly WeakReference<PlayerCharacter?> prevCharacter = new WeakReference<PlayerCharacter?>( null );
