@@ -19,9 +19,9 @@ namespace Project.UI {
         private UITheme Theme => Container.RequireDependency<UITheme>();
         private UIScreen Screen => Container.RequireDependency<UIScreen>();
         private Application2 Application { get; }
-        private static SceneHandle Main { get; } = new SceneHandle( R.Project.Scenes.Value_Main );
-        private SceneHandle MainScene { get; } = new SceneHandle( R.Project.Scenes.Value_MainScene );
-        private SceneHandle GameScene { get; } = new SceneHandle( R.Project.Scenes.Value_GameScene );
+        private static SceneHandle Main { get; } = new SceneHandle( R.Project.Value_Main );
+        private SceneHandle MainScene { get; } = new SceneHandle( R.Project.Value_MainScene );
+        private SceneHandle GameScene { get; } = new SceneHandle( R.Project.Value_GameScene );
         private SceneHandle? WorldScene { get; set; }
         public bool IsMainSceneLoaded => MainScene.IsSucceeded;
         public bool IsGameSceneLoaded => GameScene.IsSucceeded;

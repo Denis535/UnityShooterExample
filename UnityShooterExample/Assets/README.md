@@ -5,19 +5,21 @@ And now I want to share my experience with you!
 
 # Reference
 The project has the following structure:
-- Project - the folder that contains definitions of all modules.
-- Project.00 - the folder that contains source codes of main Project module.
-- Project.01.UI - the folder that contains source codes of Project.UI module.
-- Project.02.UI - the folder that contains source codes of Project.UI.Internal module.
-- Project.05.App - the folder that contains source codes of Project.App module.
-- Project.06.Game - the folder that contains source codes of Project.Game module.
-- Project.07.Infrastructure - the folder that contains source codes of Project.Infrastructure module.
-- Assets.Project - the folder that contains all built-in assets.
-- Assets.Project.00 - the folder that contains addressable assets of main Project module.
-- Assets.Project.01.UI - the folder that contains addressable assets of Project.UI module.
-- Assets.Project.05.App - the folder that contains addressable assets of Project.App module.
-- Assets.Project.06.Game - the folder that contains addressable assets of Project.Game module.
-- Assets.UnityEngine - the folder that contains addressable assets of engine.
+- Project
+  * Project - the folder that contains definitions of all modules.
+  * Project.00 - the folder that contains source codes of main Project module.
+  * Project.01.UI - the folder that contains source codes of Project.UI module.
+  * Project.02.UI - the folder that contains source codes of Project.UI.Internal module.
+  * Project.05.App - the folder that contains source codes of Project.App module.
+  * Project.06.Game - the folder that contains source codes of Project.Game module.
+  * Project.07.Infrastructure - the folder that contains source codes of Project.Infrastructure module.
+- Assets
+  * Assets.Project - the folder that contains primary built-in assets.
+  * Assets.Project.00 - the folder that contains addressable assets of main Project module.
+  * Assets.Project.01.UI - the folder that contains addressable assets of Project.UI module.
+  * Assets.Project.05.App - the folder that contains addressable assets of Project.App module.
+  * Assets.Project.06.Game - the folder that contains addressable assets of Project.Game module.
+  * Assets.Project.07.Infrastructure - the folder that contains common addressable assets.
 - Plugins - the folder that contains various plugins, libraries, frameworks and packages.
 
 The project has the following architecture:
@@ -34,7 +36,7 @@ The project has the following architecture:
 The project contains the following scenes:
 - Assets.Project
   * Launcher
-- Assets.Project.00/Scenes
+- Assets.Project.00
   * Main
   * MainScene
   * GameScene

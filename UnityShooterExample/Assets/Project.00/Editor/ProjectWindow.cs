@@ -53,6 +53,10 @@ namespace Project {
                         rect.xMin += 59;
                         rect.width = 96;
                         DrawRect( rect, Settings.AssetsColor );
+                    } else if (path.StartsWith( "Assets/Assets.Project.07.Infrastructure" )) {
+                        rect.xMin += 59;
+                        rect.width = 140;
+                        DrawRect( rect, Settings.AssetsColor );
                     }
                 }
             }

@@ -14,6 +14,9 @@ namespace UnityEngine.AddressableAssets {
             }
         }
         public static class @Project {
+            public const string @Value_Main = "Project/Main.unity";
+            public const string @Value_MainScene = "Project/MainScene.unity";
+            public const string @Value_GameScene = "Project/GameScene.unity";
             public static class @UI {
                 public const string @Value_PanelSettings = "Project.UI/PanelSettings.asset";
                 public static class @MainScreen {
@@ -67,11 +70,6 @@ namespace UnityEngine.AddressableAssets {
                     public const string @Value_World_02 = "Project.Game.Worlds/World_02.unity";
                     public const string @Value_World_03 = "Project.Game.Worlds/World_03.unity";
                 }
-            }
-            public static class @Scenes {
-                public const string @Value_Main = "Project/Scenes/Main.unity";
-                public const string @Value_MainScene = "Project/Scenes/MainScene.unity";
-                public const string @Value_GameScene = "Project/Scenes/GameScene.unity";
             }
         }
     }
