@@ -125,35 +125,45 @@ namespace Project {
 
         [MenuItem( "Project/Open Assets (CSharp)", priority = 500 )]
         public static void OpenAssets_CSharp() {
+            foreach (var path in GetAssets_CSharp().Reverse()) {
+                AssetDatabase.OpenAsset( AssetDatabase.LoadAssetAtPath<UnityEngine.Object>( path ) );
+                Thread.Sleep( 100 );
+            }
+        }
+
+        // Helpers
+        private static IEnumerable<string> GetAssets_CSharp() {
             var paths = AssetDatabase.GetAllAssetPaths()
-                .Where( i => i.StartsWith( "Assets/Project.Content/" ) && Path.GetExtension( i ) == ".cs" )
+                .Where( i => i.EndsWith( ".cs" ) )
                 .Select( i => new {
                     path = i,
                     dir = Path.GetDirectoryName( i ).Replace( '\\', '/' ),
                     name = Path.GetFileName( i )
                 } )
-                .OrderByDescending( i => i.dir.Equals( "Assets/Project.00" ) )
-                .ThenByDescending( i => i.dir.Equals( "Assets/Project.01.UI" ) )
-                .ThenByDescending( i => i.dir.Equals( "Assets/Project.01.UI.00.MainScreen" ) )
-                .ThenByDescending( i => i.dir.Equals( "Assets/Project.01.UI.01.GameScreen" ) )
-                .ThenByDescending( i => i.dir.Equals( "Assets/Project.01.UI.02.Common" ) )
-                .ThenByDescending( i => i.dir.Equals( "Assets/Project.02.UI" ) )
-                .ThenByDescending( i => i.dir.Equals( "Assets/Project.02.UI.00.MainScreen" ) )
-                .ThenByDescending( i => i.dir.Equals( "Assets/Project.02.UI.01.GameScreen" ) )
-                .ThenByDescending( i => i.dir.Equals( "Assets/Project.02.UI.02.Common" ) )
-                .ThenByDescending( i => i.dir.Equals( "Assets/Project.05.App" ) )
-                .ThenByDescending( i => i.dir.Equals( "Assets/Project.06.Game" ) )
-                .ThenByDescending( i => i.dir.Equals( "Assets/Project.06.Game.Actors" ) )
-                .ThenByDescending( i => i.dir.Equals( "Assets/Project.06.Game.Things" ) )
-                .ThenByDescending( i => i.dir.Equals( "Assets/Project.06.Game.Worlds" ) )
-                // Root
-                .ThenByDescending( i => i.name.Equals( "Launcher.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "Program.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "DebugScreen.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "ProjectMenuBar.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "ProjectWindow.cs" ) )
-                // UI
-                .ThenByDescending( i => i.name.Equals( "UITheme.cs" ) )
+                .ToList();
+
+            var paths1 = paths
+                .Where( i => {
+                    return i.dir is
+                        "Assets/Project.00" or
+                        "Assets/Project.00/Editor";
+                } )
+                .OrderByDescending( i => i.name == "Launcher.cs" )
+                .ThenByDescending( i => i.name == "Program.cs" )
+                .ThenByDescending( i => i.name == "DebugScreen.cs" )
+                .ThenByDescending( i => i.name == "ProjectMenuBar.cs" )
+                .ThenByDescending( i => i.name == "ProjectWindow.cs" )
+                .Select( i => i.path );
+
+            var paths2 = paths
+                .Where( i => {
+                    return i.dir is
+                        "Assets/Project.01.UI" or
+                        "Assets/Project.01.UI.00.MainScreen" or
+                        "Assets/Project.01.UI.01.GameScreen" or
+                        "Assets/Project.01.UI.02.Common";
+                } )
+                .OrderByDescending( i => i.name.Equals( "UITheme.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "UIScreen.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "UIRouter.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "MainWidget.cs" ) )
@@ -169,8 +179,17 @@ namespace Project {
                 .ThenByDescending( i => i.name.Equals( "ProfileSettingsWidget.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "VideoSettingsWidget.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "AudioSettingsWidget.cs" ) )
-                // UI.Internal
-                .ThenByDescending( i => i.name.Equals( "MainWidgetView.cs" ) )
+                .Select( i => i.path );
+
+            var paths3 = paths
+                .Where( i => {
+                    return i.dir is
+                        "Assets/Project.02.UI" or
+                        "Assets/Project.02.UI.00.MainScreen" or
+                        "Assets/Project.02.UI.01.GameScreen" or
+                        "Assets/Project.02.UI.02.Common";
+                } )
+                .OrderByDescending( i => i.name.Equals( "MainWidgetView.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "MainMenuWidgetView.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "GameWidgetView.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "PlayerWidgetView.cs" ) )
@@ -183,15 +202,31 @@ namespace Project {
                 .ThenByDescending( i => i.name.Equals( "ProfileSettingsWidgetView.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "VideoSettingsWidgetView.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "AudioSettingsWidgetView.cs" ) )
-                // App
-                .ThenByDescending( i => i.name.Equals( "Application2.cs" ) )
+                .Select( i => i.path );
+
+            var paths4 = paths
+                .Where( i => {
+                    return i.dir is
+                        "Assets/Project.05.App";
+                } )
+                .OrderByDescending( i => i.name.Equals( "Application2.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Storage.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Storage.ProfileSettings.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Storage.VideoSettings.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Storage.AudioSettings.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Storage.Preferences.cs" ) )
-                // Game
-                .ThenByDescending( i => i.name.Equals( "Game2.cs" ) )
+                .Select( i => i.path );
+
+            var paths5 = paths
+                .Where( i => {
+                    return i.dir is
+                        "Assets/Project.06.Game" or
+                        "Assets/Project.06.Game/Internal" or
+                        "Assets/Project.06.Game.Actors" or
+                        "Assets/Project.06.Game.Things" or
+                        "Assets/Project.06.Game.Worlds";
+                } )
+                .OrderByDescending( i => i.name.Equals( "Game2.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Player2.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Camera2.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "PlayerCharacter.cs" ) )
@@ -199,16 +234,9 @@ namespace Project {
                 .ThenByDescending( i => i.name.Equals( "Gun.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "Bullet.cs" ) )
                 .ThenByDescending( i => i.name.Equals( "World.cs" ) )
-                // Misc
-                .ThenBy( i => i.path )
-                .Select( i => i.path )
-                .ToArray();
+                .Select( i => i.path );
 
-            //Debug.Log( string.Join( "\n", paths ) );
-            foreach (var path in paths.Reverse()) {
-                AssetDatabase.OpenAsset( AssetDatabase.LoadAssetAtPath<UnityEngine.Object>( path ) );
-                Thread.Sleep( 100 );
-            }
+            return paths1.Concat( paths2 ).Concat( paths3 ).Concat( paths4 ).Concat( paths5 );
         }
 
     }
