@@ -32,8 +32,8 @@ namespace Project.UI {
         }
 
         public void OnUpdate() {
-            if (Game.Player.Camera != null) {
-                View.Target.style.color = GetTargetColor( Game.Player.Camera );
+            if (Player.Camera != null) {
+                View.Target.style.color = GetTargetColor( Player.Camera.Hit );
             } else {
                 View.Target.style.color = default;
             }
@@ -45,9 +45,9 @@ namespace Project.UI {
             return view;
         }
         // Helpers
-        private static Color GetTargetColor(Camera2 camera) {
-            if (camera.Hit?.Thing != null) return Color.yellow;
-            if (camera.Hit?.Enemy != null) return Color.red;
+        private static Color GetTargetColor(Camera2.RaycastHit? hit) {
+            if (hit?.Entity is ThingBase) return Color.yellow;
+            if (hit?.Entity is EnemyCharacter) return Color.red;
             return Color.white;
         }
 

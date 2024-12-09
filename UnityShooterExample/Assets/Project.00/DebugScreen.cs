@@ -9,7 +9,7 @@ namespace Project {
     using Project.UI;
     using UnityEngine;
 
-    [DefaultExecutionOrder( 100_000 )]
+    [DefaultExecutionOrder( int.MaxValue )]
     public class DebugScreen : MonoBehaviour {
 
         private IDependencyContainer Contairner { get; set; } = default!;

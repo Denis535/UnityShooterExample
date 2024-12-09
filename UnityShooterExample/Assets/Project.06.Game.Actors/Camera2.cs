@@ -27,9 +27,9 @@ namespace Project.Game {
 
         }
     }
-    [DefaultExecutionOrder( 99 )]
+    [DefaultExecutionOrder( ExecutionOrder - 1 )]
     public partial class Camera2 : EntityBase {
-        public record RaycastHit(Vector3 Point, float Distance, GameObject GameObject, EnemyCharacter? Enemy, ThingBase? Thing);
+        public record RaycastHit(Vector3 Point, float Distance, GameObject GameObject, EntityBase? Entity);
 
         private static readonly Vector2 DefaultAngles = new Vector2( 30, 0 );
         private static readonly float DefaultDistance = 1.5f;
@@ -40,8 +40,10 @@ namespace Project.Game {
         private static readonly float AnglesInputSensitivity = 0.15f;
         private static readonly float DistanceInputSensitivity = 0.20f;
 
-        public Vector2 Angles { get; private set; }
-        public float Distance { get; private set; }
+        private PlayableCharacterBase? prevTarget = null;
+
+        private Vector2 Angles { get; set; }
+        private float Distance { get; set; }
 
         public ICameraInputProvider? InputProvider { get; set; }
 
@@ -58,8 +60,8 @@ namespace Project.Game {
         }
         protected void Update() {
             if (InputProvider != null) {
-                var target = InputProvider.GetTarget( out var isNewTarget );
-                if (isNewTarget) {
+                var target = InputProvider.GetTarget();
+                if (target != prevTarget) {
                     Angles = new Vector2( DefaultAngles.x, target.transform.eulerAngles.y );
                     Distance = DefaultDistance;
                 } else {
@@ -72,6 +74,7 @@ namespace Project.Game {
                     Angles = angles;
                     Distance = distance;
                 }
+                prevTarget = target;
                 if (target.IsAlive) {
                     var distance01 = Mathf.InverseLerp( MinDistance, MaxDistance, Distance );
                     transform.localPosition = target.transform.position;
@@ -100,33 +103,28 @@ namespace Project.Game {
             var mask = ~(Masks.Entity_Approximate | Masks.Trivial);
             var hit = Utils.RaycastAll( ray, 128, mask, QueryTriggerInteraction.Ignore ).Where( i => i.transform.root != character ).OrderBy( i => i.distance ).FirstOrDefault();
             if (hit.collider) {
-                return new RaycastHit(
-                    hit.point,
-                    hit.distance,
-                    hit.collider.gameObject,
-                    GetEnemy( hit.collider.gameObject, hit.point, hit.distance, character ),
-                    GetThing( hit.collider.gameObject, hit.point, hit.distance, character ) );
-            }
-            return null;
-        }
-        private static EnemyCharacter? GetEnemy(GameObject gameObject, Vector3 point, float distance, Transform character) {
-            if (Vector3.Distance( point, character.position ) <= 16f) {
-                var @object = gameObject.transform.root.gameObject;
-                return @object.GetComponent<EnemyCharacter>();
-            }
-            return null;
-        }
-        private static ThingBase? GetThing(GameObject gameObject, Vector3 point, float distance, Transform character) {
-            if (Vector3.Distance( point, character.position ) <= 2.5f) {
-                var @object = gameObject.transform.root.gameObject;
-                return @object.GetComponent<ThingBase>();
+                var point = hit.point;
+                var distance = hit.distance;
+                var gameObject = hit.collider.gameObject;
+                var entity = hit.collider.transform.GetComponentsInParent<EntityBase>().LastOrDefault();
+                if (entity is EnemyCharacter enemy) {
+                    if (Vector3.Distance( point, character.position ) <= 16f) {
+                        return new RaycastHit( point, distance, gameObject, enemy );
+                    }
+                }
+                if (entity is ThingBase thing) {
+                    if (Vector3.Distance( point, character.position ) <= 2.5f) {
+                        return new RaycastHit( point, distance, gameObject, thing );
+                    }
+                }
+                return new RaycastHit( point, distance, gameObject, null );
             }
             return null;
         }
 
     }
     public interface ICameraInputProvider {
-        PlayableCharacterBase GetTarget(out bool isNewTarget);
+        PlayableCharacterBase GetTarget();
         Vector2 GetLookDelta();
         float GetZoomDelta();
     }

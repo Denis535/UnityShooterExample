@@ -5,10 +5,8 @@ namespace Project.Game {
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.InputSystem;
-    
-    internal class CameraInputProvider : ICameraInputProvider, IDisposable {
 
-        private readonly WeakReference<PlayerCharacter?> prevCharacter = new WeakReference<PlayerCharacter?>( null );
+    internal class CameraInputProvider : ICameraInputProvider, IDisposable {
 
         public bool IsEnabled {
             get => Actions.enabled;
@@ -34,15 +32,9 @@ namespace Project.Game {
             Actions_.Dispose();
         }
 
-        public PlayableCharacterBase GetTarget(out bool isNewTarget) {
+        public PlayableCharacterBase GetTarget() {
             Assert.Operation.Message( $"Player {this} must have character" ).Valid( Player.Character != null );
             Assert.Operation.Message( $"Player {this} must have camera" ).Valid( Player.Camera != null );
-            if (prevCharacter.TryGetTarget( out var _prevCharacter ) == true) {
-                isNewTarget = Player.Character != _prevCharacter;
-            } else {
-                isNewTarget = true;
-            }
-            prevCharacter.SetTarget( Player.Character );
             return Player.Character;
         }
         public Vector2 GetLookDelta() {

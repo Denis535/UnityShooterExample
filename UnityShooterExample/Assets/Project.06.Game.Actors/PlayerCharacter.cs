@@ -83,10 +83,10 @@ namespace Project.Game {
 
     }
     public interface ICharacterInputProvider {
-        Vector3 GetMoveVector();
         Vector3? GetBodyTarget();
         Vector3? GetHeadTarget();
         Vector3? GetWeaponTarget();
+        Vector3 GetMoveVector();
         bool IsJumpPressed();
         bool IsCrouchPressed();
         bool IsAcceleratePressed();
