@@ -1,5 +1,5 @@
 {
-    "name": "InputActions_Character",
+    "name": "CharacterInputProvider",
     "maps": [
         {
             "name": "Character",

@@ -4,7 +4,7 @@ namespace Project.Game {
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
-    using UnityEngine.InputSystem;
+    using CameraInputProvider2 = UnityEngine.InputSystem.CameraInputProvider;
 
     internal class CameraInputProvider : ICameraInputProvider, IDisposable {
 
@@ -21,12 +21,12 @@ namespace Project.Game {
             }
         }
         public Player2 Player { get; }
-        private InputActions_Camera InputProvider_ { get; }
-        private InputActions_Camera.CameraActions InputProvider => InputProvider_.Camera;
+        private CameraInputProvider2 InputProvider_ { get; }
+        private CameraInputProvider2.CameraActions InputProvider => InputProvider_.Camera;
 
         public CameraInputProvider(Player2 player) {
             Player = player;
-            InputProvider_ = new InputActions_Camera();
+            InputProvider_ = new CameraInputProvider2();
         }
         public void Dispose() {
             InputProvider_.Dispose();

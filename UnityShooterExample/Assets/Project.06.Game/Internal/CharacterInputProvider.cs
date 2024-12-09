@@ -5,7 +5,7 @@ namespace Project.Game {
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Framework;
-    using UnityEngine.InputSystem;
+    using CharacterInputProvider2 = UnityEngine.InputSystem.CharacterInputProvider;
 
     internal class CharacterInputProvider : ICharacterInputProvider, IDisposable {
 
@@ -22,12 +22,12 @@ namespace Project.Game {
             }
         }
         private Player2 Player { get; }
-        private InputActions_Character InputProvider_ { get; }
-        private InputActions_Character.CharacterActions InputProvider => InputProvider_.Character;
+        private CharacterInputProvider2 InputProvider_ { get; }
+        private CharacterInputProvider2.CharacterActions InputProvider => InputProvider_.Character;
 
         public CharacterInputProvider(Player2 player) {
             Player = player;
-            InputProvider_ = new InputActions_Character();
+            InputProvider_ = new CharacterInputProvider2();
         }
         public void Dispose() {
             InputProvider_.Dispose();

@@ -1,5 +1,5 @@
 {
-    "name": "InputActions_UI",
+    "name": "UIInputProvider",
     "maps": [
         {
             "name": "UI",

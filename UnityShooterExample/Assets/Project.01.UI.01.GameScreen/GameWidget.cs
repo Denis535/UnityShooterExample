@@ -13,7 +13,7 @@ namespace Project.UI {
     public class GameWidget : UIWidgetBase2<GameWidgetView> {
 
         private Game2 Game { get; }
-        private InputActions_UI Input { get; }
+        private UIInputProvider Input { get; }
         private bool IsCursorVisible {
             get => UnityEngine.Cursor.lockState == CursorLockMode.None;
             set => UnityEngine.Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
@@ -43,7 +43,7 @@ namespace Project.UI {
                 }
             };
             View = CreateView( this );
-            Input = new InputActions_UI();
+            Input = new UIInputProvider();
             Input.UI.Cancel.performed += ctx => {
                 if (View.focusController.focusedElement == null) {
                     View.Focus();
