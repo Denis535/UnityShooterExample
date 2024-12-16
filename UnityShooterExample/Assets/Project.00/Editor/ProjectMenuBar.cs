@@ -163,22 +163,22 @@ namespace Project {
                         "Assets/Project.01.UI.01.GameScreen" or
                         "Assets/Project.01.UI.02.Common";
                 } )
-                .OrderByDescending( i => i.name.Equals( "UITheme.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "UIScreen.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "UIRouter.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "MainWidget.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "MainMenuWidget.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "GameWidget.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "PlayerWidget.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "GameTotalsWidget.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "GameMenuWidget.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "DialogWidget.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "LoadingWidget.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "UnloadingWidget.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "SettingsWidget.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "ProfileSettingsWidget.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "VideoSettingsWidget.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "AudioSettingsWidget.cs" ) )
+                .OrderByDescending( i => i.name == "UITheme.cs" )
+                .ThenByDescending( i => i.name == "UIScreen.cs" )
+                .ThenByDescending( i => i.name == "UIRouter.cs" )
+                .ThenByDescending( i => i.name == "MainWidget.cs" )
+                .ThenByDescending( i => i.name == "MainMenuWidget.cs" )
+                .ThenByDescending( i => i.name == "GameWidget.cs" )
+                .ThenByDescending( i => i.name == "PlayerWidget.cs" )
+                .ThenByDescending( i => i.name == "GameTotalsWidget.cs" )
+                .ThenByDescending( i => i.name == "GameMenuWidget.cs" )
+                .ThenByDescending( i => i.name == "DialogWidget.cs" )
+                .ThenByDescending( i => i.name == "LoadingWidget.cs" )
+                .ThenByDescending( i => i.name == "UnloadingWidget.cs" )
+                .ThenByDescending( i => i.name == "SettingsWidget.cs" )
+                .ThenByDescending( i => i.name == "ProfileSettingsWidget.cs" )
+                .ThenByDescending( i => i.name == "VideoSettingsWidget.cs" )
+                .ThenByDescending( i => i.name == "AudioSettingsWidget.cs" )
                 .Select( i => i.path );
 
             var paths3 = paths
@@ -189,19 +189,19 @@ namespace Project {
                         "Assets/Project.02.UI.01.GameScreen" or
                         "Assets/Project.02.UI.02.Common";
                 } )
-                .OrderByDescending( i => i.name.Equals( "MainWidgetView.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "MainMenuWidgetView.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "GameWidgetView.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "PlayerWidgetView.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "GameTotalsWidgetView.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "GameMenuWidgetView.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "DialogWidgetView.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "LoadingWidgetView.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "UnloadingWidgetView.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "SettingsWidgetView.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "ProfileSettingsWidgetView.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "VideoSettingsWidgetView.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "AudioSettingsWidgetView.cs" ) )
+                .OrderByDescending( i => i.name == "MainWidgetView.cs" )
+                .ThenByDescending( i => i.name == "MainMenuWidgetView.cs" )
+                .ThenByDescending( i => i.name == "GameWidgetView.cs" )
+                .ThenByDescending( i => i.name == "PlayerWidgetView.cs" )
+                .ThenByDescending( i => i.name == "GameTotalsWidgetView.cs" )
+                .ThenByDescending( i => i.name == "GameMenuWidgetView.cs" )
+                .ThenByDescending( i => i.name == "DialogWidgetView.cs" )
+                .ThenByDescending( i => i.name == "LoadingWidgetView.cs" )
+                .ThenByDescending( i => i.name == "UnloadingWidgetView.cs" )
+                .ThenByDescending( i => i.name == "SettingsWidgetView.cs" )
+                .ThenByDescending( i => i.name == "ProfileSettingsWidgetView.cs" )
+                .ThenByDescending( i => i.name == "VideoSettingsWidgetView.cs" )
+                .ThenByDescending( i => i.name == "AudioSettingsWidgetView.cs" )
                 .Select( i => i.path );
 
             var paths4 = paths
@@ -209,12 +209,12 @@ namespace Project {
                     return i.dir is
                         "Assets/Project.05.App";
                 } )
-                .OrderByDescending( i => i.name.Equals( "Application2.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "Storage.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "Storage.ProfileSettings.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "Storage.VideoSettings.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "Storage.AudioSettings.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "Storage.Preferences.cs" ) )
+                .OrderByDescending( i => i.name == "Application2.cs" )
+                .ThenByDescending( i => i.name == "Storage.cs" )
+                .ThenByDescending( i => i.name == "Storage.ProfileSettings.cs" )
+                .ThenByDescending( i => i.name == "Storage.VideoSettings.cs" )
+                .ThenByDescending( i => i.name == "Storage.AudioSettings.cs" )
+                .ThenByDescending( i => i.name == "Storage.Preferences.cs" )
                 .Select( i => i.path );
 
             var paths5 = paths
@@ -226,14 +226,14 @@ namespace Project {
                         "Assets/Project.06.Game.Things" or
                         "Assets/Project.06.Game.Worlds";
                 } )
-                .OrderByDescending( i => i.name.Equals( "Game2.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "Player2.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "Camera2.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "PlayerCharacter.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "EnemyCharacter.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "Gun.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "Bullet.cs" ) )
-                .ThenByDescending( i => i.name.Equals( "World.cs" ) )
+                .OrderByDescending( i => i.name == "Game2.cs" )
+                .ThenByDescending( i => i.name == "Player2.cs" )
+                .ThenByDescending( i => i.name == "Camera2.cs" )
+                .ThenByDescending( i => i.name == "PlayerCharacter.cs" )
+                .ThenByDescending( i => i.name == "EnemyCharacter.cs" )
+                .ThenByDescending( i => i.name == "Gun.cs" )
+                .ThenByDescending( i => i.name == "Bullet.cs" )
+                .ThenByDescending( i => i.name == "World.cs" )
                 .Select( i => i.path );
 
             return paths1.Concat( paths2 ).Concat( paths3 ).Concat( paths4 ).Concat( paths5 );

@@ -12,10 +12,10 @@ namespace Project.UI {
         public static void SetValue<T>(this BaseField<T> element, T value) {
             element.value = value;
         }
-        public static void SetValue<T>(this PopupField<T> element, T value, List<T> choices) {
+        public static void SetValue<T>(this PopupField<T> element, T value, T[] choices) {
             (element.value, element.choices) = (value, choices.ToList());
         }
-        public static void SetValue<T>(this PopupField<T> element, T value, T[] choices) {
+        public static void SetValue<T>(this PopupField<T> element, T value, List<T> choices) {
             (element.value, element.choices) = (value, choices.ToList());
         }
         public static void SetValue<T>(this BaseSlider<T> element, T value, T min, T max) where T : IComparable<T> {
