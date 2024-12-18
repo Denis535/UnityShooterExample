@@ -37,12 +37,12 @@ namespace Project.Game {
             Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
             return Player.Character;
         }
-        public Vector2 GetLookDelta() {
+        public Vector2 GetRotate() {
             Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
             Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
             return InputProvider.Look.ReadValue<Vector2>();
         }
-        public float GetZoomDelta() {
+        public float GetZoom() {
             Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
             Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
             return InputProvider.Zoom.ReadValue<Vector2>().y;

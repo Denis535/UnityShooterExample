@@ -37,8 +37,8 @@ namespace Project.Game {
         private static readonly float MaxAngleX = +88;
         private static readonly float MinDistance = 1;
         private static readonly float MaxDistance = 3;
-        private static readonly float AnglesInputSensitivity = 0.15f;
-        private static readonly float DistanceInputSensitivity = 0.20f;
+        private static readonly float AnglesInputSensitivity = 4;
+        private static readonly float DistanceInputSensitivity = 6;
 
         private PlayableCharacterBase? prevTarget = null;
 
@@ -65,14 +65,18 @@ namespace Project.Game {
                     Angles = new Vector2( DefaultAngles.x, target.transform.eulerAngles.y );
                     Distance = DefaultDistance;
                 } else {
-                    var lookDelta = InputProvider.GetLookDelta() * AnglesInputSensitivity;
-                    var zoomDelta = InputProvider.GetZoomDelta() * DistanceInputSensitivity;
-                    var angles = Angles + new Vector2( -lookDelta.y, lookDelta.x );
-                    var distance = Distance + zoomDelta;
-                    angles.x = Math.Clamp( angles.x, MinAngleX, MaxAngleX );
-                    distance = Math.Clamp( distance, MinDistance, MaxDistance );
-                    Angles = angles;
-                    Distance = distance;
+                    {
+                        var rotate = InputProvider.GetRotate() * AnglesInputSensitivity * Time.deltaTime;
+                        var angles = Angles + new Vector2( -rotate.y, rotate.x );
+                        angles.x = Math.Clamp( angles.x, MinAngleX, MaxAngleX );
+                        Angles = angles;
+                    }
+                    {
+                        var zoom = InputProvider.GetZoom() * DistanceInputSensitivity * Time.deltaTime;
+                        var distance = Distance + zoom;
+                        distance = Math.Clamp( distance, MinDistance, MaxDistance );
+                        Distance = distance;
+                    }
                 }
                 prevTarget = target;
                 if (target.IsAlive) {
@@ -125,7 +129,7 @@ namespace Project.Game {
     }
     public interface ICameraInputProvider {
         PlayableCharacterBase GetTarget();
-        Vector2 GetLookDelta();
-        float GetZoomDelta();
+        Vector2 GetRotate();
+        float GetZoom();
     }
 }

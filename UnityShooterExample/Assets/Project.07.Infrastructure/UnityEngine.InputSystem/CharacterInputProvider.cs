@@ -31,18 +31,18 @@ namespace UnityEngine.InputSystem
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""351f2ccd-1f9f-44bf-9bec-d62ac5c5f408"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""238aadac-14ef-4f30-8cc6-8846144fa749"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -51,7 +51,7 @@ namespace UnityEngine.InputSystem
                     ""name"": ""Crouch"",
                     ""type"": ""Button"",
                     ""id"": ""07e56766-9746-49c1-b32f-0750c11459c1"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -60,7 +60,7 @@ namespace UnityEngine.InputSystem
                     ""name"": ""Accelerate"",
                     ""type"": ""Button"",
                     ""id"": ""ad401a29-e425-4202-a82d-c3b83b63e53a"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -69,7 +69,7 @@ namespace UnityEngine.InputSystem
                     ""name"": ""Fire"",
                     ""type"": ""Button"",
                     ""id"": ""6c2ab1b8-8984-453a-af3d-a3c78ae1679a"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -78,7 +78,7 @@ namespace UnityEngine.InputSystem
                     ""name"": ""Aim"",
                     ""type"": ""Button"",
                     ""id"": ""7d39fe13-0059-40af-814e-806285d6dde4"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -87,7 +87,7 @@ namespace UnityEngine.InputSystem
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""dd2063aa-ef4d-4b21-b6ac-eb1fcde0dc29"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
