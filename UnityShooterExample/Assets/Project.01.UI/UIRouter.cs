@@ -200,6 +200,7 @@ namespace Project.UI {
         }
         private async Task UnloadAsync_WorldScene() {
             Assert.Operation.Message( $"WorldScene must be loaded" ).Valid( WorldScene != null );
+            await Task.Delay( 1_000 );
             await WorldScene.UnloadAsync();
             WorldScene = null;
         }

@@ -44,16 +44,15 @@ namespace Project.Game {
         }
         public event Action<GameState>? OnStateChangeEvent;
 
-        private bool IsDirty { get; set; }
-
         public Player2 Player { get; }
         public World World { get; }
+
+        private bool IsDirty { get; set; }
 
         public Game2(IDependencyContainer container, GameInfo info, PlayerInfo playerInfo) : base( container ) {
             Info = info;
             IsPaused = false;
             State = GameState.Playing;
-            IsDirty = false;
             Player = new Player2( container, playerInfo );
             World = container.RequireDependency<World>();
             {
@@ -67,6 +66,7 @@ namespace Project.Game {
             foreach (var point in World.ThingPoints) {
                 SpawnThing( point );
             }
+            IsDirty = false;
         }
         public override void Dispose() {
             //Time.timeScale = 1f;
