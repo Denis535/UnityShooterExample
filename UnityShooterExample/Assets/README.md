@@ -36,53 +36,58 @@ The project has the following architecture:
 The project contains the following scenes:
 - Assets.Project
   * Launcher
-- Assets.Project.00
+- Assets.Project
   * Main
   * MainScene
   * GameScene
-- Assets.Project.06.Game.Worlds
+- Assets.Project.Game.Worlds
   * World_01
   * World_02
   * World_03
 
 The project contains the following source codes:
 - Project
+  * Editor/ProjectMenuBar.cs
+  * Editor/ProjectWindow.cs
   * Launcher.cs
   * Program.cs
   * DebugScreen.cs
-  * Editor/ProjectMenuBar.cs
-  * Editor/ProjectWindow.cs
 - Project.UI
   * UITheme.cs
   * UIScreen.cs
   * UIRouter.cs
-  * MainScreen/MainWidget.cs
-  * MainScreen/MainMenuWidget.cs
-  * GameScreen/GameWidget.cs
-  * GameScreen/PlayerWidget.cs
-  * GameScreen/GameTotalsWidget.cs
-  * GameScreen/GameMenuWidget.cs
-  * Common/LoadingWidget.cs
-  * Common/UnloadingWidget.cs
-  * Common/SettingsWidget.cs
-  * Common/ProfileSettingsWidget.cs
-  * Common/VideoSettingsWidget.cs
-  * Common/AudioSettingsWidget.cs
-  * Common/DialogWidget.cs
-- Project.UI.Internal
-  * MainScreen/MainWidgetView.cs
-  * MainScreen/MainMenuWidgetView.cs
-  * GameScreen/GameWidgetView.cs
-  * GameScreen/PlayerWidgetView.cs
-  * GameScreen/GameTotalsWidgetView.cs
-  * GameScreen/GameMenuWidgetView.cs
-  * Common/LoadingWidgetView.cs
-  * Common/UnloadingWidgetView.cs
-  * Common/SettingsWidgetView.cs
-  * Common/ProfileSettingsWidgetView.cs
-  * Common/VideoSettingsWidgetView.cs
-  * Common/AudioSettingsWidgetView.cs
-  * Common/DialogWidgetView.cs
+- Project.UI.MainScreen
+  * MainWidget.cs
+  * MainMenuWidget.cs
+- Project.UI.MainScreen.Internal
+  * MainWidgetView.cs
+  * MainMenuWidgetView.cs
+- Project.UI.GameScreen
+  * GameWidget.cs
+  * PlayerWidget.cs
+  * GameTotalsWidget.cs
+  * GameMenuWidget.cs
+ - Project.UI.GameScreen.Internal
+  * GameWidgetView.cs
+  * PlayerWidgetView.cs
+  * GameTotalsWidgetView.cs
+  * GameMenuWidgetView.cs
+- Project.UI.Common
+  * DialogWidget.cs
+  * LoadingWidget.cs
+  * UnloadingWidget.cs
+  * SettingsWidget.cs
+  * ProfileSettingsWidget.cs
+  * VideoSettingsWidget.cs
+  * AudioSettingsWidget.cs
+- Project.UI.Common.Internal
+  * DialogWidgetView.cs
+  * LoadingWidgetView.cs
+  * UnloadingWidgetView.cs
+  * SettingsWidgetView.cs
+  * ProfileSettingsWidgetView.cs
+  * VideoSettingsWidgetView.cs
+  * AudioSettingsWidgetView.cs
 - Project.App
   * Application2.cs
   * Storage.cs
@@ -90,13 +95,13 @@ The project contains the following source codes:
   * Storage.VideoSettings.cs
   * Storage.AudioSettings.cs
 - Project.Game
-  * Game2.cs
-  * Player2.cs
   * Internal/CharacterInputProvider.cs
   * Internal/CameraInputProvider.cs
+  * Game2.cs
+  * Player2.cs
 - Project.Game.Actors
-  * Camera2.cs
   * PlayerCharacter.cs
+  * PlayerCamera.cs
   * EnemyCharacter.cs
 - Project.Game.Things
   * Gun.cs
@@ -104,9 +109,19 @@ The project contains the following source codes:
 - Project.Game.Worlds
   * World.cs
 - Project.Infrastructure
+  * Project.UI/VisualElementFactory.cs
+  * Project.UI/VisualElementExtensions.cs
+  * Project.Game.Actors/ICharacterInputProvider.cs
+  * Project.Game.Actors/ICameraInputProvider.cs
+  * Project.Game.Actors/CharacterBase.cs
+  * Project.Game.Actors/PlayableCharacterBase.cs
+  * Project.Game.Actors/PlayableCameraBase.cs
+  * Project.Game.Actors/NonPlayableCharacterBase.cs
+  * Project.Game.Actors/MoveableBody.cs
+  * Project.Game.Things/WeaponBase.cs
   * System/Lock.cs
-  * UnityEngine/GameObjectExtensions.cs
   * UnityEngine/Utils.cs
+  * UnityEngine/GameObjectExtensions.cs
   * UnityEngine/Points/Point.cs
   * UnityEngine/Points/PlayerPoint.cs
   * UnityEngine/Points/EnemyPoint.cs
@@ -114,21 +129,14 @@ The project contains the following source codes:
   * UnityEngine/Points/FirePoint.cs
   * UnityEngine/Sockets/Socket.cs
   * UnityEngine/Sockets/WeaponSocket.cs
-  * UnityEngine.InputSystem/InputActions_UI.cs
-  * UnityEngine.InputSystem/InputActions_Character.cs
-  * UnityEngine.InputSystem/InputActions_Camera.cs
+  * UnityEngine.InputSystem/UIInputProvider.cs
+  * UnityEngine.InputSystem/CharacterInputProvider.cs
+  * UnityEngine.InputSystem/CameraInputProvider.cs
   * UnityEngine.AddressableAssets/R.cs
   * UnityEngine.AddressableAssets/L.cs
-  * Project.01.UI/VisualElementFactory.cs
-  * Project.01.UI/VisualElementExtensions.cs
-  * Project.06.Game.Actors/CharacterBase.cs
-  * Project.06.Game.Actors/PlayableCharacterBase.cs
-  * Project.06.Game.Actors/NonPlayableCharacterBase.cs
-  * Project.06.Game.Actors/MoveableBody.cs
-  * Project.06.Game.Things/WeaponBase.cs
 
 The project has the following dependencies:
-- Clean Architecture Game Framework - the framework that helps you develop your project using a modular clean architecture.
+- Architecture Game Framework - the framework that helps you develop your project using a modular clean architecture.
   * https://denis535.github.io/#clean-architecture-game-framework-unity
 - Addressables Extensions           - the addressables additions that gives you the ability to use your assets in more convenient way.
   * https://denis535.github.io/#addressables-extensions-unity
@@ -154,8 +162,8 @@ Secondly, the ```Main``` scene contains the ```Program``` entity:
     * ```Game``` - the game entity that contains game's informations, rules, states and other entities:
       * ```Player``` - the entity representing a real player and that contains player's informations, states and input providers.
       * ```PlayerCharacter``` - the player's avatar character entity.
+      * ```PlayerCamera``` - the player's camera entity.
       * ```EnemyCharacter``` - the enemy character entity.
-      * ```Camera``` - the player's camera entity.
       * ```Gun``` - the gun entity.
       * ```World``` - the world entity.
 
@@ -210,8 +218,8 @@ Secondly, the ```Main``` scene contains the ```Program``` entity:
   * ```Denis535.Addressables.Extensions```
   * ```Denis535.Addressables.SourceGenerator```
   * ```Denis535.CleanArchitectureGameFramework```
-  * ```Denis535.CleanArchitectureGameFramework.Internal```
   * ```Denis535.CleanArchitectureGameFramework.Additions```
+  * ```Denis535.CleanArchitectureGameFramework.Internal```
   * ```Denis535.CleanArchitectureGameFramework.Editor```
   * ```Denis535.ColorfulProjectWindow```
 - Link project with Unity Gaming Services.
