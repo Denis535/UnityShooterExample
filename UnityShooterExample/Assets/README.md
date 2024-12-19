@@ -36,11 +36,11 @@ The project has the following architecture:
 The project contains the following scenes:
 - Assets.Project
   * Launcher
-- Assets.Project
+- Assets.Project.00
   * Main
   * MainScene
   * GameScene
-- Assets.Project.Game.Worlds
+- Assets.Project.06.Game.Worlds
   * World_01
   * World_02
   * World_03
