@@ -31,7 +31,7 @@ namespace UnityEngine.InputSystem
             ""actions"": [
                 {
                     ""name"": ""Rotate"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""65d41539-1aa5-44ee-a894-44a810546e76"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -40,7 +40,7 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": ""Zoom"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""cf1275fd-88fb-40ca-945a-e5c53dc52759"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
