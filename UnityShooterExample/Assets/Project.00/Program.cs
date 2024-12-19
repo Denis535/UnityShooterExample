@@ -22,7 +22,6 @@ namespace Project {
 
         [RuntimeInitializeOnLoadMethod( RuntimeInitializeLoadType.AfterAssembliesLoaded )]
         private static void OnLoad() {
-            UnityEngine.Application.targetFrameRate = 120;
         }
 
 #if UNITY_EDITOR
