@@ -60,7 +60,7 @@ namespace Project.App {
             Debug.LogFormat( "Run Game" );
 #endif
             {
-                Camera2.Factory.Load();
+                PlayerCamera.Factory.Load();
                 PlayerCharacter.Factory.Load();
                 EnemyCharacter.Factory.Load();
                 Gun.Factory.Load();
@@ -77,7 +77,7 @@ namespace Project.App {
             Game.Dispose();
             Game = null;
             {
-                Camera2.Factory.Unload();
+                PlayerCamera.Factory.Unload();
                 PlayerCharacter.Factory.Unload();
                 EnemyCharacter.Factory.Unload();
                 Gun.Factory.Unload();

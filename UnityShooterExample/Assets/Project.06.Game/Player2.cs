@@ -10,7 +10,7 @@ namespace Project.Game {
 
         private PlayerState state;
         private PlayerCharacter? character;
-        private Camera2? camera;
+        private PlayerCamera? camera;
 
         public PlayerInfo Info { get; }
 
@@ -49,7 +49,7 @@ namespace Project.Game {
                 }
             }
         }
-        public Camera2? Camera {
+        public PlayerCamera? Camera {
             get => camera;
             internal set {
                 CharacterInputProvider.IsEnabled = false;

@@ -45,7 +45,7 @@ namespace Project.UI {
             return view;
         }
         // Helpers
-        private static Color GetTargetColor(Camera2.RaycastHit? hit) {
+        private static Color GetTargetColor(PlayerCamera.RaycastHit? hit) {
             if (hit?.Entity is ThingBase) return Color.yellow;
             if (hit?.Entity is EnemyCharacter) return Color.red;
             return Color.white;

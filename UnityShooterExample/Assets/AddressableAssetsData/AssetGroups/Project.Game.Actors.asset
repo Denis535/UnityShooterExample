@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Project.Game.Actors
   m_EditorClassIdentifier: 
   m_GroupName: Project.Game.Actors
-  m_Data:
-    m_SerializedData: []
   m_GUID: 2f96b6367c2d768498ca6304ae2558cc
   m_SerializeEntries:
   - m_GUID: 365c006b10ba4084db9b67c6f9682b2e

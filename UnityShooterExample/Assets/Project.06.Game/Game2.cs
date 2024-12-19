@@ -58,7 +58,7 @@ namespace Project.Game {
             {
                 var point = World.PlayerPoints.First();
                 Player.Character = SpawnPlayerCharacter( point, playerInfo.CharacterType );
-                Player.Camera = Camera2.Factory.Create();
+                Player.Camera = PlayerCamera.Factory.Create();
             }
             foreach (var point in World.EnemyPoints) {
                 SpawnEnemyCharacter( point );

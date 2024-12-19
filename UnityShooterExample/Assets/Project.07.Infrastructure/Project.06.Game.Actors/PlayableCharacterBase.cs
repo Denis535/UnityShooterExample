@@ -7,6 +7,8 @@ namespace Project.Game {
 
     public abstract class PlayableCharacterBase : CharacterBase {
 
+        public ICharacterInputProvider? InputProvider { get; set; }
+
         protected override void Awake() {
             base.Awake();
         }

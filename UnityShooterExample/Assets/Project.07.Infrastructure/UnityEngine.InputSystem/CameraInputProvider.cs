@@ -30,22 +30,22 @@ namespace UnityEngine.InputSystem
             ""id"": ""62d43fdd-9db7-44f8-a834-7cdd5d9e96e3"",
             ""actions"": [
                 {
-                    ""name"": ""Look"",
-                    ""type"": ""PassThrough"",
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
                     ""id"": ""65d41539-1aa5-44ee-a894-44a810546e76"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Zoom"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""cf1275fd-88fb-40ca-945a-e5c53dc52759"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -56,7 +56,7 @@ namespace UnityEngine.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Look"",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -67,7 +67,7 @@ namespace UnityEngine.InputSystem
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Look"",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -150,7 +150,7 @@ namespace UnityEngine.InputSystem
 }");
             // Camera
             m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
-            m_Camera_Look = m_Camera.FindAction("Look", throwIfNotFound: true);
+            m_Camera_Rotate = m_Camera.FindAction("Rotate", throwIfNotFound: true);
             m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
         }
 
@@ -218,13 +218,13 @@ namespace UnityEngine.InputSystem
         // Camera
         private readonly InputActionMap m_Camera;
         private List<ICameraActions> m_CameraActionsCallbackInterfaces = new List<ICameraActions>();
-        private readonly InputAction m_Camera_Look;
+        private readonly InputAction m_Camera_Rotate;
         private readonly InputAction m_Camera_Zoom;
         public struct CameraActions
         {
             private @CameraInputProvider m_Wrapper;
             public CameraActions(@CameraInputProvider wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Look => m_Wrapper.m_Camera_Look;
+            public InputAction @Rotate => m_Wrapper.m_Camera_Rotate;
             public InputAction @Zoom => m_Wrapper.m_Camera_Zoom;
             public InputActionMap Get() { return m_Wrapper.m_Camera; }
             public void Enable() { Get().Enable(); }
@@ -235,9 +235,9 @@ namespace UnityEngine.InputSystem
             {
                 if (instance == null || m_Wrapper.m_CameraActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_CameraActionsCallbackInterfaces.Add(instance);
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
+                @Rotate.started += instance.OnRotate;
+                @Rotate.performed += instance.OnRotate;
+                @Rotate.canceled += instance.OnRotate;
                 @Zoom.started += instance.OnZoom;
                 @Zoom.performed += instance.OnZoom;
                 @Zoom.canceled += instance.OnZoom;
@@ -245,9 +245,9 @@ namespace UnityEngine.InputSystem
 
             private void UnregisterCallbacks(ICameraActions instance)
             {
-                @Look.started -= instance.OnLook;
-                @Look.performed -= instance.OnLook;
-                @Look.canceled -= instance.OnLook;
+                @Rotate.started -= instance.OnRotate;
+                @Rotate.performed -= instance.OnRotate;
+                @Rotate.canceled -= instance.OnRotate;
                 @Zoom.started -= instance.OnZoom;
                 @Zoom.performed -= instance.OnZoom;
                 @Zoom.canceled -= instance.OnZoom;
@@ -315,7 +315,7 @@ namespace UnityEngine.InputSystem
         }
         public interface ICameraActions
         {
-            void OnLook(InputAction.CallbackContext context);
+            void OnRotate(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
         }
     }

@@ -5,7 +5,6 @@ namespace Project.Game {
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.AddressableAssets;
-    using UnityEngine.Framework;
 
     public partial class PlayerCharacter {
         public static class Factory {
@@ -38,8 +37,6 @@ namespace Project.Game {
         }
     }
     public partial class PlayerCharacter : PlayableCharacterBase {
-
-        public ICharacterInputProvider? InputProvider { get; set; }
 
         protected override void Awake() {
             base.Awake();
@@ -81,17 +78,5 @@ namespace Project.Game {
             base.LateUpdate();
         }
 
-    }
-    public interface ICharacterInputProvider {
-        Vector3? GetBodyTarget();
-        Vector3? GetHeadTarget();
-        Vector3? GetWeaponTarget();
-        Vector3 GetMoveVector();
-        bool IsJumpPressed();
-        bool IsCrouchPressed();
-        bool IsAcceleratePressed();
-        bool IsFirePressed(out PlayerBase player);
-        bool IsAimPressed();
-        bool IsInteractPressed(out EntityBase? interactable);
     }
 }

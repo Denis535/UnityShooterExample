@@ -117,7 +117,7 @@ namespace Project.Game {
         }
 
         // Helpers
-        private static Vector3 GetLookTarget(Camera2 camera) {
+        private static Vector3 GetLookTarget(PlayerCamera camera) {
             return camera.Hit?.Point ?? camera.transform.TransformPoint( Vector3.forward * 128f );
         }
 

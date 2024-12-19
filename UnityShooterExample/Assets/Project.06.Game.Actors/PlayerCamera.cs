@@ -8,10 +8,10 @@ namespace Project.Game {
     using UnityEngine.AddressableAssets;
     using UnityEngine.Framework;
 
-    public partial class Camera2 {
+    public partial class PlayerCamera {
         public static class Factory {
 
-            private static readonly PrefabHandle<Camera2> Prefab = new PrefabHandle<Camera2>( R.Project.Game.Actors.Value_Camera );
+            private static readonly PrefabHandle<PlayerCamera> Prefab = new PrefabHandle<PlayerCamera>( R.Project.Game.Actors.Value_PlayerCamera );
 
             public static void Load() {
                 Prefab.Load().Wait();
@@ -20,15 +20,14 @@ namespace Project.Game {
                 Prefab.Release();
             }
 
-            public static Camera2 Create() {
+            public static PlayerCamera Create() {
                 var result = GameObject.Instantiate( Prefab.GetValue() );
                 return result;
             }
 
         }
     }
-    [DefaultExecutionOrder( ExecutionOrder - 1 )]
-    public partial class Camera2 : EntityBase {
+    public partial class PlayerCamera : PlayableCameraBase {
         public record RaycastHit(Vector3 Point, float Distance, GameObject GameObject, EntityBase? Entity);
 
         private static readonly Vector2 DefaultAngles = new Vector2( 30, 0 );
@@ -45,20 +44,23 @@ namespace Project.Game {
         private Vector2 Angles { get; set; }
         private float Distance { get; set; }
 
-        public ICameraInputProvider? InputProvider { get; set; }
-
         public RaycastHit? Hit { get; private set; }
 
         protected override void Awake() {
+            base.Awake();
         }
         protected override void OnDestroy() {
+            base.OnDestroy();
         }
 
-        protected void Start() {
+        protected override void Start() {
+            base.Start();
         }
-        protected void FixedUpdate() {
+        protected override void FixedUpdate() {
+            base.FixedUpdate();
         }
-        protected void Update() {
+        protected override void Update() {
+            base.Update();
             if (InputProvider != null) {
                 var target = InputProvider.GetTarget();
                 if (target != prevTarget) {
@@ -66,13 +68,13 @@ namespace Project.Game {
                     Distance = DefaultDistance;
                 } else {
                     {
-                        var rotate = InputProvider.GetRotate() * AnglesInputSensitivity * Time.deltaTime;
+                        var rotate = InputProvider.GetRotateAngles() * AnglesInputSensitivity * Time.deltaTime;
                         var angles = Angles + new Vector2( -rotate.y, rotate.x );
                         angles.x = Math.Clamp( angles.x, MinAngleX, MaxAngleX );
                         Angles = angles;
                     }
                     {
-                        var zoom = InputProvider.GetZoom() * DistanceInputSensitivity * Time.deltaTime;
+                        var zoom = InputProvider.GetZoomValue() * DistanceInputSensitivity * Time.deltaTime;
                         var distance = Distance + zoom;
                         distance = Math.Clamp( distance, MinDistance, MaxDistance );
                         Distance = distance;
@@ -99,7 +101,8 @@ namespace Project.Game {
                 Hit = null;
             }
         }
-        protected void LateUpdate() {
+        protected override void LateUpdate() {
+            base.LateUpdate();
         }
 
         // Helpers
@@ -126,10 +129,5 @@ namespace Project.Game {
             return null;
         }
 
-    }
-    public interface ICameraInputProvider {
-        PlayableCharacterBase GetTarget();
-        Vector2 GetRotate();
-        float GetZoom();
     }
 }
