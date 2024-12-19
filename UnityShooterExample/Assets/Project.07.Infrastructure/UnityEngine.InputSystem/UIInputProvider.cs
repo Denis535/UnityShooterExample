@@ -69,7 +69,7 @@ namespace UnityEngine.InputSystem
                     ""name"": ""ScrollWheel"",
                     ""type"": ""Value"",
                     ""id"": ""0489e84a-4833-4c40-bfae-cea84b696689"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Delta"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true

@@ -20,9 +20,13 @@ namespace Project {
         protected override Application2 Application { get; set; } = default!;
         protected override Game2? Game => Application.Game;
 
-        [RuntimeInitializeOnLoadMethod( RuntimeInitializeLoadType.AfterAssembliesLoaded )]
-        private static void OnLoad() {
-        }
+        //[RuntimeInitializeOnLoadMethod( RuntimeInitializeLoadType.BeforeSplashScreen )]
+        //private static void OnLoad() {
+        //}
+
+        //[RuntimeInitializeOnLoadMethod( RuntimeInitializeLoadType.AfterAssembliesLoaded )]
+        //private static void OnLoad2() {
+        //}
 
 #if UNITY_EDITOR
         [InitializeOnLoadMethod]
