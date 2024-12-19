@@ -183,7 +183,7 @@ namespace Project.UI {
         }
         private async Task LoadAsync_WorldScene(string key) {
             Assert.Operation.Message( $"WorldScene must be non-loaded" ).Valid( WorldScene == null );
-            await Task.Delay( 3_000 );
+            await Awaitable.WaitForSecondsAsync( 3, DisposeCancellationToken );
             WorldScene = new SceneHandle( key );
             await WorldScene.Load( LoadSceneMode.Additive, false ).WaitAsync();
             await WorldScene.ActivateAsync();
@@ -200,7 +200,7 @@ namespace Project.UI {
         }
         private async Task UnloadAsync_WorldScene() {
             Assert.Operation.Message( $"WorldScene must be loaded" ).Valid( WorldScene != null );
-            await Task.Delay( 1_000 );
+            await Awaitable.WaitForSecondsAsync( 1, DisposeCancellationToken );
             await WorldScene.UnloadAsync();
             WorldScene = null;
         }

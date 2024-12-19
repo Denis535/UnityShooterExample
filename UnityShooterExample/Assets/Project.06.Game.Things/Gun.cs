@@ -25,11 +25,11 @@ namespace Project.Game {
             }
 
             public static Gun Create() {
-                var result = GameObject.Instantiate<Gun>( Prefabs.GetValues().GetRandom(), null );
+                var result = GameObject.Instantiate<Gun>( Prefabs.GetValues().Random(), null );
                 return result;
             }
             public static Gun Create(Vector3 position, Quaternion rotation) {
-                var result = GameObject.Instantiate<Gun>( Prefabs.GetValues().GetRandom(), position, rotation, null );
+                var result = GameObject.Instantiate<Gun>( Prefabs.GetValues().Random(), position, rotation, null );
                 return result;
             }
 

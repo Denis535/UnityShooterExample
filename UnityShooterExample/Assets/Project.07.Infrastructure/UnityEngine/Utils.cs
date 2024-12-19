@@ -21,14 +21,9 @@ namespace UnityEngine {
             return ColliderBuffer.Take( count );
         }
 
-        public static T GetRandom<T>(this T[] values) {
-            return values[ Random.Range( 0, values.Length ) ];
-        }
-        public static T GetRandom<T>(this IList<T> values) {
-            return values[ Random.Range( 0, values.Count ) ];
-        }
-        public static T GetRandom<T>(this IReadOnlyList<T> values) {
-            return values[ Random.Range( 0, values.Count ) ];
+        public static T Random<T>(this IEnumerable<T> source) {
+            var index = UnityEngine.Random.Range( 0, source.Count() );
+            return source.ElementAt( index );
         }
 
     }

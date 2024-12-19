@@ -25,7 +25,7 @@ namespace Project.Game {
             }
 
             public static EnemyCharacter Create(Vector3 position, Quaternion rotation) {
-                var result = GameObject.Instantiate<EnemyCharacter>( Prefabs.GetValues().GetRandom(), position, rotation );
+                var result = GameObject.Instantiate<EnemyCharacter>( Prefabs.GetValues().Random(), position, rotation );
                 result.Weapon = Gun.Factory.Create();
                 return result;
             }
