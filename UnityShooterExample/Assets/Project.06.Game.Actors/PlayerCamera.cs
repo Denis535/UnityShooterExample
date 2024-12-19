@@ -67,12 +67,12 @@ namespace Project.Game {
                     Distance = DefaultDistance;
                 } else {
                     {
-                        var angles = Angles + InputProvider.GetRotateAngles() * RotateInputSensitivity * Time.deltaTime;
+                        var angles = Angles + InputProvider.GetRotateDelta() * RotateInputSensitivity * Time.deltaTime;
                         angles.x = Math.Clamp( angles.x, MinAngleX, MaxAngleX );
                         Angles = angles;
                     }
                     {
-                        var distance = Distance + InputProvider.GetZoomValue() * ZoomInputSensitivity * Time.deltaTime;
+                        var distance = Distance + InputProvider.GetZoomDelta() * ZoomInputSensitivity * Time.deltaTime;
                         distance = Math.Clamp( distance, MinDistance, MaxDistance );
                         Distance = distance;
                     }

@@ -7,7 +7,7 @@ namespace Project.Game {
 
     public interface ICameraInputProvider {
         PlayableCharacterBase GetTarget();
-        Vector2 GetRotateAngles();
-        float GetZoomValue();
+        Vector2 GetRotateDelta();
+        float GetZoomDelta();
     }
 }
