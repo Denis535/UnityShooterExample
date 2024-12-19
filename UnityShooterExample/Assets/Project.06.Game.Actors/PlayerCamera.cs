@@ -30,14 +30,13 @@ namespace Project.Game {
     public partial class PlayerCamera : PlayableCameraBase {
         public record RaycastHit(Vector3 Point, float Distance, GameObject GameObject, EntityBase? Entity);
 
-        private static readonly Vector2 DefaultAngles = new Vector2( 30, 0 );
         private static readonly float DefaultDistance = 1.5f;
         private static readonly float MinAngleX = -88;
         private static readonly float MaxAngleX = +88;
         private static readonly float MinDistance = 1;
         private static readonly float MaxDistance = 3;
-        private static readonly float AnglesInputSensitivity = 4;
-        private static readonly float DistanceInputSensitivity = 6;
+        private static readonly float RotateInputSensitivity = 4;
+        private static readonly float ZoomInputSensitivity = 6;
 
         private PlayableCharacterBase? prevTarget = null;
 
@@ -64,18 +63,16 @@ namespace Project.Game {
             if (InputProvider != null) {
                 var target = InputProvider.GetTarget();
                 if (target != prevTarget) {
-                    Angles = new Vector2( DefaultAngles.x, target.transform.eulerAngles.y );
+                    Angles = new Vector2( 30, target.transform.eulerAngles.y );
                     Distance = DefaultDistance;
                 } else {
                     {
-                        var rotate = InputProvider.GetRotateAngles() * AnglesInputSensitivity * Time.deltaTime;
-                        var angles = Angles + new Vector2( -rotate.y, rotate.x );
+                        var angles = Angles + InputProvider.GetRotateAngles() * RotateInputSensitivity * Time.deltaTime;
                         angles.x = Math.Clamp( angles.x, MinAngleX, MaxAngleX );
                         Angles = angles;
                     }
                     {
-                        var zoom = InputProvider.GetZoomValue() * DistanceInputSensitivity * Time.deltaTime;
-                        var distance = Distance + zoom;
+                        var distance = Distance + InputProvider.GetZoomValue() * ZoomInputSensitivity * Time.deltaTime;
                         distance = Math.Clamp( distance, MinDistance, MaxDistance );
                         Distance = distance;
                     }

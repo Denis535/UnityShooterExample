@@ -40,7 +40,8 @@ namespace Project.Game {
         public Vector2 GetRotateAngles() {
             Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
             Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-            return InputProvider.Rotate.ReadValue<Vector2>();
+            return InputProvider.Rotate.ReadValue<Vector2>()
+                .Pipe( i => new Vector2( -i.y, i.x ) );
         }
         public float GetZoomValue() {
             Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );

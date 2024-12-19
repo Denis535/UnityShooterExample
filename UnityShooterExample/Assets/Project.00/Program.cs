@@ -20,8 +20,9 @@ namespace Project {
         protected override Application2 Application { get; set; } = default!;
         protected override Game2? Game => Application.Game;
 
-        [RuntimeInitializeOnLoadMethod( RuntimeInitializeLoadType.BeforeSplashScreen )]
+        [RuntimeInitializeOnLoadMethod( RuntimeInitializeLoadType.AfterAssembliesLoaded )]
         private static void OnLoad() {
+            UnityEngine.Application.targetFrameRate = 120;
         }
 
 #if UNITY_EDITOR
