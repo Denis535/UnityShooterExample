@@ -10,11 +10,11 @@ namespace Project.UI {
 
     public abstract class GameTotalsWidget<TView> : WidgetBase2<TView> where TView : notnull, GameTotalsWidgetView {
 
-        protected UIRouter Router { get; }
+        protected Router Router { get; }
         protected Game2 Game { get; }
 
         public GameTotalsWidget(IDependencyContainer container) : base( container ) {
-            Router = container.RequireDependency<UIRouter>();
+            Router = container.RequireDependency<Router>();
             Game = container.RequireDependency<Game2>();
         }
         public override void Dispose() {

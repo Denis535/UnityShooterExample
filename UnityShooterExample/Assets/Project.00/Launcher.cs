@@ -14,7 +14,7 @@ namespace Project {
         }
 
         public void Start() {
-            UIRouter.LoadMain();
+            Router.LoadMain();
         }
         public void Update() {
         }

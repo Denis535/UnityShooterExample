@@ -9,10 +9,10 @@ namespace Project.UI {
 
     public class GameMenuWidget : WidgetBase2<GameMenuWidgetView> {
 
-        private UIRouter Router { get; }
+        private Router Router { get; }
 
         public GameMenuWidget(IDependencyContainer container) : base( container ) {
-            Router = container.RequireDependency<UIRouter>();
+            Router = container.RequireDependency<Router>();
             View = CreateView( this );
         }
         public override void Dispose() {

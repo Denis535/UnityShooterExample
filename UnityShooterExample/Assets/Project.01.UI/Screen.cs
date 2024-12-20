@@ -8,11 +8,11 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class UIScreen : ScreenBase2 {
+    public class Screen : ScreenBase2 {
 
         private new RootWidget Widget => (RootWidget?) base.Widget ?? throw Exceptions.Internal.NullReference( $"Reference 'Widget' is null" );
 
-        public UIScreen(IDependencyContainer container) : base( container, container.RequireDependency<UIDocument>(), container.RequireDependency<AudioSource>( "SfxAudioSource" ) ) {
+        public Screen(IDependencyContainer container) : base( container, container.RequireDependency<UIDocument>(), container.RequireDependency<AudioSource>( "SfxAudioSource" ) ) {
             VisualElementFactory.OnPlayClick += evt => { };
             VisualElementFactory.OnPlaySelect += evt => { };
             VisualElementFactory.OnPlaySubmit += evt => { };

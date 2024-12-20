@@ -11,12 +11,12 @@ namespace Project.UI {
 
     public class MainMenuWidget : WidgetBase2<MainMenuWidgetView> {
 
-        private UIRouter Router { get; }
+        private Router Router { get; }
         private Application2 Application { get; }
         private Storage.ProfileSettings ProfileSettings => Application.ProfileSettings;
 
         public MainMenuWidget(IDependencyContainer container) : base( container ) {
-            Router = container.RequireDependency<UIRouter>();
+            Router = container.RequireDependency<Router>();
             Application = container.RequireDependency<Application2>();
             View = CreateView( this );
         }

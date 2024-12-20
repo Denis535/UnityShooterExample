@@ -12,11 +12,11 @@ namespace Project {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class Program : ProgramBase2<UITheme, UIScreen, UIRouter, Application2, Game2> {
+    public class Program : ProgramBase2<Theme, UI.Screen, Router, Application2, Game2> {
 
-        protected override UITheme Theme { get; set; } = default!;
-        protected override UIScreen Screen { get; set; } = default!;
-        protected override UIRouter Router { get; set; } = default!;
+        protected override Theme Theme { get; set; } = default!;
+        protected override UI.Screen Screen { get; set; } = default!;
+        protected override Router Router { get; set; } = default!;
         protected override Application2 Application { get; set; } = default!;
         protected override Game2? Game => Application.Game;
 
@@ -47,9 +47,9 @@ namespace Project {
             base.Awake();
             VisualElementFactory.StringSelector = GetDisplayString;
             Application = new Application2( this );
-            Router = new UIRouter( this );
-            Screen = new UIScreen( this );
-            Theme = new UITheme( this );
+            Router = new Router( this );
+            Screen = new UI.Screen( this );
+            Theme = new Theme( this );
         }
         protected override void OnDestroy() {
             Theme.Dispose();

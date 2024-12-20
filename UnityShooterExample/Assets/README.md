@@ -9,7 +9,6 @@ The project has the following structure:
   * Project - the folder that contains definitions of all modules.
   * Project.00 - the folder that contains source codes of main Project module.
   * Project.01.UI - the folder that contains source codes of Project.UI module.
-  * Project.02.UI - the folder that contains source codes of Project.UI.Internal module.
   * Project.05.App - the folder that contains source codes of Project.App module.
   * Project.06.Game - the folder that contains source codes of Project.Game module.
   * Project.07.Infrastructure - the folder that contains source codes of Project.Infrastructure module.
@@ -25,7 +24,6 @@ The project has the following structure:
 The project has the following architecture:
 - Project - the root module that contains the entry point.
 - Project.UI - the presentation module that contains UI.
-- Project.UI.Internal - the presentation module that contains low-level UI.
 - Project.App - the application module that contains all entities, services and objects.
 - Project.Game - the domain module that contains all entities of subject area.
 - Project.Game.Actors - the domain module that contains all entities of subject area.
@@ -53,26 +51,31 @@ The project contains the following source codes:
   * Program.cs
   * DebugScreen.cs
 - Project.UI
-  * UITheme.cs
-  * UIScreen.cs
-  * UIRouter.cs
+  * Theme.cs
+  * Screen.cs
+  * Router.cs
 - Project.UI.MainScreen
+  * Internal/MainWidgetView.cs
+  * Internal/MainMenuWidgetView.cs
   * MainWidget.cs
   * MainMenuWidget.cs
-- Project.UI.MainScreen.Internal
-  * MainWidgetView.cs
-  * MainMenuWidgetView.cs
 - Project.UI.GameScreen
+  * Internal/GameWidgetView.cs
+  * Internal/PlayerWidgetView.cs
+  * Internal/GameTotalsWidgetView.cs
+  * Internal/GameMenuWidgetView.cs
   * GameWidget.cs
   * PlayerWidget.cs
   * GameTotalsWidget.cs
   * GameMenuWidget.cs
- - Project.UI.GameScreen.Internal
-  * GameWidgetView.cs
-  * PlayerWidgetView.cs
-  * GameTotalsWidgetView.cs
-  * GameMenuWidgetView.cs
 - Project.UI.Common
+  * Internal/DialogWidgetView.cs
+  * Internal/LoadingWidgetView.cs
+  * Internal/UnloadingWidgetView.cs
+  * Internal/SettingsWidgetView.cs
+  * Internal/ProfileSettingsWidgetView.cs
+  * Internal/VideoSettingsWidgetView.cs
+  * Internal/AudioSettingsWidgetView.cs
   * DialogWidget.cs
   * LoadingWidget.cs
   * UnloadingWidget.cs
@@ -80,14 +83,6 @@ The project contains the following source codes:
   * ProfileSettingsWidget.cs
   * VideoSettingsWidget.cs
   * AudioSettingsWidget.cs
-- Project.UI.Common.Internal
-  * DialogWidgetView.cs
-  * LoadingWidgetView.cs
-  * UnloadingWidgetView.cs
-  * SettingsWidgetView.cs
-  * ProfileSettingsWidgetView.cs
-  * VideoSettingsWidgetView.cs
-  * AudioSettingsWidgetView.cs
 - Project.App
   * Application2.cs
   * Storage.cs
@@ -155,9 +150,9 @@ All other scenes are loaded and unloaded depending on the state of the applicati
 
 Secondly, the ```Main``` scene contains the ```Program``` entity:
 - ```Program``` - the most main entity of application. This entity contains an enty point, initializes and runs the application and stores all other entities, services and objects:
-  * ```UITheme``` - the audio theme entity. This entity plays various playlists.
-  * ```UIScreen``` - the visual screen entity. This entity shows various widgets.
-  * ```UIRouter``` - the application manager service. This services allows you to change the state of application.
+  * ```Theme``` - the audio theme entity. This entity plays various playlists.
+  * ```Screen``` - the visual screen entity. This entity shows various widgets.
+  * ```Router``` - the application manager service. This services allows you to change the state of application.
   * ```Application``` - the application entity. This entity contains Game entity and all other entities, services and objects:
     * ```Game``` - the game entity that contains game's informations, rules, states and other entities:
       * ```Player``` - the entity representing a real player and that contains player's informations, states and input providers.
@@ -174,7 +169,7 @@ Secondly, the ```Main``` scene contains the ```Program``` entity:
   "dependencies": {
     "com.denis535.addressables-extensions": "1.0.19",
     "com.denis535.addressables-source-generator": "1.0.43",
-    "com.denis535.clean-architecture-game-framework": "1.4.32",
+    "com.denis535.clean-architecture-game-framework": "1.5.0",
     "com.denis535.colorful-project-window": "1.1.1",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "2.2.2",

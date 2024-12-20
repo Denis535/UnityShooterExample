@@ -9,11 +9,11 @@ namespace Project.UI {
     using UnityEngine.AddressableAssets;
     using UnityEngine.Framework;
 
-    public class UITheme : ThemeBase2 {
+    public class Theme : ThemeBase2 {
 
         private new PlayList? PlayList => (PlayList?) base.PlayList;
 
-        public UITheme(IDependencyContainer container) : base( container, container.RequireDependency<AudioSource>( "MusicAudioSource" ) ) {
+        public Theme(IDependencyContainer container) : base( container, container.RequireDependency<AudioSource>( "MusicAudioSource" ) ) {
         }
         public override void Dispose() {
             SetPlayList( null );
