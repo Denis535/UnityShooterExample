@@ -15,8 +15,8 @@ namespace Project.UI {
 
         public LoadingWidgetView() : base( "loading-widget-view" ) {
             this.Add(
-                Background = VisualElementFactory.VisualElement().Classes( "loading-widget-view-background", "width-100pc", "height-100pc" ),
-                Loading = VisualElementFactory.Label( "Loading..." ).Classes( "color-light", "font-size-200pc", "font-style-bold", "position-absolute", "left-50pc", "bottom-2pc", "translate-x-n50pc" )
+                Background = VisualElementFactory.VisualElement().Class( "loading-widget-view-background" ).Class( "width-100pc" ).Class( "height-100pc" ),
+                Loading = VisualElementFactory.Label( "Loading..." ).Class( "color-light" ).Class( "font-size-200pc" ).Class( "font-style-bold" ).Class( "position-absolute" ).Class( "left-50pc" ).Class( "bottom-2pc" ).Class( "translate-x-n50pc" )
             );
             Background.RegisterCallbackOnce<AttachToPanelEvent>( async evt => {
                 await Awaitable.NextFrameAsync( DisposeCancellationToken );

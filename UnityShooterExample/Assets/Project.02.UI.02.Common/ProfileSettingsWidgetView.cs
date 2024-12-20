@@ -12,8 +12,8 @@ namespace Project.UI {
 
         public ProfileSettingsWidgetView(Func<string?, bool> nameValidator) : base( "profile-settings-widget-view" ) {
             Add(
-                VisualElementFactory.ColumnGroup().Classes( "gray", "medium", "margin-0px", "grow-1" ).Children(
-                    Name = VisualElementFactory.TextField( "Name", 16 ).Classes( "label-width-25pc" )
+                VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "margin-0px" ).Class( "grow-1" ).Children(
+                    Name = VisualElementFactory.TextField( "Name", 16 ).Class( "label-width-25pc" )
                 )
             );
             Name.OnValidate( evt => {

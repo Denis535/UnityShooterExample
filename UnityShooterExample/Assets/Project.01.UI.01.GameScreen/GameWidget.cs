@@ -10,7 +10,7 @@ namespace Project.UI {
     using UnityEngine.InputSystem;
     using UnityEngine.UIElements;
 
-    public class GameWidget : UIWidgetBase2<GameWidgetView> {
+    public class GameWidget : WidgetBase2<GameWidgetView> {
 
         private Game2 Game { get; }
         private UIInputProvider Input { get; }
@@ -71,7 +71,7 @@ namespace Project.UI {
             HideSelf();
         }
 
-        protected override void OnBeforeDescendantActivate(UIWidgetBase descendant, object? argument) {
+        protected override void OnBeforeDescendantActivate(WidgetBase descendant, object? argument) {
             Game.IsPaused = Children.Any( i => i is GameMenuWidget );
             IsCursorVisible = Children.Any( i => i is GameMenuWidget or GameTotalsWidget_LevelCompleted or GameTotalsWidget_LevelFailed or GameTotalsWidget_GameCompleted );
         }
@@ -79,17 +79,17 @@ namespace Project.UI {
         //}
         //protected override void OnBeforeDescendantDeactivate(UIWidgetBase descendant, object? argument) {
         //}
-        protected override void OnAfterDescendantDeactivate(UIWidgetBase descendant, object? argument) {
+        protected override void OnAfterDescendantDeactivate(WidgetBase descendant, object? argument) {
             if (Activity is Activity_.Active) {
                 IsCursorVisible = Children.Where( i => i.Activity is Activity_.Active ).Any( i => i is GameMenuWidget or GameTotalsWidget_LevelCompleted or GameTotalsWidget_LevelFailed or GameTotalsWidget_GameCompleted );
                 Game.IsPaused = Children.Where( i => i.Activity is Activity_.Active ).Any( i => i is GameMenuWidget );
             }
         }
 
-        protected override void Sort(List<UIWidgetBase> children) {
+        protected override void Sort(List<WidgetBase> children) {
             children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( a ), GetOrderOf( b ) ) );
         }
-        private static int GetOrderOf(UIWidgetBase widget) {
+        private static int GetOrderOf(WidgetBase widget) {
             return widget switch {
                 PlayerWidget => 0,
                 GameTotalsWidget_LevelCompleted => 1,

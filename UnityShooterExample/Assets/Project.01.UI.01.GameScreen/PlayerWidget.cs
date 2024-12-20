@@ -7,7 +7,7 @@ namespace Project.UI {
     using UnityEngine;
     using UnityEngine.Framework;
 
-    public class PlayerWidget : UIWidgetBase2<PlayerWidgetView> {
+    public class PlayerWidget : WidgetBase2<PlayerWidgetView> {
 
         private Game2 Game { get; }
         private Player2 Player => Game.Player;

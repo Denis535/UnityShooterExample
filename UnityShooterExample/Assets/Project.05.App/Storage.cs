@@ -3,6 +3,7 @@ namespace Project.App {
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
     using UnityEngine.Framework;
 
@@ -21,7 +22,7 @@ namespace Project.App {
             //        Debug.Log( string.Join( ", ", values ) );
             //    }
             //}
-            Profile = CommandLineArgumentsUtils.GetValue( Environment.GetCommandLineArgs(), "--profile" );
+            Profile = CommandLineArguments.GetValues( Environment.GetCommandLineArgs(), "--profile" )?.First();
         }
         public override void Dispose() {
             base.Dispose();

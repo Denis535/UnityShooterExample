@@ -9,7 +9,7 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class MainMenuWidget : UIWidgetBase2<MainMenuWidgetView> {
+    public class MainMenuWidget : WidgetBase2<MainMenuWidgetView> {
 
         private UIRouter Router { get; }
         private Application2 Application { get; }

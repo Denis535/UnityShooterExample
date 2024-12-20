@@ -87,15 +87,15 @@ namespace Project {
         protected override Option<object?> GetValue(Type type, object? argument) {
             this.ThrowIfInvalid();
             // UI
-            if (type.IsAssignableTo( typeof( UIThemeBase ) )) {
+            if (type.IsAssignableTo( typeof( ThemeBase ) )) {
                 if (Theme != null) return Option.Create( (object?) Theme );
                 return default;
             }
-            if (type.IsAssignableTo( typeof( UIScreenBase ) )) {
+            if (type.IsAssignableTo( typeof( ScreenBase ) )) {
                 if (Screen != null) return Option.Create( (object?) Screen );
                 return default;
             }
-            if (type.IsAssignableTo( typeof( UIRouterBase ) )) {
+            if (type.IsAssignableTo( typeof( RouterBase ) )) {
                 if (Router != null) return Option.Create( (object?) Router );
                 return default;
             }

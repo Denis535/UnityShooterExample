@@ -26,33 +26,33 @@ namespace Project.UI {
             );
         }
         public override void Dispose() {
-            foreach (var view in Content.Children().Cast<UIViewBase>()) {
+            foreach (var view in Content.Children().Cast<ViewBase>()) {
                 view.Dispose();
             }
             base.Dispose();
         }
 
-        protected override bool AddView(UIViewBase view) {
+        protected override bool TryAddView(ViewBase view) {
             if (view is MainMenuWidgetView_Initial or MainMenuWidgetView_StartGame or MainMenuWidgetView_SelectLevel or MainMenuWidgetView_SelectCharacter) {
                 Content.Add( view );
-                Title.text = GetTitle( (UIViewBase) Content.Children().Last() );
-                SetVisibility( Content.Children().Cast<UIViewBase>().ToArray() );
+                Title.text = GetTitle( (ViewBase) Content.Children().Last() );
+                SetVisibility( Content.Children().Cast<ViewBase>().ToArray() );
                 return true;
             }
             return false;
         }
-        protected override bool RemoveView(UIViewBase view) {
+        protected override bool TryRemoveView(ViewBase view) {
             if (view is MainMenuWidgetView_Initial or MainMenuWidgetView_StartGame or MainMenuWidgetView_SelectLevel or MainMenuWidgetView_SelectCharacter) {
                 Content.Remove( view );
-                Title.text = GetTitle( (UIViewBase) Content.Children().Last() );
-                SetVisibility( Content.Children().Cast<UIViewBase>().ToArray() );
+                Title.text = GetTitle( (ViewBase) Content.Children().Last() );
+                SetVisibility( Content.Children().Cast<ViewBase>().ToArray() );
                 return true;
             }
             return false;
         }
 
         // Helpers
-        private static string GetTitle(UIViewBase view) {
+        private static string GetTitle(ViewBase view) {
             if (view is MainMenuWidgetView_Initial) {
                 return "Menu";
             }
@@ -68,7 +68,7 @@ namespace Project.UI {
             throw Exceptions.Internal.NotSupported( $"View {view} is not supported" );
         }
         // Helpers
-        private static void SetVisibility(UIViewBase[] views) {
+        private static void SetVisibility(ViewBase[] views) {
             SaveFocus( views );
             for (var i = 0; i < views.Length; i++) {
                 var view = views[ i ];
@@ -77,14 +77,14 @@ namespace Project.UI {
             }
             LoadFocus( views );
         }
-        private static void SaveFocus(IReadOnlyList<UIViewBase> views) {
+        private static void SaveFocus(IReadOnlyList<ViewBase> views) {
             foreach (var view in views) {
                 if (view.HasFocusedElement()) {
                     view.SaveFocus();
                 }
             }
         }
-        private static void LoadFocus(IReadOnlyList<UIViewBase> views) {
+        private static void LoadFocus(IReadOnlyList<ViewBase> views) {
             var view = views.LastOrDefault();
             if (view != null) {
                 if (!view.HasFocusedElement()) {
@@ -141,7 +141,7 @@ namespace Project.UI {
 
         public MainMenuWidgetView_SelectLevel() : base( "select-level-view" ) {
             this.Add(
-                VisualElementFactory.ColumnScope().Classes( "margin-bottom-4px" ).Children(
+                VisualElementFactory.ColumnScope().Class( "margin-bottom-4px" ).Children(
                     Level1 = VisualElementFactory.Select( "Level 1" ),
                     Level2 = VisualElementFactory.Select( "Level 2" ),
                     Level3 = VisualElementFactory.Select( "Level 3" )
@@ -164,7 +164,7 @@ namespace Project.UI {
 
         public MainMenuWidgetView_SelectCharacter() : base( "select-character-view" ) {
             this.Add(
-                VisualElementFactory.ColumnScope().Classes( "margin-bottom-4px" ).Children(
+                VisualElementFactory.ColumnScope().Class( "margin-bottom-4px" ).Children(
                     Gray = VisualElementFactory.Select( "Gray" ),
                     Red = VisualElementFactory.Select( "Red" ),
                     Green = VisualElementFactory.Select( "Green" ),

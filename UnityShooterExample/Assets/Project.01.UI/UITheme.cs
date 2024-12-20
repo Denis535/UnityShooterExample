@@ -9,7 +9,7 @@ namespace Project.UI {
     using UnityEngine.AddressableAssets;
     using UnityEngine.Framework;
 
-    public class UITheme : UIThemeBase2 {
+    public class UITheme : ThemeBase2 {
 
         private new PlayList? PlayList => (PlayList?) base.PlayList;
 
@@ -60,7 +60,7 @@ namespace Project.UI {
         }
 
     }
-    public abstract class PlayList : UIPlayListBase2 {
+    public abstract class PlayList : PlayListBase2 {
 
         private AssetHandle<AudioClip>[] Clips { get; }
         internal bool IsFading { get; set; }

@@ -13,7 +13,7 @@ namespace Project.UI {
 
         public UnloadingWidgetView() : base( "unloading-widget-view" ) {
             Add(
-                Background = VisualElementFactory.VisualElement().Classes( "unloading-widget-view-background", "width-100pc", "height-100pc" )
+                Background = VisualElementFactory.VisualElement().Class( "unloading-widget-view-background" ).Class( "width-100pc" ).Class( "height-100pc" )
             );
             Background.RegisterCallbackOnce<AttachToPanelEvent>( async evt => {
                 Background.style.unityBackgroundImageTintColor = Color.gray;

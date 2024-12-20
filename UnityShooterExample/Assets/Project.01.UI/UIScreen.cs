@@ -8,7 +8,7 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class UIScreen : UIScreenBase2 {
+    public class UIScreen : ScreenBase2 {
 
         private new RootWidget Widget => (RootWidget?) base.Widget ?? throw Exceptions.Internal.NullReference( $"Reference 'Widget' is null" );
 
@@ -60,7 +60,7 @@ namespace Project.UI {
         }
 
     }
-    public class RootWidget : UIRootWidgetBase<RootWidgetView> {
+    public class RootWidget : RootWidgetBase<RootWidgetView> {
 
         public RootWidget(IDependencyContainer container) : base( container ) {
             View = new RootWidgetView();
@@ -94,10 +94,10 @@ namespace Project.UI {
             RemoveChildren( i => i is not (DialogWidget or InfoDialogWidget or WarningDialogWidget or ErrorDialogWidget), null );
         }
 
-        protected override void Sort(List<UIWidgetBase> children) {
+        protected override void Sort(List<WidgetBase> children) {
             base.Sort( children );
         }
-        protected override int GetOrderOf(UIWidgetBase widget) {
+        protected override int GetOrderOf(WidgetBase widget) {
             return widget switch {
                 // MainScreen
                 MainWidget => 0,
@@ -111,7 +111,7 @@ namespace Project.UI {
         }
 
     }
-    public class RootWidgetView : UIRootWidgetViewBase {
+    public class RootWidgetView : RootWidgetViewBase {
 
         public RootWidgetView() {
         }
@@ -119,17 +119,17 @@ namespace Project.UI {
             base.Dispose();
         }
 
-        protected override bool AddView(UIViewBase view) {
-            return base.AddView( view );
+        protected override bool TryAddView(ViewBase view) {
+            return base.TryAddView( view );
         }
-        protected override bool RemoveView(UIViewBase view) {
-            return base.RemoveView( view );
+        protected override bool TryRemoveView(ViewBase view) {
+            return base.TryRemoveView( view );
         }
 
         protected override void Sort() {
             base.Sort();
         }
-        protected override int GetOrderOf(UIViewBase view) {
+        protected override int GetOrderOf(ViewBase view) {
             return view switch {
                 // MainScreen
                 MainWidgetView => 0,
@@ -150,13 +150,13 @@ namespace Project.UI {
         protected override void SetVisibility(IReadOnlyList<VisualElement> views) {
             SaveFocus( views );
             for (var i = 0; i < views.Count; i++) {
-                var view = (UIViewBase) views[ i ];
-                var next = views.Skip( i + 1 ).Cast<UIViewBase>();
+                var view = (ViewBase) views[ i ];
+                var next = views.Skip( i + 1 ).Cast<ViewBase>();
                 SetVisibility( view, next );
             }
             LoadFocus( views );
         }
-        private void SetVisibility(UIViewBase view, IEnumerable<UIViewBase> next) {
+        private void SetVisibility(ViewBase view, IEnumerable<ViewBase> next) {
             if (next.Any()) {
                 if (view is not MainWidgetView and not GameWidgetView) {
                     view.SetEnabled( false );
@@ -173,7 +173,7 @@ namespace Project.UI {
                 view.SetDisplayed( true );
             }
         }
-        protected int GetPriorityOf(UIViewBase view) {
+        protected int GetPriorityOf(ViewBase view) {
             return view switch {
                 // MainScreen
                 MainWidgetView => int.MaxValue,

@@ -33,12 +33,12 @@ namespace Project.UI {
                         Title = VisualElementFactory.Label( "Level Completed" )
                     ),
                     Content = VisualElementFactory.Content().Children(
-                        VisualElementFactory.ColumnGroup().Classes( "gray", "medium", "grow-1", "justify-content-center", "align-items-center" ).Children(
+                        VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
                             Message = VisualElementFactory.Label(
-                                "Congratulations!\n" +
-                                "You have completed the level!\n" +
+                                "Congratulations!" + Environment.NewLine +
+                                "You have completed the level!" + Environment.NewLine +
                                 "Do you want to continue or back to the menu?"
-                                ).Classes( "text-align-middle-center" )
+                                ).Class( "text-align-middle-center" )
                         )
                     ),
                     Footer = VisualElementFactory.Footer().Children(
@@ -71,12 +71,12 @@ namespace Project.UI {
                         Title = VisualElementFactory.Label( "Level Failed" )
                     ),
                     Content = VisualElementFactory.Content().Children(
-                        VisualElementFactory.ColumnGroup().Classes( "gray", "medium", "grow-1", "justify-content-center", "align-items-center" ).Children(
+                        VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
                             Message = VisualElementFactory.Label(
-                                "We're sorry.\n" +
-                                "You have failed the level.\n" +
+                                "We're sorry." + Environment.NewLine +
+                                "You have failed the level." + Environment.NewLine +
                                 "Do you want to retry or back to the menu?"
-                                ).Classes( "text-align-middle-center" )
+                                ).Class( "text-align-middle-center" )
                         )
                     ),
                     Footer = VisualElementFactory.Footer().Children(
@@ -108,11 +108,11 @@ namespace Project.UI {
                         Title = VisualElementFactory.Label( "Game Completed" )
                     ),
                     Content = VisualElementFactory.Content().Children(
-                        VisualElementFactory.ColumnGroup().Classes( "gray", "medium", "grow-1", "justify-content-center", "align-items-center" ).Children(
+                        VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
                             Message = VisualElementFactory.Label(
-                                "Congratulations!\n" +
+                                "Congratulations!" + Environment.NewLine +
                                 "You have completed the game!"
-                                ).Classes( "text-align-middle-center" )
+                                ).Class( "text-align-middle-center" )
                         )
                     ),
                     Footer = VisualElementFactory.Footer().Children(

@@ -12,7 +12,7 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.SceneManagement;
 
-    public class UIRouter : UIRouterBase2 {
+    public class UIRouter : RouterBase2 {
 
         private static readonly Lock @lock = new Lock();
 

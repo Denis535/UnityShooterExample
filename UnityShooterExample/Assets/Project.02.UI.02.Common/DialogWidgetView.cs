@@ -31,7 +31,7 @@ namespace Project.UI {
                         Title = VisualElementFactory.Label( null )
                     ),
                     Content = VisualElementFactory.Content().Chain( i => i.SetDisplayed( false ) ).Children(
-                        VisualElementFactory.ColumnGroup().Classes( "gray", "medium", "grow-1", "justify-content-center", "align-items-center" ).Children(
+                        VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
                             Message = VisualElementFactory.Label( null )
                         )
                     ),
@@ -78,7 +78,7 @@ namespace Project.UI {
                         Title = VisualElementFactory.Label( null )
                     ),
                     Content = VisualElementFactory.Content().Chain( i => i.SetDisplayed( false ) ).Children(
-                        VisualElementFactory.ColumnGroup().Classes( "gray", "medium", "grow-1", "justify-content-center", "align-items-center" ).Children(
+                        VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
                             Message = VisualElementFactory.Label( null )
                         )
                     ),
@@ -125,7 +125,7 @@ namespace Project.UI {
                         Title = VisualElementFactory.Label( null )
                     ),
                     Content = VisualElementFactory.Content().Chain( i => i.SetDisplayed( false ) ).Children(
-                        VisualElementFactory.ColumnGroup().Classes( "gray", "medium", "grow-1", "justify-content-center", "align-items-center" ).Children(
+                        VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
                             Message = VisualElementFactory.Label( null )
                         )
                     ),
@@ -172,7 +172,7 @@ namespace Project.UI {
                         Title = VisualElementFactory.Label( null )
                     ),
                     Content = VisualElementFactory.Content().Chain( i => i.SetDisplayed( false ) ).Children(
-                        VisualElementFactory.ColumnGroup().Classes( "gray", "medium", "grow-1", "justify-content-center", "align-items-center" ).Children(
+                        VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
                             Message = VisualElementFactory.Label( null )
                         )
                     ),

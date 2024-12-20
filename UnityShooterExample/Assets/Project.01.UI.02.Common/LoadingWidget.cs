@@ -6,7 +6,7 @@ namespace Project.UI {
     using UnityEngine;
     using UnityEngine.Framework;
 
-    public class LoadingWidget : UIWidgetBase2<LoadingWidgetView> {
+    public class LoadingWidget : WidgetBase2<LoadingWidgetView> {
 
         public LoadingWidget(IDependencyContainer container) : base( container ) {
             View = CreateView( this );

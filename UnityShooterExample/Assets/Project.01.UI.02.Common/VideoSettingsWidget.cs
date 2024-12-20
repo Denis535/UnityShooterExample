@@ -7,7 +7,7 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class VideoSettingsWidget : UIWidgetBase2<VideoSettingsWidgetView> {
+    public class VideoSettingsWidget : WidgetBase2<VideoSettingsWidgetView> {
 
         private Application2 Application { get; }
         private Storage.VideoSettings VideoSettings => Application.VideoSettings;

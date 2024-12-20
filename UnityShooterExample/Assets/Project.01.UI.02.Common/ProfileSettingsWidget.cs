@@ -7,7 +7,7 @@ namespace Project.UI {
     using UnityEngine;
     using UnityEngine.Framework;
 
-    public class ProfileSettingsWidget : UIWidgetBase2<ProfileSettingsWidgetView> {
+    public class ProfileSettingsWidget : WidgetBase2<ProfileSettingsWidgetView> {
 
         private Application2 Application { get; }
         private Storage.ProfileSettings ProfileSettings => Application.ProfileSettings;

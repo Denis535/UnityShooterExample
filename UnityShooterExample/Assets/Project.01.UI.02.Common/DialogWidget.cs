@@ -7,13 +7,13 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    internal interface IDialogWidget<TThis> where TThis : UIWidgetBase {
+    internal interface IDialogWidget<TThis> where TThis : WidgetBase {
         string? Title { get; set; }
         string? Message { get; set; }
         TThis OnSubmit(string text, Action? callback);
         TThis OnCancel(string text, Action? callback);
     }
-    public class DialogWidget : UIWidgetBase2<DialogWidgetView>, IDialogWidget<DialogWidget> {
+    public class DialogWidget : WidgetBase2<DialogWidgetView>, IDialogWidget<DialogWidget> {
 
         public string? Title {
             get => View.Title.text;
@@ -76,7 +76,7 @@ namespace Project.UI {
         }
 
     }
-    public class InfoDialogWidget : UIWidgetBase2<InfoDialogWidgetView>, IDialogWidget<InfoDialogWidget> {
+    public class InfoDialogWidget : WidgetBase2<InfoDialogWidgetView>, IDialogWidget<InfoDialogWidget> {
 
         public string? Title {
             get => View.Title.text;
@@ -136,7 +136,7 @@ namespace Project.UI {
         }
 
     }
-    public class WarningDialogWidget : UIWidgetBase2<WarningDialogWidgetView>, IDialogWidget<WarningDialogWidget> {
+    public class WarningDialogWidget : WidgetBase2<WarningDialogWidgetView>, IDialogWidget<WarningDialogWidget> {
 
         public string? Title {
             get => View.Title.text;
@@ -196,7 +196,7 @@ namespace Project.UI {
         }
 
     }
-    public class ErrorDialogWidget : UIWidgetBase2<ErrorDialogWidgetView>, IDialogWidget<ErrorDialogWidget> {
+    public class ErrorDialogWidget : WidgetBase2<ErrorDialogWidgetView>, IDialogWidget<ErrorDialogWidget> {
 
         public string? Title {
             get => View.Title.text;

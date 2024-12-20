@@ -10,7 +10,7 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class MainWidget : UIWidgetBase2<MainWidgetView> {
+    public class MainWidget : WidgetBase2<MainWidgetView> {
 
         private UIRouter Router { get; }
         private Application2 Application { get; }
@@ -44,10 +44,10 @@ namespace Project.UI {
             HideSelf();
         }
 
-        protected override void Sort(List<UIWidgetBase> children) {
+        protected override void Sort(List<WidgetBase> children) {
             children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( a ), GetOrderOf( b ) ) );
         }
-        private static int GetOrderOf(UIWidgetBase widget) {
+        private static int GetOrderOf(WidgetBase widget) {
             return widget switch {
                 MainMenuWidget => 0,
                 _ => int.MaxValue,

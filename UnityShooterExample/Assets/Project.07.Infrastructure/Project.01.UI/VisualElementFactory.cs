@@ -250,7 +250,7 @@ namespace Project.UI {
         }
 
     }
-    public abstract class View : UIViewBase {
+    public abstract class View : ViewBase {
 
         public View(string? name) {
             base.name = name;
@@ -261,7 +261,7 @@ namespace Project.UI {
         }
 
     }
-    public abstract class WidgetView : UIViewBase {
+    public abstract class WidgetView : ViewBase {
 
         public WidgetView(string? name) {
             base.name = name;
@@ -272,7 +272,7 @@ namespace Project.UI {
         }
 
     }
-    public abstract class LeftWidgetView : UIViewBase {
+    public abstract class LeftWidgetView : ViewBase {
 
         public LeftWidgetView(string? name) {
             base.name = name;
@@ -283,7 +283,7 @@ namespace Project.UI {
         }
 
     }
-    public abstract class SmallWidgetView : UIViewBase {
+    public abstract class SmallWidgetView : ViewBase {
 
         public SmallWidgetView(string? name) {
             base.name = name;
@@ -294,7 +294,7 @@ namespace Project.UI {
         }
 
     }
-    public abstract class MediumWidgetView : UIViewBase {
+    public abstract class MediumWidgetView : ViewBase {
 
         public MediumWidgetView(string? name) {
             base.name = name;
@@ -305,7 +305,7 @@ namespace Project.UI {
         }
 
     }
-    public abstract class LargeWidgetView : UIViewBase {
+    public abstract class LargeWidgetView : ViewBase {
 
         public LargeWidgetView(string? name) {
             base.name = name;
@@ -316,7 +316,7 @@ namespace Project.UI {
         }
 
     }
-    public abstract class DialogWidgetViewBase : UIViewBase {
+    public abstract class DialogWidgetViewBase : ViewBase {
 
         public DialogWidgetViewBase(string? name) {
             base.name = name;
@@ -328,7 +328,7 @@ namespace Project.UI {
         }
 
     }
-    public abstract class InfoDialogWidgetViewBase : UIViewBase {
+    public abstract class InfoDialogWidgetViewBase : ViewBase {
 
         public InfoDialogWidgetViewBase(string? name) {
             base.name = name;
@@ -340,7 +340,7 @@ namespace Project.UI {
         }
 
     }
-    public abstract class WarningDialogWidgetViewBase : UIViewBase {
+    public abstract class WarningDialogWidgetViewBase : ViewBase {
 
         public WarningDialogWidgetViewBase(string? name) {
             base.name = name;
@@ -352,7 +352,7 @@ namespace Project.UI {
         }
 
     }
-    public abstract class ErrorDialogWidgetViewBase : UIViewBase {
+    public abstract class ErrorDialogWidgetViewBase : ViewBase {
 
         public ErrorDialogWidgetViewBase(string? name) {
             base.name = name;

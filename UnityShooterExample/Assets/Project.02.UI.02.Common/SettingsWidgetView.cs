@@ -29,7 +29,7 @@ namespace Project.UI {
                         Title = VisualElementFactory.Label( "Settings" )
                     ),
                     Content = VisualElementFactory.Content().Children(
-                        TabView = VisualElementFactory.TabView().Classes( "no-outline", "grow-1" ).Children(
+                        TabView = VisualElementFactory.TabView().Class( "no-outline" ).Class( "grow-1" ).Children(
                             ProfileSettingsTab = VisualElementFactory.Tab( "Profile Settings" ),
                             VideoSettingsTab = VisualElementFactory.Tab( "Video Settings" ),
                             AudioSettingsTab = VisualElementFactory.Tab( "Audio Settings" )
@@ -52,7 +52,7 @@ namespace Project.UI {
             base.Dispose();
         }
 
-        protected override bool AddView(UIViewBase view) {
+        protected override bool TryAddView(ViewBase view) {
             if (view is ProfileSettingsWidgetView profileSettings) {
                 ProfileSettingsTab.Add( profileSettings );
                 return true;
@@ -67,7 +67,7 @@ namespace Project.UI {
             }
             return false;
         }
-        protected override bool RemoveView(UIViewBase view) {
+        protected override bool TryRemoveView(ViewBase view) {
             if (view is ProfileSettingsWidgetView profileSettings) {
                 ProfileSettingsTab.Clear();
                 return true;

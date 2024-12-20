@@ -7,7 +7,7 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class SettingsWidget : UIWidgetBase2<SettingsWidgetView> {
+    public class SettingsWidget : WidgetBase2<SettingsWidgetView> {
 
         public SettingsWidget(IDependencyContainer container) : base( container ) {
             View = CreateView( this );

@@ -14,10 +14,10 @@ namespace Project.UI {
 
         public VideoSettingsWidgetView() : base( "video-settings-widget-view" ) {
             Add(
-                VisualElementFactory.ColumnGroup().Classes( "gray", "medium", "margin-0px", "grow-1" ).Children(
-                    IsFullScreen = VisualElementFactory.ToggleField( "Full Screen" ).Classes( "label-width-25pc" ),
-                    ScreenResolution = VisualElementFactory.PopupField( "Screen Resolution" ).Classes( "label-width-25pc" ),
-                    IsVSync = VisualElementFactory.ToggleField( "V-Sync" ).Classes( "label-width-25pc" )
+                VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "margin-0px" ).Class( "grow-1" ).Children(
+                    IsFullScreen = VisualElementFactory.ToggleField( "Full Screen" ).Class( "label-width-25pc" ),
+                    ScreenResolution = VisualElementFactory.PopupField( "Screen Resolution" ).Class( "label-width-25pc" ),
+                    IsVSync = VisualElementFactory.ToggleField( "V-Sync" ).Class( "label-width-25pc" )
                 )
             );
         }

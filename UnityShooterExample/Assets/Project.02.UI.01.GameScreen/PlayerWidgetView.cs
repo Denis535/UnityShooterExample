@@ -13,7 +13,7 @@ namespace Project.UI {
         public PlayerWidgetView() : base( "player-widget-view" ) {
             Add(
                 Target = VisualElementFactory.Label( "+" )
-                    .Classes( "font-size-400pc", "color-light", "margin-0pc", "border-0pc", "position-absolute", "left-50pc", "top-50pc" )
+                    .Class( "font-size-400pc" ).Class( "color-light" ).Class( "margin-0pc" ).Class( "border-0pc" ).Class( "position-absolute" ).Class( "left-50pc" ).Class( "top-50pc" )
                     .Style( i => i.translate = new Translate( new Length( -50, LengthUnit.Percent ), new Length( -50, LengthUnit.Percent ) ) )
             );
         }
