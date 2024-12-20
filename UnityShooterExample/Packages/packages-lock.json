@@ -1,5 +1,40 @@
 {
   "dependencies": {
+    "com.denis535.addressables-extensions": {
+      "version": "1.0.19",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.addressables": "1.0.0"
+      },
+      "url": "https://package.openupm.com"
+    },
+    "com.denis535.addressables-source-generator": {
+      "version": "1.0.43",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.addressables": "1.0.0"
+      },
+      "url": "https://package.openupm.com"
+    },
+    "com.denis535.clean-architecture-game-framework": {
+      "version": "1.4.32",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0",
+        "com.unity.modules.audio": "1.0.0"
+      },
+      "url": "https://package.openupm.com"
+    },
+    "com.denis535.colorful-project-window": {
+      "version": "1.1.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
@@ -26,15 +61,6 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
-    },
-    "com.unity.bindings.openimageio": {
-      "version": "1.0.0",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.collections": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
       "version": "1.8.18",
@@ -109,17 +135,6 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.recorder": {
-      "version": "5.1.2",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.timeline": "1.8.7",
-        "com.unity.collections": "1.2.4",
-        "com.unity.bindings.openimageio": "1.0.0"
-      },
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
@@ -255,18 +270,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.unity.timeline": {
-      "version": "1.8.7",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.audio": "1.0.0",
-        "com.unity.modules.director": "1.0.0",
-        "com.unity.modules.animation": "1.0.0",
-        "com.unity.modules.particlesystem": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.ugui": {
       "version": "2.0.0",
       "depth": 2,
@@ -300,15 +303,6 @@
       "source": "builtin",
       "dependencies": {}
     },
-    "com.unity.modules.director": {
-      "version": "1.0.0",
-      "depth": 2,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.audio": "1.0.0",
-        "com.unity.modules.animation": "1.0.0"
-      }
-    },
     "com.unity.modules.hierarchycore": {
       "version": "1.0.0",
       "depth": 1,
@@ -330,12 +324,6 @@
     "com.unity.modules.jsonserialize": {
       "version": "1.0.0",
       "depth": 0,
-      "source": "builtin",
-      "dependencies": {}
-    },
-    "com.unity.modules.particlesystem": {
-      "version": "1.0.0",
-      "depth": 2,
       "source": "builtin",
       "dependencies": {}
     },
