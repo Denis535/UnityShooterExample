@@ -4,8 +4,9 @@ namespace Project.UI {
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Framework;
 
-    public class GameWidgetView : WidgetView {
+    public class GameWidgetView : WidgetViewBase {
 
         public GameWidgetView() : base( "game-widget-view" ) {
             focusable = true;

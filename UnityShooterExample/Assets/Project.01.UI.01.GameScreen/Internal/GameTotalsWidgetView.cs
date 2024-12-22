@@ -4,9 +4,10 @@ namespace Project.UI {
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public abstract class GameTotalsWidgetView : SmallWidgetView {
+    public abstract class GameTotalsWidgetView : SmallWidgetViewBase {
 
         public GameTotalsWidgetView(string name) : base( name ) {
         }

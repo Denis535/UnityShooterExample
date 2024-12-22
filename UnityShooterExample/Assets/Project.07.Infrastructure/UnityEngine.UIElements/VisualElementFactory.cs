@@ -1,23 +1,106 @@
 #nullable enable
-namespace Project.UI {
+namespace UnityEngine.UIElements {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
     using UnityEngine.UIElements;
-    using UnityEngine.Framework;
 
+    public static partial class VisualElementFactory {
+
+        public static Card Card() {
+            var result = Create<Card>( "card", "card" );
+            return result;
+        }
+        public static Card DialogCard() {
+            var result = Create<Card>( "dialog-card", "dialog-card" );
+            return result;
+        }
+        public static Card InfoDialogCard() {
+            var result = Create<Card>( "info-dialog-card", "info-dialog-card" );
+            return result;
+        }
+        public static Card WarningDialogCard() {
+            var result = Create<Card>( "warning-dialog-card", "warning-dialog-card" );
+            return result;
+        }
+        public static Card ErrorDialogCard() {
+            var result = Create<Card>( "error-dialog-card", "error-dialog-card" );
+            return result;
+        }
+
+        public static Header Header() {
+            var result = Create<Header>( "header", "header" );
+            return result;
+        }
+        public static Content Content() {
+            var result = Create<Content>( "content", "content" );
+            return result;
+        }
+        public static Footer Footer() {
+            var result = Create<Footer>( "footer", "footer" );
+            return result;
+        }
+
+        public static TabView TabView() {
+            var result = Create<TabView>( "tab-view", null );
+            return result;
+        }
+        public static Tab Tab(string label) {
+            var result = Create<Tab>( "tab", null );
+            result.label = label;
+            result.tabHeader.RegisterCallback<MouseDownEvent>( evt => OnPlayClick?.Invoke( evt ) );
+            return result;
+        }
+
+        public static ScrollView ScrollView() {
+            var result = Create<ScrollView>( "scroll-view", null );
+            result.horizontalScroller.highButton.BringToFront();
+            result.verticalScroller.highButton.BringToFront();
+            result.horizontalScroller.lowButton.RegisterCallback<ClickEvent>( evt => OnPlayClick?.Invoke( evt ) );
+            result.horizontalScroller.highButton.RegisterCallback<ClickEvent>( evt => OnPlayClick?.Invoke( evt ) );
+            result.verticalScroller.lowButton.RegisterCallback<ClickEvent>( evt => OnPlayClick?.Invoke( evt ) );
+            result.verticalScroller.highButton.RegisterCallback<ClickEvent>( evt => OnPlayClick?.Invoke( evt ) );
+            result.horizontalScroller.slider.RegisterCallback<ChangeEvent<float>>( evt => OnPlayChange?.Invoke( evt ) );
+            result.verticalScroller.slider.RegisterCallback<ChangeEvent<float>>( evt => OnPlayChange?.Invoke( evt ) );
+            return result;
+        }
+
+        public static ColumnScope ColumnScope() {
+            var result = Create<ColumnScope>( "scope", null );
+            return result;
+        }
+        public static RowScope RowScope() {
+            var result = Create<RowScope>( "scope", null );
+            return result;
+        }
+
+        public static ColumnGroup ColumnGroup() {
+            var result = Create<ColumnGroup>( "group", null );
+            return result;
+        }
+        public static RowGroup RowGroup() {
+            var result = Create<RowGroup>( "group", null );
+            return result;
+        }
+
+        public static Box Box() {
+            var result = Create<Box>( "box", null );
+            return result;
+        }
+
+    }
     public static partial class VisualElementFactory {
 
         public static Func<object?, string?>? StringSelector { get; set; }
 
-        public static event EventCallback<EventBase>? OnPlayClick;
-        public static event EventCallback<ClickEvent>? OnPlaySelect;
-        public static event EventCallback<ClickEvent>? OnPlaySubmit;
-        public static event EventCallback<ClickEvent>? OnPlayCancel;
-        public static event EventCallback<IChangeEvent>? OnPlayChange;
-        public static event EventCallback<FocusEvent>? OnPlayFocus;
+        public static EventCallback<EventBase>? OnPlayClick;
+        public static EventCallback<ClickEvent>? OnPlaySelect;
+        public static EventCallback<ClickEvent>? OnPlaySubmit;
+        public static EventCallback<ClickEvent>? OnPlayCancel;
+        public static EventCallback<IChangeEvent>? OnPlayChange;
+        public static EventCallback<FocusEvent>? OnPlayFocus;
         public static EventCallback<AttachToPanelEvent>? OnPlayOpenDialog;
         public static EventCallback<AttachToPanelEvent>? OnPlayOpenInfoDialog;
         public static EventCallback<AttachToPanelEvent>? OnPlayOpenWarningDialog;
@@ -163,204 +246,6 @@ namespace Project.UI {
             result.AddToClassList( "visual-element" );
             result.AddToClassList( @class );
             return result;
-        }
-
-    }
-    public static partial class VisualElementFactory {
-
-        public static Card Card() {
-            var result = Create<Card>( "card", "card" );
-            return result;
-        }
-        public static Header Header() {
-            var result = Create<Header>( "header", "header" );
-            return result;
-        }
-        public static Content Content() {
-            var result = Create<Content>( "content", "content" );
-            return result;
-        }
-        public static Footer Footer() {
-            var result = Create<Footer>( "footer", "footer" );
-            return result;
-        }
-
-        public static Card DialogCard() {
-            var result = Create<Card>( "dialog-card", "dialog-card" );
-            return result;
-        }
-        public static Card InfoDialogCard() {
-            var result = Create<Card>( "info-dialog-card", "info-dialog-card" );
-            return result;
-        }
-        public static Card WarningDialogCard() {
-            var result = Create<Card>( "warning-dialog-card", "warning-dialog-card" );
-            return result;
-        }
-        public static Card ErrorDialogCard() {
-            var result = Create<Card>( "error-dialog-card", "error-dialog-card" );
-            return result;
-        }
-
-        public static TabView TabView() {
-            var result = Create<TabView>( "tab-view", null );
-            return result;
-        }
-        public static Tab Tab(string label) {
-            var result = Create<Tab>( "tab", null );
-            result.label = label;
-            result.tabHeader.RegisterCallback<MouseDownEvent>( evt => OnPlayClick?.Invoke( evt ) );
-            return result;
-        }
-
-        public static ScrollView ScrollView() {
-            var result = Create<ScrollView>( "scroll-view", null );
-            result.horizontalScroller.highButton.BringToFront();
-            result.verticalScroller.highButton.BringToFront();
-            result.horizontalScroller.lowButton.RegisterCallback<ClickEvent>( evt => OnPlayClick?.Invoke( evt ) );
-            result.horizontalScroller.highButton.RegisterCallback<ClickEvent>( evt => OnPlayClick?.Invoke( evt ) );
-            result.verticalScroller.lowButton.RegisterCallback<ClickEvent>( evt => OnPlayClick?.Invoke( evt ) );
-            result.verticalScroller.highButton.RegisterCallback<ClickEvent>( evt => OnPlayClick?.Invoke( evt ) );
-            result.horizontalScroller.slider.RegisterCallback<ChangeEvent<float>>( evt => OnPlayChange?.Invoke( evt ) );
-            result.verticalScroller.slider.RegisterCallback<ChangeEvent<float>>( evt => OnPlayChange?.Invoke( evt ) );
-            return result;
-        }
-
-        public static ColumnScope ColumnScope() {
-            var result = Create<ColumnScope>( "scope", null );
-            return result;
-        }
-        public static RowScope RowScope() {
-            var result = Create<RowScope>( "scope", null );
-            return result;
-        }
-
-        public static ColumnGroup ColumnGroup() {
-            var result = Create<ColumnGroup>( "group", null );
-            return result;
-        }
-        public static RowGroup RowGroup() {
-            var result = Create<RowGroup>( "group", null );
-            return result;
-        }
-
-        public static Box Box() {
-            var result = Create<Box>( "box", null );
-            return result;
-        }
-
-    }
-    public abstract class View : ViewBase {
-
-        public View(string? name) {
-            base.name = name;
-            AddToClassList( "view" );
-        }
-        public override void Dispose() {
-            base.Dispose();
-        }
-
-    }
-    public abstract class WidgetView : ViewBase {
-
-        public WidgetView(string? name) {
-            base.name = name;
-            AddToClassList( "widget-view" );
-        }
-        public override void Dispose() {
-            base.Dispose();
-        }
-
-    }
-    public abstract class LeftWidgetView : ViewBase {
-
-        public LeftWidgetView(string? name) {
-            base.name = name;
-            AddToClassList( "left-widget-view" );
-        }
-        public override void Dispose() {
-            base.Dispose();
-        }
-
-    }
-    public abstract class SmallWidgetView : ViewBase {
-
-        public SmallWidgetView(string? name) {
-            base.name = name;
-            AddToClassList( "small-widget-view" );
-        }
-        public override void Dispose() {
-            base.Dispose();
-        }
-
-    }
-    public abstract class MediumWidgetView : ViewBase {
-
-        public MediumWidgetView(string? name) {
-            base.name = name;
-            AddToClassList( "medium-widget-view" );
-        }
-        public override void Dispose() {
-            base.Dispose();
-        }
-
-    }
-    public abstract class LargeWidgetView : ViewBase {
-
-        public LargeWidgetView(string? name) {
-            base.name = name;
-            AddToClassList( "large-widget-view" );
-        }
-        public override void Dispose() {
-            base.Dispose();
-        }
-
-    }
-    public abstract class DialogWidgetViewBase : ViewBase {
-
-        public DialogWidgetViewBase(string? name) {
-            base.name = name;
-            AddToClassList( "dialog-widget-view" );
-            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenDialog?.Invoke( evt ) );
-        }
-        public override void Dispose() {
-            base.Dispose();
-        }
-
-    }
-    public abstract class InfoDialogWidgetViewBase : ViewBase {
-
-        public InfoDialogWidgetViewBase(string? name) {
-            base.name = name;
-            AddToClassList( "info-dialog-widget-view" );
-            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenInfoDialog?.Invoke( evt ) );
-        }
-        public override void Dispose() {
-            base.Dispose();
-        }
-
-    }
-    public abstract class WarningDialogWidgetViewBase : ViewBase {
-
-        public WarningDialogWidgetViewBase(string? name) {
-            base.name = name;
-            AddToClassList( "warning-dialog-widget-view" );
-            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenWarningDialog?.Invoke( evt ) );
-        }
-        public override void Dispose() {
-            base.Dispose();
-        }
-
-    }
-    public abstract class ErrorDialogWidgetViewBase : ViewBase {
-
-        public ErrorDialogWidgetViewBase(string? name) {
-            base.name = name;
-            AddToClassList( "error-dialog-widget-view" );
-            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenErrorDialog?.Invoke( evt ) );
-        }
-        public override void Dispose() {
-            base.Dispose();
         }
 
     }

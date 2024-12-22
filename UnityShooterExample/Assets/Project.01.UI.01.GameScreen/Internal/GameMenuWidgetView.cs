@@ -4,9 +4,10 @@ namespace Project.UI {
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class GameMenuWidgetView : LeftWidgetView {
+    public class GameMenuWidgetView : LeftWidgetViewBase {
 
         public Card Card { get; }
         public Header Header { get; }

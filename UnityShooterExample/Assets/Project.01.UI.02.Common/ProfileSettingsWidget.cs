@@ -6,6 +6,7 @@ namespace Project.UI {
     using Project.App;
     using UnityEngine;
     using UnityEngine.Framework;
+    using UnityEngine.UIElements;
 
     public class ProfileSettingsWidget : WidgetBase2<ProfileSettingsWidgetView> {
 

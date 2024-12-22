@@ -8,7 +8,7 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class SettingsWidgetView : MediumWidgetView {
+    public class SettingsWidgetView : MediumWidgetViewBase {
 
         public Card Card { get; }
         public Header Header { get; }

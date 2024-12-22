@@ -5,9 +5,10 @@ namespace Project.UI {
     using System.Collections.Generic;
     using System.Text;
     using UnityEngine;
+    using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class UnloadingWidgetView : WidgetView {
+    public class UnloadingWidgetView : WidgetViewBase {
 
         public VisualElement Background { get; }
 

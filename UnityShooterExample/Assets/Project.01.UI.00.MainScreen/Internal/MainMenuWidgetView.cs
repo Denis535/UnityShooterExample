@@ -8,7 +8,7 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class MainMenuWidgetView : LeftWidgetView {
+    public class MainMenuWidgetView : LeftWidgetViewBase {
 
         public Card Card { get; }
         public Header Header { get; }
@@ -96,7 +96,7 @@ namespace Project.UI {
         }
 
     }
-    public class MainMenuWidgetView_Initial : View {
+    public class MainMenuWidgetView_Initial : IndieViewBase {
 
         public Button StartGame { get; }
         public Button Settings { get; }
@@ -114,7 +114,7 @@ namespace Project.UI {
         }
 
     }
-    public class MainMenuWidgetView_StartGame : View {
+    public class MainMenuWidgetView_StartGame : IndieViewBase {
 
         public Button NewGame { get; }
         public Button Continue { get; }
@@ -132,7 +132,7 @@ namespace Project.UI {
         }
 
     }
-    public class MainMenuWidgetView_SelectLevel : View {
+    public class MainMenuWidgetView_SelectLevel : IndieViewBase {
 
         public Button Level1 { get; }
         public Button Level2 { get; }
@@ -154,7 +154,7 @@ namespace Project.UI {
         }
 
     }
-    public class MainMenuWidgetView_SelectCharacter : View {
+    public class MainMenuWidgetView_SelectCharacter : IndieViewBase {
 
         public Button Gray { get; }
         public Button Red { get; }

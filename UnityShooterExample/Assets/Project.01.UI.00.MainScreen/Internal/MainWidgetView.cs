@@ -4,8 +4,9 @@ namespace Project.UI {
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Framework;
 
-    public class MainWidgetView : WidgetView {
+    public class MainWidgetView : WidgetViewBase {
 
         public MainWidgetView() : base( "main-widget-view" ) {
             AddToClassList( "main-widget-view-background" );
