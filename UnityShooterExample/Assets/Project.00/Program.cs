@@ -11,11 +11,12 @@ namespace Project {
     using UnityEngine;
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
+    using Screen = Project.UI.Screen;
 
-    public class Program : ProgramBase2<Theme, UI.Screen, Router, Application2, Game2> {
+    public class Program : ProgramBase2<Theme, Screen, Router, Application2, Game2> {
 
         protected override Theme Theme { get; set; } = default!;
-        protected override UI.Screen Screen { get; set; } = default!;
+        protected override Screen Screen { get; set; } = default!;
         protected override Router Router { get; set; } = default!;
         protected override Application2 Application { get; set; } = default!;
         protected override Game2? Game => Application.Game;
@@ -32,9 +33,9 @@ namespace Project {
         [InitializeOnLoadMethod]
         private static void OnLoad_Editor() {
             var message = new StringBuilder()
-                .Append( "You can watch the video tutorial and check the latest version: https://denis535.github.io/#unity-shooter-example" )
+                .Append( "Unity Asset Store: https://u3d.as/3pWS (please rate this project and leave a good comment)" )
                 .AppendLine()
-                .Append( "Please support me and rate this project on the Unity Asset Store: https://u3d.as/3pWS" );
+                .Append( "You can check the latest version and watch the video tutorial: https://denis535.github.io/#unity-shooter-example" );
             Debug.Log( message );
             if (!EditorApplication.isPlaying) {
                 UnityEditor.SceneManagement.EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>( "Assets/Assets.Project.00/Main.unity" );
@@ -48,7 +49,7 @@ namespace Project {
             VisualElementFactory.StringSelector = GetDisplayString;
             Application = new Application2( this );
             Router = new Router( this );
-            Screen = new UI.Screen( this );
+            Screen = new Screen( this );
             Theme = new Theme( this );
         }
         protected override void OnDestroy() {
