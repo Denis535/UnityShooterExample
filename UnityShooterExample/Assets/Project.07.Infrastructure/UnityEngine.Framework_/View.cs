@@ -10,7 +10,6 @@ namespace UnityEngine.Framework {
 
         public IndieViewBase(string? name) {
             base.name = name;
-            AddToClassList( "view" );
             AddToClassList( "indie-view" );
         }
         public override void Dispose() {
