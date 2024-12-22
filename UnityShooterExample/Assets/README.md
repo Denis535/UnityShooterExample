@@ -95,40 +95,24 @@ The project contains the following source codes:
   * Game2.cs
   * Player2.cs
 - Project.Game.Actors
+  * Internal/ICharacterInputProvider.cs
+  * Internal/ICameraInputProvider.cs
+  * CharacterBase.cs
+  * PlayableCharacterBase.cs
+  * PlayableCameraBase.cs
+  * NonPlayableCharacterBase.cs
   * PlayerCharacter.cs
   * PlayerCamera.cs
   * EnemyCharacter.cs
 - Project.Game.Things
+  * WeaponBase.cs
   * Gun.cs
   * Bullet.cs
 - Project.Game.Worlds
   * World.cs
 - Project.Infrastructure
-  * Project.UI/VisualElementFactory.cs
-  * Project.UI/VisualElementExtensions.cs
-  * Project.Game/ICharacterInputProvider.cs
-  * Project.Game/ICameraInputProvider.cs
-  * Project.Game.Actors/CharacterBase.cs
-  * Project.Game.Actors/PlayableCharacterBase.cs
-  * Project.Game.Actors/PlayableCameraBase.cs
-  * Project.Game.Actors/NonPlayableCharacterBase.cs
-  * Project.Game.Actors/MoveableBody.cs
-  * Project.Game.Things/WeaponBase.cs
-  * System/Lock.cs
-  * UnityEngine/Utils.cs
-  * UnityEngine/GameObjectExtensions.cs
-  * UnityEngine/Points/Point.cs
-  * UnityEngine/Points/PlayerPoint.cs
-  * UnityEngine/Points/EnemyPoint.cs
-  * UnityEngine/Points/ThingPoint.cs
-  * UnityEngine/Points/FirePoint.cs
-  * UnityEngine/Sockets/Socket.cs
-  * UnityEngine/Sockets/WeaponSocket.cs
-  * UnityEngine.InputSystem/UIInputProvider.cs
-  * UnityEngine.InputSystem/CharacterInputProvider.cs
-  * UnityEngine.InputSystem/CameraInputProvider.cs
-  * UnityEngine.AddressableAssets/R.cs
-  * UnityEngine.AddressableAssets/L.cs
+  * Project/Utils.cs
+  * Project/MoveableBody.cs
 
 The project has the following dependencies:
 - Architecture Game Framework - the framework that helps you develop your project using a modular clean architecture.
