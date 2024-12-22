@@ -33,7 +33,7 @@ namespace Project {
         [InitializeOnLoadMethod]
         private static void OnLoad_Editor() {
             var message = new StringBuilder()
-                .Append( "Unity Asset Store: https://u3d.as/3pWS (please rate this project and leave a good comment)" )
+                .Append( "Please rate this project and leave a good comment: https://u3d.as/3pWS" )
                 .AppendLine()
                 .Append( "You can check the latest version and watch the video tutorial: https://denis535.github.io/#unity-shooter-example" );
             Debug.Log( message );
