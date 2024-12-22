@@ -161,11 +161,16 @@ namespace Project {
                         "Assets/Project.01.UI" or
                         "Assets/Project.01.UI.00.MainScreen" or
                         "Assets/Project.01.UI.01.GameScreen" or
-                        "Assets/Project.01.UI.02.Common";
+                        "Assets/Project.01.UI.02.Common" or
+                        "Assets/Project.01.UI/Internal" or
+                        "Assets/Project.01.UI.00.MainScreen/Internal" or
+                        "Assets/Project.01.UI.01.GameScreen/Internal" or
+                        "Assets/Project.01.UI.02.Common/Internal";
                 } )
                 .OrderByDescending( i => i.name == "UITheme.cs" )
                 .ThenByDescending( i => i.name == "UIScreen.cs" )
                 .ThenByDescending( i => i.name == "UIRouter.cs" )
+
                 .ThenByDescending( i => i.name == "MainWidget.cs" )
                 .ThenByDescending( i => i.name == "MainMenuWidget.cs" )
                 .ThenByDescending( i => i.name == "GameWidget.cs" )
@@ -179,17 +184,8 @@ namespace Project {
                 .ThenByDescending( i => i.name == "ProfileSettingsWidget.cs" )
                 .ThenByDescending( i => i.name == "VideoSettingsWidget.cs" )
                 .ThenByDescending( i => i.name == "AudioSettingsWidget.cs" )
-                .Select( i => i.path );
 
-            var paths3 = paths
-                .Where( i => {
-                    return i.dir is
-                        "Assets/Project.02.UI" or
-                        "Assets/Project.02.UI.00.MainScreen" or
-                        "Assets/Project.02.UI.01.GameScreen" or
-                        "Assets/Project.02.UI.02.Common";
-                } )
-                .OrderByDescending( i => i.name == "MainWidgetView.cs" )
+                .ThenByDescending( i => i.name == "MainWidgetView.cs" )
                 .ThenByDescending( i => i.name == "MainMenuWidgetView.cs" )
                 .ThenByDescending( i => i.name == "GameWidgetView.cs" )
                 .ThenByDescending( i => i.name == "PlayerWidgetView.cs" )
@@ -202,9 +198,10 @@ namespace Project {
                 .ThenByDescending( i => i.name == "ProfileSettingsWidgetView.cs" )
                 .ThenByDescending( i => i.name == "VideoSettingsWidgetView.cs" )
                 .ThenByDescending( i => i.name == "AudioSettingsWidgetView.cs" )
+
                 .Select( i => i.path );
 
-            var paths4 = paths
+            var paths3 = paths
                 .Where( i => {
                     return i.dir is
                         "Assets/Project.05.App";
@@ -217,7 +214,7 @@ namespace Project {
                 .ThenByDescending( i => i.name == "Storage.Preferences.cs" )
                 .Select( i => i.path );
 
-            var paths5 = paths
+            var paths4 = paths
                 .Where( i => {
                     return i.dir is
                         "Assets/Project.06.Game" or
@@ -225,6 +222,27 @@ namespace Project {
                         "Assets/Project.06.Game.Actors" or
                         "Assets/Project.06.Game.Things" or
                         "Assets/Project.06.Game.Worlds";
+                } )
+                .OrderByDescending( i => i.name == "Game2.cs" )
+                .ThenByDescending( i => i.name == "Player2.cs" )
+                .ThenByDescending( i => i.name == "PlayerCharacter.cs" )
+                .ThenByDescending( i => i.name == "PlayerCamera.cs" )
+                .ThenByDescending( i => i.name == "EnemyCharacter.cs" )
+                .ThenByDescending( i => i.name == "Gun.cs" )
+                .ThenByDescending( i => i.name == "Bullet.cs" )
+                .ThenByDescending( i => i.name == "World.cs" )
+                .Select( i => i.path );
+
+            var paths5 = paths
+                .Where( i => {
+                    return i.dir is
+                        "Project.07.Infrastructure/Project.00" or
+                        "Project.07.Infrastructure/Project.01.UI" or
+                        "Project.07.Infrastructure/Project.05.App" or
+                        "Project.07.Infrastructure/Project.06.Game" or
+                        "Project.07.Infrastructure/Project.06.Game.Actors" or
+                        "Project.07.Infrastructure/Project.06.Game.Things" or
+                        "Project.07.Infrastructure/Project.06.Game.Worlds";
                 } )
                 .OrderByDescending( i => i.name == "Game2.cs" )
                 .ThenByDescending( i => i.name == "Player2.cs" )
