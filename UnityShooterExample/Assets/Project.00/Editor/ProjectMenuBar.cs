@@ -162,15 +162,15 @@ namespace Project {
                         "Assets/Project.01.UI.00.MainScreen" or
                         "Assets/Project.01.UI.01.GameScreen" or
                         "Assets/Project.01.UI.02.Common" or
+
                         "Assets/Project.01.UI/Internal" or
                         "Assets/Project.01.UI.00.MainScreen/Internal" or
                         "Assets/Project.01.UI.01.GameScreen/Internal" or
                         "Assets/Project.01.UI.02.Common/Internal";
                 } )
-                .OrderByDescending( i => i.name == "UITheme.cs" )
-                .ThenByDescending( i => i.name == "UIScreen.cs" )
-                .ThenByDescending( i => i.name == "UIRouter.cs" )
-
+                .OrderByDescending( i => i.name == "Theme.cs" )
+                .ThenByDescending( i => i.name == "Screen.cs" )
+                .ThenByDescending( i => i.name == "Router.cs" )
                 .ThenByDescending( i => i.name == "MainWidget.cs" )
                 .ThenByDescending( i => i.name == "MainMenuWidget.cs" )
                 .ThenByDescending( i => i.name == "GameWidget.cs" )
