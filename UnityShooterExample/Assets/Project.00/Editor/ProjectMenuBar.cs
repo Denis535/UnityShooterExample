@@ -127,7 +127,7 @@ namespace Project {
         public static void OpenAssets_CSharp() {
             foreach (var path in GetAssets_CSharp().Reverse()) {
                 AssetDatabase.OpenAsset( AssetDatabase.LoadAssetAtPath<UnityEngine.Object>( path ) );
-                Thread.Sleep( 100 );
+                Thread.Sleep( 50 );
             }
         }
 
@@ -218,22 +218,23 @@ namespace Project {
                 .Where( i => {
                     return i.dir is
                         "Assets/Project.06.Game" or
-                        "Assets/Project.06.Game/Internal" or
                         "Assets/Project.06.Game.Actors" or
-                        "Assets/Project.06.Game.Actors/Internal" or
                         "Assets/Project.06.Game.Things" or
-                        "Assets/Project.06.Game.Things/Internal" or
                         "Assets/Project.06.Game.Worlds" or
+
+                        "Assets/Project.06.Game/Internal" or
+                        "Assets/Project.06.Game.Actors/Internal" or
+                        "Assets/Project.06.Game.Things/Internal" or
                         "Assets/Project.06.Game.Worlds/Internal";
                 } )
-                .OrderByDescending( i => i.name == "Game2.cs" )
-                .ThenByDescending( i => i.name == "Player2.cs" )
-
-                .ThenByDescending( i => i.name == "CharacterBase.cs" )
+                .OrderByDescending( i => i.name == "CharacterBase.cs" )
                 .ThenByDescending( i => i.name == "PlayableCharacterBase.cs" )
                 .ThenByDescending( i => i.name == "PlayableCameraBase.cs" )
                 .ThenByDescending( i => i.name == "NonPlayableCharacterBase.cs" )
                 .ThenByDescending( i => i.name == "WeaponBase.cs" )
+
+                .ThenByDescending( i => i.name == "Game2.cs" )
+                .ThenByDescending( i => i.name == "Player2.cs" )
 
                 .ThenByDescending( i => i.name == "PlayerCharacter.cs" )
                 .ThenByDescending( i => i.name == "PlayerCamera.cs" )
@@ -252,7 +253,13 @@ namespace Project {
             var paths5 = paths
                 .Where( i => {
                     return i.dir is
-                        "Assets/Project.07.Infrastructure/Project";
+                        "Assets/Project.07.Infrastructure/Project" or
+                        "Assets/Project.07.Infrastructure/Project.UI" or
+                        "Assets/Project.07.Infrastructure/Project.App" or
+                        "Assets/Project.07.Infrastructure/Project.Game" or
+                        "Assets/Project.07.Infrastructure/Project.Game.Actors" or
+                        "Assets/Project.07.Infrastructure/Project.Game.Things" or
+                        "Assets/Project.07.Infrastructure/Project.Game.Worlds";
                 } )
                 .OrderByDescending( i => i.name == "Utils.cs" )
                 .ThenByDescending( i => i.name == "MoveableBody.cs" )
