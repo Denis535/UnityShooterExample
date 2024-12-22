@@ -106,8 +106,8 @@ The project contains the following source codes:
 - Project.Infrastructure
   * Project.UI/VisualElementFactory.cs
   * Project.UI/VisualElementExtensions.cs
-  * Project.Game.Actors/ICharacterInputProvider.cs
-  * Project.Game.Actors/ICameraInputProvider.cs
+  * Project.Game/ICharacterInputProvider.cs
+  * Project.Game/ICameraInputProvider.cs
   * Project.Game.Actors/CharacterBase.cs
   * Project.Game.Actors/PlayableCharacterBase.cs
   * Project.Game.Actors/PlayableCameraBase.cs
