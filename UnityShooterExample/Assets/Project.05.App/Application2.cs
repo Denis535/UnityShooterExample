@@ -18,7 +18,7 @@ namespace Project.App {
         public Storage.VideoSettings VideoSettings { get; }
         public Storage.AudioSettings AudioSettings { get; }
         public Storage.Preferences Preferences { get; }
-        public Task InitializeTask { get; }
+        public Task InitializationTask { get; }
         public IAuthenticationService AuthenticationService => Unity.Services.Authentication.AuthenticationService.Instance;
         public Game2? Game { get; private set; }
 
@@ -28,7 +28,7 @@ namespace Project.App {
             VideoSettings = new Storage.VideoSettings();
             AudioSettings = new Storage.AudioSettings();
             Preferences = new Storage.Preferences();
-            InitializeTask = InitializeAsync();
+            InitializationTask = InitializeAsync();
         }
         public override void Dispose() {
             Storage.Dispose();

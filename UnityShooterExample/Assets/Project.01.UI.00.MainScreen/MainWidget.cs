@@ -33,7 +33,7 @@ namespace Project.UI {
             ShowSelf();
             Children.OfType<MainMenuWidget>().First().__GetView__().style.display = DisplayStyle.None;
             try {
-                await Application.InitializeTask.WaitAsync( DisposeCancellationToken );
+                await Application.InitializationTask.WaitAsync( DisposeCancellationToken );
                 Children.OfType<MainMenuWidget>().First().__GetView__().style.display = StyleKeyword.Null;
             } catch (OperationCanceledException) {
             } catch (Exception ex) {
