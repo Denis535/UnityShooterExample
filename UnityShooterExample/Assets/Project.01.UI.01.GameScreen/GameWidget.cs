@@ -27,14 +27,14 @@ namespace Project.UI {
                         if (Game.Player.State is PlayerState.Winner) {
                             if (Game.Info.Level.IsLast()) {
                                 await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
-                                AddChild( new GameTotalsWidget_GameCompleted( Container ) );
+                                AddChild( new GameTotalsWidget_GameCompleted( Container ), null );
                             } else {
                                 await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
-                                AddChild( new GameTotalsWidget_LevelCompleted( Container ) );
+                                AddChild( new GameTotalsWidget_LevelCompleted( Container ), null );
                             }
                         } else if (Game.Player.State is PlayerState.Loser) {
                             await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
-                            AddChild( new GameTotalsWidget_LevelFailed( Container ) );
+                            AddChild( new GameTotalsWidget_LevelFailed( Container ), null );
                         } else {
                             throw Exceptions.Internal.NotSupported( $"PlayerState {Game.Player.State} is not supported" );
                         }
@@ -49,7 +49,7 @@ namespace Project.UI {
                     View.Focus();
                 }
             };
-            AddChild( new PlayerWidget( Container ) );
+            AddChild( new PlayerWidget( Container ), null );
         }
         public override void Dispose() {
             foreach (var child in Children) {
@@ -113,7 +113,7 @@ namespace Project.UI {
             var view = new GameWidgetView();
             view.RegisterCallback<NavigationCancelEvent>( evt => {
                 if (!widget.Children.Any( i => i is GameMenuWidget )) {
-                    widget.AddChild( new GameMenuWidget( widget.Container ) );
+                    widget.AddChild( new GameMenuWidget( widget.Container ), null );
                     evt.StopPropagation();
                 }
             } );

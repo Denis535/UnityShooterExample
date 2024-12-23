@@ -11,9 +11,9 @@ namespace Project.UI {
 
         public SettingsWidget(IDependencyContainer container) : base( container ) {
             View = CreateView( this );
-            AddChild( new ProfileSettingsWidget( container ) );
-            AddChild( new VideoSettingsWidget( container ) );
-            AddChild( new AudioSettingsWidget( container ) );
+            AddChild( new ProfileSettingsWidget( container ), null );
+            AddChild( new VideoSettingsWidget( container ), null );
+            AddChild( new AudioSettingsWidget( container ), null );
         }
         public override void Dispose() {
             foreach (var child in Children) {

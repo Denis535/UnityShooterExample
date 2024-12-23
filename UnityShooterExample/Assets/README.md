@@ -153,7 +153,7 @@ Secondly, the ```Main``` scene contains the ```Program``` entity:
   "dependencies": {
     "com.denis535.addressables-extensions": "1.0.19",
     "com.denis535.addressables-source-generator": "1.0.43",
-    "com.denis535.clean-architecture-game-framework": "1.5.0",
+    "com.denis535.clean-architecture-game-framework": "1.5.2",
     "com.denis535.colorful-project-window": "1.1.1",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "2.2.2",

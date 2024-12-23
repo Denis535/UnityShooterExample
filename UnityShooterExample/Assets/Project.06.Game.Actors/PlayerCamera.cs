@@ -36,7 +36,7 @@ namespace Project.Game {
         private static readonly float MinDistance = 1;
         private static readonly float MaxDistance = 3;
         private static readonly float RotateInputSensitivity = 6;
-        private static readonly float ZoomInputSensitivity = 6;
+        private static readonly float ZoomInputSensitivity = 12;
 
         private PlayableCharacterBase? prevTarget = null;
 

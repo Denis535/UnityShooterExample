@@ -37,10 +37,10 @@ namespace Project.UI {
                 widget.RemoveSelf( null );
             } );
             view.Settings.RegisterCallback<ClickEvent>( evt => {
-                widget.AddChild( new SettingsWidget( widget.Container ) );
+                widget.AddChild( new SettingsWidget( widget.Container ), null );
             } );
             view.Back.RegisterCallback<ClickEvent>( evt => {
-                widget.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ) );
+                widget.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ), null );
             } );
             return view;
         }

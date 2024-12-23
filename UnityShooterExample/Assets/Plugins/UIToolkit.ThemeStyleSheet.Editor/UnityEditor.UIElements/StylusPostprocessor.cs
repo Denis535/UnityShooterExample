@@ -11,6 +11,12 @@ namespace UnityEditor.UIElements {
 
     public class StylusPostprocessor : AssetPostprocessor {
 
+        // CreateAsset
+        [MenuItem( "Assets/Create/UI Toolkit/Stylus" )]
+        public static void CreateAsset() {
+            ProjectWindowUtil.CreateAssetWithContent( "New Stylus.styl", "" );
+        }
+
         // OnPostprocessAllAssets
         public static void OnPostprocessAllAssets(string[] imported, string[] deleted, string[] moved, string[] movedFrom) {
             foreach (var imported_ in imported) {

@@ -23,10 +23,10 @@ namespace Project.UI {
             VisualElementFactory.OnPlayOpenInfoDialog += evt => { };
             VisualElementFactory.OnPlayOpenWarningDialog += evt => { };
             VisualElementFactory.OnPlayOpenErrorDialog += evt => { };
-            SetWidget( new RootWidget( container ) );
+            SetWidget( new RootWidget( container ), null );
         }
         public override void Dispose() {
-            SetWidget( null );
+            SetWidget( null, null );
             base.Dispose();
         }
 
@@ -73,22 +73,22 @@ namespace Project.UI {
         }
 
         internal void AddChild(MainWidget widget) {
-            base.AddChild( widget );
+            base.AddChild( widget, null );
         }
         internal void AddChild(GameWidget widget) {
-            base.AddChild( widget );
+            base.AddChild( widget, null );
         }
         internal void AddChild(LoadingWidget widget) {
-            base.AddChild( widget );
+            base.AddChild( widget, null );
         }
         internal void AddChild(UnloadingWidget widget) {
-            base.AddChild( widget );
+            base.AddChild( widget, null );
         }
         internal void AddChild(WarningDialogWidget widget) {
-            base.AddChild( widget );
+            base.AddChild( widget, null );
         }
         internal void AddChild(ErrorDialogWidget widget) {
-            base.AddChild( widget );
+            base.AddChild( widget, null );
         }
         internal void Clear() {
             RemoveChildren( i => i is not (DialogWidget or InfoDialogWidget or WarningDialogWidget or ErrorDialogWidget), null );

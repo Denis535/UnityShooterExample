@@ -16,7 +16,7 @@ namespace Project.UI {
         public Theme(IDependencyContainer container) : base( container, container.RequireDependency<AudioSource>( "MusicAudioSource" ) ) {
         }
         public override void Dispose() {
-            SetPlayList( null );
+            SetPlayList( null, null );
             base.Dispose();
         }
 
@@ -30,26 +30,26 @@ namespace Project.UI {
         }
 
         public void PlayMainTheme() {
-            SetPlayList( new MainPlayList( Container ) );
+            SetPlayList( new MainPlayList( Container ), null );
         }
         public void PlayGameTheme() {
-            SetPlayList( new GamePlayList( Container ) );
+            SetPlayList( new GamePlayList( Container ), null );
         }
         public void PlayGameCompletedTheme(bool isPlayerWinner) {
-            SetPlayList( null );
+            SetPlayList( null, null );
         }
         public void PlayLoadingTheme() {
             if (PlayList is MainPlayList mainStrategy) {
                 mainStrategy.IsFading = true;
             } else {
-                SetPlayList( null );
+                SetPlayList( null, null );
             }
         }
         public void PlayUnloadingTheme() {
-            SetPlayList( null );
+            SetPlayList( null, null );
         }
         public void StopTheme() {
-            SetPlayList( null );
+            SetPlayList( null, null );
         }
 
         public void Pause() {

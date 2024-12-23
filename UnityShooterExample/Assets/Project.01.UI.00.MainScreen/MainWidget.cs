@@ -19,7 +19,7 @@ namespace Project.UI {
             Router = container.RequireDependency<Router>();
             Application = container.RequireDependency<Application2>();
             View = CreateView( this );
-            AddChild( new MainMenuWidget( Container ) );
+            AddChild( new MainMenuWidget( Container ), null );
         }
         public override void Dispose() {
             foreach (var child in Children) {

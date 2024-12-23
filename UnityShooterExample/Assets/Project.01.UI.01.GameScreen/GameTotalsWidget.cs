@@ -53,7 +53,7 @@ namespace Project.UI {
                 widget.Router.ReloadGameScene( gameInfo, playerInfo );
             } );
             view.Back.RegisterCallback<ClickEvent>( evt => {
-                widget.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ) );
+                widget.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ), null );
             } );
             return view;
         }
@@ -77,7 +77,7 @@ namespace Project.UI {
                 widget.Router.ReloadGameScene( gameInfo, playerInfo );
             } );
             view.Back.RegisterCallback<ClickEvent>( evt => {
-                widget.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ) );
+                widget.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ), null );
             } );
             return view;
         }

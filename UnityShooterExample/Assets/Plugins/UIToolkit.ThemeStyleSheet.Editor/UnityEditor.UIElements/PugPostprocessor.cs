@@ -11,6 +11,12 @@ namespace UnityEditor.UIElements {
 
     public class PugPostprocessor : AssetPostprocessor {
 
+        // CreateAsset
+        [MenuItem( "Assets/Create/UI Toolkit/Pug" )]
+        public static void CreateAsset() {
+            ProjectWindowUtil.CreateAssetWithContent( "New Pug.pug", "" );
+        }
+
         // OnPostprocessAllAssets
         public static void OnPostprocessAllAssets(string[] imported, string[] deleted, string[] moved, string[] movedFrom) {
             foreach (var imported_ in imported) {
