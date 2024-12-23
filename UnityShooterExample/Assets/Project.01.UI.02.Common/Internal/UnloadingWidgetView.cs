@@ -5,7 +5,6 @@ namespace Project.UI {
     using System.Collections.Generic;
     using System.Text;
     using UnityEngine;
-    using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
     public class UnloadingWidgetView : WidgetViewBase {

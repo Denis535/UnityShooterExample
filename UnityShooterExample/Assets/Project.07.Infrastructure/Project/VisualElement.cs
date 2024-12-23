@@ -1,9 +1,10 @@
 ﻿#nullable enable
-namespace UnityEngine.Framework {
+namespace Project {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
     public abstract class IndieViewBase : ViewBase {

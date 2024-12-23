@@ -263,6 +263,8 @@ namespace Project {
                 } )
                 .OrderByDescending( i => i.name == "Utils.cs" )
                 .ThenByDescending( i => i.name == "MoveableBody.cs" )
+                .ThenByDescending( i => i.name == "VisualElement.cs" )
+                .ThenByDescending( i => i.name == "VisualElementFactory.cs" )
 
                 .Select( i => i.path );
 

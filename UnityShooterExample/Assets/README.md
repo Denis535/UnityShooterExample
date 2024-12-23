@@ -113,6 +113,8 @@ The project contains the following source codes:
 - Project.Infrastructure
   * Project/Utils.cs
   * Project/MoveableBody.cs
+  * Project/VisualElement.cs
+  * Project/VisualElementFactory.cs
 
 The project has the following dependencies:
 - Architecture Game Framework - the framework that helps you develop your project using a modular clean architecture.
@@ -153,7 +155,7 @@ Secondly, the ```Main``` scene contains the ```Program``` entity:
   "dependencies": {
     "com.denis535.addressables-extensions": "1.0.19",
     "com.denis535.addressables-source-generator": "1.0.43",
-    "com.denis535.clean-architecture-game-framework": "1.5.2",
+    "com.denis535.clean-architecture-game-framework": "1.5.3",
     "com.denis535.colorful-project-window": "1.1.1",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "2.2.2",
