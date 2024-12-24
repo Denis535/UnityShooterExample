@@ -6,10 +6,13 @@ namespace Project {
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
     using System.Threading;
     using UnityEditor;
+    using UnityEditor.IMGUI.Controls;
     using UnityEditor.SceneManagement;
+    using UnityEditorInternal;
     using UnityEngine;
 
     public static class ProjectMenuBar {
@@ -123,150 +126,186 @@ namespace Project {
             UnityEditor.PackageManager.Client.Embed( "com.denis535.uitoolkit-theme-style-sheet" );
         }
 
-        [MenuItem( "Project/Open Assets (CSharp)", priority = 500 )]
-        public static void OpenAssets_CSharp() {
-            foreach (var path in GetAssets_CSharp().Reverse()) {
+        [MenuItem( "Project/Reset Project Window", priority = 500 )]
+        public static void ResetProjectWindow() {
+            var projectWindow = GetProjectWindow();
+            var root = GetRootItem( projectWindow );
+            var items = GetDescendants( root ).ToList();
+            var expandedIDs = items.Where( i => i.displayName == "Assets" ).Select( i => i.id ).ToArray();
+            SetExpandedIDs( projectWindow, expandedIDs );
+            projectWindow.Repaint();
+
+            static EditorWindow GetProjectWindow() {
+                //const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+                const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+                return (EditorWindow) typeof( EditorWindow ).Assembly.GetType( "UnityEditor.ProjectBrowser" ).GetField( "s_LastInteractedProjectBrowser", StaticFlags ).GetValue( null ) ?? throw new NullReferenceException( "Field 's_LastInteractedProjectBrowser' is null" );
+            }
+
+            static TreeViewItem GetRootItem(EditorWindow window) {
+                const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+                //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+                var assetTree = window.GetType().GetField( "m_AssetTree", InstanceFlags ).GetValue( window ) ?? throw new NullReferenceException( "Field 'm_AssetTree' is null" );
+                var assetTreeData = assetTree.GetType().GetProperty( "data", InstanceFlags ).GetValue( assetTree ) ?? throw new NullReferenceException( "Property 'data' is null" );
+                return (TreeViewItem) assetTreeData.GetType().GetField( "m_RootItem", InstanceFlags ).GetValue( assetTreeData );
+            }
+
+            static void SetExpandedIDs(EditorWindow window, int[] expandedIDs) {
+                const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+                //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+                var assetTree = window.GetType().GetField( "m_AssetTree", InstanceFlags ).GetValue( window ) ?? throw new NullReferenceException( "Field 'm_AssetTree' is null" );
+                var assetTreeData = assetTree.GetType().GetProperty( "data", InstanceFlags ).GetValue( assetTree ) ?? throw new NullReferenceException( "Property 'data' is null" );
+                assetTreeData.GetType().GetMethod( "SetExpandedIDs", InstanceFlags ).Invoke( assetTreeData, new object?[] { expandedIDs } );
+            }
+
+            static IEnumerable<TreeViewItem> GetDescendants(TreeViewItem item) {
+                if (item.hasChildren) {
+                    foreach (var child in item.children.OfType<TreeViewItem>()) {
+                        yield return child;
+                        foreach (var i in GetDescendants( child )) yield return i;
+                    }
+                }
+            }
+            //static IEnumerable<TreeViewItem> GetDescendantsAndSelf(TreeViewItem item) {
+            //    return GetDescendants( item ).Prepend( item );
+            //}
+        }
+
+        [MenuItem( "Project/Open Project Assets (CSharp)", priority = 600 )]
+        public static void OpenProjectAssets_CSharp() {
+            foreach (var path in GetProjectAssets_CSharp().Reverse()) {
                 AssetDatabase.OpenAsset( AssetDatabase.LoadAssetAtPath<UnityEngine.Object>( path ) );
                 Thread.Sleep( 50 );
             }
         }
 
         // Helpers
-        private static IEnumerable<string> GetAssets_CSharp() {
-            var paths = AssetDatabase.GetAllAssetPaths()
-                .Where( i => i.EndsWith( ".cs" ) )
-                .Select( i => new {
-                    path = i,
-                    dir = Path.GetDirectoryName( i ).Replace( '\\', '/' ),
-                    name = Path.GetFileName( i )
-                } )
-                .ToList();
+        private static IEnumerable<string> GetProjectAssets_CSharp() {
+            var paths = AssetDatabase.GetAllAssetPaths().Where( i => i.EndsWith( ".cs" ) ).Select( i => new {
+                path = i,
+                dir = Path.GetDirectoryName( i ).Replace( '\\', '/' ),
+                name = Path.GetFileName( i )
+            } ).ToList();
 
-            var paths1 = paths
-                .Where( i => {
-                    return i.dir is
-                        "Assets/Project.00" or
-                        "Assets/Project.00/Editor";
-                } )
-                .OrderByDescending( i => i.name == "Launcher.cs" )
-                .ThenByDescending( i => i.name == "Program.cs" )
-                .ThenByDescending( i => i.name == "DebugScreen.cs" )
-                .ThenByDescending( i => i.name == "ProjectMenuBar.cs" )
-                .ThenByDescending( i => i.name == "ProjectWindow.cs" )
-                .Select( i => i.path );
+            var paths1 = paths.Where( i => {
+                return i.dir is
+                    "Assets/Project.00" or
+                    "Assets/Project.00/Editor";
+            } )
+            .OrderByDescending( i => i.name == "Launcher.cs" )
+            .ThenByDescending( i => i.name == "Program.cs" )
+            .ThenByDescending( i => i.name == "DebugScreen.cs" )
+            .ThenByDescending( i => i.name == "ProjectMenuBar.cs" )
+            .ThenByDescending( i => i.name == "ProjectWindow.cs" )
+            .Select( i => i.path );
 
-            var paths2 = paths
-                .Where( i => {
-                    return i.dir is
-                        "Assets/Project.01.UI" or
-                        "Assets/Project.01.UI.00.MainScreen" or
-                        "Assets/Project.01.UI.01.GameScreen" or
-                        "Assets/Project.01.UI.02.Common" or
+            var paths2 = paths.Where( i => {
+                return i.dir is
+                    "Assets/Project.01.UI" or
+                    "Assets/Project.01.UI.00.MainScreen" or
+                    "Assets/Project.01.UI.01.GameScreen" or
+                    "Assets/Project.01.UI.02.Common" or
 
-                        "Assets/Project.01.UI/Internal" or
-                        "Assets/Project.01.UI.00.MainScreen/Internal" or
-                        "Assets/Project.01.UI.01.GameScreen/Internal" or
-                        "Assets/Project.01.UI.02.Common/Internal";
-                } )
-                .OrderByDescending( i => i.name == "Theme.cs" )
-                .ThenByDescending( i => i.name == "Screen.cs" )
-                .ThenByDescending( i => i.name == "Router.cs" )
-                .ThenByDescending( i => i.name == "MainWidget.cs" )
-                .ThenByDescending( i => i.name == "MainMenuWidget.cs" )
-                .ThenByDescending( i => i.name == "GameWidget.cs" )
-                .ThenByDescending( i => i.name == "PlayerWidget.cs" )
-                .ThenByDescending( i => i.name == "GameTotalsWidget.cs" )
-                .ThenByDescending( i => i.name == "GameMenuWidget.cs" )
-                .ThenByDescending( i => i.name == "DialogWidget.cs" )
-                .ThenByDescending( i => i.name == "LoadingWidget.cs" )
-                .ThenByDescending( i => i.name == "UnloadingWidget.cs" )
-                .ThenByDescending( i => i.name == "SettingsWidget.cs" )
-                .ThenByDescending( i => i.name == "ProfileSettingsWidget.cs" )
-                .ThenByDescending( i => i.name == "VideoSettingsWidget.cs" )
-                .ThenByDescending( i => i.name == "AudioSettingsWidget.cs" )
+                    "Assets/Project.01.UI/Internal" or
+                    "Assets/Project.01.UI.00.MainScreen/Internal" or
+                    "Assets/Project.01.UI.01.GameScreen/Internal" or
+                    "Assets/Project.01.UI.02.Common/Internal";
+            } )
+            .OrderByDescending( i => i.name == "Theme.cs" )
+            .ThenByDescending( i => i.name == "Screen.cs" )
+            .ThenByDescending( i => i.name == "Router.cs" )
+            .ThenByDescending( i => i.name == "MainWidget.cs" )
+            .ThenByDescending( i => i.name == "MainMenuWidget.cs" )
+            .ThenByDescending( i => i.name == "GameWidget.cs" )
+            .ThenByDescending( i => i.name == "PlayerWidget.cs" )
+            .ThenByDescending( i => i.name == "GameTotalsWidget.cs" )
+            .ThenByDescending( i => i.name == "GameMenuWidget.cs" )
+            .ThenByDescending( i => i.name == "DialogWidget.cs" )
+            .ThenByDescending( i => i.name == "LoadingWidget.cs" )
+            .ThenByDescending( i => i.name == "UnloadingWidget.cs" )
+            .ThenByDescending( i => i.name == "SettingsWidget.cs" )
+            .ThenByDescending( i => i.name == "ProfileSettingsWidget.cs" )
+            .ThenByDescending( i => i.name == "VideoSettingsWidget.cs" )
+            .ThenByDescending( i => i.name == "AudioSettingsWidget.cs" )
 
-                .ThenByDescending( i => i.name == "MainWidgetView.cs" )
-                .ThenByDescending( i => i.name == "MainMenuWidgetView.cs" )
-                .ThenByDescending( i => i.name == "GameWidgetView.cs" )
-                .ThenByDescending( i => i.name == "PlayerWidgetView.cs" )
-                .ThenByDescending( i => i.name == "GameTotalsWidgetView.cs" )
-                .ThenByDescending( i => i.name == "GameMenuWidgetView.cs" )
-                .ThenByDescending( i => i.name == "DialogWidgetView.cs" )
-                .ThenByDescending( i => i.name == "LoadingWidgetView.cs" )
-                .ThenByDescending( i => i.name == "UnloadingWidgetView.cs" )
-                .ThenByDescending( i => i.name == "SettingsWidgetView.cs" )
-                .ThenByDescending( i => i.name == "ProfileSettingsWidgetView.cs" )
-                .ThenByDescending( i => i.name == "VideoSettingsWidgetView.cs" )
-                .ThenByDescending( i => i.name == "AudioSettingsWidgetView.cs" )
+            .ThenByDescending( i => i.name == "MainWidgetView.cs" )
+            .ThenByDescending( i => i.name == "MainMenuWidgetView.cs" )
+            .ThenByDescending( i => i.name == "GameWidgetView.cs" )
+            .ThenByDescending( i => i.name == "PlayerWidgetView.cs" )
+            .ThenByDescending( i => i.name == "GameTotalsWidgetView.cs" )
+            .ThenByDescending( i => i.name == "GameMenuWidgetView.cs" )
+            .ThenByDescending( i => i.name == "DialogWidgetView.cs" )
+            .ThenByDescending( i => i.name == "LoadingWidgetView.cs" )
+            .ThenByDescending( i => i.name == "UnloadingWidgetView.cs" )
+            .ThenByDescending( i => i.name == "SettingsWidgetView.cs" )
+            .ThenByDescending( i => i.name == "ProfileSettingsWidgetView.cs" )
+            .ThenByDescending( i => i.name == "VideoSettingsWidgetView.cs" )
+            .ThenByDescending( i => i.name == "AudioSettingsWidgetView.cs" )
 
-                .Select( i => i.path );
+            .Select( i => i.path );
 
-            var paths3 = paths
-                .Where( i => {
-                    return i.dir is
-                        "Assets/Project.05.App";
-                } )
-                .OrderByDescending( i => i.name == "Application2.cs" )
-                .ThenByDescending( i => i.name == "Storage.cs" )
-                .ThenByDescending( i => i.name == "Storage.ProfileSettings.cs" )
-                .ThenByDescending( i => i.name == "Storage.VideoSettings.cs" )
-                .ThenByDescending( i => i.name == "Storage.AudioSettings.cs" )
-                .ThenByDescending( i => i.name == "Storage.Preferences.cs" )
-                .Select( i => i.path );
+            var paths3 = paths.Where( i => {
+                return i.dir is
+                    "Assets/Project.05.App";
+            } )
+            .OrderByDescending( i => i.name == "Application2.cs" )
+            .ThenByDescending( i => i.name == "Storage.cs" )
+            .ThenByDescending( i => i.name == "Storage.ProfileSettings.cs" )
+            .ThenByDescending( i => i.name == "Storage.VideoSettings.cs" )
+            .ThenByDescending( i => i.name == "Storage.AudioSettings.cs" )
+            .ThenByDescending( i => i.name == "Storage.Preferences.cs" )
+            .Select( i => i.path );
 
-            var paths4 = paths
-                .Where( i => {
-                    return i.dir is
-                        "Assets/Project.06.Game" or
-                        "Assets/Project.06.Game.Actors" or
-                        "Assets/Project.06.Game.Things" or
-                        "Assets/Project.06.Game.Worlds" or
+            var paths4 = paths.Where( i => {
+                return i.dir is
+                    "Assets/Project.06.Game" or
+                    "Assets/Project.06.Game.Actors" or
+                    "Assets/Project.06.Game.Things" or
+                    "Assets/Project.06.Game.Worlds" or
 
-                        "Assets/Project.06.Game/Internal" or
-                        "Assets/Project.06.Game.Actors/Internal" or
-                        "Assets/Project.06.Game.Things/Internal" or
-                        "Assets/Project.06.Game.Worlds/Internal";
-                } )
-                .OrderByDescending( i => i.name == "CharacterBase.cs" )
-                .ThenByDescending( i => i.name == "PlayableCharacterBase.cs" )
-                .ThenByDescending( i => i.name == "PlayableCameraBase.cs" )
-                .ThenByDescending( i => i.name == "NonPlayableCharacterBase.cs" )
-                .ThenByDescending( i => i.name == "WeaponBase.cs" )
+                    "Assets/Project.06.Game/Internal" or
+                    "Assets/Project.06.Game.Actors/Internal" or
+                    "Assets/Project.06.Game.Things/Internal" or
+                    "Assets/Project.06.Game.Worlds/Internal";
+            } )
+            .OrderByDescending( i => i.name == "CharacterBase.cs" )
+            .ThenByDescending( i => i.name == "PlayableCharacterBase.cs" )
+            .ThenByDescending( i => i.name == "PlayableCameraBase.cs" )
+            .ThenByDescending( i => i.name == "NonPlayableCharacterBase.cs" )
+            .ThenByDescending( i => i.name == "WeaponBase.cs" )
 
-                .ThenByDescending( i => i.name == "Game2.cs" )
-                .ThenByDescending( i => i.name == "Player2.cs" )
+            .ThenByDescending( i => i.name == "Game2.cs" )
+            .ThenByDescending( i => i.name == "Player2.cs" )
 
-                .ThenByDescending( i => i.name == "PlayerCharacter.cs" )
-                .ThenByDescending( i => i.name == "PlayerCamera.cs" )
-                .ThenByDescending( i => i.name == "EnemyCharacter.cs" )
-                .ThenByDescending( i => i.name == "Gun.cs" )
-                .ThenByDescending( i => i.name == "Bullet.cs" )
-                .ThenByDescending( i => i.name == "World.cs" )
+            .ThenByDescending( i => i.name == "PlayerCharacter.cs" )
+            .ThenByDescending( i => i.name == "PlayerCamera.cs" )
+            .ThenByDescending( i => i.name == "EnemyCharacter.cs" )
+            .ThenByDescending( i => i.name == "Gun.cs" )
+            .ThenByDescending( i => i.name == "Bullet.cs" )
+            .ThenByDescending( i => i.name == "World.cs" )
 
-                .ThenByDescending( i => i.name == "ICharacterInputProvider.cs" )
-                .ThenByDescending( i => i.name == "ICameraInputProvider.cs" )
-                .ThenByDescending( i => i.name == "CharacterInputProvider.cs" )
-                .ThenByDescending( i => i.name == "CameraInputProvider.cs" )
+            .ThenByDescending( i => i.name == "ICharacterInputProvider.cs" )
+            .ThenByDescending( i => i.name == "ICameraInputProvider.cs" )
+            .ThenByDescending( i => i.name == "CharacterInputProvider.cs" )
+            .ThenByDescending( i => i.name == "CameraInputProvider.cs" )
 
-                .Select( i => i.path );
+            .Select( i => i.path );
 
-            var paths5 = paths
-                .Where( i => {
-                    return i.dir is
-                        "Assets/Project.07.Infrastructure/Project" or
-                        "Assets/Project.07.Infrastructure/Project.UI" or
-                        "Assets/Project.07.Infrastructure/Project.App" or
-                        "Assets/Project.07.Infrastructure/Project.Game" or
-                        "Assets/Project.07.Infrastructure/Project.Game.Actors" or
-                        "Assets/Project.07.Infrastructure/Project.Game.Things" or
-                        "Assets/Project.07.Infrastructure/Project.Game.Worlds";
-                } )
-                .OrderByDescending( i => i.name == "Utils.cs" )
-                .ThenByDescending( i => i.name == "VisualElement.cs" )
-                .ThenByDescending( i => i.name == "VisualElementFactory.cs" )
-                .ThenByDescending( i => i.name == "MoveableBody.cs" )
+            var paths5 = paths.Where( i => {
+                return i.dir is
+                    "Assets/Project.07.Infrastructure/Project" or
+                    "Assets/Project.07.Infrastructure/Project.UI" or
+                    "Assets/Project.07.Infrastructure/Project.App" or
+                    "Assets/Project.07.Infrastructure/Project.Game" or
+                    "Assets/Project.07.Infrastructure/Project.Game.Actors" or
+                    "Assets/Project.07.Infrastructure/Project.Game.Things" or
+                    "Assets/Project.07.Infrastructure/Project.Game.Worlds";
+            } )
+            .OrderByDescending( i => i.name == "Utils.cs" )
+            .ThenByDescending( i => i.name == "VisualElement.cs" )
+            .ThenByDescending( i => i.name == "VisualElementFactory.cs" )
+            .ThenByDescending( i => i.name == "MoveableBody.cs" )
 
-                .Select( i => i.path );
+            .Select( i => i.path );
 
             return paths1.Concat( paths2 ).Concat( paths3 ).Concat( paths4 ).Concat( paths5 );
         }
