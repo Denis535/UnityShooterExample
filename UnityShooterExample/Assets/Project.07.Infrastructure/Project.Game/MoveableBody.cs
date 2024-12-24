@@ -1,5 +1,5 @@
 #nullable enable
-namespace Project {
+namespace Project.Game {
     using System;
     using System.Collections;
     using System.Collections.Generic;

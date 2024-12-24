@@ -262,9 +262,9 @@ namespace Project {
                         "Assets/Project.07.Infrastructure/Project.Game.Worlds";
                 } )
                 .OrderByDescending( i => i.name == "Utils.cs" )
-                .ThenByDescending( i => i.name == "MoveableBody.cs" )
                 .ThenByDescending( i => i.name == "VisualElement.cs" )
                 .ThenByDescending( i => i.name == "VisualElementFactory.cs" )
+                .ThenByDescending( i => i.name == "MoveableBody.cs" )
 
                 .Select( i => i.path );
 
