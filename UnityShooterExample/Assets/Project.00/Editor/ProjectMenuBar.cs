@@ -13,7 +13,6 @@ namespace Project {
     using UnityEditor;
     using UnityEditor.IMGUI.Controls;
     using UnityEditor.SceneManagement;
-    using UnityEditorInternal;
     using UnityEngine;
 
     public static class ProjectMenuBar {
@@ -151,51 +150,23 @@ namespace Project {
 
         [MenuItem( "Project/F1 _F1", priority = 601 )]
         public static void F1() {
-            //var window = GetProjectWindow();
-            //var item = GetSelectedItems( window ).FirstOrDefault();
-            //if (item != null) {
-            //    if (!IsExpanded( window, item )) {
-            //        SetIsExpandedWithChildren( window, item, false );
-            //        SetIsExpanded( window, item, true );
-            //        var others = item.parent?.children?.Where( i => i != item ).ToList();
-            //        if (others != null && others.Any( i => IsExpanded( window, i ) )) {
-            //            //await Task.Delay( 300 );
-            //            foreach (var other in others) {
-            //                SetIsExpandedWithChildren( window, other, false );
-            //            }
-            //        }
-            //    } else {
-            //        //SetIsExpandedWithChildren( window, item, false );
-            //    }
-            //}
-            //window.Repaint();
-
-            Selection.selectionChanged -= OnSelectionChanged;
-            Selection.selectionChanged += OnSelectionChanged;
-            void OnSelectionChanged() {
-                var window = GetProjectWindow();
-                var item = (TreeViewItem?) GetDescendantsAndSelf( GetRootItem( window ) ).FirstOrDefault( i => i.id == Selection.activeInstanceID );
-                if (item != null) {
-                    if (IsFolder( item )) {
-                        SetIsExpandedWithChildren( window, item, false );
-                        SetIsExpanded( window, item, true );
-                        var others = item.parent?.children?.Where( i => i != item ).ToList();
-                        if (others != null && others.Any( i => IsExpanded( window, i ) )) {
-                            foreach (var other in others) {
-                                SetIsExpandedWithChildren( window, other, false );
-                            }
-                        }
-                    } else {
-                        var others = item.parent?.children?.Where( i => i != item ).ToList();
-                        if (others != null && others.Any( i => IsExpanded( window, i ) )) {
-                            foreach (var other in others) {
-                                SetIsExpandedWithChildren( window, other, false );
-                            }
+            var window = GetProjectWindow();
+            var item = GetSelectedItems( window ).FirstOrDefault();
+            if (item != null) {
+                if (!IsExpanded( window, item )) {
+                    SetIsExpandedWithChildren( window, item, false );
+                    SetIsExpanded( window, item, true );
+                    var others = item.parent?.children?.Where( i => i != item ).ToList();
+                    if (others != null && others.Any( i => IsExpanded( window, i ) )) {
+                        foreach (var other in others) {
+                            SetIsExpandedWithChildren( window, other, false );
                         }
                     }
+                } else {
+                    SetIsExpandedWithChildren( window, item, false );
                 }
-                window.Repaint();
             }
+            window.Repaint();
         }
 
         // Helpers
