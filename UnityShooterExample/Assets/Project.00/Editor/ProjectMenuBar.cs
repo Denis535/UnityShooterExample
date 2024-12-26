@@ -149,24 +149,32 @@ namespace Project {
         }
 
         [MenuItem( "Project/F1 _F1", priority = 601 )]
-        public static void F1() {
+        public static async void F1() {
             var window = GetProjectWindow();
-            var item = GetSelectedItems( window ).FirstOrDefault();
-            if (item != null) {
-                if (!IsExpanded( window, item )) {
+            var item = GetDescendantsAndSelf( GetRootItem( window ) ).FirstOrDefault( i => i.id == Selection.activeInstanceID );
+            await ShowAsync( item );
+            async Task ShowAsync(TreeViewItem item) {
+                if (Selection.activeInstanceID != item.id) {
+                    Selection.activeInstanceID = item.id;
+                    window.Repaint();
+                    await Task.Delay( IsFolder( item ) ? 1000 : 1000 );
+                }
+                if (IsFolder( item ) && item.hasChildren) {
                     SetIsExpandedWithChildren( window, item, false );
                     SetIsExpanded( window, item, true );
-                    var others = item.parent?.children?.Where( i => i != item ).ToList();
-                    if (others != null && others.Any( i => IsExpanded( window, i ) )) {
-                        foreach (var other in others) {
-                            SetIsExpandedWithChildren( window, other, false );
-                        }
+                    window.Repaint();
+                    await Task.Delay( 1000 );
+
+                    item = GetDescendantsAndSelf( GetRootItem( window ) ).FirstOrDefault( i => i.id == item.id );
+                    foreach (var child in item.children) {
+                        await ShowAsync( child );
                     }
-                } else {
+
                     SetIsExpandedWithChildren( window, item, false );
+                    window.Repaint();
+                    await Task.Delay( 1000 );
                 }
             }
-            window.Repaint();
         }
 
         // Helpers
@@ -185,17 +193,17 @@ namespace Project {
             var treeViewDataSource = GetTreeViewDataSource( window );
             return (TreeViewItem) treeViewDataSource.GetType().GetField( "m_RootItem", InstanceFlags ).GetValue( treeViewDataSource );
         }
-        private static IEnumerable<TreeViewItem> GetSelectedItems(EditorWindow window) {
-            var treeViewState = GetTreeViewState( window );
-            var root = GetRootItem( window );
-            foreach (var id in treeViewState.selectedIDs) {
-                yield return GetDescendantsAndSelf( root ).First( i => i.id == id );
-            }
-        }
-        private static void SetSelectedItems(EditorWindow window, params TreeViewItem[] items) {
-            var treeViewState = GetTreeViewState( window );
-            treeViewState.selectedIDs = items.Select( i => i.id ).ToList();
-        }
+        //private static IEnumerable<TreeViewItem> GetSelectedItems(EditorWindow window) {
+        //    var treeViewState = GetTreeViewState( window );
+        //    var root = GetRootItem( window );
+        //    foreach (var id in treeViewState.selectedIDs) {
+        //        yield return GetDescendantsAndSelf( root ).First( i => i.id == id );
+        //    }
+        //}
+        //private static void SetSelectedItems(EditorWindow window, params TreeViewItem[] items) {
+        //    var treeViewState = GetTreeViewState( window );
+        //    treeViewState.selectedIDs = items.Select( i => i.id ).ToList();
+        //}
         private static bool IsExpanded(EditorWindow window, TreeViewItem item) {
             const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
             //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
