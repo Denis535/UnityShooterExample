@@ -150,36 +150,53 @@ namespace Project {
         }
 
         [MenuItem( "Project/F1 _F1", priority = 601 )]
-        public static async void F1() {
-            var window = GetProjectWindow();
-            var item = GetSelectedItems( window ).FirstOrDefault();
-            if (item != null) {
-                if (!IsExpanded( window, item )) {
-                    SetIsExpandedWithChildren( window, item, false );
-                    SetIsExpanded( window, item, true );
-                    var others = item.parent?.children?.Where( i => i != item ).ToList();
-                    if (others != null && others.Any( i => IsExpanded( window, i ) )) {
-                        await Task.Delay( 250 );
-                        foreach (var other in others) {
-                            SetIsExpandedWithChildren( window, other, false );
+        public static void F1() {
+            //var window = GetProjectWindow();
+            //var item = GetSelectedItems( window ).FirstOrDefault();
+            //if (item != null) {
+            //    if (!IsExpanded( window, item )) {
+            //        SetIsExpandedWithChildren( window, item, false );
+            //        SetIsExpanded( window, item, true );
+            //        var others = item.parent?.children?.Where( i => i != item ).ToList();
+            //        if (others != null && others.Any( i => IsExpanded( window, i ) )) {
+            //            //await Task.Delay( 300 );
+            //            foreach (var other in others) {
+            //                SetIsExpandedWithChildren( window, other, false );
+            //            }
+            //        }
+            //    } else {
+            //        //SetIsExpandedWithChildren( window, item, false );
+            //    }
+            //}
+            //window.Repaint();
+
+            Selection.selectionChanged -= OnSelectionChanged;
+            Selection.selectionChanged += OnSelectionChanged;
+            void OnSelectionChanged() {
+                var window = GetProjectWindow();
+                var item = (TreeViewItem?) GetDescendantsAndSelf( GetRootItem( window ) ).FirstOrDefault( i => i.id == Selection.activeInstanceID );
+                if (item != null) {
+                    if (IsFolder( item )) {
+                        SetIsExpandedWithChildren( window, item, false );
+                        SetIsExpanded( window, item, true );
+                        var others = item.parent?.children?.Where( i => i != item ).ToList();
+                        if (others != null && others.Any( i => IsExpanded( window, i ) )) {
+                            foreach (var other in others) {
+                                SetIsExpandedWithChildren( window, other, false );
+                            }
+                        }
+                    } else {
+                        var others = item.parent?.children?.Where( i => i != item ).ToList();
+                        if (others != null && others.Any( i => IsExpanded( window, i ) )) {
+                            foreach (var other in others) {
+                                SetIsExpandedWithChildren( window, other, false );
+                            }
                         }
                     }
-                } else {
-                    SetIsExpandedWithChildren( window, item, false );
                 }
+                window.Repaint();
             }
-            window.Repaint();
         }
-
-        //[MenuItem( "Project/F3 _F3", priority = 603 )]
-        //public static async void F3() {
-        //    var window = GetProjectWindow();
-        //    for (var i = 0; i < 5; i++) {
-        //        ScrollProjectWindow( window, Vector2.up * 5 );
-        //        window.Repaint();
-        //        await Task.Yield();
-        //    }
-        //}
 
         // Helpers
         private static EditorWindow GetProjectWindow() {
