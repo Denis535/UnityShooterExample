@@ -152,28 +152,55 @@ namespace Project {
         public static async void F1() {
             var window = GetProjectWindow();
             var item = GetDescendantsAndSelf( GetRootItem( window ) ).FirstOrDefault( i => i.id == Selection.activeInstanceID );
-            await ShowAsync( item );
-            async Task ShowAsync(TreeViewItem item) {
-                if (Selection.activeInstanceID != item.id) {
-                    Selection.activeInstanceID = item.id;
-                    window.Repaint();
-                    await Task.Delay( IsFolder( item ) ? 1000 : 1000 );
-                }
-                if (IsFolder( item ) && item.hasChildren) {
-                    SetIsExpandedWithChildren( window, item, false );
-                    SetIsExpanded( window, item, true );
+
+            if (IsFolder( item ) && item.hasChildren && IsExpanded( window, item )) {
+                foreach (var child in item.children) {
+                    Selection.activeInstanceID = child.id;
                     window.Repaint();
                     await Task.Delay( 1000 );
 
-                    item = GetDescendantsAndSelf( GetRootItem( window ) ).FirstOrDefault( i => i.id == item.id );
-                    foreach (var child in item.children) {
-                        await ShowAsync( child );
+                    if (CanExpand( child )) {
+                        SetIsExpandedWithChildren( window, child, false );
+                        SetIsExpanded( window, child, true );
+                        window.Repaint();
+                        await Task.Delay( 1000 );
+
+                        var children2 = GetDescendantsAndSelf( GetRootItem( window ) ).FirstOrDefault( i => i.id == child.id ).children;
+                        foreach (var child2 in children2) {
+                            Selection.activeInstanceID = child2.id;
+                            window.Repaint();
+                            await Task.Delay( 1000 );
+
+                            if (CanExpand( child2 )) {
+                                SetIsExpandedWithChildren( window, child2, false );
+                                SetIsExpanded( window, child2, true );
+                                window.Repaint();
+                                await Task.Delay( 1000 );
+
+                                var children3 = GetDescendantsAndSelf( GetRootItem( window ) ).FirstOrDefault( i => i.id == child2.id ).children;
+                                foreach (var child3 in children3) {
+                                    Selection.activeInstanceID = child3.id;
+                                    window.Repaint();
+                                    await Task.Delay( 1000 );
+                                }
+
+                                SetIsExpandedWithChildren( window, child2, false );
+                                window.Repaint();
+                                await Task.Delay( 1000 );
+                            }
+                        }
+
+                        SetIsExpandedWithChildren( window, child, false );
+                        window.Repaint();
+                        await Task.Delay( 1000 );
                     }
-
-                    SetIsExpandedWithChildren( window, item, false );
-                    window.Repaint();
-                    await Task.Delay( 1000 );
                 }
+                Selection.activeInstanceID = item.id;
+                window.Repaint();
+            }
+
+            static bool CanExpand(TreeViewItem item) {
+                return IsFolder( item ) && item.hasChildren && item.displayName is not "AddressableAssetsData" and not "Prototyping" and not "UIToolkit.ThemeStyleSheet" and not "UIToolkit.ThemeStyleSheet.Editor";
             }
         }
 
