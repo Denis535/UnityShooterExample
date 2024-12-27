@@ -184,15 +184,15 @@ namespace Project {
                                     await Task.Delay( 1000 );
                                 }
 
-                                SetIsExpandedWithChildren( window, child2, false );
-                                window.Repaint();
-                                await Task.Delay( 1000 );
+                                //SetIsExpandedWithChildren( window, child2, false );
+                                //window.Repaint();
+                                //await Task.Delay( 1000 );
                             }
                         }
 
-                        SetIsExpandedWithChildren( window, child, false );
-                        window.Repaint();
-                        await Task.Delay( 1000 );
+                        //SetIsExpandedWithChildren( window, child, false );
+                        //window.Repaint();
+                        //await Task.Delay( 1000 );
                     }
                 }
                 Selection.activeInstanceID = item.id;
@@ -201,6 +201,16 @@ namespace Project {
 
             static bool CanExpand(TreeViewItem item) {
                 return IsFolder( item ) && item.hasChildren && item.displayName is not "AddressableAssetsData" and not "Prototyping" and not "UIToolkit.ThemeStyleSheet" and not "UIToolkit.ThemeStyleSheet.Editor";
+            }
+        }
+
+        [MenuItem( "Project/F3 _F3", priority = 603 )]
+        public static async void F3() {
+            var window = GetProjectWindow();
+            for (var i = 0; i < 50; i++) {
+                ScrollProjectWindow( window, Vector2.up * 2 );
+                window.Repaint();
+                await Task.Yield();
             }
         }
 
