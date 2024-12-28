@@ -30,13 +30,16 @@ namespace Project.Game {
     public partial class PlayerCamera : PlayableCameraBase {
         public record RaycastHit(Vector3 Point, float Distance, GameObject GameObject, EntityBase? Entity);
 
-        private static readonly float DefaultDistance = 1.5f;
+        private static readonly float DefaultAngleX = 30;
         private static readonly float MinAngleX = -88;
         private static readonly float MaxAngleX = +88;
+
+        private static readonly float DefaultDistance = 2;
         private static readonly float MinDistance = 1;
         private static readonly float MaxDistance = 3;
-        private static readonly float RotateInputSensitivity = 6;
-        private static readonly float ZoomInputSensitivity = 12;
+
+        private static readonly float RotateInputSensitivity = 7 / 60f;
+        private static readonly float ZoomInputSensitivity = 10 / 60f;
 
         private PlayableCharacterBase? prevTarget = null;
 
@@ -63,16 +66,16 @@ namespace Project.Game {
             if (InputProvider != null) {
                 var target = InputProvider.GetTarget();
                 if (target != prevTarget) {
-                    Angles = new Vector2( 30, target.transform.eulerAngles.y );
+                    Angles = new Vector2( DefaultAngleX, target.transform.eulerAngles.y );
                     Distance = DefaultDistance;
                 } else {
                     {
-                        var angles = Angles + InputProvider.GetRotateDelta() * RotateInputSensitivity * Time.deltaTime;
+                        var angles = Angles + InputProvider.GetRotateDelta() * RotateInputSensitivity;
                         angles.x = Math.Clamp( angles.x, MinAngleX, MaxAngleX );
                         Angles = angles;
                     }
                     {
-                        var distance = Distance + InputProvider.GetZoomDelta() * ZoomInputSensitivity * Time.deltaTime;
+                        var distance = Distance + InputProvider.GetZoomDelta() * ZoomInputSensitivity;
                         distance = Math.Clamp( distance, MinDistance, MaxDistance );
                         Distance = distance;
                     }
