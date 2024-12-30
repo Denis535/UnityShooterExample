@@ -154,11 +154,12 @@ namespace Project {
             var item = GetSelectedItem( window );
             if (item != null && IsExpanded( window, item )) {
                 foreach (var descendant in GetDescendants( item )) {
-                    SetSelectedItem( window, descendant );
-                    window.Repaint();
-                    await Task.Delay( 500 );
-
-                    if (!IsExpanded( window, descendant ) && IsFolder( descendant ) && descendant.displayName is not "AddressableAssetsData" and not "Prototyping") {
+                    {
+                        SetSelectedItem( window, descendant );
+                        window.Repaint();
+                        await Task.Delay( 500 );
+                    }
+                    if (!IsExpanded( window, descendant ) && IsFolder( descendant ) && descendant.hasChildren && descendant.displayName is not "AddressableAssetsData" and not "Prototyping") {
                         SetIsExpanded( window, descendant, true );
                         window.Repaint();
                         await Task.Delay( 500 );
@@ -167,6 +168,17 @@ namespace Project {
                             SetSelectedItem( window, descendant2 );
                             window.Repaint();
                             await Task.Delay( 150 );
+                        }
+
+                        if (descendant != GetSelectedItem( window )) {
+                            SetSelectedItem( window, descendant );
+                            window.Repaint();
+                            await Task.Delay( 500 );
+                        }
+                        if (IsExpanded( window, descendant )) {
+                            SetIsExpanded( window, descendant, false );
+                            window.Repaint();
+                            await Task.Delay( 500 );
                         }
                     }
                 }
