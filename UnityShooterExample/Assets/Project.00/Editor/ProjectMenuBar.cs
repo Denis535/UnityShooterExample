@@ -6,10 +6,12 @@ namespace Project {
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using UnityEditor;
+    using UnityEditor.IMGUI.Controls;
     using UnityEditor.SceneManagement;
     using UnityEngine;
 
@@ -149,52 +151,31 @@ namespace Project {
         //[MenuItem( "Project/F1 _F1", priority = 601 )]
         //public static async void F1() {
         //    var window = GetProjectWindow();
-        //    var item = GetSelectedItems( window ).FirstOrDefault();
-
+        //    var item = GetSelectedItem( window );
         //    if (item != null && IsFolder( item ) && item.hasChildren && IsExpanded( window, item )) {
-        //        await ShowAsync( window, item.children );
-        //        SetSelectedItems( window );
+        //        await ShowAsync( window, item );
+        //        SetSelectedItem( window, null );
         //        window.Repaint();
         //    }
 
-        //    static async Task ShowAsync(EditorWindow window, IEnumerable<TreeViewItem> children) {
-        //        foreach (var child in children) {
-        //            SetSelectedItems( window, child );
-        //            window.Repaint();
-        //            await Task.Delay( 500 );
+        //    static async Task ShowAsync(EditorWindow window, TreeViewItem item) {
+        //        SetSelectedItem( window, item );
+        //        window.Repaint();
+        //        await Task.Delay( 100 );
 
-        //            if (CanExpand( child )) {
-        //                SetIsExpandedWithChildren( window, child, false );
-        //                SetIsExpanded( window, child, true );
-        //                window.Repaint();
-        //                await Task.Delay( 500 );
-        //                await ShowAsync( window, GetChildren( window, child ) );
+        //        if (item.hasChildren) {
+        //            foreach (var child in item.children) {
+        //                if (child != null) await ShowAsync( window, child );
         //            }
         //        }
-        //    }
-        //    static bool CanExpand(TreeViewItem item) {
-        //        return IsFolder( item ) &&
-        //            item.hasChildren &&
-        //            item.displayName is
-        //            not "AddressableAssetsData"
-        //            and not "Prototyping"
-        //            and not "UIToolkit.ThemeStyleSheet"
-        //            and not "UIToolkit.ThemeStyleSheet.Editor"
-        //            and not "Images"
-        //            and not "Sounds"
-        //            and not "Music"
-        //            and not "Fonts";
-        //    }
-        //    static IEnumerable<TreeViewItem> GetChildren(EditorWindow window, TreeViewItem item) {
-        //        return GetDescendantsAndSelf( GetRootItem( window ) ).FirstOrDefault( i => i.id == item.id ).children;
         //    }
         //}
 
         //[MenuItem( "Project/F3 _F3", priority = 603 )]
         //public static async void F3() {
         //    var window = GetProjectWindow();
-        //    while (true) {
-        //        ScrollProjectWindow( window, Vector2.up * 4 );
+        //    for (var i = 0; i < 300; i++) {
+        //        ScrollProjectWindow( window, Vector2.up * 4f );
         //        window.Repaint();
         //        await Task.Yield();
         //    }
@@ -347,21 +328,16 @@ namespace Project {
         //    var treeViewDataSource = GetTreeViewDataSource( window );
         //    return (TreeViewItem) treeViewDataSource.GetType().GetField( "m_RootItem", InstanceFlags ).GetValue( treeViewDataSource );
         //}
-        //private static IEnumerable<TreeViewItem> GetSelectedItems(EditorWindow window) {
-        //    //var treeViewState = GetTreeViewState( window );
-        //    //var root = GetRootItem( window );
-        //    //foreach (var id in treeViewState.selectedIDs) {
-        //    //    yield return GetDescendantsAndSelf( root ).First( i => i.id == id );
-        //    //}
+        //private static TreeViewItem? GetSelectedItem(EditorWindow window) {
         //    var root = GetRootItem( window );
-        //    foreach (var id in Selection.instanceIDs) {
-        //        yield return GetDescendantsAndSelf( root ).First( i => i.id == id );
-        //    }
+        //    return GetDescendantsAndSelf( root ).FirstOrDefault( i => i.id == Selection.activeInstanceID );
         //}
-        //private static void SetSelectedItems(EditorWindow window, params TreeViewItem[] items) {
-        //    //var treeViewState = GetTreeViewState( window );
-        //    //treeViewState.selectedIDs = items.Select( i => i.id ).ToList();
-        //    Selection.instanceIDs = items.Select( i => i.id ).ToArray();
+        //private static void SetSelectedItem(EditorWindow window, TreeViewItem? item) {
+        //    if (item != null) {
+        //        Selection.activeInstanceID = item.id;
+        //    } else {
+        //        Selection.activeObject = null;
+        //    }
         //}
         //private static bool IsExpanded(EditorWindow window, TreeViewItem item) {
         //    const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
