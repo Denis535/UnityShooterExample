@@ -6,12 +6,10 @@ namespace Project {
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Reflection;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using UnityEditor;
-    using UnityEditor.IMGUI.Controls;
     using UnityEditor.SceneManagement;
     using UnityEngine;
 
@@ -134,62 +132,63 @@ namespace Project {
             }
         }
 
-        [MenuItem( "Project/Reset Project Window", priority = 600 )]
-        public static void ResetProjectWindow() {
-            var window = GetProjectWindow();
-            var root = GetRootItem( window );
-            foreach (var descendant in GetDescendants( root )) {
-                if (descendant.displayName is "Assets" or "Packages") {
-                    SetIsExpanded( window, descendant, true );
-                } else {
-                    SetIsExpanded( window, descendant, false );
-                }
-            }
-            window.Repaint();
-        }
+        //[MenuItem( "Project/Reset Project Window", priority = 600 )]
+        //public static void ResetProjectWindow() {
+        //    var window = GetProjectWindow();
+        //    var root = GetRootItem( window );
+        //    foreach (var descendant in GetDescendants( root )) {
+        //        if (descendant.displayName is "Assets" or "Packages") {
+        //            SetIsExpanded( window, descendant, true );
+        //        } else {
+        //            SetIsExpanded( window, descendant, false );
+        //        }
+        //    }
+        //    window.Repaint();
+        //}
 
-        [MenuItem( "Project/F1 _F1", priority = 601 )]
-        public static async void F1() {
-            var window = GetProjectWindow();
-            var item = GetSelectedItems( window ).FirstOrDefault();
-            if (item != null && IsExpanded( window, item )) {
-                foreach (var descendant in GetDescendants( item )) {
-                    {
-                        SetSelectedItems( window, descendant );
-                        window.Repaint();
-                        await Task.Delay( 500 );
-                    }
-                    if (!IsExpanded( window, descendant ) && IsFolder( descendant ) && descendant.hasChildren && descendant.displayName is not "AddressableAssetsData" and not "Prototyping") {
-                        SetIsExpanded( window, descendant, true );
-                        window.Repaint();
-                        await Task.Delay( 500 );
+        //[MenuItem( "Project/F1 _F1", priority = 601 )]
+        //public static async void F1() {
+        //    var window = GetProjectWindow();
+        //    var item = GetSelectedItems( window ).FirstOrDefault();
+        //    if (item != null && IsExpanded( window, item )) {
+        //        foreach (var descendant in GetDescendants( item )) {
+        //            {
+        //                SetSelectedItems( window, item, descendant );
+        //                window.Repaint();
+        //                await Task.Delay( 500 );
+        //            }
+        //            if (!IsExpanded( window, descendant ) && IsFolder( descendant ) && descendant.hasChildren && descendant.displayName is not "AddressableAssetsData" and not "Prototyping") {
+        //                SetIsExpanded( window, descendant, true );
+        //                window.Repaint();
+        //                await Task.Delay( 500 );
 
-                        foreach (var descendant2 in GetDescendants( GetItem( window, descendant.id ) )) {
-                            SetSelectedItems( window, descendant, descendant2 );
-                            window.Repaint();
-                            await Task.Delay( 150 );
-                        }
+        //                foreach (var descendant2 in GetDescendants( GetItem( window, descendant.id ) )) {
+        //                    SetSelectedItems( window, item, descendant, descendant2 );
+        //                    window.Repaint();
+        //                    await Task.Delay( 150 );
+        //                }
 
-                        if (IsExpanded( window, descendant )) {
-                            await Task.Delay( 500 );
-                            SetSelectedItems( window, descendant );
-                            window.Repaint();
-                            await Task.Delay( 500 );
-                            SetIsExpanded( window, descendant, false );
-                            window.Repaint();
-                            await Task.Delay( 500 );
-                        }
-                    }
-                }
-            }
-        }
+        //                if (IsExpanded( window, descendant )) {
+        //                    await Task.Delay( 500 );
+        //                    SetSelectedItems( window, item, descendant );
+        //                    window.Repaint();
+        //                    await Task.Delay( 500 );
+        //                    SetIsExpanded( window, descendant, false );
+        //                    window.Repaint();
+        //                    await Task.Delay( 500 );
+        //                }
+        //            }
+        //        }
+        //        SetSelectedItems( window, item );
+        //    }
+        //}
 
-        [MenuItem( "Project/F3 _F3", priority = 603 )]
-        public static void F3() {
-            var window = GetProjectWindow();
-            ScrollProjectWindow( window, Vector2.up * 500f );
-            window.Repaint();
-        }
+        //[MenuItem( "Project/F3 _F3", priority = 603 )]
+        //public static void F3() {
+        //    var window = GetProjectWindow();
+        //    ScrollProjectWindow( window, Vector2.up * 500f );
+        //    window.Repaint();
+        //}
 
         // Helpers
         private static IEnumerable<string> GetProjectAssets_CSharp() {
@@ -323,85 +322,85 @@ namespace Project {
             return paths1.Concat( paths2 ).Concat( paths3 ).Concat( paths4 ).Concat( paths5 );
         }
         // Helpers
-        private static EditorWindow GetProjectWindow() {
-            //const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-            const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-            return (EditorWindow) typeof( EditorWindow ).Assembly.GetType( "UnityEditor.ProjectBrowser" ).GetField( "s_LastInteractedProjectBrowser", StaticFlags ).GetValue( null ) ?? throw new NullReferenceException( "Field 's_LastInteractedProjectBrowser' is null" );
-        }
-        private static void ScrollProjectWindow(EditorWindow window, Vector2 delta) {
-            var treeViewState = GetTreeViewState( window );
-            treeViewState.scrollPos += delta;
-        }
-        private static TreeViewItem GetRootItem(EditorWindow window) {
-            const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-            //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-            var treeViewDataSource = GetTreeViewDataSource( window );
-            return (TreeViewItem) treeViewDataSource.GetType().GetField( "m_RootItem", InstanceFlags ).GetValue( treeViewDataSource );
-        }
-        private static TreeViewItem GetItem(EditorWindow window, int id) {
-            return GetDescendantsAndSelf( GetRootItem( window ) ).First( i => i.id == id );
-        }
-        private static TreeViewItem[] GetSelectedItems(EditorWindow window) {
-            var items = GetDescendantsAndSelf( GetRootItem( window ) );
-            return items.Where( i => i.id == Selection.activeInstanceID ).ToArray();
-        }
-        private static void SetSelectedItems(EditorWindow window, params TreeViewItem[] items) {
-            Selection.instanceIDs = items.Select( i => i.id ).ToArray();
-        }
-        private static bool IsExpanded(EditorWindow window, TreeViewItem item) {
-            const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-            //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-            var treeViewDataSource = GetTreeViewDataSource( window );
-            return (bool) treeViewDataSource.GetType().GetMethod( "IsExpanded", 0, InstanceFlags, null, new[] { typeof( int ) }, null ).Invoke( treeViewDataSource, new object?[] { item.id } );
-        }
-        private static void SetIsExpanded(EditorWindow window, TreeViewItem item, bool isExpanded) {
-            const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-            //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-            var treeViewDataSource = GetTreeViewDataSource( window );
-            treeViewDataSource.GetType().GetMethod( "SetExpanded", 0, InstanceFlags, null, new[] { typeof( int ), typeof( bool ) }, null ).Invoke( treeViewDataSource, new object?[] { item.id, isExpanded } );
-        }
-        private static void SetIsExpandedWithChildren(EditorWindow window, TreeViewItem item, bool isExpanded) {
-            const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-            //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-            var treeViewDataSource = GetTreeViewDataSource( window );
-            treeViewDataSource.GetType().GetMethod( "SetExpandedWithChildren", 0, InstanceFlags, null, new[] { typeof( int ), typeof( bool ) }, null ).Invoke( treeViewDataSource, new object?[] { item.id, isExpanded } );
-        }
-        //private static void SetExpandedItems(EditorWindow window, params TreeViewItem[] items) {
+        //private static EditorWindow GetProjectWindow() {
+        //    //const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+        //    const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+        //    return (EditorWindow) typeof( EditorWindow ).Assembly.GetType( "UnityEditor.ProjectBrowser" ).GetField( "s_LastInteractedProjectBrowser", StaticFlags ).GetValue( null ) ?? throw new NullReferenceException( "Field 's_LastInteractedProjectBrowser' is null" );
+        //}
+        //private static void ScrollProjectWindow(EditorWindow window, Vector2 delta) {
+        //    var treeViewState = GetTreeViewState( window );
+        //    treeViewState.scrollPos += delta;
+        //}
+        //private static TreeViewItem GetRootItem(EditorWindow window) {
         //    const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
         //    //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
         //    var treeViewDataSource = GetTreeViewDataSource( window );
-        //    treeViewDataSource.GetType().GetMethod( "SetExpandedIDs", InstanceFlags ).Invoke( treeViewDataSource, new object?[] { items.Select( i => i.id ).ToArray() } );
+        //    return (TreeViewItem) treeViewDataSource.GetType().GetField( "m_RootItem", InstanceFlags ).GetValue( treeViewDataSource );
         //}
-        private static object GetTreeView(EditorWindow window) {
-            const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-            //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-            return window.GetType().GetField( "m_AssetTree", InstanceFlags ).GetValue( window ) ?? throw new NullReferenceException( "Field 'm_AssetTree' is null" );
-        }
-        private static object GetTreeViewDataSource(EditorWindow window) {
-            const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-            //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-            var treeView = GetTreeView( window );
-            return treeView.GetType().GetProperty( "data", InstanceFlags ).GetValue( treeView ) ?? throw new NullReferenceException( "Property 'data' is null" );
-        }
-        private static TreeViewState GetTreeViewState(EditorWindow window) {
-            const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-            //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-            return (TreeViewState) window.GetType().GetField( "m_AssetTreeState", InstanceFlags ).GetValue( window );
-        }
-        private static IEnumerable<TreeViewItem> GetDescendants(TreeViewItem item) {
-            if (item.hasChildren) {
-                foreach (var child in item.children.OfType<TreeViewItem>()) {
-                    yield return child;
-                    foreach (var i in GetDescendants( child )) yield return i;
-                }
-            }
-        }
-        private static IEnumerable<TreeViewItem> GetDescendantsAndSelf(TreeViewItem item) {
-            return GetDescendants( item ).Prepend( item );
-        }
-        private static bool IsFolder(TreeViewItem item) {
-            return item.icon.name == "d_Folder Icon";
-        }
+        //private static TreeViewItem GetItem(EditorWindow window, int id) {
+        //    return GetDescendantsAndSelf( GetRootItem( window ) ).First( i => i.id == id );
+        //}
+        //private static TreeViewItem[] GetSelectedItems(EditorWindow window) {
+        //    var items = GetDescendantsAndSelf( GetRootItem( window ) );
+        //    return items.Where( i => i.id == Selection.activeInstanceID ).ToArray();
+        //}
+        //private static void SetSelectedItems(EditorWindow window, params TreeViewItem[] items) {
+        //    Selection.instanceIDs = items.Select( i => i.id ).ToArray();
+        //}
+        //private static bool IsExpanded(EditorWindow window, TreeViewItem item) {
+        //    const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+        //    //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+        //    var treeViewDataSource = GetTreeViewDataSource( window );
+        //    return (bool) treeViewDataSource.GetType().GetMethod( "IsExpanded", 0, InstanceFlags, null, new[] { typeof( int ) }, null ).Invoke( treeViewDataSource, new object?[] { item.id } );
+        //}
+        //private static void SetIsExpanded(EditorWindow window, TreeViewItem item, bool isExpanded) {
+        //    const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+        //    //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+        //    var treeViewDataSource = GetTreeViewDataSource( window );
+        //    treeViewDataSource.GetType().GetMethod( "SetExpanded", 0, InstanceFlags, null, new[] { typeof( int ), typeof( bool ) }, null ).Invoke( treeViewDataSource, new object?[] { item.id, isExpanded } );
+        //}
+        //private static void SetIsExpandedWithChildren(EditorWindow window, TreeViewItem item, bool isExpanded) {
+        //    const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+        //    //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+        //    var treeViewDataSource = GetTreeViewDataSource( window );
+        //    treeViewDataSource.GetType().GetMethod( "SetExpandedWithChildren", 0, InstanceFlags, null, new[] { typeof( int ), typeof( bool ) }, null ).Invoke( treeViewDataSource, new object?[] { item.id, isExpanded } );
+        //}
+        ////private static void SetExpandedItems(EditorWindow window, params TreeViewItem[] items) {
+        ////    const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+        ////    //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+        ////    var treeViewDataSource = GetTreeViewDataSource( window );
+        ////    treeViewDataSource.GetType().GetMethod( "SetExpandedIDs", InstanceFlags ).Invoke( treeViewDataSource, new object?[] { items.Select( i => i.id ).ToArray() } );
+        ////}
+        //private static object GetTreeView(EditorWindow window) {
+        //    const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+        //    //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+        //    return window.GetType().GetField( "m_AssetTree", InstanceFlags ).GetValue( window ) ?? throw new NullReferenceException( "Field 'm_AssetTree' is null" );
+        //}
+        //private static object GetTreeViewDataSource(EditorWindow window) {
+        //    const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+        //    //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+        //    var treeView = GetTreeView( window );
+        //    return treeView.GetType().GetProperty( "data", InstanceFlags ).GetValue( treeView ) ?? throw new NullReferenceException( "Property 'data' is null" );
+        //}
+        //private static TreeViewState GetTreeViewState(EditorWindow window) {
+        //    const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+        //    //const BindingFlags StaticFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+        //    return (TreeViewState) window.GetType().GetField( "m_AssetTreeState", InstanceFlags ).GetValue( window );
+        //}
+        //private static IEnumerable<TreeViewItem> GetDescendants(TreeViewItem item) {
+        //    if (item.hasChildren) {
+        //        foreach (var child in item.children.OfType<TreeViewItem>()) {
+        //            yield return child;
+        //            foreach (var i in GetDescendants( child )) yield return i;
+        //        }
+        //    }
+        //}
+        //private static IEnumerable<TreeViewItem> GetDescendantsAndSelf(TreeViewItem item) {
+        //    return GetDescendants( item ).Prepend( item );
+        //}
+        //private static bool IsFolder(TreeViewItem item) {
+        //    return item.icon.name == "d_Folder Icon";
+        //}
 
     }
 }
