@@ -151,11 +151,11 @@ namespace Project {
         [MenuItem( "Project/F1 _F1", priority = 601 )]
         public static async void F1() {
             var window = GetProjectWindow();
-            var item = GetSelectedItem( window );
+            var item = GetSelectedItems( window ).FirstOrDefault();
             if (item != null && IsExpanded( window, item )) {
                 foreach (var descendant in GetDescendants( item )) {
                     {
-                        SetSelectedItem( window, descendant );
+                        SetSelectedItems( window, descendant );
                         window.Repaint();
                         await Task.Delay( 500 );
                     }
@@ -165,17 +165,16 @@ namespace Project {
                         await Task.Delay( 500 );
 
                         foreach (var descendant2 in GetDescendants( GetItem( window, descendant.id ) )) {
-                            SetSelectedItem( window, descendant2 );
+                            SetSelectedItems( window, descendant, descendant2 );
                             window.Repaint();
                             await Task.Delay( 150 );
                         }
 
-                        if (descendant != GetSelectedItem( window )) {
-                            SetSelectedItem( window, descendant );
+                        if (IsExpanded( window, descendant )) {
+                            await Task.Delay( 500 );
+                            SetSelectedItems( window, descendant );
                             window.Repaint();
                             await Task.Delay( 500 );
-                        }
-                        if (IsExpanded( window, descendant )) {
                             SetIsExpanded( window, descendant, false );
                             window.Repaint();
                             await Task.Delay( 500 );
@@ -186,13 +185,10 @@ namespace Project {
         }
 
         [MenuItem( "Project/F3 _F3", priority = 603 )]
-        public static async void F3() {
+        public static void F3() {
             var window = GetProjectWindow();
-            for (var i = 0; i < 1000; i++) {
-                ScrollProjectWindow( window, Vector2.up * 10f );
-                window.Repaint();
-                await Task.Yield();
-            }
+            ScrollProjectWindow( window, Vector2.up * 500f );
+            window.Repaint();
         }
 
         // Helpers
@@ -345,16 +341,12 @@ namespace Project {
         private static TreeViewItem GetItem(EditorWindow window, int id) {
             return GetDescendantsAndSelf( GetRootItem( window ) ).First( i => i.id == id );
         }
-        private static TreeViewItem? GetSelectedItem(EditorWindow window) {
-            var root = GetRootItem( window );
-            return GetDescendantsAndSelf( root ).FirstOrDefault( i => i.id == Selection.activeInstanceID );
+        private static TreeViewItem[] GetSelectedItems(EditorWindow window) {
+            var items = GetDescendantsAndSelf( GetRootItem( window ) );
+            return items.Where( i => i.id == Selection.activeInstanceID ).ToArray();
         }
-        private static void SetSelectedItem(EditorWindow window, TreeViewItem? item) {
-            if (item != null) {
-                Selection.activeInstanceID = item.id;
-            } else {
-                Selection.activeObject = null;
-            }
+        private static void SetSelectedItems(EditorWindow window, params TreeViewItem[] items) {
+            Selection.instanceIDs = items.Select( i => i.id ).ToArray();
         }
         private static bool IsExpanded(EditorWindow window, TreeViewItem item) {
             const BindingFlags InstanceFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
