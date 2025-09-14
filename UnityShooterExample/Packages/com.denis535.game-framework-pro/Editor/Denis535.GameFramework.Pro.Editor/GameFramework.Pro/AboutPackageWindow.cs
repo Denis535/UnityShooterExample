@@ -11,7 +11,7 @@ namespace GameFramework.Pro {
 
         // Constructor
         public AboutPackageWindow() {
-            titleContent = new GUIContent( "About Clean Architecture Game Framework package" );
+            titleContent = new GUIContent( "About Game Framework Pro package" );
             minSize = maxSize = new Vector2( 1200, 800 );
         }
 

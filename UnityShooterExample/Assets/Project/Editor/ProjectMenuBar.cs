@@ -108,9 +108,9 @@ namespace Project {
             UnityEditor.PackageManager.Client.Embed( "com.denis535.addressables-source-generator" );
         }
 
-        [MenuItem( "Project/Embed Package/com.denis535.clean-architecture-game-framework", priority = 402 )]
-        public static void EmbedPackage_CleanArchitectureGameFramework() {
-            UnityEditor.PackageManager.Client.Embed( "com.denis535.clean-architecture-game-framework" );
+        [MenuItem( "Project/Embed Package/com.denis535.game-framework-pro", priority = 402 )]
+        public static void EmbedPackage_GameFrameworkPro() {
+            UnityEditor.PackageManager.Client.Embed( "com.denis535.game-framework-pro" );
         }
 
         [MenuItem( "Project/Embed Package/com.denis535.colorful-project-window", priority = 403 )]

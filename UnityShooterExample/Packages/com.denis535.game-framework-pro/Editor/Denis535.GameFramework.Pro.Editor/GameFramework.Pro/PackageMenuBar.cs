@@ -12,14 +12,14 @@ namespace GameFramework.Pro {
     public static class PackageMenuBar {
 
         // TakeScreenshot
-        [MenuItem( "Tools/Clean Architecture Game Framework/Take Screenshot (Game) _F12", priority = 0 )]
+        [MenuItem( "Tools/Game Framework Pro/Take Screenshot (Game) _F12", priority = 0 )]
         internal static void TakeScreenshot_Game() {
             var path = $"Screenshots/{Application.productName}-{DateTime.UtcNow.Ticks}.png";
             ScreenCapture.CaptureScreenshot( path, 1 );
             EditorApplication.Beep();
             EditorUtility.RevealInFinder( path );
         }
-        [MenuItem( "Tools/Clean Architecture Game Framework/Take Screenshot (Editor) &F12", priority = 1 )]
+        [MenuItem( "Tools/Game Framework Pro/Take Screenshot (Editor) &F12", priority = 1 )]
         internal static void TakeScreenshot_Editor() {
             var position = EditorGUIUtility.GetMainWindowPosition();
             var texture = new Texture2D( (int) position.width, (int) position.height );
@@ -35,7 +35,7 @@ namespace GameFramework.Pro {
         }
 
         // AboutPackage
-        [MenuItem( "Tools/Clean Architecture Game Framework/About Package", priority = 1_000_000 )]
+        [MenuItem( "Tools/Game Framework Pro/About Package", priority = 1_000_000 )]
         public static void AboutPackage() {
             _ = EditorWindow.GetWindow<AboutPackageWindow>();
         }
