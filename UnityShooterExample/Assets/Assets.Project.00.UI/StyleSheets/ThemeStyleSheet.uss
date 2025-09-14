@@ -1,0 +1,18 @@
+.main-widget-view-background {
+  background-image: url('project://database/Assets/Assets.Project.00.UI.00.Main/Images/Background.png');
+  -unity-background-scale-mode: scale-and-crop;
+}
+.loading-widget-view-background {
+  background-image: url('project://database/Assets/Assets.Project.00.UI.00.Main/Images/Background.png');
+  -unity-background-scale-mode: scale-and-crop;
+  transition-property: -unity-background-image-tint-color, translate, rotate, scale;
+  transition-duration: 10s;
+  transition-timing-function: ease;
+}
+.unloading-widget-view-background {
+  background-image: url('project://database/Assets/Assets.Project.00.UI.00.Main/Images/Background.png');
+  -unity-background-scale-mode: scale-and-crop;
+  transition-property: -unity-background-image-tint-color, translate, rotate, scale;
+  transition-duration: 1s;
+  transition-timing-function: ease;
+}

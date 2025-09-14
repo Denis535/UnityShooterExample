@@ -31,12 +31,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8251838560314614e9a9acfabad511f5
-    m_Address: Project.UI.GameScreen
+    m_Address: Project.UI.Game
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 925374fb0fa1f8e40b9210efb3615f67
-    m_Address: Project.UI.MainScreen
+    m_Address: Project.UI.Main
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
