@@ -5,12 +5,13 @@ namespace UnityEngine.Framework {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Threading;
-    using System.TreeMachine;
+    using System.TreeMachine.Pro;
     using UnityEngine;
 
-    public abstract class WidgetBase : NodeBase4<WidgetBase>, IDisposable {
+    public abstract class WidgetBase : NodeBase2, IDisposable {
 
         private CancellationTokenSource? disposeCancellationTokenSource;
+        private readonly ScreenBase screen;
 
         // System
         public bool IsDisposed { get; private set; }
@@ -24,11 +25,11 @@ namespace UnityEngine.Framework {
             }
         }
         // Screen
-        protected ScreenBase? Screen {
+        protected ScreenBase Screen {
             get {
                 Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                Assert.Operation.Message( $"Widget {this} must be active or activating or deactivating" ).Valid( Activity is Activity_.Active or Activity_.Activating or Activity_.Deactivating );
-                return (ScreenBase?) Tree;
+                Assert.Operation.Message( $"Widget {this} must be active or activating or deactivating" ).Valid( Activity is Activity.Active or Activity.Activating or Activity.Deactivating );
+                return screen;
             }
         }
         // View
@@ -53,7 +54,8 @@ namespace UnityEngine.Framework {
         }
 
         // Constructor
-        public WidgetBase() {
+        public WidgetBase(ScreenBase screen) {
+            this.screen = screen;
         }
         ~WidgetBase() {
 #if DEBUG
@@ -67,7 +69,7 @@ namespace UnityEngine.Framework {
                 Assert.Operation.Message( $"Child {child} must be disposed" ).Valid( child.IsDisposed );
             }
             Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"Widget {this} must be inactive" ).Valid( Activity is Activity_.Inactive );
+            Assert.Operation.Message( $"Widget {this} must be inactive" ).Valid( Activity is Activity.Inactive );
             disposeCancellationTokenSource?.Cancel();
             IsDisposed = true;
         }

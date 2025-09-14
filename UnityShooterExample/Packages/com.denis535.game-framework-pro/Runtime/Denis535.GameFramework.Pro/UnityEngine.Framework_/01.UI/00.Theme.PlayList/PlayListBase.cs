@@ -3,14 +3,15 @@ namespace UnityEngine.Framework {
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.StateMachine;
+    using System.StateMachine.Pro;
     using System.Threading;
     using System.Threading.Tasks;
     using UnityEngine;
 
-    public abstract class PlayListBase : StateBase2<PlayListBase>, IDisposable {
+    public abstract class PlayListBase : StateBase, IDisposable {
 
         private CancellationTokenSource? disposeCancellationTokenSource;
+        private readonly ThemeBase theme;
 
         // System
         public bool IsDisposed { get; private set; }
@@ -27,8 +28,8 @@ namespace UnityEngine.Framework {
         protected ThemeBase? Theme {
             get {
                 Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                Assert.Operation.Message( $"PlayList {this} must be active or activating or deactivating" ).Valid( Activity is Activity_.Active or Activity_.Activating or Activity_.Deactivating );
-                return (ThemeBase?) Stateful;
+                Assert.Operation.Message( $"PlayList {this} must be active or activating or deactivating" ).Valid( Activity is Activity.Active or Activity.Activating or Activity.Deactivating );
+                return theme;
             }
         }
         // IsRunning
@@ -82,7 +83,8 @@ namespace UnityEngine.Framework {
         }
 
         // Constructor
-        public PlayListBase() {
+        public PlayListBase(ThemeBase theme) {
+            this.theme = theme;
         }
         ~PlayListBase() {
 #if DEBUG
@@ -93,7 +95,7 @@ namespace UnityEngine.Framework {
         }
         public virtual void Dispose() {
             Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"PlayList {this} must be inactive" ).Valid( Activity is Activity_.Inactive );
+            Assert.Operation.Message( $"PlayList {this} must be inactive" ).Valid( Activity is Activity.Inactive );
             disposeCancellationTokenSource?.Cancel();
             IsDisposed = true;
         }

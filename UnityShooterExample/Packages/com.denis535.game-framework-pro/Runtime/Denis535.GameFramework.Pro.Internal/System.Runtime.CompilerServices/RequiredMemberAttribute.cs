@@ -6,6 +6,6 @@ namespace System.Runtime.CompilerServices {
     using System.Text;
 
     [EditorBrowsable( EditorBrowsableState.Never )]
-    public class IsExternalInit {
+    public class RequiredMemberAttribute : Attribute {
     }
 }

@@ -12,9 +12,24 @@ namespace Project.Game {
         private IReadOnlyList<EnemyPoint> enemyPoints = default!;
         private IReadOnlyList<ThingPoint> thingPoints = default!;
 
-        public IReadOnlyList<PlayerPoint> PlayerPoints => this.Chain( i => i.ThrowIfInvalid() ).playerPoints;
-        public IReadOnlyList<EnemyPoint> EnemyPoints => this.Chain( i => i.ThrowIfInvalid() ).enemyPoints;
-        public IReadOnlyList<ThingPoint> ThingPoints => this.Chain( i => i.ThrowIfInvalid() ).thingPoints;
+        public IReadOnlyList<PlayerPoint> PlayerPoints {
+            get {
+                this.ThrowIfInvalid();
+                return this.playerPoints;
+            }
+        }
+        public IReadOnlyList<EnemyPoint> EnemyPoints {
+            get {
+                this.ThrowIfInvalid();
+                return this.enemyPoints;
+            }
+        }
+        public IReadOnlyList<ThingPoint> ThingPoints {
+            get {
+                this.ThrowIfInvalid();
+                return this.thingPoints;
+            }
+        }
 
 #if UNITY_EDITOR
         //public void OnValidate() {
