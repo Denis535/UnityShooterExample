@@ -1,5 +1,5 @@
 #nullable enable
-namespace CleanArchitectureGameFramework {
+namespace GameFramework.Pro {
     using System;
     using System.Collections;
     using System.Collections.Generic;
