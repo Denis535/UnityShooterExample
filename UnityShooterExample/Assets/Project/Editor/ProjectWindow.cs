@@ -30,7 +30,7 @@ namespace Project {
 
         protected override void DrawElement(Rect rect, string path) {
             base.DrawElement( rect, path );
-            if (path.Equals( "Assets/Assets.Project" ) || path.StartsWith( "Assets/Assets.Project." )) {
+            if (path.Equals( "Assets/Assets" ) || path.Equals( "Assets/Assets.Project" ) || path.StartsWith( "Assets/Assets.Project." )) {
                 Highlight( rect, Settings.AssetsColor, path.Count( i => i == '/' ) >= 2 );
                 if (rect.height == 16 && path.Count( i => i == '/' ) == 1) {
                     if (path.Equals( "Assets/Assets.Project" )) {
