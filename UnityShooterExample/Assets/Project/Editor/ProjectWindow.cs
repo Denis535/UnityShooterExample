@@ -118,7 +118,7 @@ namespace Project {
             var patterns = new[] {
                 "Packages/com.denis535.addressables-extensions",
                 "Packages/com.denis535.addressables-source-generator",
-                "Packages/com.denis535.clean-architecture-game-framework",
+                "Packages/com.denis535.game-framework-pro",
                 "Packages/com.denis535.colorful-project-window",
                 "Packages/com.denis535.uitoolkit-theme-style-sheet",
             };
@@ -138,11 +138,11 @@ namespace Project {
                     "Packages/com.denis535.addressables-extensions/Runtime/Denis535.Addressables.Extensions",
                     // com.denis535.addressables-source-generator
                     "Packages/com.denis535.addressables-source-generator/Editor/Denis535.Addressables.SourceGenerator",
-                    // com.denis535.clean-architecture-game-framewor
-                    "Packages/com.denis535.clean-architecture-game-framework/Runtime/Denis535.CleanArchitectureGameFramework",
-                    "Packages/com.denis535.clean-architecture-game-framework/Runtime/Denis535.CleanArchitectureGameFramework.Additions",
-                    "Packages/com.denis535.clean-architecture-game-framework/Runtime/Denis535.CleanArchitectureGameFramework.Internal",
-                    "Packages/com.denis535.clean-architecture-game-framework/Editor/Denis535.CleanArchitectureGameFramework.Editor", 
+                    // com.denis535.game-frameworl-pro
+                    "Packages/com.denis535.game-framework-pro/Runtime/Denis535.GameFramework.Pro",
+                    "Packages/com.denis535.game-framework-pro/Runtime/Denis535.GameFramework.Pro.Additions",
+                    "Packages/com.denis535.game-framework-pro/Runtime/Denis535.GameFramework.Pro.Internal",
+                    "Packages/com.denis535.game-framework-pro/Editor/Denis535.GameFramework.Pro.Editor", 
                     // com.denis535.colorful-project-window
                     "Packages/com.denis535.colorful-project-window/Editor/Denis535.ColorfulProjectWindow", 
                     // com.denis535.uitoolkit-theme-style-sheet
