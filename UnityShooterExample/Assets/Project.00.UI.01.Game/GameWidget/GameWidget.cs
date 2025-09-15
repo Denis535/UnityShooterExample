@@ -4,6 +4,7 @@ namespace Project.UI {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using System.TreeMachine.Pro;
     using Project.Game;
     using UnityEngine;
     using UnityEngine.Framework;
@@ -27,14 +28,14 @@ namespace Project.UI {
                         if (Game.Player.State is PlayerState.Winner) {
                             if (Game.Info.Level.IsLast()) {
                                 await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
-                                AddChild( new GameTotalsWidget_GameCompleted( Container ), null );
+                                Node.AddChild( new GameTotalsWidget_GameCompleted( Container ).Node, null );
                             } else {
                                 await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
-                                AddChild( new GameTotalsWidget_LevelCompleted( Container ), null );
+                                Node.AddChild( new GameTotalsWidget_LevelCompleted( Container ).Node, null );
                             }
                         } else if (Game.Player.State is PlayerState.Loser) {
                             await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
-                            AddChild( new GameTotalsWidget_LevelFailed( Container ), null );
+                            Node.AddChild( new GameTotalsWidget_LevelFailed( Container ).Node, null );
                         } else {
                             throw Exceptions.Internal.NotSupported( $"PlayerState {Game.Player.State} is not supported" );
                         }
@@ -49,11 +50,11 @@ namespace Project.UI {
                     View.Focus();
                 }
             };
-            AddChild( new PlayerWidget( Container ), null );
+            Node.AddChild( new PlayerWidget( Container ).Node, null );
         }
         public override void Dispose() {
-            foreach (var child in Children) {
-                child.Dispose();
+            foreach (var child in Node.Children) {
+                child.Widget().Dispose();
             }
             Input.Dispose();
             View.Dispose();
@@ -71,23 +72,23 @@ namespace Project.UI {
             HideSelf();
         }
 
-        protected override void OnBeforeDescendantActivate(WidgetBase descendant, object? argument) {
-            Game.IsPaused = Children.Any( i => i is GameMenuWidget );
-            IsCursorVisible = Children.Any( i => i is GameMenuWidget or GameTotalsWidget_LevelCompleted or GameTotalsWidget_LevelFailed or GameTotalsWidget_GameCompleted );
+        protected override void OnBeforeDescendantActivate(NodeBase descendant, object? argument) {
+            Game.IsPaused = Node.Children.Any( i => i.Widget() is GameMenuWidget );
+            IsCursorVisible = Node.Children.Any( i => i.Widget() is GameMenuWidget or GameTotalsWidget_LevelCompleted or GameTotalsWidget_LevelFailed or GameTotalsWidget_GameCompleted );
         }
-        //protected override void OnAfterDescendantActivate(UIWidgetBase descendant, object? argument) {
+        //protected override void OnAfterDescendantActivate(NodeBase descendant, object? argument) {
         //}
-        //protected override void OnBeforeDescendantDeactivate(UIWidgetBase descendant, object? argument) {
+        //protected override void OnBeforeDescendantDeactivate(NodeBase descendant, object? argument) {
         //}
-        protected override void OnAfterDescendantDeactivate(WidgetBase descendant, object? argument) {
-            if (Activity is Activity_.Active) {
-                IsCursorVisible = Children.Where( i => i.Activity is Activity_.Active ).Any( i => i is GameMenuWidget or GameTotalsWidget_LevelCompleted or GameTotalsWidget_LevelFailed or GameTotalsWidget_GameCompleted );
-                Game.IsPaused = Children.Where( i => i.Activity is Activity_.Active ).Any( i => i is GameMenuWidget );
+        protected override void OnAfterDescendantDeactivate(NodeBase descendant, object? argument) {
+            if (Node.Activity is Activity.Active) {
+                IsCursorVisible = Node.Children.Where( i => i.Activity is Activity.Active ).Any( i => i.Widget() is GameMenuWidget or GameTotalsWidget_LevelCompleted or GameTotalsWidget_LevelFailed or GameTotalsWidget_GameCompleted );
+                Game.IsPaused = Node.Children.Where( i => i.Activity is Activity.Active ).Any( i => i.Widget() is GameMenuWidget );
             }
         }
 
-        protected override void Sort(List<WidgetBase> children) {
-            children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( a ), GetOrderOf( b ) ) );
+        protected override void Sort(List<NodeBase> children) {
+            children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( a.Widget() ), GetOrderOf( b.Widget() ) ) );
         }
         private static int GetOrderOf(WidgetBase widget) {
             return widget switch {
@@ -101,8 +102,8 @@ namespace Project.UI {
         }
 
         public void OnUpdate() {
-            foreach (var child in Children) {
-                if (child is PlayerWidget playerWidget) {
+            foreach (var child in Node.Children) {
+                if (child.Widget() is PlayerWidget playerWidget) {
                     playerWidget.OnUpdate();
                 }
             }
@@ -112,8 +113,8 @@ namespace Project.UI {
         private static GameWidgetView CreateView(GameWidget widget) {
             var view = new GameWidgetView();
             view.RegisterCallback<NavigationCancelEvent>( evt => {
-                if (!widget.Children.Any( i => i is GameMenuWidget )) {
-                    widget.AddChild( new GameMenuWidget( widget.Container ), null );
+                if (!widget.Node.Children.Any( i => i.Widget() is GameMenuWidget )) {
+                    widget.Node.AddChild( new GameMenuWidget( widget.Container ).Node, null );
                     evt.StopPropagation();
                 }
             } );

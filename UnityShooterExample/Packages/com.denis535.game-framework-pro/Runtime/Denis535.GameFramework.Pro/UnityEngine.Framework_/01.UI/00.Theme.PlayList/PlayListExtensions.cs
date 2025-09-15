@@ -8,40 +8,22 @@ namespace UnityEngine.Framework {
 
     public static class PlayListExtensions {
 
-        // GetEventCancellationToken
-        public static CancellationToken GetEventCancellationToken_OnBeforeDetach(this PlayListBase playList) {
+        // GetCancellationToken
+        public static CancellationToken GetCancellationToken_OnDetachCallback(this PlayListBase playList) {
             var cts = new CancellationTokenSource();
-            playList.OnBeforeDetachEvent += OnEvent;
-            void OnEvent(object? argument) {
+            playList.State.OnDetachCallback += Callback;
+            void Callback(object? argument) {
                 cts.Cancel();
-                playList.OnBeforeDetachEvent -= OnEvent;
+                playList.State.OnDetachCallback -= Callback;
             }
             return cts.Token;
         }
-        public static CancellationToken GetEventCancellationToken_OnAfterDetach(this PlayListBase playList) {
+        public static CancellationToken GetCancellationToken_OnDeactivateCallback(this PlayListBase playList) {
             var cts = new CancellationTokenSource();
-            playList.OnAfterDetachEvent += OnEvent;
-            void OnEvent(object? argument) {
+            playList.State.OnDeactivateCallback += Callback;
+            void Callback(object? argument) {
                 cts.Cancel();
-                playList.OnAfterDetachEvent -= OnEvent;
-            }
-            return cts.Token;
-        }
-        public static CancellationToken GetEventCancellationToken_OnBeforeDeactivate(this PlayListBase playList) {
-            var cts = new CancellationTokenSource();
-            playList.OnBeforeDeactivateEvent += OnEvent;
-            void OnEvent(object? argument) {
-                cts.Cancel();
-                playList.OnBeforeDeactivateEvent -= OnEvent;
-            }
-            return cts.Token;
-        }
-        public static CancellationToken GetEventCancellationToken_OnAfterDeactivate(this PlayListBase playList) {
-            var cts = new CancellationTokenSource();
-            playList.OnAfterDeactivateEvent += OnEvent;
-            void OnEvent(object? argument) {
-                cts.Cancel();
-                playList.OnAfterDeactivateEvent -= OnEvent;
+                playList.State.OnDeactivateCallback -= Callback;
             }
             return cts.Token;
         }

@@ -3,6 +3,7 @@ namespace UnityEngine.Framework {
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using UnityEditor;
     using UnityEngine;
@@ -94,11 +95,11 @@ namespace UnityEngine.Framework {
         }
         protected virtual void OnInspectorGUI(ThemeBase theme, ScreenBase screen, RouterBase router, ApplicationBase application, GameBase? game) {
             LabelField( "Theme", theme.ToString() );
-            LabelField( "PlayList", theme.PlayList?.Pipe( GetDisplayString ) ?? "Null" );
+            LabelField( "PlayList", theme.Machine.Root?.PlayList().Pipe( GetDisplayString ) ?? "Null" );
             GUILayout.Space( 2 );
             LabelField( "Screen", screen.ToString() );
-            LabelField( "Widget", screen.Widget?.Pipe( GetDisplayString ) ?? "Null" );
-            LabelField( "View", screen.Widget?.View?.Pipe( GetDisplayString ) ?? "Null" );
+            LabelField( "Widget", screen.Machine.Root?.Widget().Pipe( GetDisplayString ) ?? "Null" );
+            LabelField( "View", screen.Machine.Root?.Widget().View?.Pipe( GetDisplayString ) ?? "Null" );
             GUILayout.Space( 2 );
             LabelField( "Router", router.ToString() );
             LabelField( "Application", application.ToString() );
@@ -118,7 +119,7 @@ namespace UnityEngine.Framework {
         }
         protected static string? GetDisplayString(WidgetBase widget) {
             var builder = new StringBuilder();
-            builder.AppendHierarchy( widget, i => i.ToString(), i => i.Children );
+            builder.AppendHierarchy( widget, i => i.ToString(), i => i.Node.Children.Select( i => i.Widget() ) );
             return builder.ToString();
         }
         protected static string? GetDisplayString(ViewBase view) {

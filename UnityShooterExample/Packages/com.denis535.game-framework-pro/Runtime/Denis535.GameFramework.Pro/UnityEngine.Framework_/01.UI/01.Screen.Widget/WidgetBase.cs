@@ -4,34 +4,23 @@ namespace UnityEngine.Framework {
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.Threading;
+    using System.Linq;
     using System.TreeMachine.Pro;
     using UnityEngine;
 
-    public abstract class WidgetBase : NodeBase2, IDisposable {
+    public abstract class WidgetBase : DisposableBase {
 
-        private CancellationTokenSource? disposeCancellationTokenSource;
-        private readonly ScreenBase screen;
-
-        // System
-        public bool IsDisposed { get; private set; }
-        public CancellationToken DisposeCancellationToken {
-            get {
-                if (disposeCancellationTokenSource == null) {
-                    disposeCancellationTokenSource = new CancellationTokenSource();
-                    if (IsDisposed) disposeCancellationTokenSource.Cancel();
-                }
-                return disposeCancellationTokenSource.Token;
-            }
-        }
+        // Node
+        public Node2<WidgetBase> Node { get; }
         // Screen
         protected ScreenBase Screen {
             get {
                 Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                Assert.Operation.Message( $"Widget {this} must be active or activating or deactivating" ).Valid( Activity is Activity.Active or Activity.Activating or Activity.Deactivating );
-                return screen;
+                Assert.Operation.Message( $"Widget {this} must be active or activating or deactivating" ).Valid( Node.Activity is Activity.Active or Activity.Activating or Activity.Deactivating );
+                return ((TreeMachine<Node2<WidgetBase>, ScreenBase>?) Node.Machine)!.UserData;
             }
         }
+
         // View
         [MemberNotNullWhen( true, "ViewBase", "View" )]
         public virtual bool IsViewable {
@@ -54,115 +43,39 @@ namespace UnityEngine.Framework {
         }
 
         // Constructor
-        public WidgetBase(ScreenBase screen) {
-            this.screen = screen;
+        public WidgetBase() {
+            Node = new Node2<WidgetBase>( this ) {
+                SortDelegate = Sort
+            };
+            Node.OnActivateCallback += OnActivate;
+            Node.OnDeactivateCallback += OnDeactivate;
+            Node.OnBeforeDescendantActivateCallback += OnBeforeDescendantActivate;
+            Node.OnAfterDescendantActivateCallback += OnAfterDescendantActivate;
+            Node.OnBeforeDescendantDeactivateCallback += OnBeforeDescendantDeactivate;
+            Node.OnAfterDescendantDeactivateCallback += OnAfterDescendantDeactivate;
         }
-        ~WidgetBase() {
-#if DEBUG
-            if (!IsDisposed) {
-                Debug.LogWarning( $"Widget '{this}' must be disposed" );
-            }
-#endif
-        }
-        public virtual void Dispose() {
-            foreach (var child in Children) {
-                Assert.Operation.Message( $"Child {child} must be disposed" ).Valid( child.IsDisposed );
-            }
-            Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"Widget {this} must be inactive" ).Valid( Activity is Activity.Inactive );
-            disposeCancellationTokenSource?.Cancel();
-            IsDisposed = true;
-        }
-
-        // OnAttach
-        protected override void OnBeforeAttach(object? argument) {
-            base.OnBeforeAttach( argument );
-        }
-        protected override void OnAttach(object? argument) {
-        }
-        protected override void OnAfterAttach(object? argument) {
-            base.OnAfterAttach( argument );
-        }
-        protected override void OnBeforeDetach(object? argument) {
-            base.OnBeforeDetach( argument );
-        }
-        protected override void OnDetach(object? argument) {
-        }
-        protected override void OnAfterDetach(object? argument) {
-            base.OnAfterDetach( argument );
+        public override void Dispose() {
+            Assert.Operation.Message( $"Widget {this} must be inactive" ).Valid( Node.Activity is Activity.Inactive );
+            Assert.Operation.Message( $"Widget {this} must have no children" ).Valid( Node.Children.All( i => i.Widget().IsDisposed ) );
+            base.Dispose();
         }
 
         // OnActivate
-        protected override void OnBeforeActivate(object? argument) {
-            base.OnBeforeActivate( argument );
-        }
-        //protected override void OnActivate(object? argument) {
-        //}
-        protected override void OnAfterActivate(object? argument) {
-            base.OnAfterActivate( argument );
-        }
-        protected override void OnBeforeDeactivate(object? argument) {
-            base.OnBeforeDeactivate( argument );
-        }
-        //protected override void OnDeactivate(object? argument) {
-        //}
-        protected override void OnAfterDeactivate(object? argument) {
-            base.OnAfterDeactivate( argument );
-        }
-
-        // OnDescendantAttach
-        protected override void OnBeforeDescendantAttach(WidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantAttach(WidgetBase descendant, object? argument) {
-        }
-        protected override void OnBeforeDescendantDetach(WidgetBase descendant, object? argument) {
-        }
-        protected override void OnAfterDescendantDetach(WidgetBase descendant, object? argument) {
-        }
+        protected abstract void OnActivate(object? argument);
+        protected abstract void OnDeactivate(object? argument);
 
         // OnDescendantActivate
-        protected override void OnBeforeDescendantActivate(WidgetBase descendant, object? argument) {
+        protected virtual void OnBeforeDescendantActivate(NodeBase descendant, object? argument) {
         }
-        protected override void OnAfterDescendantActivate(WidgetBase descendant, object? argument) {
+        protected virtual void OnAfterDescendantActivate(NodeBase descendant, object? argument) {
         }
-        protected override void OnBeforeDescendantDeactivate(WidgetBase descendant, object? argument) {
+        protected virtual void OnBeforeDescendantDeactivate(NodeBase descendant, object? argument) {
         }
-        protected override void OnAfterDescendantDeactivate(WidgetBase descendant, object? argument) {
-        }
-
-        // AddChild
-        protected override void AddChild(WidgetBase child, object? argument) {
-            Assert.Argument.Message( $"Argument 'child' ({child}) must be non-disposed" ).Valid( !child.IsDisposed );
-            Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            base.AddChild( child, argument );
-        }
-        protected override void RemoveChild(WidgetBase child, object? argument, Action<WidgetBase>? callback) {
-            Assert.Argument.Message( $"Argument 'child' ({child}) must be non-disposed" ).Valid( !child.IsDisposed );
-            Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            base.RemoveChild( child, argument, callback );
-        }
-        protected new bool RemoveChild(Func<WidgetBase, bool> predicate, object? argument, Action<WidgetBase>? callback) {
-            return base.RemoveChild( predicate, argument, callback );
-        }
-        protected new int RemoveChildren(Func<WidgetBase, bool> predicate, object? argument, Action<WidgetBase>? callback) {
-            return base.RemoveChildren( predicate, argument, callback );
-        }
-        protected new void RemoveSelf(object? argument, Action<WidgetBase>? callback) {
-            base.RemoveSelf( argument, callback );
+        protected virtual void OnAfterDescendantDeactivate(NodeBase descendant, object? argument) {
         }
 
-        // AddChild
-        protected void RemoveChild(WidgetBase child, object? argument) {
-            base.RemoveChild( child, argument, i => i.Dispose() );
-        }
-        protected bool RemoveChild(Func<WidgetBase, bool> predicate, object? argument) {
-            return base.RemoveChild( predicate, argument, i => i.Dispose() );
-        }
-        protected int RemoveChildren(Func<WidgetBase, bool> predicate, object? argument) {
-            return base.RemoveChildren( predicate, argument, i => i.Dispose() );
-        }
-        protected void RemoveSelf(object? argument) {
-            base.RemoveSelf( argument, i => i.Dispose() );
+        // Sort
+        protected virtual void Sort(List<NodeBase> children) {
         }
 
         // ShowView
@@ -225,7 +138,7 @@ namespace UnityEngine.Framework {
             if (IsViewable && View.TryAddView( view )) {
                 return true;
             }
-            return Parent?.TryShowViewRecursive( view ) ?? false;
+            return Node.Parent?.Widget().TryShowViewRecursive( view ) ?? false;
         }
         private bool TryHideViewRecursive(ViewBase view) {
             Assert.Argument.Message( $"Argument 'view' ({view}) must be non-disposed" ).Valid( !view.IsDisposed );
@@ -234,7 +147,7 @@ namespace UnityEngine.Framework {
             if (IsViewable && View.TryRemoveView( view )) {
                 return true;
             }
-            return Parent?.TryHideViewRecursive( view ) ?? false;
+            return Node.Parent?.Widget().TryHideViewRecursive( view ) ?? false;
         }
 
     }
@@ -270,11 +183,8 @@ namespace UnityEngine.Framework {
         public WidgetBase() {
         }
         public override void Dispose() {
-            foreach (var child in Children) {
-                Assert.Operation.Message( $"Child {child} must be disposed" ).Valid( child.IsDisposed );
-            }
-            Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"Widget {this} must be inactive" ).Valid( Activity is Activity_.Inactive );
+            Assert.Operation.Message( $"Widget {this} must be inactive" ).Valid( Node.Activity is Activity.Inactive );
+            Assert.Operation.Message( $"Widget {this} must have no children" ).Valid( Node.Children.All( i => i.Widget().IsDisposed ) );
             Assert.Operation.Message( $"Widget {this} must be released" ).Valid( View.IsDisposed );
             base.Dispose();
         }
@@ -282,14 +192,22 @@ namespace UnityEngine.Framework {
         // ShowSelf
         protected virtual void ShowSelf() {
             Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"Widget {this} must be non-root" ).NotDisposed( !IsRoot );
-            Parent.ShowViewRecursive( View );
+            Assert.Operation.Message( $"Widget {this} must be non-root" ).NotDisposed( !Node.IsRoot );
+            Node.Parent.Widget().ShowViewRecursive( View );
         }
         protected virtual void HideSelf() {
             Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"Widget {this} must be non-root" ).NotDisposed( !IsRoot );
-            Parent.HideViewRecursive( View );
+            Assert.Operation.Message( $"Widget {this} must be non-root" ).NotDisposed( !Node.IsRoot );
+            Node.Parent.Widget().HideViewRecursive( View );
         }
 
+    }
+    public static class NodeExtensions {
+        public static WidgetBase Widget(this NodeBase node) {
+            return ((Node2<WidgetBase>) node).UserData;
+        }
+        public static T Widget<T>(this NodeBase node) where T : WidgetBase {
+            return (T) ((Node2<WidgetBase>) node).UserData;
+        }
     }
 }

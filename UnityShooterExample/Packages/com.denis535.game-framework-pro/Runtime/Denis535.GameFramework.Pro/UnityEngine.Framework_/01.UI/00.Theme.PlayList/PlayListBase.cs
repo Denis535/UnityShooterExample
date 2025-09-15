@@ -8,30 +8,19 @@ namespace UnityEngine.Framework {
     using System.Threading.Tasks;
     using UnityEngine;
 
-    public abstract class PlayListBase : StateBase, IDisposable {
+    public abstract class PlayListBase : DisposableBase {
 
-        private CancellationTokenSource? disposeCancellationTokenSource;
-        private readonly ThemeBase theme;
-
-        // System
-        public bool IsDisposed { get; private set; }
-        public CancellationToken DisposeCancellationToken {
-            get {
-                if (disposeCancellationTokenSource == null) {
-                    disposeCancellationTokenSource = new CancellationTokenSource();
-                    if (IsDisposed) disposeCancellationTokenSource.Cancel();
-                }
-                return disposeCancellationTokenSource.Token;
-            }
-        }
+        // State
+        public State<PlayListBase> State { get; }
         // Theme
-        protected ThemeBase? Theme {
+        protected ThemeBase Theme {
             get {
                 Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                Assert.Operation.Message( $"PlayList {this} must be active or activating or deactivating" ).Valid( Activity is Activity.Active or Activity.Activating or Activity.Deactivating );
-                return theme;
+                Assert.Operation.Message( $"PlayList {this} must be active or activating or deactivating" ).Valid( State.Activity is Activity.Active or Activity.Activating or Activity.Deactivating );
+                return ((StateMachine<State<PlayListBase>, ThemeBase>?) State.Machine)!.UserData;
             }
         }
+
         // IsRunning
         protected bool IsRunning {
             get {
@@ -83,69 +72,30 @@ namespace UnityEngine.Framework {
         }
 
         // Constructor
-        public PlayListBase(ThemeBase theme) {
-            this.theme = theme;
+        public PlayListBase() {
+            State = new State<PlayListBase>( this );
+            State.OnActivateCallback += OnActivate;
+            State.OnDeactivateCallback += OnDeactivate;
         }
-        ~PlayListBase() {
-#if DEBUG
-            if (!IsDisposed) {
-                Debug.LogWarning( $"PlayList '{this}' must be disposed" );
-            }
-#endif
-        }
-        public virtual void Dispose() {
-            Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"PlayList {this} must be inactive" ).Valid( Activity is Activity.Inactive );
-            disposeCancellationTokenSource?.Cancel();
-            IsDisposed = true;
-        }
-
-        // OnAttach
-        protected override void OnBeforeAttach(object? argument) {
-            base.OnBeforeAttach( argument );
-        }
-        protected override void OnAttach(object? argument) {
-        }
-        protected override void OnAfterAttach(object? argument) {
-            base.OnAfterAttach( argument );
-        }
-        protected override void OnBeforeDetach(object? argument) {
-            base.OnBeforeDetach( argument );
-        }
-        protected override void OnDetach(object? argument) {
-        }
-        protected override void OnAfterDetach(object? argument) {
-            base.OnAfterDetach( argument );
+        public override void Dispose() {
+            Assert.Operation.Message( $"PlayList {this} must be inactive" ).Valid( State.Activity is Activity.Inactive );
+            base.Dispose();
         }
 
         // OnActivate
-        protected override void OnBeforeActivate(object? argument) {
-            base.OnBeforeActivate( argument );
-        }
-        //protected override void OnActivate(object? argument) {
-        //}
-        protected override void OnAfterActivate(object? argument) {
-            base.OnAfterActivate( argument );
-        }
-        protected override void OnBeforeDeactivate(object? argument) {
-            base.OnBeforeDeactivate( argument );
-        }
-        //protected override void OnDeactivate(object? argument) {
-        //}
-        protected override void OnAfterDeactivate(object? argument) {
-            base.OnAfterDeactivate( argument );
-        }
+        protected abstract void OnActivate(object? argument);
+        protected abstract void OnDeactivate(object? argument);
 
         // Play
-        protected Task PlayAsync(AudioClip clip, CancellationToken cancellationToken) {
-            Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"PlayList {this} must be non-running" ).Valid( !IsRunning );
-            return Theme!.PlayAsync( clip, cancellationToken );
-        }
         protected void Play(AudioClip clip) {
             Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
             Assert.Operation.Message( $"PlayList {this} must be non-running" ).Valid( !IsRunning );
             Theme!.Play( clip );
+        }
+        protected Task PlayAndWaitForCompletionAsync(AudioClip clip, CancellationToken cancellationToken) {
+            Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
+            Assert.Operation.Message( $"PlayList {this} must be non-running" ).Valid( !IsRunning );
+            return Theme!.PlayAndWaitForCompletionAsync( clip, cancellationToken );
         }
         protected void Stop() {
             Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
@@ -154,12 +104,11 @@ namespace UnityEngine.Framework {
         }
 
         // Helpers
-        protected static T[] Shuffle<T>(T[] array) {
+        protected static void Shuffle<T>(T[] array) {
             for (int i = 0, j = array.Length; i < array.Length; i++, j--) {
                 var rnd = i + UnityEngine.Random.Range( 0, j );
                 (array[ i ], array[ rnd ]) = (array[ rnd ], array[ i ]);
             }
-            return array;
         }
         protected static T GetNext<T>(T[] array, T? value) {
             var index = Array.IndexOf( array, value );
@@ -180,5 +129,13 @@ namespace UnityEngine.Framework {
             return array[ 0 ];
         }
 
+    }
+    public static class StateExtensions {
+        public static PlayListBase PlayList(this StateBase state) {
+            return ((State<PlayListBase>) state).UserData;
+        }
+        public static T PlayList<T>(this StateBase state) where T : PlayListBase {
+            return (T) ((State<PlayListBase>) state).UserData;
+        }
     }
 }

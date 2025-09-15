@@ -21,8 +21,8 @@ namespace Project.UI {
             View = CreateView( this );
         }
         public override void Dispose() {
-            foreach (var child in Children) {
-                child.Dispose();
+            foreach (var child in Node.Children) {
+                child.Widget().Dispose();
             }
             View.Dispose();
             base.Dispose();
@@ -49,10 +49,10 @@ namespace Project.UI {
                 widget.ShowView( CreateView_StartGame( widget ) );
             } );
             view.Settings.RegisterCallback<ClickEvent>( evt => {
-                widget.AddChild( new SettingsWidget( widget.Container ), null );
+                widget.Node.AddChild( new SettingsWidget( widget.Container ).Node, null );
             } );
             view.Quit.RegisterCallback<ClickEvent>( evt => {
-                widget.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.Quit() ).OnCancel( "No", null ), null );
+                widget.Node.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.Quit() ).OnCancel( "No", null ).Node, null );
             } );
             return view;
         }

@@ -9,8 +9,6 @@ namespace Project.UI {
 
     public class Screen : ScreenBase2 {
 
-        private new RootWidget Widget => (RootWidget?) base.Widget ?? throw Exceptions.Internal.NullReference( $"Reference 'Widget' is null" );
-
         public Screen(IDependencyContainer container) : base( container, container.RequireDependency<UIDocument>(), container.RequireDependency<AudioSource>( "SfxAudioSource" ) ) {
             VisualElementFactory.OnPlayClick += evt => { };
             VisualElementFactory.OnPlaySelect += evt => { };
@@ -22,40 +20,40 @@ namespace Project.UI {
             VisualElementFactory.OnPlayOpenInfoDialog += evt => { };
             VisualElementFactory.OnPlayOpenWarningDialog += evt => { };
             VisualElementFactory.OnPlayOpenErrorDialog += evt => { };
-            SetWidget( new RootWidget( container ), null );
+            Machine.SetRoot( new RootWidget( container ).Node, null, (root, arg) => root.Widget().Dispose() );
         }
         public override void Dispose() {
-            SetWidget( null, null );
+            Machine.SetRoot( null, null, (root, arg) => root.Widget().Dispose() );
             base.Dispose();
         }
 
         public void OnFixedUpdate() {
         }
         public void OnUpdate() {
-            foreach (var child in Widget.Children) {
-                (child as MainWidget)?.OnUpdate();
-                (child as GameWidget)?.OnUpdate();
+            foreach (var child in Machine.Root!.Children) {
+                (child.Widget() as MainWidget)?.OnUpdate();
+                (child.Widget() as GameWidget)?.OnUpdate();
             }
         }
 
         public void ShowMainScreen() {
             HideScreen();
-            Widget.AddChild( new MainWidget( Container ) );
+            Machine.Root!.AddChild( new MainWidget( Container ).Node, null );
         }
         public void ShowGameScreen() {
             HideScreen();
-            Widget.AddChild( new GameWidget( Container ) );
+            Machine.Root!.AddChild( new GameWidget( Container ).Node, null );
         }
         public void ShowLoadingScreen() {
             HideScreen();
-            Widget.AddChild( new LoadingWidget( Container ) );
+            Machine.Root!.AddChild( new LoadingWidget( Container ).Node, null );
         }
         public void ShowUnloadingScreen() {
             HideScreen();
-            Widget.AddChild( new UnloadingWidget( Container ) );
+            Machine.Root!.AddChild( new UnloadingWidget( Container ).Node, null );
         }
         public void HideScreen() {
-            Widget.Clear();
+            Machine.Root!.RemoveChildren( null, (child, arg) => child.Widget().Dispose() );
         }
 
     }

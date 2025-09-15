@@ -8,10 +8,10 @@ namespace Project.UI {
 
     public class GamePlayList : PlayListBase3 {
 
-        private static readonly AssetHandle<AudioClip>[] Clips = Shuffle( new[] {
+        private static readonly AssetHandle<AudioClip>[] Clips = new[] {
             new AssetHandle<AudioClip>( R.Project.UI.Game.Music.Value_Theme_1 ),
             new AssetHandle<AudioClip>( R.Project.UI.Game.Music.Value_Theme_2 ),
-        } );
+        }.Chain( Shuffle );
 
         public GamePlayList(IDependencyContainer container) : base( container, Clips ) {
         }

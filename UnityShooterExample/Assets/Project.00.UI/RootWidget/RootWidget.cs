@@ -3,6 +3,7 @@ namespace Project.UI {
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.TreeMachine.Pro;
     using UnityEngine;
     using UnityEngine.Framework;
 
@@ -19,28 +20,28 @@ namespace Project.UI {
         }
 
         internal void AddChild(MainWidget widget) {
-            base.AddChild( widget, null );
+            Node.AddChild( widget.Node, null );
         }
         internal void AddChild(GameWidget widget) {
-            base.AddChild( widget, null );
+            Node.AddChild( widget.Node, null );
         }
         internal void AddChild(LoadingWidget widget) {
-            base.AddChild( widget, null );
+            Node.AddChild( widget.Node, null );
         }
         internal void AddChild(UnloadingWidget widget) {
-            base.AddChild( widget, null );
+            Node.AddChild( widget.Node, null );
         }
         internal void AddChild(WarningDialogWidget widget) {
-            base.AddChild( widget, null );
+            Node.AddChild( widget.Node, null );
         }
         internal void AddChild(ErrorDialogWidget widget) {
-            base.AddChild( widget, null );
+            Node.AddChild( widget.Node, null );
         }
         internal void Clear() {
-            RemoveChildren( i => i is not (DialogWidget or InfoDialogWidget or WarningDialogWidget or ErrorDialogWidget), null );
+            Node.RemoveChildren( i => i.Widget() is not (DialogWidget or InfoDialogWidget or WarningDialogWidget or ErrorDialogWidget), null, (node, arg) => node.Widget().Dispose() );
         }
 
-        protected override void Sort(List<WidgetBase> children) {
+        protected override void Sort(List<NodeBase> children) {
             base.Sort( children );
         }
         protected override int GetOrderOf(WidgetBase widget) {
@@ -53,7 +54,8 @@ namespace Project.UI {
                 LoadingWidget => 200,
                 UnloadingWidget => 201,
                 _ => int.MaxValue
-            };
+            }
+            ;
         }
 
     }

@@ -18,8 +18,8 @@ namespace Project.UI {
             View = CreateView( this );
         }
         public override void Dispose() {
-            foreach (var child in Children) {
-                child.Dispose();
+            foreach (var child in Node.Children) {
+                child.Widget().Dispose();
             }
             View.Dispose();
             base.Dispose();

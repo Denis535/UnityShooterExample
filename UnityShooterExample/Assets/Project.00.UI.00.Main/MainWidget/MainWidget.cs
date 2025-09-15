@@ -5,6 +5,7 @@ namespace Project.UI {
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.TreeMachine.Pro;
     using Project.App;
     using UnityEngine;
     using UnityEngine.Framework;
@@ -19,11 +20,11 @@ namespace Project.UI {
             Router = container.RequireDependency<Router>();
             Application = container.RequireDependency<Application2>();
             View = CreateView( this );
-            AddChild( new MainMenuWidget( Container ), null );
+            Node.AddChild( new MainMenuWidget( Container ).Node, null );
         }
         public override void Dispose() {
-            foreach (var child in Children) {
-                child.Dispose();
+            foreach (var child in Node.Children) {
+                child.Widget().Dispose();
             }
             View.Dispose();
             base.Dispose();
@@ -31,21 +32,21 @@ namespace Project.UI {
 
         protected override async void OnActivate(object? argument) {
             ShowSelf();
-            Children.OfType<MainMenuWidget>().First().__GetView__().style.display = DisplayStyle.None;
+            Node.Children.Select( i => i.Widget() ).OfType<MainMenuWidget>().First().__GetView__().style.display = DisplayStyle.None;
             try {
                 await Application.InitializationTask.WaitAsync( DisposeCancellationToken );
-                Children.OfType<MainMenuWidget>().First().__GetView__().style.display = StyleKeyword.Null;
+                Node.Children.Select( i => i.Widget() ).OfType<MainMenuWidget>().First().__GetView__().style.display = StyleKeyword.Null;
             } catch (OperationCanceledException) {
             } catch (Exception ex) {
-                ((RootWidget) Root).AddChild( new ErrorDialogWidget( Container, "Error", ex.Message ).OnSubmit( "Ok", () => Router.Quit() ) );
+                ((RootWidget) Node.Root.Widget()).AddChild( new ErrorDialogWidget( Container, "Error", ex.Message ).OnSubmit( "Ok", () => Router.Quit() ) );
             }
         }
         protected override void OnDeactivate(object? argument) {
             HideSelf();
         }
 
-        protected override void Sort(List<WidgetBase> children) {
-            children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( a ), GetOrderOf( b ) ) );
+        protected override void Sort(List<NodeBase> children) {
+            children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( a.Widget() ), GetOrderOf( b.Widget() ) ) );
         }
         private static int GetOrderOf(WidgetBase widget) {
             return widget switch {

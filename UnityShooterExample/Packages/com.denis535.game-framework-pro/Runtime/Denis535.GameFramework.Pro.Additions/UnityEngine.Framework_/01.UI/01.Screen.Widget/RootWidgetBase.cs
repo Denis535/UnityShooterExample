@@ -4,6 +4,7 @@ namespace UnityEngine.Framework {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using System.TreeMachine.Pro;
     using UnityEngine;
     using UnityEngine.UIElements;
 
@@ -25,8 +26,8 @@ namespace UnityEngine.Framework {
         }
 
         // Sort
-        protected override void Sort(List<WidgetBase> children) {
-            children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( a ), GetOrderOf( b ) ) );
+        protected override void Sort(List<NodeBase> children) {
+            children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( a.Widget() ), GetOrderOf( b.Widget() ) ) );
         }
         protected virtual int GetOrderOf(WidgetBase widget) {
             return 0;
@@ -35,12 +36,12 @@ namespace UnityEngine.Framework {
         // ShowSelf
         protected override void ShowSelf() {
             Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"Widget {this} must be activating" ).Valid( Activity is Activity_.Activating );
+            Assert.Operation.Message( $"Widget {this} must be activating" ).Valid( Node.Activity is Activity.Activating );
             Screen!.Document.rootVisualElement.Add( View );
         }
         protected override void HideSelf() {
             Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"Widget {this} must be deactivating" ).Valid( Activity is Activity_.Deactivating );
+            Assert.Operation.Message( $"Widget {this} must be deactivating" ).Valid( Node.Activity is Activity.Deactivating );
             if (Screen!.Document && Screen!.Document.rootVisualElement != null) Screen!.Document.rootVisualElement.Remove( View );
         }
 
