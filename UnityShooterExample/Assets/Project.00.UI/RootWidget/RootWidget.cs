@@ -6,10 +6,11 @@ namespace Project.UI {
     using System.TreeMachine.Pro;
     using UnityEngine;
     using UnityEngine.Framework;
+    using UnityEngine.UIElements;
 
     public class RootWidget : RootWidgetBase<RootWidgetView> {
 
-        public RootWidget(IDependencyContainer container) : base( container ) {
+        public RootWidget(IDependencyContainer container, UIDocument document) : base( container, document ) {
             this.View = new RootWidgetView();
             this.View.OnSubmitEvent += OnSubmit;
             this.View.OnCancelEvent += OnCancel;

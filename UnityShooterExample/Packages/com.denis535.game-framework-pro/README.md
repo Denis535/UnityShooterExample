@@ -1,25 +1,24 @@
 # Overview
-This package provides you with a framework that helps you develop your projects following best practices.
+The framework that allows you to design high-quality architecture of your game project.
 
 # Reference
 The package contains the following modules:
-- CleanArchitectureGameFramework - the main module.
-- CleanArchitectureGameFramework.Additions - the additional module with different additions.
-- CleanArchitectureGameFramework.Internal - the low-level module with different utilities and helpers.
+- GameFramework.Pro - the main module.
+- GameFramework.Pro.Additions - the additional module with extensions.
+- GameFramework.Pro.Internal - the low-level module with utilities and helpers.
 
 The package contains the following namespaces and types:
 - Framework - the root subject area namespace.
     - Program - the program entity.
 - Framework.UI - the presentation subject area namespace.
     - Theme - the audio theme entity.
-    - PlayList - the audio playlist.
     - Screen - the graphics screen entity. It contains the widget tree and the visual element tree.
+    - PlayList - the audio playlist.
     - Widget - the graphics widget. It may contain the view.
     - View - the visual element. It is just the VisualElement.
     - Router - the application manager service. It can load, reload, unload the scenes and quit the application.
 - Framework.App - the application subject area namespace.
     - Application - the application entity.
-    - Storage - the object that provides you with different values.
 - Framework.Domain - the business subject area namespace.
     - Game - the game entity. It contains informations, rules and states.
     - Player - the player entity. It contains informations and states.

@@ -13,9 +13,9 @@ namespace UnityEngine.Framework {
         protected internal TreeMachine<Node2<WidgetBase>, ScreenBase> Machine { get; }
 
         // Document
-        protected internal UIDocument Document { get; }
+        protected UIDocument Document { get; }
         // AudioSource
-        protected internal AudioSource AudioSource { get; }
+        protected AudioSource AudioSource { get; }
 
         // Constructor
         public ScreenBase(UIDocument document, AudioSource audioSource) {

@@ -7,7 +7,7 @@ namespace System.Text {
 
     public static class StringBuilderExtensions {
 
-        private static readonly int IndentSize = 4;
+        private const int IndentSize = 4;
 
         public static StringBuilder AppendIndent(this StringBuilder builder, int indent) {
             return builder.Append( ' ', indent * IndentSize );

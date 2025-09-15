@@ -15,6 +15,7 @@ namespace UnityEngine.Framework {
 
         // AudioSource
         protected AudioSource AudioSource { get; }
+
         // IsRunning
         protected internal bool IsRunning {
             get {

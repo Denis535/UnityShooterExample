@@ -20,7 +20,7 @@ namespace Project.UI {
             VisualElementFactory.OnPlayOpenInfoDialog += evt => { };
             VisualElementFactory.OnPlayOpenWarningDialog += evt => { };
             VisualElementFactory.OnPlayOpenErrorDialog += evt => { };
-            this.Machine.SetRoot( new RootWidget( container ).Node, null, (root, arg) => root.Widget().Dispose() );
+            this.Machine.SetRoot( new RootWidget( container, this.Document ).Node, null, (root, arg) => root.Widget().Dispose() );
         }
         public override void Dispose() {
             this.Machine.SetRoot( null, null, (root, arg) => root.Widget().Dispose() );

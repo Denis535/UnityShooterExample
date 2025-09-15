@@ -1,17 +1,22 @@
 #nullable enable
-namespace UnityEngine.Framework {
+namespace Project.UI {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.TreeMachine.Pro;
     using UnityEngine;
+    using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
     public abstract class RootWidgetBase<TView> : WidgetBase2<TView> where TView : RootWidgetViewBase {
 
+        // Document
+        protected UIDocument Document { get; }
+
         // Constructor
-        public RootWidgetBase(IDependencyContainer container) : base( container ) {
+        public RootWidgetBase(IDependencyContainer container, UIDocument document) : base( container ) {
+            this.Document = document;
         }
         public override void Dispose() {
             base.Dispose();
@@ -37,12 +42,12 @@ namespace UnityEngine.Framework {
         protected override void ShowSelf() {
             Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
             Assert.Operation.Message( $"Widget {this} must be activating" ).Valid( this.Node.Activity is Activity.Activating );
-            this.Screen!.Document.rootVisualElement.Add( this.View );
+            this.Document.rootVisualElement.Add( this.View );
         }
         protected override void HideSelf() {
             Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
             Assert.Operation.Message( $"Widget {this} must be deactivating" ).Valid( this.Node.Activity is Activity.Deactivating );
-            if (this.Screen!.Document && this.Screen!.Document.rootVisualElement != null) this.Screen!.Document.rootVisualElement.Remove( this.View );
+            if (this.Document && this.Document.rootVisualElement != null) this.Document.rootVisualElement.Remove( this.View );
         }
 
         // Helpers

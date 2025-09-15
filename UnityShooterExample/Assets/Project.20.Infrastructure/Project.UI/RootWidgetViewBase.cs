@@ -1,10 +1,11 @@
 ﻿#nullable enable
-namespace UnityEngine.Framework {
+namespace Project.UI {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
+    using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
     public abstract class RootWidgetViewBase : ViewBase {
@@ -32,7 +33,7 @@ namespace UnityEngine.Framework {
         }
 
         // TryAddView
-        protected internal override bool TryAddView(ViewBase view) {
+        protected override bool TryAddView(ViewBase view) {
             Assert.Argument.Message( $"Argument 'view' ({view}) must be non-disposed" ).Valid( !view.IsDisposed );
             Assert.Argument.Message( $"Argument 'view' ({view}) must be non-attached to parent" ).Valid( !view.IsAttachedToParent );
             Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
@@ -41,7 +42,7 @@ namespace UnityEngine.Framework {
             this.SetVisibility( (IReadOnlyList<VisualElement>) this.Children() );
             return true;
         }
-        protected internal override bool TryRemoveView(ViewBase view) {
+        protected override bool TryRemoveView(ViewBase view) {
             Assert.Argument.Message( $"Argument 'view' ({view}) must be non-disposed" ).Valid( !view.IsDisposed );
             Assert.Argument.Message( $"Argument 'view' ({view}) must be attached to parent" ).Valid( view.IsAttachedToParent );
             Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
