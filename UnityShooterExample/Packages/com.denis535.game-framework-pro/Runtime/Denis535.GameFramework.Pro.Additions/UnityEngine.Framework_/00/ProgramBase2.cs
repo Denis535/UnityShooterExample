@@ -102,7 +102,6 @@ namespace UnityEngine.Framework {
             GUILayout.Space( 2 );
             LabelField( "Screen", screen.ToString() );
             LabelField( "Widget", screen.Machine.Root?.Widget().Pipe( GetDisplayString ) ?? "Null" );
-            LabelField( "View", screen.Machine.Root?.Widget().View?.Pipe( GetDisplayString ) ?? "Null" );
             GUILayout.Space( 2 );
             LabelField( "Router", router.ToString() );
             LabelField( "Application", application.ToString() );

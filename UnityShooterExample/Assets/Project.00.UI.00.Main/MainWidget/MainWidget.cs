@@ -32,10 +32,10 @@ namespace Project.UI {
 
         protected override async void OnActivate(object? argument) {
             this.ShowSelf();
-            this.Node.Children.Select( i => i.Widget() ).OfType<MainMenuWidget>().First().__GetView__().style.display = DisplayStyle.None;
+            this.Node.Children.Select( i => i.Widget() ).OfType<MainMenuWidget>().First().View.style.display = DisplayStyle.None;
             try {
                 await this.Application.InitializationTask.WaitAsync( this.DisposeCancellationToken );
-                this.Node.Children.Select( i => i.Widget() ).OfType<MainMenuWidget>().First().__GetView__().style.display = StyleKeyword.Null;
+                this.Node.Children.Select( i => i.Widget() ).OfType<MainMenuWidget>().First().View.style.display = StyleKeyword.Null;
             } catch (OperationCanceledException) {
             } catch (Exception ex) {
                 ((RootWidget) this.Node.Root.Widget()).AddChild( new ErrorDialogWidget( this.Container, "Error", ex.Message ).OnSubmit( "Ok", () => this.Router.Quit() ) );
