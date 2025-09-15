@@ -11,7 +11,7 @@ namespace Project.UI {
     using UnityEngine.InputSystem;
     using UnityEngine.UIElements;
 
-    public class GameWidget : WidgetBase2<GameWidgetView> {
+    public class GameWidget : ViewableWidgetBase2<GameWidgetView> {
 
         private Game2 Game { get; }
         private UIInputProvider Input { get; }

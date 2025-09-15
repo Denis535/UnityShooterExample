@@ -19,13 +19,13 @@ namespace UnityEngine.Framework {
         }
 
     }
-    public abstract class WidgetBase2<TView> : WidgetBase<TView> where TView : notnull, ViewBase {
+    public abstract class ViewableWidgetBase2<TView> : ViewableWidgetBase<TView> where TView : notnull, ViewBase {
 
         // System
         protected IDependencyContainer Container { get; }
 
         // Constructor
-        public WidgetBase2(IDependencyContainer container) {
+        public ViewableWidgetBase2(IDependencyContainer container) {
             this.Container = container;
         }
         public override void Dispose() {

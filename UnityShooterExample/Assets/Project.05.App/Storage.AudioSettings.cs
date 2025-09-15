@@ -6,11 +6,10 @@ namespace Project.App {
     using UnityEngine;
     using UnityEngine.AddressableAssets;
     using UnityEngine.Audio;
-    using UnityEngine.Framework;
     using UnityEngine.ResourceManagement.AsyncOperations;
 
     public partial class Storage {
-        public class AudioSettings : StorageBase {
+        public class AudioSettings : DisposableBase {
 
             private float masterVolume;
             private float musicVolume;

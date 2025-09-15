@@ -5,10 +5,9 @@ namespace Project.App {
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
-    using UnityEngine.Framework;
 
     public partial class Storage {
-        public class ProfileSettings : StorageBase {
+        public class ProfileSettings : DisposableBase {
 
             private string name = default!;
 

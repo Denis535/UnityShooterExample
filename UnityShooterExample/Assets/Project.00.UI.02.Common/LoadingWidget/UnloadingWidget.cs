@@ -6,7 +6,7 @@ namespace Project.UI {
     using UnityEngine;
     using UnityEngine.Framework;
 
-    public class UnloadingWidget : WidgetBase2<UnloadingWidgetView> {
+    public class UnloadingWidget : ViewableWidgetBase2<UnloadingWidgetView> {
 
         public UnloadingWidget(IDependencyContainer container) : base( container ) {
             this.View = CreateView( this );

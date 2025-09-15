@@ -4,10 +4,9 @@ namespace Project.App {
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
-    using UnityEngine.Framework;
 
     public partial class Storage {
-        public class Preferences : StorageBase {
+        public class Preferences : DisposableBase {
 
             internal Preferences() {
                 this.Load();

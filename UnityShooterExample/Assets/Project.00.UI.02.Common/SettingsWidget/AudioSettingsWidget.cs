@@ -8,7 +8,7 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class AudioSettingsWidget : WidgetBase2<AudioSettingsWidgetView> {
+    public class AudioSettingsWidget : ViewableWidgetBase2<AudioSettingsWidgetView> {
 
         private Application2 Application { get; }
         private Storage.AudioSettings AudioSettings => this.Application.AudioSettings;

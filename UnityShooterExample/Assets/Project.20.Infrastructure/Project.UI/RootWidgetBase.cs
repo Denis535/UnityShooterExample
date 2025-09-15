@@ -9,7 +9,7 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public abstract class RootWidgetBase<TView> : WidgetBase2<TView> where TView : RootWidgetViewBase {
+    public abstract class RootWidgetBase<TView> : ViewableWidgetBase2<TView> where TView : RootWidgetViewBase {
 
         // Document
         protected UIDocument Document { get; }

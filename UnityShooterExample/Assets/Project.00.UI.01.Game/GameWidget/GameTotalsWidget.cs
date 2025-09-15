@@ -8,7 +8,7 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public abstract class GameTotalsWidget<TView> : WidgetBase2<TView> where TView : notnull, GameTotalsWidgetView {
+    public abstract class GameTotalsWidget<TView> : ViewableWidgetBase2<TView> where TView : notnull, GameTotalsWidgetView {
 
         protected Router Router { get; }
         protected Game2 Game { get; }

@@ -11,7 +11,7 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class MainWidget : WidgetBase2<MainWidgetView> {
+    public class MainWidget : ViewableWidgetBase2<MainWidgetView> {
 
         private Router Router { get; }
         private Application2 Application { get; }

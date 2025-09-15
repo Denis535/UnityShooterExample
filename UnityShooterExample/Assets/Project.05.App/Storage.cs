@@ -5,12 +5,11 @@ namespace Project.App {
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
-    using UnityEngine.Framework;
 
     // https://docs.unity3d.com/Manual/CommandLineArguments.html
     // https://docs.unity3d.com/Manual/EditorCommandLineArguments.html
     // https://docs.unity3d.com/Manual/PlayerCommandLineArguments.html
-    public partial class Storage : StorageBase {
+    public partial class Storage : DisposableBase {
 
         public string? Profile { get; }
 

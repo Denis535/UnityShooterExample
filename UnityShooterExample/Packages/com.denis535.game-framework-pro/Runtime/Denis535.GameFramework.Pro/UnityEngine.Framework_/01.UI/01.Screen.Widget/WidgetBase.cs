@@ -151,7 +151,7 @@ namespace UnityEngine.Framework {
         }
 
     }
-    public abstract class WidgetBase<TView> : WidgetBase where TView : notnull, ViewBase {
+    public abstract class ViewableWidgetBase<TView> : WidgetBase where TView : notnull, ViewBase {
 
         private TView view = default!;
 
@@ -180,7 +180,7 @@ namespace UnityEngine.Framework {
         }
 
         // Constructor
-        public WidgetBase() {
+        public ViewableWidgetBase() {
         }
         public override void Dispose() {
             Assert.Operation.Message( $"Widget {this} must be inactive" ).Valid( this.Node.Activity is Activity.Inactive );

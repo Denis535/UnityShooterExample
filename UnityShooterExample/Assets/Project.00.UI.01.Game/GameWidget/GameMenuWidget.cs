@@ -7,7 +7,7 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class GameMenuWidget : WidgetBase2<GameMenuWidgetView> {
+    public class GameMenuWidget : ViewableWidgetBase2<GameMenuWidgetView> {
 
         private Router Router { get; }
 

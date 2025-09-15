@@ -14,7 +14,7 @@ namespace Project.UI {
         TThis OnSubmit(string text, Action? callback);
         TThis OnCancel(string text, Action? callback);
     }
-    public class DialogWidget : WidgetBase2<DialogWidgetView>, IDialogWidget<DialogWidget> {
+    public class DialogWidget : ViewableWidgetBase2<DialogWidgetView>, IDialogWidget<DialogWidget> {
 
         public string? Title {
             get => this.View.Title.text;
@@ -77,7 +77,7 @@ namespace Project.UI {
         }
 
     }
-    public class InfoDialogWidget : WidgetBase2<InfoDialogWidgetView>, IDialogWidget<InfoDialogWidget> {
+    public class InfoDialogWidget : ViewableWidgetBase2<InfoDialogWidgetView>, IDialogWidget<InfoDialogWidget> {
 
         public string? Title {
             get => this.View.Title.text;
@@ -137,7 +137,7 @@ namespace Project.UI {
         }
 
     }
-    public class WarningDialogWidget : WidgetBase2<WarningDialogWidgetView>, IDialogWidget<WarningDialogWidget> {
+    public class WarningDialogWidget : ViewableWidgetBase2<WarningDialogWidgetView>, IDialogWidget<WarningDialogWidget> {
 
         public string? Title {
             get => this.View.Title.text;
@@ -197,7 +197,7 @@ namespace Project.UI {
         }
 
     }
-    public class ErrorDialogWidget : WidgetBase2<ErrorDialogWidgetView>, IDialogWidget<ErrorDialogWidget> {
+    public class ErrorDialogWidget : ViewableWidgetBase2<ErrorDialogWidgetView>, IDialogWidget<ErrorDialogWidget> {
 
         public string? Title {
             get => this.View.Title.text;

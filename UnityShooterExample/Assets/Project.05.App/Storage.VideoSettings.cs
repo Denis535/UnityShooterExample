@@ -5,10 +5,9 @@ namespace Project.App {
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
-    using UnityEngine.Framework;
 
     public partial class Storage {
-        public class VideoSettings : StorageBase {
+        public class VideoSettings : DisposableBase {
 
             private bool isVSync;
 

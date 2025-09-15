@@ -32,7 +32,7 @@ namespace UnityEngine.Framework {
         public static ViewBase? __GetView__(this WidgetBase widget) {
             return widget.View;
         }
-        public static T __GetView__<T>(this WidgetBase<T> widget) where T : notnull, ViewBase {
+        public static T __GetView__<T>(this ViewableWidgetBase<T> widget) where T : notnull, ViewBase {
             return widget.View;
         }
 
