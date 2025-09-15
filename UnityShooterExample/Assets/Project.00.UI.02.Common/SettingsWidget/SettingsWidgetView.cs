@@ -43,7 +43,7 @@ namespace Project.UI {
                );
             this.OnValidate( evt => {
                 this.Okey.SetValid(
-                    this.ProfileSettingsTab.Descendants().All( i => i.IsValidSelf() ) &&
+                     this.ProfileSettingsTab.Descendants().All( i => i.IsValidSelf() ) &&
                      this.VideoSettingsTab.Descendants().All( i => i.IsValidSelf() ) &&
                      this.AudioSettingsTab.Descendants().All( i => i.IsValidSelf() ) );
             } );

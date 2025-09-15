@@ -319,19 +319,19 @@ namespace Project {
 
             .Select( i => i.path );
 
-            var paths5 = paths.Where( i => {
-                return i.dir is
-                    "Assets/Project.20.Infrastructure/Project" or
-                    "Assets/Project.20.Infrastructure/Project.UI" or
-                    "Assets/Project.20.Infrastructure/Project.App" or
-                    "Assets/Project.20.Infrastructure/Project.Game" or
-                    "Assets/Project.20.Infrastructure/Project.Game.Actors" or
-                    "Assets/Project.20.Infrastructure/Project.Game.Things" or
-                    "Assets/Project.20.Infrastructure/Project.Game.Worlds";
-            } )
-            .Select( i => i.path );
+            //var paths5 = paths.Where( i => {
+            //    return i.dir is
+            //        "Assets/Project.20.Infrastructure/Project" or
+            //        "Assets/Project.20.Infrastructure/Project.UI" or
+            //        "Assets/Project.20.Infrastructure/Project.App" or
+            //        "Assets/Project.20.Infrastructure/Project.Game" or
+            //        "Assets/Project.20.Infrastructure/Project.Game.Actors" or
+            //        "Assets/Project.20.Infrastructure/Project.Game.Things" or
+            //        "Assets/Project.20.Infrastructure/Project.Game.Worlds";
+            //} )
+            //.Select( i => i.path );
 
-            return paths1.Concat( paths2 ).Concat( paths3 ).Concat( paths4 ).Concat( paths5 );
+            return paths1.Concat( paths2 ).Concat( paths3 ).Concat( paths4 );
         }
         // Helpers
         //private static EditorWindow GetProjectWindow() {

@@ -19,7 +19,7 @@ namespace Project.UI {
                      this.MasterVolume = VisualElementFactory.SliderField( "Master Volume", 0, 1 ).Class( "label-width-25pc" ),
                      this.MusicVolume = VisualElementFactory.SliderField( "Music Volume", 0, 1 ).Class( "label-width-25pc" ),
                      this.SfxVolume = VisualElementFactory.SliderField( "Sfx Volume", 0, 1 ).Class( "label-width-25pc" ),
-                    this.GameVolume = VisualElementFactory.SliderField( "Game Volume", 0, 1 ).Class( "label-width-25pc" )
+                     this.GameVolume = VisualElementFactory.SliderField( "Game Volume", 0, 1 ).Class( "label-width-25pc" )
                   )
               );
         }
