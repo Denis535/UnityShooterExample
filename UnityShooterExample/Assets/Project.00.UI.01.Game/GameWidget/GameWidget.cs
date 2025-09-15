@@ -21,69 +21,69 @@ namespace Project.UI {
         }
 
         public GameWidget(IDependencyContainer container) : base( container ) {
-            Game = container.RequireDependency<Game2>();
-            Game.OnStateChangeEvent += async i => {
+            this.Game = container.RequireDependency<Game2>();
+            this.Game.OnStateChangeEvent += async i => {
                 try {
                     if (i is GameState.Completed) {
-                        if (Game.Player.State is PlayerState.Winner) {
-                            if (Game.Info.Level.IsLast()) {
-                                await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
-                                Node.AddChild( new GameTotalsWidget_GameCompleted( Container ).Node, null );
+                        if (this.Game.Player.State is PlayerState.Winner) {
+                            if (this.Game.Info.Level.IsLast()) {
+                                await Awaitable.WaitForSecondsAsync( 2.5f, this.DisposeCancellationToken );
+                                this.Node.AddChild( new GameTotalsWidget_GameCompleted( this.Container ).Node, null );
                             } else {
-                                await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
-                                Node.AddChild( new GameTotalsWidget_LevelCompleted( Container ).Node, null );
+                                await Awaitable.WaitForSecondsAsync( 2.5f, this.DisposeCancellationToken );
+                                this.Node.AddChild( new GameTotalsWidget_LevelCompleted( this.Container ).Node, null );
                             }
-                        } else if (Game.Player.State is PlayerState.Loser) {
-                            await Awaitable.WaitForSecondsAsync( 2.5f, DisposeCancellationToken );
-                            Node.AddChild( new GameTotalsWidget_LevelFailed( Container ).Node, null );
+                        } else if (this.Game.Player.State is PlayerState.Loser) {
+                            await Awaitable.WaitForSecondsAsync( 2.5f, this.DisposeCancellationToken );
+                            this.Node.AddChild( new GameTotalsWidget_LevelFailed( this.Container ).Node, null );
                         } else {
-                            throw Exceptions.Internal.NotSupported( $"PlayerState {Game.Player.State} is not supported" );
+                            throw Exceptions.Internal.NotSupported( $"PlayerState {this.Game.Player.State} is not supported" );
                         }
                     }
                 } catch (OperationCanceledException) {
                 }
             };
-            View = CreateView( this );
-            Input = new UIInputProvider();
-            Input.UI.Cancel.performed += ctx => {
-                if (View.focusController.focusedElement == null) {
-                    View.Focus();
+            this.View = CreateView( this );
+            this.Input = new UIInputProvider();
+            this.Input.UI.Cancel.performed += ctx => {
+                if (this.View.focusController.focusedElement == null) {
+                    this.View.Focus();
                 }
             };
-            Node.AddChild( new PlayerWidget( Container ).Node, null );
+            this.Node.AddChild( new PlayerWidget( this.Container ).Node, null );
         }
         public override void Dispose() {
-            foreach (var child in Node.Children) {
+            foreach (var child in this.Node.Children) {
                 child.Widget().Dispose();
             }
-            Input.Dispose();
-            View.Dispose();
+            this.Input.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         protected override void OnActivate(object? argument) {
-            ShowSelf();
-            Input.Enable();
-            IsCursorVisible = false;
+            this.ShowSelf();
+            this.Input.Enable();
+            this.IsCursorVisible = false;
         }
         protected override void OnDeactivate(object? argument) {
-            IsCursorVisible = true;
-            Input.Disable();
-            HideSelf();
+            this.IsCursorVisible = true;
+            this.Input.Disable();
+            this.HideSelf();
         }
 
         protected override void OnBeforeDescendantActivate(NodeBase descendant, object? argument) {
-            Game.IsPaused = Node.Children.Any( i => i.Widget() is GameMenuWidget );
-            IsCursorVisible = Node.Children.Any( i => i.Widget() is GameMenuWidget or GameTotalsWidget_LevelCompleted or GameTotalsWidget_LevelFailed or GameTotalsWidget_GameCompleted );
+            this.Game.IsPaused = this.Node.Children.Any( i => i.Widget() is GameMenuWidget );
+            this.IsCursorVisible = this.Node.Children.Any( i => i.Widget() is GameMenuWidget or GameTotalsWidget_LevelCompleted or GameTotalsWidget_LevelFailed or GameTotalsWidget_GameCompleted );
         }
         //protected override void OnAfterDescendantActivate(NodeBase descendant, object? argument) {
         //}
         //protected override void OnBeforeDescendantDeactivate(NodeBase descendant, object? argument) {
         //}
         protected override void OnAfterDescendantDeactivate(NodeBase descendant, object? argument) {
-            if (Node.Activity is Activity.Active) {
-                IsCursorVisible = Node.Children.Where( i => i.Activity is Activity.Active ).Any( i => i.Widget() is GameMenuWidget or GameTotalsWidget_LevelCompleted or GameTotalsWidget_LevelFailed or GameTotalsWidget_GameCompleted );
-                Game.IsPaused = Node.Children.Where( i => i.Activity is Activity.Active ).Any( i => i.Widget() is GameMenuWidget );
+            if (this.Node.Activity is Activity.Active) {
+                this.IsCursorVisible = this.Node.Children.Where( i => i.Activity is Activity.Active ).Any( i => i.Widget() is GameMenuWidget or GameTotalsWidget_LevelCompleted or GameTotalsWidget_LevelFailed or GameTotalsWidget_GameCompleted );
+                this.Game.IsPaused = this.Node.Children.Where( i => i.Activity is Activity.Active ).Any( i => i.Widget() is GameMenuWidget );
             }
         }
 
@@ -102,7 +102,7 @@ namespace Project.UI {
         }
 
         public void OnUpdate() {
-            foreach (var child in Node.Children) {
+            foreach (var child in this.Node.Children) {
                 if (child.Widget() is PlayerWidget playerWidget) {
                     playerWidget.OnUpdate();
                 }

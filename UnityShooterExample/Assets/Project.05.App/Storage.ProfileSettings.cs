@@ -15,23 +15,23 @@ namespace Project.App {
             public string Name {
                 get => name;
                 set {
-                    Assert.Argument.Message( $"Argument 'value' ({value}) is invalid" ).Valid( IsNameValid( value ) );
+                    Assert.Argument.Message( $"Argument 'value' ({value}) is invalid" ).Valid( this.IsNameValid( value ) );
                     name = value;
                 }
             }
 
             internal ProfileSettings() {
-                Load();
+                this.Load();
             }
             public override void Dispose() {
                 base.Dispose();
             }
 
             public void Load() {
-                Name = PlayerPrefs.GetString( "ProfileSettings.Name", "Anonymous" );
+                this.Name = PlayerPrefs.GetString( "ProfileSettings.Name", "Anonymous" );
             }
             public void Save() {
-                PlayerPrefs.SetString( "ProfileSettings.Name", Name );
+                PlayerPrefs.SetString( "ProfileSettings.Name", this.Name );
             }
 
             public bool IsNameValid(string? value) {

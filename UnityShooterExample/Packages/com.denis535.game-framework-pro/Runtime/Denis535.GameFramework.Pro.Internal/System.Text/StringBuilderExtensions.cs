@@ -23,11 +23,11 @@ namespace System.Text {
         private static StringBuilder AppendHierarchy<T>(this StringBuilder builder, int indent, T @object, Func<T, string?> textSelector, Func<T, IEnumerable<T>?> childrenSelector) {
             var text = textSelector( @object );
             var children = childrenSelector( @object );
-            builder.AppendIndent( indent ).Append( text );
+            _ = builder.AppendIndent( indent ).Append( text );
             if (children != null) {
                 foreach (var child in children) {
-                    builder.AppendLine();
-                    builder.AppendHierarchy( indent + 1, child, textSelector, childrenSelector );
+                    _ = builder.AppendLine();
+                    _ = builder.AppendHierarchy( indent + 1, child, textSelector, childrenSelector );
                 }
             }
             return builder;

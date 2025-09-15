@@ -10,22 +10,22 @@ namespace UnityEngine.Framework {
     public abstract class RootWidgetViewBase : ViewBase {
 
         // Views
-        public IEnumerable<ViewBase> Views => Children().Cast<ViewBase>();
+        public IEnumerable<ViewBase> Views => this.Children().Cast<ViewBase>();
         // OnSubmit
         public event EventCallback<NavigationSubmitEvent> OnSubmitEvent {
-            add => RegisterCallback( value, TrickleDown.TrickleDown );
-            remove => UnregisterCallback( value, TrickleDown.TrickleDown );
+            add => this.RegisterCallback( value, TrickleDown.TrickleDown );
+            remove => this.UnregisterCallback( value, TrickleDown.TrickleDown );
         }
         public event EventCallback<NavigationCancelEvent> OnCancelEvent {
-            add => RegisterCallback( value, TrickleDown.TrickleDown );
-            remove => UnregisterCallback( value, TrickleDown.TrickleDown );
+            add => this.RegisterCallback( value, TrickleDown.TrickleDown );
+            remove => this.UnregisterCallback( value, TrickleDown.TrickleDown );
         }
 
         // Constructor
         public RootWidgetViewBase() {
-            name = "root-widget-view";
-            AddToClassList( "root-widget-view" );
-            pickingMode = PickingMode.Ignore;
+            this.name = "root-widget-view";
+            this.AddToClassList( "root-widget-view" );
+            this.pickingMode = PickingMode.Ignore;
         }
         public override void Dispose() {
             base.Dispose();
@@ -35,24 +35,24 @@ namespace UnityEngine.Framework {
         protected internal override bool TryAddView(ViewBase view) {
             Assert.Argument.Message( $"Argument 'view' ({view}) must be non-disposed" ).Valid( !view.IsDisposed );
             Assert.Argument.Message( $"Argument 'view' ({view}) must be non-attached to parent" ).Valid( !view.IsAttachedToParent );
-            Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Add( view );
-            Sort();
-            SetVisibility( (IReadOnlyList<VisualElement>) Children() );
+            Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+            this.Add( view );
+            this.Sort();
+            this.SetVisibility( (IReadOnlyList<VisualElement>) this.Children() );
             return true;
         }
         protected internal override bool TryRemoveView(ViewBase view) {
             Assert.Argument.Message( $"Argument 'view' ({view}) must be non-disposed" ).Valid( !view.IsDisposed );
             Assert.Argument.Message( $"Argument 'view' ({view}) must be attached to parent" ).Valid( view.IsAttachedToParent );
-            Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Remove( view );
-            SetVisibility( (IReadOnlyList<VisualElement>) Children() );
+            Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+            this.Remove( view );
+            this.SetVisibility( (IReadOnlyList<VisualElement>) this.Children() );
             return true;
         }
 
         // Sort
         protected virtual void Sort() {
-            Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( (ViewBase) a ), GetOrderOf( (ViewBase) b ) ) );
+            this.Sort( (a, b) => Comparer<int>.Default.Compare( this.GetOrderOf( (ViewBase) a ), this.GetOrderOf( (ViewBase) b ) ) );
         }
         protected virtual int GetOrderOf(ViewBase view) {
             return 0;

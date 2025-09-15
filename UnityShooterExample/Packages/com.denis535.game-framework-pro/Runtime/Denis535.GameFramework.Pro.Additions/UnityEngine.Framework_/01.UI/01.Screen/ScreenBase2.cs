@@ -13,7 +13,7 @@ namespace UnityEngine.Framework {
 
         // Constructor
         public ScreenBase2(IDependencyContainer container, UIDocument document, AudioSource audioSource) : base( document, audioSource ) {
-            Container = container;
+            this.Container = container;
         }
         public override void Dispose() {
             base.Dispose();

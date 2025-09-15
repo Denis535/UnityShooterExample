@@ -11,31 +11,31 @@ namespace Project.UI {
     public class ProfileSettingsWidget : WidgetBase2<ProfileSettingsWidgetView> {
 
         private Application2 Application { get; }
-        private Storage.ProfileSettings ProfileSettings => Application.ProfileSettings;
+        private Storage.ProfileSettings ProfileSettings => this.Application.ProfileSettings;
 
         public ProfileSettingsWidget(IDependencyContainer container) : base( container ) {
-            Application = container.RequireDependency<Application2>();
-            View = CreateView( this );
+            this.Application = container.RequireDependency<Application2>();
+            this.View = CreateView( this );
         }
         public override void Dispose() {
-            foreach (var child in Node.Children) {
+            foreach (var child in this.Node.Children) {
                 child.Widget().Dispose();
             }
-            View.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         protected override void OnActivate(object? argument) {
-            ShowSelf();
+            this.ShowSelf();
         }
         protected override void OnDeactivate(object? argument) {
             if (argument is DeactivateReason.Submit) {
-                ProfileSettings.Name = View.Name.value;
-                ProfileSettings.Save();
+                this.ProfileSettings.Name = this.View.Name.value;
+                this.ProfileSettings.Save();
             } else {
-                ProfileSettings.Load();
+                this.ProfileSettings.Load();
             }
-            HideSelf();
+            this.HideSelf();
         }
 
         // Helpers

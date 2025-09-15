@@ -9,8 +9,8 @@ namespace UnityEngine.UIElements {
     public partial class ColumnGroup : VisualElement {
 
         public ColumnGroup() {
-            AddToClassList( "group" );
-            AddToClassList( "column" );
+            this.AddToClassList( "group" );
+            this.AddToClassList( "column" );
         }
 
     }
@@ -18,8 +18,8 @@ namespace UnityEngine.UIElements {
     public partial class RowGroup : VisualElement {
 
         public RowGroup() {
-            AddToClassList( "group" );
-            AddToClassList( "row" );
+            this.AddToClassList( "group" );
+            this.AddToClassList( "row" );
         }
 
     }

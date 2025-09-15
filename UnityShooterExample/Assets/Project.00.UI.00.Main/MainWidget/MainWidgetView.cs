@@ -8,7 +8,7 @@ namespace Project.UI {
     public class MainWidgetView : WidgetViewBase {
 
         public MainWidgetView() : base( "main-widget-view" ) {
-            AddToClassList( "main-widget-view-background" );
+            this.AddToClassList( "main-widget-view-background" );
         }
         public override void Dispose() {
             base.Dispose();

@@ -8,7 +8,7 @@ namespace Project.UI {
     public class GameWidgetView : WidgetViewBase {
 
         public GameWidgetView() : base( "game-widget-view" ) {
-            focusable = true;
+            this.focusable = true;
         }
         public override void Dispose() {
             base.Dispose();

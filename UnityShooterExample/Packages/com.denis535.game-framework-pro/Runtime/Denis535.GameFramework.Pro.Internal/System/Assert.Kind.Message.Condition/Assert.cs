@@ -7,11 +7,15 @@ namespace System {
     public static class Assert {
         // Argument
         public static class Argument {
-            public static Assertions.Argument Message(FormattableString? value) => new Assertions.Argument( value );
+            public static Assertions.Argument Message(FormattableString? value) {
+                return new Assertions.Argument( value );
+            }
         }
         // Operation
         public static class Operation {
-            public static Assertions.Operation Message(FormattableString? value) => new Assertions.Operation( value );
+            public static Assertions.Operation Message(FormattableString? value) {
+                return new Assertions.Operation( value );
+            }
         }
     }
 }

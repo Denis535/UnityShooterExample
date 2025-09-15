@@ -11,13 +11,13 @@ namespace Project.UI {
         public TextField Name { get; }
 
         public ProfileSettingsWidgetView(Func<string?, bool> nameValidator) : base( "profile-settings-widget-view" ) {
-            Add(
+            this.Add(
                 VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "margin-0px" ).Class( "grow-1" ).Children(
-                    Name = VisualElementFactory.TextField( "Name", 16 ).Class( "label-width-25pc" )
+                    this.Name = VisualElementFactory.TextField( "Name", 16 ).Class( "label-width-25pc" )
                 )
             );
-            Name.OnValidate( evt => {
-                Name.SetValid( nameValidator( Name.value ) );
+            this.Name.OnValidate( evt => {
+                this.Name.SetValid( nameValidator( this.Name.value ) );
             } );
         }
         public override void Dispose() {

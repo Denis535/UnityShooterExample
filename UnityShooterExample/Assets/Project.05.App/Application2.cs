@@ -6,7 +6,6 @@ namespace Project.App {
     using System.Threading.Tasks;
     using Project.Game;
     using Unity.Services.Authentication;
-    using Unity.Services.Core;
     using UnityEngine;
     using UnityEngine.Framework;
     using PlayerInfo = Game.PlayerInfo;
@@ -23,19 +22,19 @@ namespace Project.App {
         public Game2? Game { get; private set; }
 
         public Application2(IDependencyContainer container) : base( container ) {
-            Storage = new Storage();
-            ProfileSettings = new Storage.ProfileSettings();
-            VideoSettings = new Storage.VideoSettings();
-            AudioSettings = new Storage.AudioSettings();
-            Preferences = new Storage.Preferences();
-            InitializationTask = InitializeAsync();
+            this.Storage = new Storage();
+            this.ProfileSettings = new Storage.ProfileSettings();
+            this.VideoSettings = new Storage.VideoSettings();
+            this.AudioSettings = new Storage.AudioSettings();
+            this.Preferences = new Storage.Preferences();
+            this.InitializationTask = this.InitializeAsync();
         }
         public override void Dispose() {
-            Storage.Dispose();
-            ProfileSettings.Dispose();
-            VideoSettings.Dispose();
-            AudioSettings.Dispose();
-            Preferences.Dispose();
+            this.Storage.Dispose();
+            this.ProfileSettings.Dispose();
+            this.VideoSettings.Dispose();
+            this.AudioSettings.Dispose();
+            this.Preferences.Dispose();
             base.Dispose();
         }
 
@@ -55,7 +54,7 @@ namespace Project.App {
         }
 
         public Game2 RunGame(GameInfo gameInfo, PlayerInfo playerInfo) {
-            Assert.Operation.Message( $"Game must be null" ).Valid( Game is null );
+            Assert.Operation.Message( $"Game must be null" ).Valid( this.Game is null );
 #if !UNITY_EDITOR
             Debug.LogFormat( "Run Game" );
 #endif
@@ -66,16 +65,16 @@ namespace Project.App {
                 Gun.Factory.Load();
                 Bullet.Factory.Load();
             }
-            Game = new Game2( Container, gameInfo, playerInfo );
-            return Game;
+            this.Game = new Game2( this.Container, gameInfo, playerInfo );
+            return this.Game;
         }
         public void StopGame() {
-            Assert.Operation.Message( $"Game must be non-null" ).Valid( Game is not null );
+            Assert.Operation.Message( $"Game must be non-null" ).Valid( this.Game is not null );
 #if !UNITY_EDITOR
             Debug.LogFormat( "Stop Game" );
 #endif
-            Game.Dispose();
-            Game = null;
+            this.Game.Dispose();
+            this.Game = null;
             {
                 PlayerCamera.Factory.Unload();
                 PlayerCharacter.Factory.Unload();
@@ -88,13 +87,13 @@ namespace Project.App {
         }
 
         public void OnFixedUpdate() {
-            Game?.OnFixedUpdate();
+            this.Game?.OnFixedUpdate();
         }
         public void OnUpdate() {
-            Game?.OnUpdate();
+            this.Game?.OnUpdate();
         }
         public void OnLateUpdate() {
-            Game?.OnLateUpdate();
+            this.Game?.OnLateUpdate();
         }
 
     }

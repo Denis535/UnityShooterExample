@@ -15,17 +15,17 @@ namespace Project.UI {
 
         public LoadingWidgetView() : base( "loading-widget-view" ) {
             this.Add(
-                Background = VisualElementFactory.VisualElement().Class( "loading-widget-view-background" ).Class( "width-100pc" ).Class( "height-100pc" ),
-                Loading = VisualElementFactory.Label( "Loading..." ).Class( "color-light" ).Class( "font-size-200pc" ).Class( "font-style-bold" ).Class( "position-absolute" ).Class( "left-50pc" ).Class( "bottom-2pc" ).Class( "translate-x-n50pc" )
+               this.Background = VisualElementFactory.VisualElement().Class( "loading-widget-view-background" ).Class( "width-100pc" ).Class( "height-100pc" ),
+               this.Loading = VisualElementFactory.Label( "Loading..." ).Class( "color-light" ).Class( "font-size-200pc" ).Class( "font-style-bold" ).Class( "position-absolute" ).Class( "left-50pc" ).Class( "bottom-2pc" ).Class( "translate-x-n50pc" )
             );
-            Background.RegisterCallbackOnce<AttachToPanelEvent>( async evt => {
-                await Awaitable.NextFrameAsync( DisposeCancellationToken );
-                Background.style.unityBackgroundImageTintColor = Color.black;
-                Background.style.translate = new Translate( 0, 0 );
-                Background.style.rotate = new Rotate( Angle.Degrees( 45 ) );
-                Background.style.scale = new Scale( new Vector3( 5, 5, 1 ) );
+            this.Background.RegisterCallbackOnce<AttachToPanelEvent>( async evt => {
+                await Awaitable.NextFrameAsync( this.DisposeCancellationToken );
+                this.Background.style.unityBackgroundImageTintColor = Color.black;
+                this.Background.style.translate = new Translate( 0, 0 );
+                this.Background.style.rotate = new Rotate( Angle.Degrees( 45 ) );
+                this.Background.style.scale = new Scale( new Vector3( 5, 5, 1 ) );
             } );
-            Loading.RegisterCallbackOnce<AttachToPanelEvent>( PlayAnimation );
+            this.Loading.RegisterCallbackOnce<AttachToPanelEvent>( PlayAnimation );
         }
         public override void Dispose() {
             base.Dispose();
@@ -53,7 +53,7 @@ namespace Project.UI {
                 a = Mathf.LerpUnclamped( 0.05f, 1f, a );
                 var color = ColorUtility.ToHtmlStringRGBA( new Color( 0.9f, 0.9f, 0.9f, a ) );
                 var @char = text[ i ];
-                builder.Append( $"<color=#{color}>{@char}</color>" );
+                _ = builder.Append( $"<color=#{color}>{@char}</color>" );
             }
             return builder.ToString();
         }

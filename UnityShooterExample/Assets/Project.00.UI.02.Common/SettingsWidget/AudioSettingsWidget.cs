@@ -11,34 +11,34 @@ namespace Project.UI {
     public class AudioSettingsWidget : WidgetBase2<AudioSettingsWidgetView> {
 
         private Application2 Application { get; }
-        private Storage.AudioSettings AudioSettings => Application.AudioSettings;
+        private Storage.AudioSettings AudioSettings => this.Application.AudioSettings;
 
         public AudioSettingsWidget(IDependencyContainer container) : base( container ) {
-            Application = container.RequireDependency<Application2>();
-            View = CreateView( this );
+            this.Application = container.RequireDependency<Application2>();
+            this.View = CreateView( this );
         }
         public override void Dispose() {
-            foreach (var child in Node.Children) {
+            foreach (var child in this.Node.Children) {
                 child.Widget().Dispose();
             }
-            View.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         protected override void OnActivate(object? argument) {
-            ShowSelf();
+            this.ShowSelf();
         }
         protected override void OnDeactivate(object? argument) {
             if (argument is DeactivateReason.Submit) {
-                AudioSettings.MasterVolume = View.MasterVolume.value;
-                AudioSettings.MusicVolume = View.MusicVolume.value;
-                AudioSettings.SfxVolume = View.SfxVolume.value;
-                AudioSettings.GameVolume = View.GameVolume.value;
-                AudioSettings.Save();
+                this.AudioSettings.MasterVolume = this.View.MasterVolume.value;
+                this.AudioSettings.MusicVolume = this.View.MusicVolume.value;
+                this.AudioSettings.SfxVolume = this.View.SfxVolume.value;
+                this.AudioSettings.GameVolume = this.View.GameVolume.value;
+                this.AudioSettings.Save();
             } else {
-                AudioSettings.Load();
+                this.AudioSettings.Load();
             }
-            HideSelf();
+            this.HideSelf();
         }
 
         // Helpers

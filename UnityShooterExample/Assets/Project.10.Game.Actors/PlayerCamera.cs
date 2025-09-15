@@ -63,42 +63,42 @@ namespace Project.Game {
         }
         protected override void Update() {
             base.Update();
-            if (InputProvider != null) {
-                var target = InputProvider.GetTarget();
+            if (this.InputProvider != null) {
+                var target = this.InputProvider.GetTarget();
                 if (target != prevTarget) {
-                    Angles = new Vector2( DefaultAngleX, target.transform.eulerAngles.y );
-                    Distance = DefaultDistance;
+                    this.Angles = new Vector2( DefaultAngleX, target.transform.eulerAngles.y );
+                    this.Distance = DefaultDistance;
                 } else {
                     {
-                        var angles = Angles + InputProvider.GetRotateDelta() * RotateInputSensitivity;
+                        var angles = this.Angles + this.InputProvider.GetRotateDelta() * RotateInputSensitivity;
                         angles.x = Math.Clamp( angles.x, MinAngleX, MaxAngleX );
-                        Angles = angles;
+                        this.Angles = angles;
                     }
                     {
-                        var distance = Distance + InputProvider.GetZoomDelta() * ZoomInputSensitivity;
+                        var distance = this.Distance + this.InputProvider.GetZoomDelta() * ZoomInputSensitivity;
                         distance = Math.Clamp( distance, MinDistance, MaxDistance );
-                        Distance = distance;
+                        this.Distance = distance;
                     }
                 }
                 prevTarget = target;
                 if (target.IsAlive) {
-                    var distance01 = Mathf.InverseLerp( MinDistance, MaxDistance, Distance );
-                    transform.localPosition = target.transform.position;
-                    transform.localEulerAngles = Angles;
-                    transform.Translate( 0, 0, -Distance, Space.Self );
-                    transform.Translate( Vector3.LerpUnclamped( Vector3.right * 0.2f, Vector3.right * 0.6f, distance01 ), Space.Self );
-                    transform.Translate( Vector3.LerpUnclamped( target.transform.up * 1.8f, target.transform.up * 2.2f, distance01 ), Space.World );
+                    var distance01 = Mathf.InverseLerp( MinDistance, MaxDistance, this.Distance );
+                    this.transform.localPosition = target.transform.position;
+                    this.transform.localEulerAngles = this.Angles;
+                    this.transform.Translate( 0, 0, -this.Distance, Space.Self );
+                    this.transform.Translate( Vector3.LerpUnclamped( Vector3.right * 0.2f, Vector3.right * 0.6f, distance01 ), Space.Self );
+                    this.transform.Translate( Vector3.LerpUnclamped( target.transform.up * 1.8f, target.transform.up * 2.2f, distance01 ), Space.World );
                 } else {
-                    transform.localPosition = target.transform.position;
-                    transform.localEulerAngles = Angles;
-                    transform.Translate( 0, 0, -Distance, Space.Self );
-                    transform.Translate( target.transform.up * 1.5f, Space.World );
+                    this.transform.localPosition = target.transform.position;
+                    this.transform.localEulerAngles = this.Angles;
+                    this.transform.Translate( 0, 0, -this.Distance, Space.Self );
+                    this.transform.Translate( target.transform.up * 1.5f, Space.World );
                 }
-                Camera.main.transform.localPosition = transform.localPosition;
-                Camera.main.transform.localRotation = transform.localRotation;
-                Hit = Raycast( new Ray( transform.position, transform.forward ), target.transform );
+                Camera.main.transform.localPosition = this.transform.localPosition;
+                Camera.main.transform.localRotation = this.transform.localRotation;
+                this.Hit = Raycast( new Ray( this.transform.position, this.transform.forward ), target.transform );
             } else {
-                Hit = null;
+                this.Hit = null;
             }
         }
         protected override void LateUpdate() {

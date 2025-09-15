@@ -37,12 +37,12 @@ namespace UnityEditor.UIElements {
         }
         private static void OnAssetDeleted(string path) {
             if (IsPug( path )) {
-                AssetDatabase.DeleteAsset( Path.ChangeExtension( path, ".uxml" ) );
+                _ = AssetDatabase.DeleteAsset( Path.ChangeExtension( path, ".uxml" ) );
             }
         }
         private static void OnAssetMoved(string newPath, string oldPath) {
             if (IsPug( oldPath )) {
-                AssetDatabase.MoveAsset( Path.ChangeExtension( oldPath, ".uxml" ), Path.ChangeExtension( newPath, ".uxml" ) );
+                _ = AssetDatabase.MoveAsset( Path.ChangeExtension( oldPath, ".uxml" ), Path.ChangeExtension( newPath, ".uxml" ) );
             }
         }
 

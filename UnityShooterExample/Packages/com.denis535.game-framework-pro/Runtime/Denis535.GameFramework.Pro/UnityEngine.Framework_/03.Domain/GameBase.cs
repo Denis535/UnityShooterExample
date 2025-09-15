@@ -11,7 +11,7 @@ namespace UnityEngine.Framework {
         public GameBase() {
         }
         public override void Dispose() {
-            Assert.Operation.Message( $"Game {this} must be non-disposed" ).NotDisposed( !IsDisposed );
+            Assert.Operation.Message( $"Game {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
             base.Dispose();
         }
 

@@ -17,38 +17,38 @@ namespace Project.UI {
     public class DialogWidget : WidgetBase2<DialogWidgetView>, IDialogWidget<DialogWidget> {
 
         public string? Title {
-            get => View.Title.text;
+            get => this.View.Title.text;
             set {
-                View.Title.text = value;
-                View.Header.SetDisplayed( value != null );
+                this.View.Title.text = value;
+                this.View.Header.SetDisplayed( value != null );
             }
         }
         public string? Message {
-            get => View.Message.text;
+            get => this.View.Message.text;
             set {
-                View.Message.text = value;
-                View.Content.SetDisplayed( value != null );
+                this.View.Message.text = value;
+                this.View.Content.SetDisplayed( value != null );
             }
         }
 
         public DialogWidget(IDependencyContainer container, string? title, string? message) : base( container ) {
-            View = new DialogWidgetView();
-            Title = title;
-            Message = message;
+            this.View = new DialogWidgetView();
+            this.Title = title;
+            this.Message = message;
         }
         public override void Dispose() {
-            foreach (var child in Node.Children) {
+            foreach (var child in this.Node.Children) {
                 child.Widget().Dispose();
             }
-            View.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         protected override void OnActivate(object? argument) {
-            ShowSelf();
+            this.ShowSelf();
         }
         protected override void OnDeactivate(object? argument) {
-            HideSelf();
+            this.HideSelf();
         }
 
         public DialogWidget OnSubmit(string text, Action? callback) {
@@ -56,11 +56,11 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Node.Activity is Activity.Active) Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
-            View.Footer.Add( button );
-            View.Footer.SetDisplayed( true );
+            this.View.Footer.Add( button );
+            this.View.Footer.SetDisplayed( true );
             return this;
         }
         public DialogWidget OnCancel(string text, Action? callback) {
@@ -68,11 +68,11 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Node.Activity is Activity.Active) Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
-            View.Footer.Add( button );
-            View.Footer.SetDisplayed( true );
+            this.View.Footer.Add( button );
+            this.View.Footer.SetDisplayed( true );
             return this;
         }
 
@@ -80,35 +80,35 @@ namespace Project.UI {
     public class InfoDialogWidget : WidgetBase2<InfoDialogWidgetView>, IDialogWidget<InfoDialogWidget> {
 
         public string? Title {
-            get => View.Title.text;
+            get => this.View.Title.text;
             set {
-                View.Title.text = value;
-                View.Header.SetDisplayed( value != null );
+                this.View.Title.text = value;
+                this.View.Header.SetDisplayed( value != null );
             }
         }
         public string? Message {
-            get => View.Message.text;
+            get => this.View.Message.text;
             set {
-                View.Message.text = value;
-                View.Content.SetDisplayed( value != null );
+                this.View.Message.text = value;
+                this.View.Content.SetDisplayed( value != null );
             }
         }
 
         public InfoDialogWidget(IDependencyContainer container, string? title, string? message) : base( container ) {
-            View = new InfoDialogWidgetView();
-            Title = title;
-            Message = message;
+            this.View = new InfoDialogWidgetView();
+            this.Title = title;
+            this.Message = message;
         }
         public override void Dispose() {
-            View.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         protected override void OnActivate(object? argument) {
-            ShowSelf();
+            this.ShowSelf();
         }
         protected override void OnDeactivate(object? argument) {
-            HideSelf();
+            this.HideSelf();
         }
 
         public InfoDialogWidget OnSubmit(string text, Action? callback) {
@@ -116,11 +116,11 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Node.Activity is Activity.Active) Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
-            View.Footer.Add( button );
-            View.Footer.SetDisplayed( true );
+            this.View.Footer.Add( button );
+            this.View.Footer.SetDisplayed( true );
             return this;
         }
         public InfoDialogWidget OnCancel(string text, Action? callback) {
@@ -128,11 +128,11 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Node.Activity is Activity.Active) Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
-            View.Footer.Add( button );
-            View.Footer.SetDisplayed( true );
+            this.View.Footer.Add( button );
+            this.View.Footer.SetDisplayed( true );
             return this;
         }
 
@@ -140,35 +140,35 @@ namespace Project.UI {
     public class WarningDialogWidget : WidgetBase2<WarningDialogWidgetView>, IDialogWidget<WarningDialogWidget> {
 
         public string? Title {
-            get => View.Title.text;
+            get => this.View.Title.text;
             set {
-                View.Title.text = value;
-                View.Header.SetDisplayed( value != null );
+                this.View.Title.text = value;
+                this.View.Header.SetDisplayed( value != null );
             }
         }
         public string? Message {
-            get => View.Message.text;
+            get => this.View.Message.text;
             set {
-                View.Message.text = value;
-                View.Content.SetDisplayed( value != null );
+                this.View.Message.text = value;
+                this.View.Content.SetDisplayed( value != null );
             }
         }
 
         public WarningDialogWidget(IDependencyContainer container, string? title, string? message) : base( container ) {
-            View = new WarningDialogWidgetView();
-            Title = title;
-            Message = message;
+            this.View = new WarningDialogWidgetView();
+            this.Title = title;
+            this.Message = message;
         }
         public override void Dispose() {
-            View.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         protected override void OnActivate(object? argument) {
-            ShowSelf();
+            this.ShowSelf();
         }
         protected override void OnDeactivate(object? argument) {
-            HideSelf();
+            this.HideSelf();
         }
 
         public WarningDialogWidget OnSubmit(string text, Action? callback) {
@@ -176,11 +176,11 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Node.Activity is Activity.Active) Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
-            View.Footer.Add( button );
-            View.Footer.SetDisplayed( true );
+            this.View.Footer.Add( button );
+            this.View.Footer.SetDisplayed( true );
             return this;
         }
         public WarningDialogWidget OnCancel(string text, Action? callback) {
@@ -188,11 +188,11 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Node.Activity is Activity.Active) Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
-            View.Footer.Add( button );
-            View.Footer.SetDisplayed( true );
+            this.View.Footer.Add( button );
+            this.View.Footer.SetDisplayed( true );
             return this;
         }
 
@@ -200,35 +200,35 @@ namespace Project.UI {
     public class ErrorDialogWidget : WidgetBase2<ErrorDialogWidgetView>, IDialogWidget<ErrorDialogWidget> {
 
         public string? Title {
-            get => View.Title.text;
+            get => this.View.Title.text;
             set {
-                View.Title.text = value;
-                View.Header.SetDisplayed( value != null );
+                this.View.Title.text = value;
+                this.View.Header.SetDisplayed( value != null );
             }
         }
         public string? Message {
-            get => View.Message.text;
+            get => this.View.Message.text;
             set {
-                View.Message.text = value;
-                View.Content.SetDisplayed( value != null );
+                this.View.Message.text = value;
+                this.View.Content.SetDisplayed( value != null );
             }
         }
 
         public ErrorDialogWidget(IDependencyContainer container, string? title, string? message) : base( container ) {
-            View = new ErrorDialogWidgetView();
-            Title = title;
-            Message = message;
+            this.View = new ErrorDialogWidgetView();
+            this.Title = title;
+            this.Message = message;
         }
         public override void Dispose() {
-            View.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         protected override void OnActivate(object? argument) {
-            ShowSelf();
+            this.ShowSelf();
         }
         protected override void OnDeactivate(object? argument) {
-            HideSelf();
+            this.HideSelf();
         }
 
         public ErrorDialogWidget OnSubmit(string text, Action? callback) {
@@ -236,11 +236,11 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Node.Activity is Activity.Active) Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
-            View.Footer.Add( button );
-            View.Footer.SetDisplayed( true );
+            this.View.Footer.Add( button );
+            this.View.Footer.SetDisplayed( true );
             return this;
         }
         public ErrorDialogWidget OnCancel(string text, Action? callback) {
@@ -248,11 +248,11 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (Node.Activity is Activity.Active) Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
-            View.Footer.Add( button );
-            View.Footer.SetDisplayed( true );
+            this.View.Footer.Add( button );
+            this.View.Footer.SetDisplayed( true );
             return this;
         }
 

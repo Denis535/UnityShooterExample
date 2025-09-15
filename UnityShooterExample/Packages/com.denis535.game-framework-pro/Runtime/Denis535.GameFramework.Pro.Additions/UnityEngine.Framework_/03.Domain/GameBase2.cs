@@ -12,7 +12,7 @@ namespace UnityEngine.Framework {
 
         // Constructor
         public GameBase2(IDependencyContainer container) {
-            Container = container;
+            this.Container = container;
         }
         public override void Dispose() {
             base.Dispose();

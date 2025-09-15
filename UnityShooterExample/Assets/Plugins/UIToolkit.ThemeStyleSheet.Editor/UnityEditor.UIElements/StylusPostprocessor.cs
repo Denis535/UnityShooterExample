@@ -37,12 +37,12 @@ namespace UnityEditor.UIElements {
         }
         private static void OnAssetDeleted(string path) {
             if (IsStylus( path )) {
-                AssetDatabase.DeleteAsset( Path.ChangeExtension( path, ".uss" ) );
+                _ = AssetDatabase.DeleteAsset( Path.ChangeExtension( path, ".uss" ) );
             }
         }
         private static void OnAssetMoved(string newPath, string oldPath) {
             if (IsStylus( oldPath )) {
-                AssetDatabase.MoveAsset( Path.ChangeExtension( oldPath, ".uss" ), Path.ChangeExtension( newPath, ".uss" ) );
+                _ = AssetDatabase.MoveAsset( Path.ChangeExtension( oldPath, ".uss" ), Path.ChangeExtension( newPath, ".uss" ) );
             }
         }
 

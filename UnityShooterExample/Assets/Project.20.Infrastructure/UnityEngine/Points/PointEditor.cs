@@ -10,7 +10,7 @@ namespace UnityEngine {
     [CustomEditor( typeof( Point ), true )]
     public class PointEditor : Editor {
 
-        private Point Target => (Point) target;
+        private Point Target => (Point) this.target;
 
         public override void OnInspectorGUI() {
             base.OnInspectorGUI();
@@ -20,22 +20,22 @@ namespace UnityEngine {
             if (Event.current.type is EventType.MouseDown or EventType.MouseDrag && Event.current.button == 0 && Event.current.control) {
                 var ray = HandleUtility.GUIPointToWorldRay( Event.current.mousePosition );
                 if (Physics.Raycast( ray, out var hit, 256, ~0, QueryTriggerInteraction.Ignore )) {
-                    Undo.RegisterCompleteObjectUndo( Target.transform, null );
+                    Undo.RegisterCompleteObjectUndo( this.Target.transform, null );
                     var point = Snap( hit.point, hit.distance );
-                    Target.transform.position = point;
+                    this.Target.transform.position = point;
                 }
-                Target.SendMessage( "OnValidate", null, SendMessageOptions.DontRequireReceiver );
-                EditorUtility.SetDirty( Target );
+                this.Target.SendMessage( "OnValidate", null, SendMessageOptions.DontRequireReceiver );
+                EditorUtility.SetDirty( this.Target );
                 Event.current.Use();
             }
             if (Event.current.type is EventType.ScrollWheel && Event.current.control) {
                 {
-                    Undo.RegisterCompleteObjectUndo( Target.transform, null );
+                    Undo.RegisterCompleteObjectUndo( this.Target.transform, null );
                     var delta = Event.current.delta.y > 0 ? 45 : -45;
-                    Target.transform.localEulerAngles += new Vector3( 0, delta, 0 );
+                    this.Target.transform.localEulerAngles += new Vector3( 0, delta, 0 );
                 }
-                Target.SendMessage( "OnValidate", null, SendMessageOptions.DontRequireReceiver );
-                EditorUtility.SetDirty( Target );
+                this.Target.SendMessage( "OnValidate", null, SendMessageOptions.DontRequireReceiver );
+                EditorUtility.SetDirty( this.Target );
                 Event.current.Use();
             }
             if ((Event.current.isMouse || Event.current.isKey) && Event.current.control) {

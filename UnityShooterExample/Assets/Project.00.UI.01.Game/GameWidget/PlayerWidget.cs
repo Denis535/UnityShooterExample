@@ -10,32 +10,32 @@ namespace Project.UI {
     public class PlayerWidget : WidgetBase2<PlayerWidgetView> {
 
         private Game2 Game { get; }
-        private Player2 Player => Game.Player;
+        private Player2 Player => this.Game.Player;
 
         public PlayerWidget(IDependencyContainer container) : base( container ) {
-            Game = container.RequireDependency<Game2>();
-            View = CreateView( this );
+            this.Game = container.RequireDependency<Game2>();
+            this.View = CreateView( this );
         }
         public override void Dispose() {
-            foreach (var child in Node.Children) {
+            foreach (var child in this.Node.Children) {
                 child.Widget().Dispose();
             }
-            View.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         protected override void OnActivate(object? argument) {
-            ShowSelf();
+            this.ShowSelf();
         }
         protected override void OnDeactivate(object? argument) {
-            HideSelf();
+            this.HideSelf();
         }
 
         public void OnUpdate() {
-            if (Player.Camera != null) {
-                View.Target.style.color = GetTargetColor( Player.Camera.Hit );
+            if (this.Player.Camera != null) {
+                this.View.Target.style.color = GetTargetColor( this.Player.Camera.Hit );
             } else {
-                View.Target.style.color = default;
+                this.View.Target.style.color = default;
             }
         }
 

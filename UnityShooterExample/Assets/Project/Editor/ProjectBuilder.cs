@@ -18,7 +18,7 @@ namespace Project {
 
         public static void BuildDevelopment(string path) {
             PreBuild();
-            BuildPipeline.BuildPlayer(
+            _ = BuildPipeline.BuildPlayer(
                 EditorBuildSettings.scenes,
                 path,
                 BuildTarget.StandaloneWindows64,
@@ -29,7 +29,7 @@ namespace Project {
         }
         public static void BuildProduction(string path) {
             PreBuild();
-            BuildPipeline.BuildPlayer(
+            _ = BuildPipeline.BuildPlayer(
                 EditorBuildSettings.scenes,
                 path,
                 BuildTarget.StandaloneWindows64,

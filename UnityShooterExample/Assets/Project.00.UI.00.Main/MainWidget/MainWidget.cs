@@ -17,32 +17,32 @@ namespace Project.UI {
         private Application2 Application { get; }
 
         public MainWidget(IDependencyContainer container) : base( container ) {
-            Router = container.RequireDependency<Router>();
-            Application = container.RequireDependency<Application2>();
-            View = CreateView( this );
-            Node.AddChild( new MainMenuWidget( Container ).Node, null );
+            this.Router = container.RequireDependency<Router>();
+            this.Application = container.RequireDependency<Application2>();
+            this.View = CreateView( this );
+            this.Node.AddChild( new MainMenuWidget( this.Container ).Node, null );
         }
         public override void Dispose() {
-            foreach (var child in Node.Children) {
+            foreach (var child in this.Node.Children) {
                 child.Widget().Dispose();
             }
-            View.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         protected override async void OnActivate(object? argument) {
-            ShowSelf();
-            Node.Children.Select( i => i.Widget() ).OfType<MainMenuWidget>().First().__GetView__().style.display = DisplayStyle.None;
+            this.ShowSelf();
+            this.Node.Children.Select( i => i.Widget() ).OfType<MainMenuWidget>().First().__GetView__().style.display = DisplayStyle.None;
             try {
-                await Application.InitializationTask.WaitAsync( DisposeCancellationToken );
-                Node.Children.Select( i => i.Widget() ).OfType<MainMenuWidget>().First().__GetView__().style.display = StyleKeyword.Null;
+                await this.Application.InitializationTask.WaitAsync( this.DisposeCancellationToken );
+                this.Node.Children.Select( i => i.Widget() ).OfType<MainMenuWidget>().First().__GetView__().style.display = StyleKeyword.Null;
             } catch (OperationCanceledException) {
             } catch (Exception ex) {
-                ((RootWidget) Node.Root.Widget()).AddChild( new ErrorDialogWidget( Container, "Error", ex.Message ).OnSubmit( "Ok", () => Router.Quit() ) );
+                ((RootWidget) this.Node.Root.Widget()).AddChild( new ErrorDialogWidget( this.Container, "Error", ex.Message ).OnSubmit( "Ok", () => this.Router.Quit() ) );
             }
         }
         protected override void OnDeactivate(object? argument) {
-            HideSelf();
+            this.HideSelf();
         }
 
         protected override void Sort(List<NodeBase> children) {

@@ -17,7 +17,7 @@ namespace UnityEngine.Framework {
             get {
                 if (disposeCancellationTokenSource == null) {
                     disposeCancellationTokenSource = new CancellationTokenSource();
-                    if (IsDisposed) disposeCancellationTokenSource.Cancel();
+                    if (this.IsDisposed) disposeCancellationTokenSource.Cancel();
                 }
                 return disposeCancellationTokenSource.Token;
             }
@@ -25,21 +25,21 @@ namespace UnityEngine.Framework {
         // IsAttachedToParent
         public bool IsAttachedToParent {
             get {
-                Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                return parent != null;
+                Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+                return this.parent != null;
             }
         }
         // IsAttachedToPanel
         public bool IsAttachedToPanel {
             get {
-                Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                return panel != null;
+                Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+                return this.panel != null;
             }
         }
         // Parent
         public ViewBase? Parent2 {
             get {
-                Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !IsDisposed );
+                Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
                 return GetParent( this );
                 static ViewBase? GetParent(VisualElement element) {
                     if (element.parent != null) {
@@ -52,7 +52,7 @@ namespace UnityEngine.Framework {
         // Children
         public IEnumerable<ViewBase> Children2 {
             get {
-                Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !IsDisposed );
+                Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
                 return GetChildren( this );
                 static IEnumerable<ViewBase> GetChildren(VisualElement element) {
                     foreach (var child in element.Children()) {
@@ -71,32 +71,32 @@ namespace UnityEngine.Framework {
         }
         ~ViewBase() {
 #if DEBUG
-            if (!IsDisposed) {
+            if (!this.IsDisposed) {
                 Debug.LogWarning( $"View '{this}' must be disposed" );
             }
 #endif
         }
         public virtual void Dispose() {
-            foreach (var child in Children2) {
+            foreach (var child in this.Children2) {
                 Assert.Operation.Message( $"Child {child} must be disposed" ).Valid( child.IsDisposed );
             }
-            Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"View {this} must be non-attached to panel" ).Valid( !IsAttachedToPanel );
+            Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+            Assert.Operation.Message( $"View {this} must be non-attached to panel" ).Valid( !this.IsAttachedToPanel );
             disposeCancellationTokenSource?.Cancel();
-            IsDisposed = true;
+            this.IsDisposed = true;
         }
 
         // TryAddView
         protected internal virtual bool TryAddView(ViewBase view) {
             Assert.Argument.Message( $"Argument 'view' ({view}) must be non-disposed" ).Valid( !view.IsDisposed );
             Assert.Argument.Message( $"Argument 'view' ({view}) must be non-attached to parent" ).Valid( !view.IsAttachedToParent );
-            Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !IsDisposed );
+            Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
             return false;
         }
         protected internal virtual bool TryRemoveView(ViewBase view) {
             Assert.Argument.Message( $"Argument 'view' ({view}) must be non-disposed" ).Valid( !view.IsDisposed );
             Assert.Argument.Message( $"Argument 'view' ({view}) must be attached to parent" ).Valid( view.IsAttachedToParent );
-            Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !IsDisposed );
+            Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
             return false;
         }
 

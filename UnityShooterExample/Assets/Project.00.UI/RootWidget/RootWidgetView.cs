@@ -49,7 +49,7 @@ namespace Project.UI {
             for (var i = 0; i < views.Count; i++) {
                 var view = (ViewBase) views[ i ];
                 var next = views.Skip( i + 1 ).Cast<ViewBase>();
-                SetVisibility( view, next );
+                this.SetVisibility( view, next );
             }
             LoadFocus( views );
         }
@@ -60,7 +60,7 @@ namespace Project.UI {
                 } else {
                     view.SetEnabled( true );
                 }
-                if (GetPriorityOf( view ) < next.Max( GetPriorityOf )) {
+                if (this.GetPriorityOf( view ) < next.Max( this.GetPriorityOf )) {
                     view.SetDisplayed( false );
                 } else {
                     view.SetDisplayed( true );

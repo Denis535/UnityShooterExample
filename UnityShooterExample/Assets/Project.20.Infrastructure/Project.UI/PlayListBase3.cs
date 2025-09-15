@@ -15,7 +15,7 @@ namespace Project.UI {
         public bool IsFading { get; set; }
 
         public PlayListBase3(IDependencyContainer container, AssetHandle<AudioClip>[] clips) : base( container ) {
-            Clips = clips;
+            this.Clips = clips;
         }
         public override void Dispose() {
             base.Dispose();
@@ -24,8 +24,8 @@ namespace Project.UI {
         protected override async void OnActivate(object? argument) {
             var cancellationToken = this.GetCancellationToken_OnDeactivateCallback();
             try {
-                for (var i = 0; true; i = (i + 1) % Clips.Length) {
-                    await PlayAsync( Clips[ i ], cancellationToken );
+                for (var i = 0; true; i = (i + 1) % this.Clips.Length) {
+                    await this.PlayAndWaitForCompletionAsync( this.Clips[ i ], cancellationToken );
                 }
             } catch (OperationCanceledException) {
             }
@@ -33,13 +33,13 @@ namespace Project.UI {
         protected override void OnDeactivate(object? argument) {
         }
 
-        private async Task PlayAsync(AssetHandle<AudioClip> clip, CancellationToken cancellationToken) {
+        private async Task PlayAndWaitForCompletionAsync(AssetHandle<AudioClip> clip, CancellationToken cancellationToken) {
             try {
                 var clip_ = await clip.Load().GetValueAsync( cancellationToken );
-                IsFading = false;
-                Volume = 1;
-                Pitch = 1;
-                await PlayAndWaitForCompletionAsync( clip_, cancellationToken );
+                this.IsFading = false;
+                this.Volume = 1;
+                this.Pitch = 1;
+                await this.PlayAndWaitForCompletionAsync( clip_, cancellationToken );
             } finally {
                 clip.Release();
             }

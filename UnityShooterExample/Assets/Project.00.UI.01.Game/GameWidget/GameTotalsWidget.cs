@@ -14,29 +14,29 @@ namespace Project.UI {
         protected Game2 Game { get; }
 
         public GameTotalsWidget(IDependencyContainer container) : base( container ) {
-            Router = container.RequireDependency<Router>();
-            Game = container.RequireDependency<Game2>();
+            this.Router = container.RequireDependency<Router>();
+            this.Game = container.RequireDependency<Game2>();
         }
         public override void Dispose() {
-            foreach (var child in Node.Children) {
+            foreach (var child in this.Node.Children) {
                 child.Widget().Dispose();
             }
-            View.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         protected override void OnActivate(object? argument) {
-            ShowSelf();
+            this.ShowSelf();
         }
         protected override void OnDeactivate(object? argument) {
-            HideSelf();
+            this.HideSelf();
         }
 
     }
     public class GameTotalsWidget_LevelCompleted : GameTotalsWidget<GameTotalsWidgetView_LevelCompleted> {
 
         public GameTotalsWidget_LevelCompleted(IDependencyContainer container) : base( container ) {
-            View = CreateView( this );
+            this.View = CreateView( this );
         }
         public override void Dispose() {
             base.Dispose();
@@ -62,7 +62,7 @@ namespace Project.UI {
     public class GameTotalsWidget_LevelFailed : GameTotalsWidget<GameTotalsWidgetView_LevelFailed> {
 
         public GameTotalsWidget_LevelFailed(IDependencyContainer container) : base( container ) {
-            View = CreateView( this );
+            this.View = CreateView( this );
         }
         public override void Dispose() {
             base.Dispose();
@@ -86,7 +86,7 @@ namespace Project.UI {
     public class GameTotalsWidget_GameCompleted : GameTotalsWidget<GameTotalsWidgetView_GameCompleted> {
 
         public GameTotalsWidget_GameCompleted(IDependencyContainer container) : base( container ) {
-            View = CreateView( this );
+            this.View = CreateView( this );
         }
         public override void Dispose() {
             base.Dispose();

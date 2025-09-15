@@ -10,14 +10,14 @@ namespace Project.Game {
 
         protected Rigidbody Rigidbody { get; private set; } = default!;
         public bool IsRigidbody {
-            get => !Rigidbody.isKinematic;
+            get => !this.Rigidbody.isKinematic;
             set {
-                Rigidbody.isKinematic = !value;
+                this.Rigidbody.isKinematic = !value;
             }
         }
 
         protected override void Awake() {
-            Rigidbody = gameObject.RequireComponent<Rigidbody>();
+            this.Rigidbody = this.gameObject.RequireComponent<Rigidbody>();
         }
         protected override void OnDestroy() {
         }
@@ -29,14 +29,14 @@ namespace Project.Game {
 
         private float Interval { get; }
         private float? FireTime { get; set; }
-        public bool CanFire => FireTime.HasValue ? (FireTime.Value + Interval - Time.time) <= 0 : true;
+        public bool CanFire => !this.FireTime.HasValue || (this.FireTime.Value + this.Interval - Time.time) <= 0;
 
         public FireDelay(float interval) {
-            Interval = interval;
+            this.Interval = interval;
         }
 
         public void Fire() {
-            FireTime = Time.time;
+            this.FireTime = Time.time;
         }
 
     }

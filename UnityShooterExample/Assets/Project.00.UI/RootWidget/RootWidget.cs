@@ -10,35 +10,35 @@ namespace Project.UI {
     public class RootWidget : RootWidgetBase<RootWidgetView> {
 
         public RootWidget(IDependencyContainer container) : base( container ) {
-            View = new RootWidgetView();
-            View.OnSubmitEvent += OnSubmit;
-            View.OnCancelEvent += OnCancel;
+            this.View = new RootWidgetView();
+            this.View.OnSubmitEvent += OnSubmit;
+            this.View.OnCancelEvent += OnCancel;
         }
         public override void Dispose() {
-            View.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         internal void AddChild(MainWidget widget) {
-            Node.AddChild( widget.Node, null );
+            this.Node.AddChild( widget.Node, null );
         }
         internal void AddChild(GameWidget widget) {
-            Node.AddChild( widget.Node, null );
+            this.Node.AddChild( widget.Node, null );
         }
         internal void AddChild(LoadingWidget widget) {
-            Node.AddChild( widget.Node, null );
+            this.Node.AddChild( widget.Node, null );
         }
         internal void AddChild(UnloadingWidget widget) {
-            Node.AddChild( widget.Node, null );
+            this.Node.AddChild( widget.Node, null );
         }
         internal void AddChild(WarningDialogWidget widget) {
-            Node.AddChild( widget.Node, null );
+            this.Node.AddChild( widget.Node, null );
         }
         internal void AddChild(ErrorDialogWidget widget) {
-            Node.AddChild( widget.Node, null );
+            this.Node.AddChild( widget.Node, null );
         }
         internal void Clear() {
-            Node.RemoveChildren( i => i.Widget() is not (DialogWidget or InfoDialogWidget or WarningDialogWidget or ErrorDialogWidget), null, (node, arg) => node.Widget().Dispose() );
+            _ = this.Node.RemoveChildren( i => i.Widget() is not (DialogWidget or InfoDialogWidget or WarningDialogWidget or ErrorDialogWidget), null, (node, arg) => node.Widget().Dispose() );
         }
 
         protected override void Sort(List<NodeBase> children) {

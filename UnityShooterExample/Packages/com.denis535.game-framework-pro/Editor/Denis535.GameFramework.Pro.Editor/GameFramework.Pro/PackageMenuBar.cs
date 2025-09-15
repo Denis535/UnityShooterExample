@@ -28,7 +28,7 @@ namespace GameFramework.Pro {
             UnityEngine.Object.DestroyImmediate( texture );
 
             var path = $"Screenshots/{Application.productName}-{DateTime.UtcNow.Ticks}.png";
-            Directory.CreateDirectory( Path.GetDirectoryName( path ) );
+            _ = Directory.CreateDirectory( Path.GetDirectoryName( path ) );
             File.WriteAllBytes( path, bytes );
             EditorApplication.Beep();
             EditorUtility.RevealInFinder( path );

@@ -16,19 +16,19 @@ namespace Project.UI {
 
         private static readonly Lock @lock = new Lock();
 
-        private Theme Theme => Container.RequireDependency<Theme>();
-        private Screen Screen => Container.RequireDependency<Screen>();
+        private Theme Theme => this.Container.RequireDependency<Theme>();
+        private Screen Screen => this.Container.RequireDependency<Screen>();
         private Application2 Application { get; }
         private static SceneHandle Main { get; } = new SceneHandle( R.Project.Value_Main );
         private SceneHandle MainScene { get; } = new SceneHandle( R.Project.Value_MainScene );
         private SceneHandle GameScene { get; } = new SceneHandle( R.Project.Value_GameScene );
         private SceneHandle? WorldScene { get; set; }
-        public bool IsMainSceneLoaded => MainScene.IsSucceeded;
-        public bool IsGameSceneLoaded => GameScene.IsSucceeded;
-        public bool IsWorldSceneLoaded => WorldScene != null;
+        public bool IsMainSceneLoaded => this.MainScene.IsSucceeded;
+        public bool IsGameSceneLoaded => this.GameScene.IsSucceeded;
+        public bool IsWorldSceneLoaded => this.WorldScene != null;
 
         public Router(IDependencyContainer container) : base( container ) {
-            Application = container.RequireDependency<Application2>();
+            this.Application = container.RequireDependency<Application2>();
         }
         public override void Dispose() {
             using (@lock.Enter()) {
@@ -47,98 +47,98 @@ namespace Project.UI {
         }
 
         public async void LoadMainScene() {
-            Assert.Operation.Message( $"MainScene must be non-loaded" ).Valid( !MainScene.IsDone );
-            Assert.Operation.Message( $"GameScene must be non-loaded" ).Valid( !GameScene.IsDone );
+            Assert.Operation.Message( $"MainScene must be non-loaded" ).Valid( !this.MainScene.IsDone );
+            Assert.Operation.Message( $"GameScene must be non-loaded" ).Valid( !this.GameScene.IsDone );
 #if !UNITY_EDITOR
             Debug.LogFormat( "Load: MainScene" );
 #endif
             using (@lock.Enter()) {
-                Theme.PlayMainTheme();
-                Screen.ShowMainScreen();
+                this.Theme.PlayMainTheme();
+                this.Screen.ShowMainScreen();
                 {
-                    await LoadAsync_MainScene();
+                    await this.LoadAsync_MainScene();
                 }
             }
         }
 
         public async void LoadGameScene(GameInfo gameInfo, PlayerInfo playerInfo) {
-            Assert.Operation.Message( $"MainScene must be loaded" ).Valid( MainScene.IsDone );
-            Assert.Operation.Message( $"GameScene must be non-loaded" ).Valid( !GameScene.IsDone );
-            Assert.Operation.Message( $"Game must be null" ).Valid( Application.Game == null );
+            Assert.Operation.Message( $"MainScene must be loaded" ).Valid( this.MainScene.IsDone );
+            Assert.Operation.Message( $"GameScene must be non-loaded" ).Valid( !this.GameScene.IsDone );
+            Assert.Operation.Message( $"Game must be null" ).Valid( this.Application.Game == null );
 #if !UNITY_EDITOR
             Debug.LogFormat( "Load: GameScene: {0}, {1}", gameInfo, playerInfo );
 #endif
             using (@lock.Enter()) {
-                Theme.PlayLoadingTheme();
-                Screen.ShowLoadingScreen();
+                this.Theme.PlayLoadingTheme();
+                this.Screen.ShowLoadingScreen();
                 {
-                    await UnloadAsync_MainScene();
-                    await LoadAsync_GameScene();
-                    await LoadAsync_WorldScene( GetWorldSceneAddress( gameInfo.Level ) );
-                    RunGame( gameInfo, playerInfo );
+                    await this.UnloadAsync_MainScene();
+                    await this.LoadAsync_GameScene();
+                    await this.LoadAsync_WorldScene( GetWorldSceneAddress( gameInfo.Level ) );
+                    this.RunGame( gameInfo, playerInfo );
                 }
-                Theme.PlayGameTheme();
-                Screen.ShowGameScreen();
+                this.Theme.PlayGameTheme();
+                this.Screen.ShowGameScreen();
             }
         }
 
         public async void ReloadGameScene(GameInfo gameInfo, PlayerInfo playerInfo) {
-            Assert.Operation.Message( $"MainScene must be non-loaded" ).Valid( !MainScene.IsDone );
-            Assert.Operation.Message( $"GameScene must be loaded" ).Valid( GameScene.IsDone );
-            Assert.Operation.Message( $"Game must be non-null" ).Valid( Application.Game != null );
+            Assert.Operation.Message( $"MainScene must be non-loaded" ).Valid( !this.MainScene.IsDone );
+            Assert.Operation.Message( $"GameScene must be loaded" ).Valid( this.GameScene.IsDone );
+            Assert.Operation.Message( $"Game must be non-null" ).Valid( this.Application.Game != null );
 #if !UNITY_EDITOR
             Debug.LogFormat( "Reload: GameScene: {0}, {1}", gameInfo, playerInfo );
 #endif
             using (@lock.Enter()) {
-                Theme.PlayLoadingTheme();
-                Screen.ShowLoadingScreen();
+                this.Theme.PlayLoadingTheme();
+                this.Screen.ShowLoadingScreen();
                 {
-                    StopGame();
-                    await UnloadAsync_WorldScene();
-                    await UnloadAsync_GameScene();
-                    await LoadAsync_GameScene();
-                    await LoadAsync_WorldScene( GetWorldSceneAddress( gameInfo.Level ) );
-                    RunGame( gameInfo, playerInfo );
+                    this.StopGame();
+                    await this.UnloadAsync_WorldScene();
+                    await this.UnloadAsync_GameScene();
+                    await this.LoadAsync_GameScene();
+                    await this.LoadAsync_WorldScene( GetWorldSceneAddress( gameInfo.Level ) );
+                    this.RunGame( gameInfo, playerInfo );
                 }
-                Theme.PlayGameTheme();
-                Screen.ShowGameScreen();
+                this.Theme.PlayGameTheme();
+                this.Screen.ShowGameScreen();
             }
         }
 
         public async void UnloadGameScene() {
-            Assert.Operation.Message( $"MainScene must be non-loaded" ).Valid( !MainScene.IsDone );
-            Assert.Operation.Message( $"GameScene must be loaded" ).Valid( GameScene.IsDone );
-            Assert.Operation.Message( $"Game must be non-null" ).Valid( Application.Game != null );
+            Assert.Operation.Message( $"MainScene must be non-loaded" ).Valid( !this.MainScene.IsDone );
+            Assert.Operation.Message( $"GameScene must be loaded" ).Valid( this.GameScene.IsDone );
+            Assert.Operation.Message( $"Game must be non-null" ).Valid( this.Application.Game != null );
 #if !UNITY_EDITOR
             Debug.LogFormat( "Unload: GameScene" );
 #endif
             using (@lock.Enter()) {
-                Theme.PlayUnloadingTheme();
-                Screen.ShowUnloadingScreen();
+                this.Theme.PlayUnloadingTheme();
+                this.Screen.ShowUnloadingScreen();
                 {
-                    StopGame();
-                    await UnloadAsync_WorldScene();
-                    await UnloadAsync_GameScene();
-                    await LoadAsync_MainScene();
+                    this.StopGame();
+                    await this.UnloadAsync_WorldScene();
+                    await this.UnloadAsync_GameScene();
+                    await this.LoadAsync_MainScene();
                 }
-                Theme.PlayMainTheme();
-                Screen.ShowMainScreen();
+                this.Theme.PlayMainTheme();
+                this.Screen.ShowMainScreen();
             }
         }
 
         public async void Quit() {
-            Assert.Operation.Message( $"MainScene or GameScene must be loaded" ).Valid( MainScene.IsDone || GameScene.IsDone );
+            Assert.Operation.Message( $"MainScene or GameScene must be loaded" ).Valid( this.MainScene.IsDone || this.GameScene.IsDone );
 #if !UNITY_EDITOR
             Debug.Log( "Quit" );
 #endif
             using (@lock.Enter()) {
-                Theme.StopTheme();
-                Screen.HideScreen();
+                this.Theme.StopTheme();
+                this.Screen.HideScreen();
                 {
-                    if (Application.Game != null) StopGame();
-                    if (WorldScene != null) await UnloadAsync_WorldScene();
-                    if (GameScene.IsValid) await UnloadAsync_GameScene();
-                    if (MainScene.IsValid) await UnloadAsync_MainScene();
+                    if (this.Application.Game != null) this.StopGame();
+                    if (this.WorldScene != null) await this.UnloadAsync_WorldScene();
+                    if (this.GameScene.IsValid) await this.UnloadAsync_GameScene();
+                    if (this.MainScene.IsValid) await this.UnloadAsync_MainScene();
                 }
 #if UNITY_EDITOR
                 EditorApplication.ExitPlaymode();
@@ -149,70 +149,70 @@ namespace Project.UI {
         }
 
         private void RunGame(GameInfo gameInfo, PlayerInfo playerInfo) {
-            var game = Application.RunGame( gameInfo, playerInfo );
+            var game = this.Application.RunGame( gameInfo, playerInfo );
             game.OnPauseChangeEvent += i => {
-                if (i) Theme.Pause(); else Theme.UnPause();
+                if (i) this.Theme.Pause(); else this.Theme.UnPause();
             };
             game.OnStateChangeEvent += i => {
-                if (i is GameState.Completed) Theme.PlayGameCompletedTheme( game.Player.State is PlayerState.Winner );
+                if (i is GameState.Completed) this.Theme.PlayGameCompletedTheme( game.Player.State is PlayerState.Winner );
             };
             //game.Player.OnStateChangeEvent += i => {
             //};
         }
         private void StopGame() {
-            Application.StopGame();
+            this.Application.StopGame();
         }
 
         private static async Task LoadAsync_Main() {
             Assert.Operation.Message( $"Main must be non-loaded" ).Valid( !Main.IsDone );
             await Main.Load( LoadSceneMode.Single, false ).WaitAsync();
-            await Main.ActivateAsync();
-            SceneManager.SetActiveScene( await Main.GetValueAsync() );
+            _ = await Main.ActivateAsync();
+            _ = SceneManager.SetActiveScene( await Main.GetValueAsync() );
         }
         private async Task LoadAsync_MainScene() {
-            Assert.Operation.Message( $"MainScene must be non-loaded" ).Valid( !MainScene.IsDone );
-            await MainScene.Load( LoadSceneMode.Additive, false ).WaitAsync();
-            await MainScene.ActivateAsync();
-            SceneManager.SetActiveScene( await MainScene.GetValueAsync() );
+            Assert.Operation.Message( $"MainScene must be non-loaded" ).Valid( !this.MainScene.IsDone );
+            await this.MainScene.Load( LoadSceneMode.Additive, false ).WaitAsync();
+            _ = await this.MainScene.ActivateAsync();
+            _ = SceneManager.SetActiveScene( await this.MainScene.GetValueAsync() );
         }
         private async Task LoadAsync_GameScene() {
-            Assert.Operation.Message( $"GameScene must be non-loaded" ).Valid( !GameScene.IsDone );
-            await GameScene.Load( LoadSceneMode.Additive, false ).WaitAsync();
-            await GameScene.ActivateAsync();
-            SceneManager.SetActiveScene( await GameScene.GetValueAsync() );
+            Assert.Operation.Message( $"GameScene must be non-loaded" ).Valid( !this.GameScene.IsDone );
+            await this.GameScene.Load( LoadSceneMode.Additive, false ).WaitAsync();
+            _ = await this.GameScene.ActivateAsync();
+            _ = SceneManager.SetActiveScene( await this.GameScene.GetValueAsync() );
         }
         private async Task LoadAsync_WorldScene(string key) {
-            Assert.Operation.Message( $"WorldScene must be non-loaded" ).Valid( WorldScene == null );
-            await Awaitable.WaitForSecondsAsync( 3, DisposeCancellationToken );
-            WorldScene = new SceneHandle( key );
-            await WorldScene.Load( LoadSceneMode.Additive, false ).WaitAsync();
-            await WorldScene.ActivateAsync();
-            SceneManager.SetActiveScene( await WorldScene.GetValueAsync() );
+            Assert.Operation.Message( $"WorldScene must be non-loaded" ).Valid( this.WorldScene == null );
+            await Awaitable.WaitForSecondsAsync( 3, this.DisposeCancellationToken );
+            this.WorldScene = new SceneHandle( key );
+            await this.WorldScene.Load( LoadSceneMode.Additive, false ).WaitAsync();
+            _ = await this.WorldScene.ActivateAsync();
+            _ = SceneManager.SetActiveScene( await this.WorldScene.GetValueAsync() );
         }
 
         private async Task UnloadAsync_MainScene() {
-            Assert.Operation.Message( $"MainScene must be loaded" ).Valid( MainScene.IsDone );
-            await MainScene.UnloadAsync();
+            Assert.Operation.Message( $"MainScene must be loaded" ).Valid( this.MainScene.IsDone );
+            await this.MainScene.UnloadAsync();
         }
         private async Task UnloadAsync_GameScene() {
-            Assert.Operation.Message( $"GameScene must be loaded" ).Valid( GameScene.IsDone );
-            await GameScene.UnloadAsync();
+            Assert.Operation.Message( $"GameScene must be loaded" ).Valid( this.GameScene.IsDone );
+            await this.GameScene.UnloadAsync();
         }
         private async Task UnloadAsync_WorldScene() {
-            Assert.Operation.Message( $"WorldScene must be loaded" ).Valid( WorldScene != null );
-            await Awaitable.WaitForSecondsAsync( 1, DisposeCancellationToken );
-            await WorldScene.UnloadAsync();
-            WorldScene = null;
+            Assert.Operation.Message( $"WorldScene must be loaded" ).Valid( this.WorldScene != null );
+            await Awaitable.WaitForSecondsAsync( 1, this.DisposeCancellationToken );
+            await this.WorldScene.UnloadAsync();
+            this.WorldScene = null;
         }
 
         // Helpers
         private static string GetWorldSceneAddress(GameInfo.Level_ level) {
-            switch (level) {
-                case GameInfo.Level_.Level1: return R.Project.Game.Worlds.Value_World_01;
-                case GameInfo.Level_.Level2: return R.Project.Game.Worlds.Value_World_02;
-                case GameInfo.Level_.Level3: return R.Project.Game.Worlds.Value_World_03;
-                default: throw Exceptions.Internal.NotSupported( $"Level {level} is not supported" );
-            }
+            return level switch {
+                GameInfo.Level_.Level1 => R.Project.Game.Worlds.Value_World_01,
+                GameInfo.Level_.Level2 => R.Project.Game.Worlds.Value_World_02,
+                GameInfo.Level_.Level3 => R.Project.Game.Worlds.Value_World_03,
+                _ => throw Exceptions.Internal.NotSupported( $"Level {level} is not supported" ),
+            };
         }
 
     }

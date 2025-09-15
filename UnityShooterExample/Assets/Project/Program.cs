@@ -19,7 +19,7 @@ namespace Project {
         protected override Screen Screen { get; set; } = default!;
         protected override Router Router { get; set; } = default!;
         protected override Application2 Application { get; set; } = default!;
-        protected override Game2? Game => Application.Game;
+        protected override Game2? Game => this.Application.Game;
 
         //[RuntimeInitializeOnLoadMethod( RuntimeInitializeLoadType.BeforeSplashScreen )]
         //private static void OnLoad() {
@@ -47,39 +47,39 @@ namespace Project {
         protected override void Awake() {
             base.Awake();
             VisualElementFactory.StringSelector = GetDisplayString;
-            Application = new Application2( this );
-            Router = new Router( this );
-            Screen = new Screen( this );
-            Theme = new Theme( this );
+            this.Application = new Application2( this );
+            this.Router = new Router( this );
+            this.Screen = new Screen( this );
+            this.Theme = new Theme( this );
         }
         protected override void OnDestroy() {
-            Theme.Dispose();
-            Screen.Dispose();
-            Router.Dispose();
-            Application.Dispose();
+            this.Theme.Dispose();
+            this.Screen.Dispose();
+            this.Router.Dispose();
+            this.Application.Dispose();
             base.OnDestroy();
         }
 
         protected override void Start() {
-            Router.LoadMainScene();
+            this.Router.LoadMainScene();
         }
         protected override void FixedUpdate() {
-            Application?.OnFixedUpdate();
-            Screen.OnFixedUpdate();
-            Theme.OnFixedUpdate();
+            this.Application?.OnFixedUpdate();
+            this.Screen.OnFixedUpdate();
+            this.Theme.OnFixedUpdate();
         }
         protected override void Update() {
-            Application?.OnUpdate();
-            Screen.OnUpdate();
-            Theme.OnUpdate();
+            this.Application?.OnUpdate();
+            this.Screen.OnUpdate();
+            this.Theme.OnUpdate();
         }
         protected override void LateUpdate() {
-            Application?.OnLateUpdate();
+            this.Application?.OnLateUpdate();
         }
 
         protected override bool OnQuit() {
-            if (Router.IsMainSceneLoaded || Router.IsGameSceneLoaded) {
-                Router.Quit();
+            if (this.Router.IsMainSceneLoaded || this.Router.IsGameSceneLoaded) {
+                this.Router.Quit();
                 return false;
             }
             return true;
@@ -89,25 +89,25 @@ namespace Project {
             this.ThrowIfInvalid();
             // UI
             if (type.IsAssignableTo( typeof( ThemeBase ) )) {
-                if (Theme != null) return Option.Create( (object?) Theme );
+                if (this.Theme != null) return Option.Create( (object?) this.Theme );
                 return default;
             }
             if (type.IsAssignableTo( typeof( ScreenBase ) )) {
-                if (Screen != null) return Option.Create( (object?) Screen );
+                if (this.Screen != null) return Option.Create( (object?) this.Screen );
                 return default;
             }
             if (type.IsAssignableTo( typeof( RouterBase ) )) {
-                if (Router != null) return Option.Create( (object?) Router );
+                if (this.Router != null) return Option.Create( (object?) this.Router );
                 return default;
             }
             // App
             if (type.IsAssignableTo( typeof( ApplicationBase ) )) {
-                if (Application != null) return Option.Create( (object?) Application );
+                if (this.Application != null) return Option.Create( (object?) this.Application );
                 return default;
             }
             // Game
             if (type.IsAssignableTo( typeof( GameBase ) )) {
-                if (Game != null) return Option.Create( (object?) Game );
+                if (this.Game != null) return Option.Create( (object?) this.Game );
                 return default;
             }
             if (type.IsAssignableTo( typeof( World ) )) {
@@ -120,7 +120,7 @@ namespace Project {
             }
             // Misc
             if (type == typeof( AudioSource ) && (string?) argument == "MusicAudioSource") {
-                var result = transform.Find( "MusicAudioSource" )?.gameObject.GetComponent<AudioSource?>();
+                var result = this.transform.Find( "MusicAudioSource" )?.gameObject.GetComponent<AudioSource?>();
                 if (result is not null) {
                     result.ThrowIfInvalid();
                     return Option.Create( (object?) result );
@@ -128,7 +128,7 @@ namespace Project {
                 return default;
             }
             if (type == typeof( AudioSource ) && (string?) argument == "SfxAudioSource") {
-                var result = transform.Find( "SfxAudioSource" )?.gameObject.GetComponent<AudioSource?>();
+                var result = this.transform.Find( "SfxAudioSource" )?.gameObject.GetComponent<AudioSource?>();
                 if (result is not null) {
                     result.ThrowIfInvalid();
                     return Option.Create( (object?) result );
@@ -136,7 +136,7 @@ namespace Project {
                 return default;
             }
             if (type == typeof( UIDocument )) {
-                var result = gameObject.GetComponentInChildren<UIDocument>();
+                var result = this.gameObject.GetComponentInChildren<UIDocument>();
                 if (result is not null) {
                     result.ThrowIfInvalid();
                     return Option.Create( (object?) result );

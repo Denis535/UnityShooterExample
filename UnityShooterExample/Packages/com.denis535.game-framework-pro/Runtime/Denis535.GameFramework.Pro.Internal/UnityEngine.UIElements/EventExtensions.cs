@@ -23,7 +23,7 @@ namespace UnityEngine.UIElements {
             var type_EventBase = typeof( EventBase );
             var type_DispatchMode = typeof( VisualElement ).Assembly.GetType( "UnityEngine.UIElements.DispatchMode" ) ?? throw Exceptions.Internal.Exception( $"Can not find 'DispatchMode' type" );
             var method_SendEvent = type_VisualElement.GetMethod( "SendEvent", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly, null, new Type[] { type_EventBase, type_DispatchMode }, null ) ?? throw Exceptions.Internal.Exception( $"Can not find 'SendEvent' method" );
-            method_SendEvent.Invoke( element, new object[] { @event, 2 } );
+            _ = method_SendEvent.Invoke( element, new object[] { @event, 2 } );
         }
 
     }

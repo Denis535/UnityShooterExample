@@ -10,73 +10,73 @@ namespace Project.Game {
     internal class CharacterInputProvider : ICharacterInputProvider, IDisposable {
 
         public bool IsEnabled {
-            get => InputProvider.enabled;
+            get => this.InputProvider.enabled;
             set {
                 if (value) {
-                    Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-                    Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-                    InputProvider.Enable();
+                    Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+                    Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+                    this.InputProvider.Enable();
                 } else {
-                    InputProvider.Disable();
+                    this.InputProvider.Disable();
                 }
             }
         }
         private Player2 Player { get; }
         private CharacterInputProvider2 InputProvider_ { get; }
-        private CharacterInputProvider2.CharacterActions InputProvider => InputProvider_.Character;
+        private CharacterInputProvider2.CharacterActions InputProvider => this.InputProvider_.Character;
 
         public CharacterInputProvider(Player2 player) {
-            Player = player;
-            InputProvider_ = new CharacterInputProvider2();
+            this.Player = player;
+            this.InputProvider_ = new CharacterInputProvider2();
         }
         public void Dispose() {
-            InputProvider_.Dispose();
+            this.InputProvider_.Dispose();
         }
 
         public Vector3? GetBodyTarget() {
-            Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-            Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-            if (InputProvider.Aim.IsPressed() || InputProvider.Fire.IsPressed()) {
-                return GetLookTarget( Player.Camera );
+            Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+            Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+            if (this.InputProvider.Aim.IsPressed() || this.InputProvider.Fire.IsPressed()) {
+                return GetLookTarget( this.Player.Camera );
             }
-            if (InputProvider.Move.IsPressed()) {
-                var vector = InputProvider.Move.ReadValue<Vector2>()
+            if (this.InputProvider.Move.IsPressed()) {
+                var vector = this.InputProvider.Move.ReadValue<Vector2>()
                     .Pipe( i => new Vector3( i.x, 0, i.y ) )
-                    .Pipe( Player.Camera.transform.TransformDirection )
+                    .Pipe( this.Player.Camera.transform.TransformDirection )
                     .Pipe( i => new Vector3( i.x, 0, i.z ).normalized * i.magnitude );
-                return Player.Character.transform.position + vector;
+                return this.Player.Character.transform.position + vector;
             }
             return null;
         }
         public Vector3? GetHeadTarget() {
-            Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-            Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-            if (InputProvider.Aim.IsPressed() || InputProvider.Fire.IsPressed()) {
-                return GetLookTarget( Player.Camera );
+            Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+            Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+            if (this.InputProvider.Aim.IsPressed() || this.InputProvider.Fire.IsPressed()) {
+                return GetLookTarget( this.Player.Camera );
             }
-            if (InputProvider.Move.IsPressed()) {
-                return GetLookTarget( Player.Camera );
+            if (this.InputProvider.Move.IsPressed()) {
+                return GetLookTarget( this.Player.Camera );
             }
-            return GetLookTarget( Player.Camera );
+            return GetLookTarget( this.Player.Camera );
         }
         public Vector3? GetWeaponTarget() {
-            Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-            Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-            if (InputProvider.Aim.IsPressed() || InputProvider.Fire.IsPressed()) {
-                return GetLookTarget( Player.Camera );
+            Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+            Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+            if (this.InputProvider.Aim.IsPressed() || this.InputProvider.Fire.IsPressed()) {
+                return GetLookTarget( this.Player.Camera );
             }
-            if (InputProvider.Move.IsPressed()) {
+            if (this.InputProvider.Move.IsPressed()) {
                 return null;
             }
             return null;
         }
         public Vector3 GetMoveVector() {
-            Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-            Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-            if (InputProvider.Move.IsPressed()) {
-                var vector = InputProvider.Move.ReadValue<Vector2>()
+            Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+            Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+            if (this.InputProvider.Move.IsPressed()) {
+                var vector = this.InputProvider.Move.ReadValue<Vector2>()
                     .Pipe( i => new Vector3( i.x, 0, i.y ) )
-                    .Pipe( Player.Camera.transform.TransformDirection )
+                    .Pipe( this.Player.Camera.transform.TransformDirection )
                     .Pipe( i => new Vector3( i.x, 0, i.z ).normalized * i.magnitude );
                 return vector;
             } else {
@@ -84,36 +84,36 @@ namespace Project.Game {
             }
         }
         public bool IsJumpPressed() {
-            Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-            Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-            return InputProvider.Jump.IsPressed();
+            Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+            Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+            return this.InputProvider.Jump.IsPressed();
         }
         public bool IsCrouchPressed() {
-            Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-            Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-            return InputProvider.Crouch.IsPressed();
+            Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+            Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+            return this.InputProvider.Crouch.IsPressed();
         }
         public bool IsAcceleratePressed() {
-            Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-            Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-            return InputProvider.Accelerate.IsPressed();
+            Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+            Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+            return this.InputProvider.Accelerate.IsPressed();
         }
         public bool IsFirePressed(out PlayerBase player) {
-            Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-            Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-            player = Player;
-            return InputProvider.Fire.IsPressed();
+            Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+            Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+            player = this.Player;
+            return this.InputProvider.Fire.IsPressed();
         }
         public bool IsAimPressed() {
-            Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-            Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-            return InputProvider.Aim.IsPressed();
+            Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+            Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+            return this.InputProvider.Aim.IsPressed();
         }
         public bool IsInteractPressed(out EntityBase? interactable) {
-            Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-            Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-            interactable = Player.Camera.Hit?.Entity;
-            return InputProvider.Interact.WasPressedThisFrame();
+            Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+            Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+            interactable = this.Player.Camera.Hit?.Entity;
+            return this.InputProvider.Interact.WasPressedThisFrame();
         }
 
         // Helpers

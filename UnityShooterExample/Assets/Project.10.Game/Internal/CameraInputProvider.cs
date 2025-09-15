@@ -9,43 +9,43 @@ namespace Project.Game {
     internal class CameraInputProvider : ICameraInputProvider, IDisposable {
 
         public bool IsEnabled {
-            get => InputProvider.enabled;
+            get => this.InputProvider.enabled;
             set {
                 if (value) {
-                    Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-                    Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-                    InputProvider.Enable();
+                    Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+                    Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+                    this.InputProvider.Enable();
                 } else {
-                    InputProvider.Disable();
+                    this.InputProvider.Disable();
                 }
             }
         }
         public Player2 Player { get; }
         private CameraInputProvider2 InputProvider_ { get; }
-        private CameraInputProvider2.CameraActions InputProvider => InputProvider_.Camera;
+        private CameraInputProvider2.CameraActions InputProvider => this.InputProvider_.Camera;
 
         public CameraInputProvider(Player2 player) {
-            Player = player;
-            InputProvider_ = new CameraInputProvider2();
+            this.Player = player;
+            this.InputProvider_ = new CameraInputProvider2();
         }
         public void Dispose() {
-            InputProvider_.Dispose();
+            this.InputProvider_.Dispose();
         }
 
         public PlayableCharacterBase GetTarget() {
-            Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-            Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-            return Player.Character;
+            Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+            Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+            return this.Player.Character;
         }
         public Vector2 GetRotateDelta() {
-            Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-            Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-            return InputProvider.Rotate.ReadValue<Vector2>().Pipe( i => new Vector2( -i.y, i.x ) );
+            Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+            Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+            return this.InputProvider.Rotate.ReadValue<Vector2>().Pipe( i => new Vector2( -i.y, i.x ) );
         }
         public float GetZoomDelta() {
-            Assert.Operation.Message( $"Player {Player} must have character" ).Valid( Player.Character != null );
-            Assert.Operation.Message( $"Player {Player} must have camera" ).Valid( Player.Camera != null );
-            return InputProvider.Zoom.ReadValue<Vector2>().y;
+            Assert.Operation.Message( $"Player {this.Player} must have character" ).Valid( this.Player.Character != null );
+            Assert.Operation.Message( $"Player {this.Player} must have camera" ).Valid( this.Player.Camera != null );
+            return this.InputProvider.Zoom.ReadValue<Vector2>().y;
         }
 
     }

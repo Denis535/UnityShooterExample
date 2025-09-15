@@ -15,70 +15,70 @@ namespace UnityEngine.Framework {
         // Theme
         protected ThemeBase Theme {
             get {
-                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                Assert.Operation.Message( $"PlayList {this} must be active or activating or deactivating" ).Valid( State.Activity is Activity.Active or Activity.Activating or Activity.Deactivating );
-                return ((StateMachine<State<PlayListBase>, ThemeBase>?) State.Machine)!.UserData;
+                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+                Assert.Operation.Message( $"PlayList {this} must be active or activating or deactivating" ).Valid( this.State.Activity is Activity.Active or Activity.Activating or Activity.Deactivating );
+                return ((StateMachine<State<PlayListBase>, ThemeBase>?) this.State.Machine)!.UserData;
             }
         }
 
         // IsRunning
         protected bool IsRunning {
             get {
-                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                return Theme!.IsRunning;
+                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+                return this.Theme!.IsRunning;
             }
         }
         protected bool IsPlaying {
             get {
-                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                return Theme!.IsPlaying;
+                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+                return this.Theme!.IsPlaying;
             }
         }
         protected bool IsPaused {
             set {
-                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                Theme!.IsPaused = value;
+                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+                this.Theme!.IsPaused = value;
             }
         }
         protected bool Mute {
             get {
-                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                return Theme!.Mute;
+                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+                return this.Theme!.Mute;
             }
             set {
-                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                Theme!.Mute = value;
+                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+                this.Theme!.Mute = value;
             }
         }
         protected float Volume {
             get {
-                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                return Theme!.Volume;
+                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+                return this.Theme!.Volume;
             }
             set {
-                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                Theme!.Volume = value;
+                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+                this.Theme!.Volume = value;
             }
         }
         protected float Pitch {
             get {
-                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                return Theme!.Pitch;
+                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+                return this.Theme!.Pitch;
             }
             set {
-                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-                Theme!.Pitch = value;
+                Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+                this.Theme!.Pitch = value;
             }
         }
 
         // Constructor
         public PlayListBase() {
-            State = new State<PlayListBase>( this );
-            State.OnActivateCallback += OnActivate;
-            State.OnDeactivateCallback += OnDeactivate;
+            this.State = new State<PlayListBase>( this );
+            this.State.OnActivateCallback += this.OnActivate;
+            this.State.OnDeactivateCallback += this.OnDeactivate;
         }
         public override void Dispose() {
-            Assert.Operation.Message( $"PlayList {this} must be inactive" ).Valid( State.Activity is Activity.Inactive );
+            Assert.Operation.Message( $"PlayList {this} must be inactive" ).Valid( this.State.Activity is Activity.Inactive );
             base.Dispose();
         }
 
@@ -88,19 +88,19 @@ namespace UnityEngine.Framework {
 
         // Play
         protected void Play(AudioClip clip) {
-            Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"PlayList {this} must be non-running" ).Valid( !IsRunning );
-            Theme!.Play( clip );
+            Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+            Assert.Operation.Message( $"PlayList {this} must be non-running" ).Valid( !this.IsRunning );
+            this.Theme!.Play( clip );
         }
         protected Task PlayAndWaitForCompletionAsync(AudioClip clip, CancellationToken cancellationToken) {
-            Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"PlayList {this} must be non-running" ).Valid( !IsRunning );
-            return Theme!.PlayAndWaitForCompletionAsync( clip, cancellationToken );
+            Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+            Assert.Operation.Message( $"PlayList {this} must be non-running" ).Valid( !this.IsRunning );
+            return this.Theme!.PlayAndWaitForCompletionAsync( clip, cancellationToken );
         }
         protected void Stop() {
-            Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"PlayList {this} must be running" ).Valid( IsRunning );
-            Theme!.Stop();
+            Assert.Operation.Message( $"PlayList {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+            Assert.Operation.Message( $"PlayList {this} must be running" ).Valid( this.IsRunning );
+            this.Theme!.Stop();
         }
 
         // Helpers

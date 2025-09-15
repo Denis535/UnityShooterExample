@@ -16,7 +16,7 @@ namespace System {
             get {
                 if (disposeCancellationTokenSource == null) {
                     disposeCancellationTokenSource = new CancellationTokenSource();
-                    if (IsDisposed) disposeCancellationTokenSource.Cancel();
+                    if (this.IsDisposed) disposeCancellationTokenSource.Cancel();
                 }
                 return disposeCancellationTokenSource.Token;
             }
@@ -27,15 +27,15 @@ namespace System {
         }
         ~DisposableBase() {
 #if DEBUG
-            if (!IsDisposed) {
+            if (!this.IsDisposed) {
                 Debug.LogWarning( $"Disposable '{this}' must be disposed" );
             }
 #endif
         }
         public virtual void Dispose() {
-            Assert.Operation.Message( $"Disposable {this} must be non-disposed" ).NotDisposed( !IsDisposed );
+            Assert.Operation.Message( $"Disposable {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
             disposeCancellationTokenSource?.Cancel();
-            IsDisposed = true;
+            this.IsDisposed = true;
         }
 
     }

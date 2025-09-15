@@ -13,7 +13,7 @@ namespace UnityEngine.Framework {
 
         // Awake
         protected virtual void Awake() {
-            Application.wantsToQuit += OnQuit;
+            Application.wantsToQuit += this.OnQuit;
         }
         protected virtual void OnDestroy() {
         }

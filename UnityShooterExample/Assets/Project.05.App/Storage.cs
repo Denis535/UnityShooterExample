@@ -22,7 +22,7 @@ namespace Project.App {
             //        Debug.Log( string.Join( ", ", values ) );
             //    }
             //}
-            Profile = CommandLineArguments.GetValues( Environment.GetCommandLineArgs(), "--profile" )?.First();
+            this.Profile = CommandLineArguments.GetValues( Environment.GetCommandLineArgs(), "--profile" )?.First();
         }
         public override void Dispose() {
             base.Dispose();

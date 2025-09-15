@@ -9,12 +9,12 @@ namespace UnityEngine.UIElements {
     [UxmlElement]
     public partial class Card : VisualElement {
 
-        public Header? Header => Children().OfType<Header>().FirstOrDefault();
-        public Content? Content => Children().OfType<Content>().FirstOrDefault();
-        public Footer? Footer => Children().OfType<Footer>().FirstOrDefault();
+        public Header? Header => this.Children().OfType<Header>().FirstOrDefault();
+        public Content? Content => this.Children().OfType<Content>().FirstOrDefault();
+        public Footer? Footer => this.Children().OfType<Footer>().FirstOrDefault();
 
         public Card() {
-            AddToClassList( "card" );
+            this.AddToClassList( "card" );
         }
 
     }
@@ -22,7 +22,7 @@ namespace UnityEngine.UIElements {
     public partial class Header : VisualElement {
 
         public Header() {
-            AddToClassList( "header" );
+            this.AddToClassList( "header" );
         }
 
     }
@@ -30,7 +30,7 @@ namespace UnityEngine.UIElements {
     public partial class Content : VisualElement {
 
         public Content() {
-            AddToClassList( "content" );
+            this.AddToClassList( "content" );
         }
 
     }
@@ -38,7 +38,7 @@ namespace UnityEngine.UIElements {
     public partial class Footer : VisualElement {
 
         public Footer() {
-            AddToClassList( "footer" );
+            this.AddToClassList( "footer" );
         }
 
     }

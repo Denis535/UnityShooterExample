@@ -17,26 +17,26 @@ namespace System {
             public FormattableString? Message { get; }
 
             public Argument(FormattableString? message) {
-                Message = message;
+                this.Message = message;
             }
 
             [MethodImpl( MethodImplOptions.AggressiveInlining )]
             public void Valid([DoesNotReturnIf( false )] bool isValid) {
-                if (!isValid) throw Exceptions.Factory.GetException<ArgumentException>( Message );
+                if (!isValid) throw Exceptions.Factory.GetException<ArgumentException>( this.Message );
             }
 
             [MethodImpl( MethodImplOptions.AggressiveInlining )]
             public void NotNull([DoesNotReturnIf( false )] bool isValid) {
-                if (!isValid) throw Exceptions.Factory.GetException<ArgumentNullException>( Message );
+                if (!isValid) throw Exceptions.Factory.GetException<ArgumentNullException>( this.Message );
             }
 
             [MethodImpl( MethodImplOptions.AggressiveInlining )]
             public void InRange([DoesNotReturnIf( false )] bool isValid) {
-                if (!isValid) throw Exceptions.Factory.GetException<ArgumentOutOfRangeException>( Message );
+                if (!isValid) throw Exceptions.Factory.GetException<ArgumentOutOfRangeException>( this.Message );
             }
 
             public override string? ToString() {
-                return Exceptions.Factory.GetMessageStringDelegate( Message );
+                return Exceptions.Factory.GetMessageStringDelegate( this.Message );
             }
 
         }
@@ -46,26 +46,26 @@ namespace System {
             public FormattableString? Message { get; }
 
             public Operation(FormattableString? message) {
-                Message = message;
+                this.Message = message;
             }
 
             [MethodImpl( MethodImplOptions.AggressiveInlining )]
             public void Valid([DoesNotReturnIf( false )] bool isValid) {
-                if (!isValid) throw Exceptions.Factory.GetException<InvalidOperationException>( Message );
+                if (!isValid) throw Exceptions.Factory.GetException<InvalidOperationException>( this.Message );
             }
 
             [MethodImpl( MethodImplOptions.AggressiveInlining )]
             public void Ready([DoesNotReturnIf( false )] bool isValid) {
-                if (!isValid) throw Exceptions.Factory.GetException<ObjectNotReadyException>( Message );
+                if (!isValid) throw Exceptions.Factory.GetException<ObjectNotReadyException>( this.Message );
             }
 
             [MethodImpl( MethodImplOptions.AggressiveInlining )]
             public void NotDisposed([DoesNotReturnIf( false )] bool isValid) {
-                if (!isValid) throw Exceptions.Factory.GetException<ObjectDisposedException>( Message );
+                if (!isValid) throw Exceptions.Factory.GetException<ObjectDisposedException>( this.Message );
             }
 
             public override string? ToString() {
-                return Exceptions.Factory.GetMessageStringDelegate( Message );
+                return Exceptions.Factory.GetMessageStringDelegate( this.Message );
             }
 
         }

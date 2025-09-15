@@ -8,22 +8,42 @@ namespace System {
     public static class Exceptions {
         // Argument
         public static class Argument {
-            public static ArgumentException ArgumentException(FormattableString? message) => Factory.GetException<ArgumentException>( message );
-            public static ArgumentNullException ArgumentNullException(FormattableString? message) => Factory.GetException<ArgumentNullException>( message );
-            public static ArgumentOutOfRangeException ArgumentOutOfRangeException(FormattableString? message) => Factory.GetException<ArgumentOutOfRangeException>( message );
+            public static ArgumentException ArgumentException(FormattableString? message) {
+                return Factory.GetException<ArgumentException>( message );
+            }
+            public static ArgumentNullException ArgumentNullException(FormattableString? message) {
+                return Factory.GetException<ArgumentNullException>( message );
+            }
+            public static ArgumentOutOfRangeException ArgumentOutOfRangeException(FormattableString? message) {
+                return Factory.GetException<ArgumentOutOfRangeException>( message );
+            }
         }
         // Operation
         public static class Operation {
-            public static InvalidOperationException InvalidOperationException(FormattableString? message) => Factory.GetException<InvalidOperationException>( message );
-            public static ObjectNotReadyException ObjectNotReadyException(FormattableString? message) => Factory.GetException<ObjectNotReadyException>( message );
-            public static ObjectDisposedException ObjectDisposedException(FormattableString? message) => Factory.GetException<ObjectDisposedException>( message );
+            public static InvalidOperationException InvalidOperationException(FormattableString? message) {
+                return Factory.GetException<InvalidOperationException>( message );
+            }
+            public static ObjectNotReadyException ObjectNotReadyException(FormattableString? message) {
+                return Factory.GetException<ObjectNotReadyException>( message );
+            }
+            public static ObjectDisposedException ObjectDisposedException(FormattableString? message) {
+                return Factory.GetException<ObjectDisposedException>( message );
+            }
         }
         // Internal
         public static class Internal {
-            public static Exception Exception(FormattableString? message) => Factory.GetException<Exception>( message );
-            public static NullReferenceException NullReference(FormattableString? message) => Factory.GetException<NullReferenceException>( message );
-            public static NotSupportedException NotSupported(FormattableString? message) => Factory.GetException<NotSupportedException>( message );
-            public static NotImplementedException NotImplemented(FormattableString? message) => Factory.GetException<NotImplementedException>( message );
+            public static Exception Exception(FormattableString? message) {
+                return Factory.GetException<Exception>( message );
+            }
+            public static NullReferenceException NullReference(FormattableString? message) {
+                return Factory.GetException<NullReferenceException>( message );
+            }
+            public static NotSupportedException NotSupported(FormattableString? message) {
+                return Factory.GetException<NotSupportedException>( message );
+            }
+            public static NotImplementedException NotImplemented(FormattableString? message) {
+                return Factory.GetException<NotImplementedException>( message );
+            }
         }
         // Factory
         public static class Factory {

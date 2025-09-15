@@ -28,7 +28,7 @@ namespace System {
                 process.StandardOutput.Close();
                 process.StandardError.Close();
             }
-            process.WaitForExit( 10_000 );
+            _ = process.WaitForExit( 10_000 );
         }
 
         public static void Evaluate(string script, params string[] args) {
@@ -52,7 +52,7 @@ namespace System {
                 process.StandardOutput.Close();
                 process.StandardError.Close();
             }
-            process.WaitForExit( 10_000 );
+            _ = process.WaitForExit( 10_000 );
         }
 
     }

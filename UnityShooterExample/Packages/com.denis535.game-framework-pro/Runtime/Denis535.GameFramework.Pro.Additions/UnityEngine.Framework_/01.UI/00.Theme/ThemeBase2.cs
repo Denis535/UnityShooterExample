@@ -12,7 +12,7 @@ namespace UnityEngine.Framework {
 
         // Constructor
         public ThemeBase2(IDependencyContainer container, AudioSource audioSource) : base( audioSource ) {
-            Container = container;
+            this.Container = container;
         }
         public override void Dispose() {
             base.Dispose();

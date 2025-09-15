@@ -11,7 +11,7 @@ namespace Project.UI {
 
         public IndieViewBase(string? name) {
             base.name = name;
-            AddToClassList( "indie-view" );
+            this.AddToClassList( "indie-view" );
         }
         public override void Dispose() {
             base.Dispose();
@@ -22,7 +22,7 @@ namespace Project.UI {
 
         public WidgetViewBase(string? name) {
             base.name = name;
-            AddToClassList( "widget-view" );
+            this.AddToClassList( "widget-view" );
         }
         public override void Dispose() {
             base.Dispose();
@@ -33,7 +33,7 @@ namespace Project.UI {
 
         public LeftWidgetViewBase(string? name) {
             base.name = name;
-            AddToClassList( "left-widget-view" );
+            this.AddToClassList( "left-widget-view" );
         }
         public override void Dispose() {
             base.Dispose();
@@ -44,7 +44,7 @@ namespace Project.UI {
 
         public SmallWidgetViewBase(string? name) {
             base.name = name;
-            AddToClassList( "small-widget-view" );
+            this.AddToClassList( "small-widget-view" );
         }
         public override void Dispose() {
             base.Dispose();
@@ -55,7 +55,7 @@ namespace Project.UI {
 
         public MediumWidgetViewBase(string? name) {
             base.name = name;
-            AddToClassList( "medium-widget-view" );
+            this.AddToClassList( "medium-widget-view" );
         }
         public override void Dispose() {
             base.Dispose();
@@ -66,7 +66,7 @@ namespace Project.UI {
 
         public LargeWidgetViewBase(string? name) {
             base.name = name;
-            AddToClassList( "large-widget-view" );
+            this.AddToClassList( "large-widget-view" );
         }
         public override void Dispose() {
             base.Dispose();
@@ -77,8 +77,8 @@ namespace Project.UI {
 
         public DialogWidgetViewBase(string? name) {
             base.name = name;
-            AddToClassList( "dialog-widget-view" );
-            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenDialog?.Invoke( evt ) );
+            this.AddToClassList( "dialog-widget-view" );
+            this.RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenDialog?.Invoke( evt ) );
         }
         public override void Dispose() {
             base.Dispose();
@@ -89,8 +89,8 @@ namespace Project.UI {
 
         public InfoDialogWidgetViewBase(string? name) {
             base.name = name;
-            AddToClassList( "info-dialog-widget-view" );
-            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenInfoDialog?.Invoke( evt ) );
+            this.AddToClassList( "info-dialog-widget-view" );
+            this.RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenInfoDialog?.Invoke( evt ) );
         }
         public override void Dispose() {
             base.Dispose();
@@ -101,8 +101,8 @@ namespace Project.UI {
 
         public WarningDialogWidgetViewBase(string? name) {
             base.name = name;
-            AddToClassList( "warning-dialog-widget-view" );
-            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenWarningDialog?.Invoke( evt ) );
+            this.AddToClassList( "warning-dialog-widget-view" );
+            this.RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenWarningDialog?.Invoke( evt ) );
         }
         public override void Dispose() {
             base.Dispose();
@@ -113,8 +113,8 @@ namespace Project.UI {
 
         public ErrorDialogWidgetViewBase(string? name) {
             base.name = name;
-            AddToClassList( "error-dialog-widget-view" );
-            RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenErrorDialog?.Invoke( evt ) );
+            this.AddToClassList( "error-dialog-widget-view" );
+            this.RegisterCallbackOnce<AttachToPanelEvent>( evt => VisualElementFactory.OnPlayOpenErrorDialog?.Invoke( evt ) );
         }
         public override void Dispose() {
             base.Dispose();

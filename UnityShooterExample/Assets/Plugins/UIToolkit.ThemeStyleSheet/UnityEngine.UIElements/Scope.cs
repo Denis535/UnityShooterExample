@@ -9,8 +9,8 @@ namespace UnityEngine.UIElements {
     public partial class ColumnScope : VisualElement {
 
         public ColumnScope() {
-            AddToClassList( "scope" );
-            AddToClassList( "column" );
+            this.AddToClassList( "scope" );
+            this.AddToClassList( "column" );
         }
 
     }
@@ -18,8 +18,8 @@ namespace UnityEngine.UIElements {
     public partial class RowScope : VisualElement {
 
         public RowScope() {
-            AddToClassList( "scope" );
-            AddToClassList( "row" );
+            this.AddToClassList( "scope" );
+            this.AddToClassList( "row" );
         }
 
     }

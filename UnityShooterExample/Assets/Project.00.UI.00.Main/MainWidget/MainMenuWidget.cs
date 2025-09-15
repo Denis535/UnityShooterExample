@@ -13,26 +13,26 @@ namespace Project.UI {
 
         private Router Router { get; }
         private Application2 Application { get; }
-        private Storage.ProfileSettings ProfileSettings => Application.ProfileSettings;
+        private Storage.ProfileSettings ProfileSettings => this.Application.ProfileSettings;
 
         public MainMenuWidget(IDependencyContainer container) : base( container ) {
-            Router = container.RequireDependency<Router>();
-            Application = container.RequireDependency<Application2>();
-            View = CreateView( this );
+            this.Router = container.RequireDependency<Router>();
+            this.Application = container.RequireDependency<Application2>();
+            this.View = CreateView( this );
         }
         public override void Dispose() {
-            foreach (var child in Node.Children) {
+            foreach (var child in this.Node.Children) {
                 child.Widget().Dispose();
             }
-            View.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         protected override void OnActivate(object? argument) {
-            ShowSelf();
+            this.ShowSelf();
         }
         protected override void OnDeactivate(object? argument) {
-            HideSelf();
+            this.HideSelf();
         }
 
         // Helpers

@@ -19,12 +19,12 @@ namespace Project.Game {
             internal set {
                 if (state is PlayerState.None && value is PlayerState.Playing) {
                     state = value;
-                    OnStateChangeEvent?.Invoke( State );
+                    OnStateChangeEvent?.Invoke( this.State );
                     return;
                 }
                 if (state is PlayerState.Playing && value is PlayerState.Winner or PlayerState.Loser) {
                     state = value;
-                    OnStateChangeEvent?.Invoke( State );
+                    OnStateChangeEvent?.Invoke( this.State );
                     return;
                 }
                 throw Exceptions.Operation.InvalidOperationException( $"Transition from {state} to {value} is invalid" );
@@ -38,41 +38,41 @@ namespace Project.Game {
         public PlayerCharacter? Character {
             get => character;
             internal set {
-                CharacterInputProvider.IsEnabled = false;
-                CameraInputProvider.IsEnabled = false;
-                if (Character != null) {
-                    Character.InputProvider = null;
+                this.CharacterInputProvider.IsEnabled = false;
+                this.CameraInputProvider.IsEnabled = false;
+                if (this.Character != null) {
+                    this.Character.InputProvider = null;
                 }
                 character = value;
-                if (Character != null) {
-                    Character.InputProvider = CharacterInputProvider;
+                if (this.Character != null) {
+                    this.Character.InputProvider = this.CharacterInputProvider;
                 }
             }
         }
         public PlayerCamera? Camera {
             get => camera;
             internal set {
-                CharacterInputProvider.IsEnabled = false;
-                CameraInputProvider.IsEnabled = false;
-                if (Camera != null) {
-                    Camera.InputProvider = null;
+                this.CharacterInputProvider.IsEnabled = false;
+                this.CameraInputProvider.IsEnabled = false;
+                if (this.Camera != null) {
+                    this.Camera.InputProvider = null;
                 }
                 camera = value;
-                if (Camera != null) {
-                    Camera.InputProvider = CameraInputProvider;
+                if (this.Camera != null) {
+                    this.Camera.InputProvider = this.CameraInputProvider;
                 }
             }
         }
 
         public Player2(IDependencyContainer container, PlayerInfo info) : base( container ) {
-            Info = info;
-            State = PlayerState.Playing;
-            CharacterInputProvider = new CharacterInputProvider( this );
-            CameraInputProvider = new CameraInputProvider( this );
+            this.Info = info;
+            this.State = PlayerState.Playing;
+            this.CharacterInputProvider = new CharacterInputProvider( this );
+            this.CameraInputProvider = new CameraInputProvider( this );
         }
         public override void Dispose() {
-            CameraInputProvider.Dispose();
-            CharacterInputProvider.Dispose();
+            this.CameraInputProvider.Dispose();
+            this.CharacterInputProvider.Dispose();
             base.Dispose();
         }
 

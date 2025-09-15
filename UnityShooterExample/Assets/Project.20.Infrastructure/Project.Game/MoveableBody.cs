@@ -22,90 +22,90 @@ namespace Project.Game {
         public Quaternion? LookRotation { get; private set; }
 
         protected void Awake() {
-            gameObject.SetLayerRecursively( Layers.Entity_Approximate, Layers.Entity_Exact );
-            Collider = gameObject.RequireComponent<CharacterController>();
-            Collider.excludeLayers = ExcludeLayers_Default;
+            this.gameObject.SetLayerRecursively( Layers.Entity_Approximate, Layers.Entity_Exact );
+            this.Collider = this.gameObject.RequireComponent<CharacterController>();
+            this.Collider.excludeLayers = ExcludeLayers_Default;
         }
         protected void OnDestroy() {
         }
 
         protected void OnEnable() {
-            Collider.enabled = true;
+            this.Collider.enabled = true;
         }
         protected void OnDisable() {
-            Collider.enabled = false;
+            this.Collider.enabled = false;
         }
 
         protected void FixedUpdate() {
             fixedUpdateWasInvoked = true;
             var velocity = Vector3.zero;
-            if (MoveVector != Vector3.zero) {
-                if (IsAcceleratePressed) {
-                    velocity += MoveVector * 13;
+            if (this.MoveVector != Vector3.zero) {
+                if (this.IsAcceleratePressed) {
+                    velocity += this.MoveVector * 13;
                 } else {
-                    velocity += MoveVector * 5;
+                    velocity += this.MoveVector * 5;
                 }
             }
-            if (IsJumpPressed) {
-                if (IsAcceleratePressed) {
+            if (this.IsJumpPressed) {
+                if (this.IsAcceleratePressed) {
                     velocity += Vector3.up * 13;
                 } else {
                     velocity += Vector3.up * 5;
                 }
             } else
-            if (IsCrouchPressed) {
-                if (IsAcceleratePressed) {
+            if (this.IsCrouchPressed) {
+                if (this.IsAcceleratePressed) {
                     velocity -= Vector3.up * 13;
                 } else {
                     velocity -= Vector3.up * 5;
                 }
             }
-            Collider.excludeLayers = ExcludeLayers_WhenMoving;
-            var flags = Collider.Move( velocity * Time.fixedDeltaTime );
-            Collider.excludeLayers = ExcludeLayers_Default;
+            this.Collider.excludeLayers = ExcludeLayers_WhenMoving;
+            _ = this.Collider.Move( velocity * Time.fixedDeltaTime );
+            this.Collider.excludeLayers = ExcludeLayers_Default;
         }
         protected void Update() {
         }
 
         public void Move(Vector3 moveVector, bool isJumpPressed, bool isCrouchPressed, bool isAcceleratePressed) {
             Assert.Operation.Message( $"Method 'Move' must be invoked only within update" ).Valid( !Time.inFixedTimeStep );
-            Assert.Operation.Message( $"MoveableBody {this} must be awakened" ).Ready( didAwake );
+            Assert.Operation.Message( $"MoveableBody {this} must be awakened" ).Ready( this.didAwake );
             Assert.Operation.Message( $"MoveableBody {this} must not be disposed" ).NotDisposed( this );
-            Assert.Operation.Message( $"MoveableBody {this} must be enabled" ).Valid( enabled );
+            Assert.Operation.Message( $"MoveableBody {this} must be enabled" ).Valid( this.enabled );
             if (fixedUpdateWasInvoked) {
                 fixedUpdateWasInvoked = false;
-                MoveVector = moveVector;
-                IsJumpPressed = isJumpPressed;
-                IsCrouchPressed = isCrouchPressed;
-                IsAcceleratePressed = isAcceleratePressed;
+                this.MoveVector = moveVector;
+                this.IsJumpPressed = isJumpPressed;
+                this.IsCrouchPressed = isCrouchPressed;
+                this.IsAcceleratePressed = isAcceleratePressed;
             } else {
-                MoveVector = Vector3.Max( MoveVector, moveVector );
-                IsJumpPressed |= isJumpPressed;
-                IsCrouchPressed |= isCrouchPressed;
-                IsAcceleratePressed |= isAcceleratePressed;
+                this.MoveVector = Vector3.Max( this.MoveVector, moveVector );
+                this.IsJumpPressed |= isJumpPressed;
+                this.IsCrouchPressed |= isCrouchPressed;
+                this.IsAcceleratePressed |= isAcceleratePressed;
             }
         }
 
         public void LookAt(Quaternion? rotation) {
             Assert.Operation.Message( $"Method 'LookAt' must be invoked only within update" ).Valid( !Time.inFixedTimeStep );
-            Assert.Operation.Message( $"MoveableBody {this} must be awakened" ).Ready( didAwake );
+            Assert.Operation.Message( $"MoveableBody {this} must be awakened" ).Ready( this.didAwake );
             Assert.Operation.Message( $"MoveableBody {this} must not be disposed" ).NotDisposed( this );
-            Assert.Operation.Message( $"MoveableBody {this} must be enabled" ).Valid( enabled );
-            LookRotation = rotation;
-            if (LookRotation != null) {
-                transform.localRotation = Quaternion.RotateTowards( transform.localRotation, LookRotation.Value, 3 * 360 * Time.deltaTime );
+            Assert.Operation.Message( $"MoveableBody {this} must be enabled" ).Valid( this.enabled );
+            this.LookRotation = rotation;
+            if (this.LookRotation != null) {
+                this.transform.localRotation = Quaternion.RotateTowards( this.transform.localRotation, this.LookRotation.Value, 3 * 360 * Time.deltaTime );
             }
         }
 
         public void LookAt(Vector3? target) {
             Assert.Operation.Message( $"Method 'LookAt' must be invoked only within update" ).Valid( !Time.inFixedTimeStep );
-            Assert.Operation.Message( $"MoveableBody {this} must be awakened" ).Ready( didAwake );
+            Assert.Operation.Message( $"MoveableBody {this} must be awakened" ).Ready( this.didAwake );
             Assert.Operation.Message( $"MoveableBody {this} must not be disposed" ).NotDisposed( this );
-            Assert.Operation.Message( $"MoveableBody {this} must be enabled" ).Valid( enabled );
+            Assert.Operation.Message( $"MoveableBody {this} must be enabled" ).Valid( this.enabled );
             if (target != null) {
-                LookAt( GetRotation( transform.position, target.Value ) );
+                this.LookAt( GetRotation( this.transform.position, target.Value ) );
             } else {
-                LookAt( (Quaternion?) null );
+                this.LookAt( (Quaternion?) null );
             }
         }
 

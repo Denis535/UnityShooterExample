@@ -37,17 +37,17 @@ namespace Project.App {
             }
 
             internal VideoSettings() {
-                Load();
+                this.Load();
             }
             public override void Dispose() {
                 base.Dispose();
             }
 
             public void Load() {
-                IsVSync = PlayerPrefs2.GetBool( "VideoSettings.IsVSync", true );
+                this.IsVSync = PlayerPrefs2.GetBool( "VideoSettings.IsVSync", true );
             }
             public void Save() {
-                PlayerPrefs2.SetBool( "VideoSettings.IsVSync", IsVSync );
+                PlayerPrefs2.SetBool( "VideoSettings.IsVSync", this.IsVSync );
             }
 
         }

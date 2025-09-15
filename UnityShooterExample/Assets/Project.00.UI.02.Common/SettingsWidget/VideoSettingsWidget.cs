@@ -12,33 +12,33 @@ namespace Project.UI {
     public class VideoSettingsWidget : WidgetBase2<VideoSettingsWidgetView> {
 
         private Application2 Application { get; }
-        private Storage.VideoSettings VideoSettings => Application.VideoSettings;
+        private Storage.VideoSettings VideoSettings => this.Application.VideoSettings;
 
         public VideoSettingsWidget(IDependencyContainer container) : base( container ) {
-            Application = container.RequireDependency<Application2>();
-            View = CreateView( this );
+            this.Application = container.RequireDependency<Application2>();
+            this.View = CreateView( this );
         }
         public override void Dispose() {
-            foreach (var child in Node.Children) {
+            foreach (var child in this.Node.Children) {
                 child.Widget().Dispose();
             }
-            View.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         protected override void OnActivate(object? argument) {
-            ShowSelf();
+            this.ShowSelf();
         }
         protected override void OnDeactivate(object? argument) {
             if (argument is DeactivateReason.Submit) {
-                VideoSettings.IsFullScreen = View.IsFullScreen.value;
-                VideoSettings.ScreenResolution = (Resolution) View.ScreenResolution.value!;
-                VideoSettings.IsVSync = View.IsVSync.value;
-                VideoSettings.Save();
+                this.VideoSettings.IsFullScreen = this.View.IsFullScreen.value;
+                this.VideoSettings.ScreenResolution = (Resolution) this.View.ScreenResolution.value!;
+                this.VideoSettings.IsVSync = this.View.IsVSync.value;
+                this.VideoSettings.Save();
             } else {
-                VideoSettings.Load();
+                this.VideoSettings.Load();
             }
-            HideSelf();
+            this.HideSelf();
         }
 
         // Helpers

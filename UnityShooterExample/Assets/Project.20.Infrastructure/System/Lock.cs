@@ -7,13 +7,13 @@ namespace System {
     public class Lock {
 
         internal bool IsLocked { get; set; }
-        public bool CanEnter => !IsLocked;
+        public bool CanEnter => !this.IsLocked;
 
         public Lock() {
         }
 
         public IDisposable Enter() {
-            Assert.Operation.Message( $"You are trying to enter locked scope" ).Valid( !IsLocked );
+            Assert.Operation.Message( $"You are trying to enter locked scope" ).Valid( !this.IsLocked );
             return new LockScope( this );
         }
 

@@ -33,7 +33,7 @@ namespace Project.Game {
         }
     }
     public partial class EnemyCharacter : NonPlayableCharacterBase {
-        private struct Environment_ {
+        private readonly struct Environment_ {
             public PlayerCharacter? Player { get; init; }
         }
 
@@ -51,17 +51,17 @@ namespace Project.Game {
         }
         protected override void FixedUpdate() {
             base.FixedUpdate();
-            Environment = GetEnvironment( transform );
+            this.Environment = GetEnvironment( this.transform );
         }
         protected override void Update() {
             base.Update();
-            if (IsAlive) {
-                Move( Vector3.zero, false, false, false );
-                BodyAt( GetBodyTarget( Environment ) );
-                HeadAt( GetHeadTarget( Environment ) );
-                AimAt( GetWeaponTarget( Environment ) );
-                if (Environment.Player != null && Environment.Player.IsAlive) {
-                    var _ = Weapon?.TryFire( this, null );
+            if (this.IsAlive) {
+                this.Move( Vector3.zero, false, false, false );
+                this.BodyAt( GetBodyTarget( this.Environment ) );
+                _ = this.HeadAt( GetHeadTarget( this.Environment ) );
+                _ = this.AimAt( GetWeaponTarget( this.Environment ) );
+                if (this.Environment.Player != null && this.Environment.Player.IsAlive) {
+                    _ = this.Weapon?.TryFire( this, null );
                 }
             }
         }

@@ -9,7 +9,7 @@ namespace UnityEngine {
 
 #if UNITY_EDITOR
         protected virtual void OnValidate() {
-            gameObject.name = GetType().Name;
+            this.gameObject.name = this.GetType().Name;
         }
 #endif
 

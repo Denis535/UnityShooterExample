@@ -18,14 +18,14 @@ namespace Project {
         private Screen Screen { get; set; } = default!;
         private Router Router { get; set; } = default!;
         private Application2 Application { get; set; } = default!;
-        private Game2? Game => Application.Game;
+        private Game2? Game => this.Application.Game;
 
         public void Awake() {
-            Contairner = gameObject.RequireComponent<IDependencyContainer>();
-            Theme = Contairner.RequireDependency<Theme>();
-            Screen = Contairner.RequireDependency<Screen>();
-            Router = Contairner.RequireDependency<Router>();
-            Application = Contairner.RequireDependency<Application2>();
+            this.Contairner = this.gameObject.RequireComponent<IDependencyContainer>();
+            this.Theme = this.Contairner.RequireDependency<Theme>();
+            this.Screen = this.Contairner.RequireDependency<Screen>();
+            this.Router = this.Contairner.RequireDependency<Router>();
+            this.Application = this.Contairner.RequireDependency<Application2>();
         }
         public void OnDestroy() {
         }
@@ -33,12 +33,12 @@ namespace Project {
         public void OnGUI() {
             using (new GUILayout.VerticalScope( GUI.skin.box )) {
                 GUILayout.Label( "Fps: " + (1f / Time.smoothDeltaTime).ToString( "000." ) );
-                GUILayout.Label( "Main Scene: " + Router.IsMainSceneLoaded );
-                GUILayout.Label( "Game Scene: " + Router.IsGameSceneLoaded );
-                if (Game != null) {
-                    GUILayout.Label( "Game State: " + Game.State );
-                    GUILayout.Label( "Game Pause: " + Game.IsPaused );
-                    GUILayout.Label( "Player State: " + Game.Player.State );
+                GUILayout.Label( "Main Scene: " + this.Router.IsMainSceneLoaded );
+                GUILayout.Label( "Game Scene: " + this.Router.IsGameSceneLoaded );
+                if (this.Game != null) {
+                    GUILayout.Label( "Game State: " + this.Game.State );
+                    GUILayout.Label( "Game Pause: " + this.Game.IsPaused );
+                    GUILayout.Label( "Player State: " + this.Game.Player.State );
                 }
             }
         }

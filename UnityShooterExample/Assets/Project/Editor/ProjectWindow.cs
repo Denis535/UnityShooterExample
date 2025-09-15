@@ -15,7 +15,7 @@ namespace Project {
     public class ProjectWindow : ProjectWindowBase {
 
         static ProjectWindow() {
-            new ProjectWindow();
+            _ = new ProjectWindow();
         }
 
         public ProjectWindow() {
@@ -31,36 +31,36 @@ namespace Project {
         protected override void DrawElement(Rect rect, string path) {
             base.DrawElement( rect, path );
             if (path.Equals( "Assets/Assets" ) || path.Equals( "Assets/Assets.Project" ) || path.StartsWith( "Assets/Assets.Project." )) {
-                Highlight( rect, Settings.AssetsColor, path.Count( i => i == '/' ) >= 2 );
+                Highlight( rect, this.Settings.AssetsColor, path.Count( i => i == '/' ) >= 2 );
                 if (rect.height == 16 && path.Count( i => i == '/' ) == 1) {
                     if (path.Equals( "Assets/Assets.Project" )) {
                         rect.xMin += 59;
                         rect.width = 43;
-                        DrawRect( rect, Settings.AssetsColor );
+                        DrawRect( rect, this.Settings.AssetsColor );
                         return;
                     }
                     if (path.StartsWith( "Assets/Assets.Project.00.UI" )) {
                         rect.xMin += 59;
                         rect.width = 74;
-                        DrawRect( rect, Settings.AssetsColor );
+                        DrawRect( rect, this.Settings.AssetsColor );
                         return;
                     }
                     if (path.StartsWith( "Assets/Assets.Project.05.App" )) {
                         rect.xMin += 59;
                         rect.width = 86;
-                        DrawRect( rect, Settings.AssetsColor );
+                        DrawRect( rect, this.Settings.AssetsColor );
                         return;
                     }
                     if (path.StartsWith( "Assets/Assets.Project.10.Game" )) {
                         rect.xMin += 59;
                         rect.width = 94;
-                        DrawRect( rect, Settings.AssetsColor );
+                        DrawRect( rect, this.Settings.AssetsColor );
                         return;
                     }
                     if (path.StartsWith( "Assets/Assets.Project.20.Infrastructure" )) {
                         rect.xMin += 59;
                         rect.width = 140;
-                        DrawRect( rect, Settings.AssetsColor );
+                        DrawRect( rect, this.Settings.AssetsColor );
                     }
                 }
             }
@@ -75,31 +75,31 @@ namespace Project {
                 if (assembly.Equals( "Project" )) {
                     rect.xMin += 18;
                     rect.width = 42;
-                    DrawRect( rect, Settings.AssemblyColor );
+                    DrawRect( rect, this.Settings.AssemblyColor );
                     return;
                 }
                 if (assembly.StartsWith( "Project.00.UI" )) {
                     rect.xMin += 18;
                     rect.width = 74;
-                    DrawRect( rect, Settings.AssemblyColor );
+                    DrawRect( rect, this.Settings.AssemblyColor );
                     return;
                 }
                 if (assembly.StartsWith( "Project.05.App" )) {
                     rect.xMin += 18;
                     rect.width = 86;
-                    DrawRect( rect, Settings.AssemblyColor );
+                    DrawRect( rect, this.Settings.AssemblyColor );
                     return;
                 }
                 if (assembly.StartsWith( "Project.10.Game" )) {
                     rect.xMin += 18;
                     rect.width = 93;
-                    DrawRect( rect, Settings.AssemblyColor );
+                    DrawRect( rect, this.Settings.AssemblyColor );
                     return;
                 }
                 if (assembly.StartsWith( "Project.20.Infrastructure" )) {
                     rect.xMin += 18;
                     rect.width = 140;
-                    DrawRect( rect, Settings.AssemblyColor );
+                    DrawRect( rect, this.Settings.AssemblyColor );
                     return;
                 }
             }

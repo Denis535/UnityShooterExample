@@ -11,14 +11,14 @@ namespace GameFramework.Pro {
 
         // Constructor
         public AboutPackageWindow() {
-            titleContent = new GUIContent( "About Game Framework Pro package" );
-            minSize = maxSize = new Vector2( 1200, 800 );
+            this.titleContent = new GUIContent( "About Game Framework Pro package" );
+            this.minSize = this.maxSize = new Vector2( 1200, 800 );
         }
 
         // OnEnable
         public void OnEnable() {
-            ShowUtility();
-            Focus();
+            this.ShowUtility();
+            this.Focus();
         }
         public void OnDisable() {
         }

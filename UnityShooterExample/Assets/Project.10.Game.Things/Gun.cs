@@ -42,17 +42,17 @@ namespace Project.Game {
 
         protected override void Awake() {
             base.Awake();
-            FirePoint = gameObject.RequireComponentInChildren<FirePoint>();
+            this.FirePoint = this.gameObject.RequireComponentInChildren<FirePoint>();
         }
         protected override void OnDestroy() {
             base.OnDestroy();
         }
 
         public override bool TryFire(ActorBase actor, PlayerBase? player) {
-            if (FireDelay.CanFire) {
-                FireDelay.Fire();
-                var bullet = Bullet.Factory.Create( FirePoint.transform.position, FirePoint.transform.rotation, 5, this, actor, player );
-                Physics.IgnoreCollision( gameObject.RequireComponentInChildren<Collider>(), bullet.gameObject.RequireComponentInChildren<Collider>() );
+            if (this.FireDelay.CanFire) {
+                this.FireDelay.Fire();
+                var bullet = Bullet.Factory.Create( this.FirePoint.transform.position, this.FirePoint.transform.rotation, 5, this, actor, player );
+                Physics.IgnoreCollision( this.gameObject.RequireComponentInChildren<Collider>(), bullet.gameObject.RequireComponentInChildren<Collider>() );
                 return true;
             }
             return false;

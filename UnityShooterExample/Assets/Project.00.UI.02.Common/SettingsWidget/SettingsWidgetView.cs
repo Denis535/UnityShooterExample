@@ -23,29 +23,29 @@ namespace Project.UI {
         public Button Back { get; }
 
         public SettingsWidgetView() : base( "settings-widget-view" ) {
-            Add(
-                Card = VisualElementFactory.Card().Children(
-                    Header = VisualElementFactory.Header().Children(
-                        Title = VisualElementFactory.Label( "Settings" )
-                    ),
-                    Content = VisualElementFactory.Content().Children(
-                        TabView = VisualElementFactory.TabView().Class( "no-outline" ).Class( "grow-1" ).Children(
-                            ProfileSettingsTab = VisualElementFactory.Tab( "Profile Settings" ),
-                            VideoSettingsTab = VisualElementFactory.Tab( "Video Settings" ),
-                            AudioSettingsTab = VisualElementFactory.Tab( "Audio Settings" )
-                        )
-                    ),
-                    Footer = VisualElementFactory.Footer().Children(
-                        Okey = VisualElementFactory.Submit( "Ok" ),
-                        Back = VisualElementFactory.Cancel( "Back" )
-                    )
-                )
-            );
+            this.Add(
+                  this.Card = VisualElementFactory.Card().Children(
+                      this.Header = VisualElementFactory.Header().Children(
+                         this.Title = VisualElementFactory.Label( "Settings" )
+                       ),
+                      this.Content = VisualElementFactory.Content().Children(
+                          this.TabView = VisualElementFactory.TabView().Class( "no-outline" ).Class( "grow-1" ).Children(
+                              this.ProfileSettingsTab = VisualElementFactory.Tab( "Profile Settings" ),
+                              this.VideoSettingsTab = VisualElementFactory.Tab( "Video Settings" ),
+                              this.AudioSettingsTab = VisualElementFactory.Tab( "Audio Settings" )
+                           )
+                       ),
+                      this.Footer = VisualElementFactory.Footer().Children(
+                         this.Okey = VisualElementFactory.Submit( "Ok" ),
+                          this.Back = VisualElementFactory.Cancel( "Back" )
+                       )
+                   )
+               );
             this.OnValidate( evt => {
-                Okey.SetValid(
-                    ProfileSettingsTab.Descendants().All( i => i.IsValidSelf() ) &&
-                    VideoSettingsTab.Descendants().All( i => i.IsValidSelf() ) &&
-                    AudioSettingsTab.Descendants().All( i => i.IsValidSelf() ) );
+                this.Okey.SetValid(
+                    this.ProfileSettingsTab.Descendants().All( i => i.IsValidSelf() ) &&
+                     this.VideoSettingsTab.Descendants().All( i => i.IsValidSelf() ) &&
+                     this.AudioSettingsTab.Descendants().All( i => i.IsValidSelf() ) );
             } );
         }
         public override void Dispose() {
@@ -54,30 +54,30 @@ namespace Project.UI {
 
         protected override bool TryAddView(ViewBase view) {
             if (view is ProfileSettingsWidgetView profileSettings) {
-                ProfileSettingsTab.Add( profileSettings );
+                this.ProfileSettingsTab.Add( profileSettings );
                 return true;
             }
             if (view is VideoSettingsWidgetView videoSettings) {
-                VideoSettingsTab.Add( videoSettings );
+                this.VideoSettingsTab.Add( videoSettings );
                 return true;
             }
             if (view is AudioSettingsWidgetView audioSettings) {
-                AudioSettingsTab.Add( audioSettings );
+                this.AudioSettingsTab.Add( audioSettings );
                 return true;
             }
             return false;
         }
         protected override bool TryRemoveView(ViewBase view) {
-            if (view is ProfileSettingsWidgetView profileSettings) {
-                ProfileSettingsTab.Clear();
+            if (view is ProfileSettingsWidgetView) {
+                this.ProfileSettingsTab.Clear();
                 return true;
             }
-            if (view is VideoSettingsWidgetView videoSettings) {
-                VideoSettingsTab.Clear();
+            if (view is VideoSettingsWidgetView) {
+                this.VideoSettingsTab.Clear();
                 return true;
             }
-            if (view is AudioSettingsWidgetView audioSettings) {
-                AudioSettingsTab.Clear();
+            if (view is AudioSettingsWidgetView) {
+                this.AudioSettingsTab.Clear();
                 return true;
             }
             return false;

@@ -48,9 +48,9 @@ namespace Project.Game {
 #endif
 
         protected override void Awake() {
-            playerPoints = gameObject.GetComponentsInChildren<PlayerPoint>();
-            enemyPoints = gameObject.GetComponentsInChildren<EnemyPoint>();
-            thingPoints = gameObject.GetComponentsInChildren<ThingPoint>();
+            playerPoints = this.gameObject.GetComponentsInChildren<PlayerPoint>();
+            enemyPoints = this.gameObject.GetComponentsInChildren<EnemyPoint>();
+            thingPoints = this.gameObject.GetComponentsInChildren<ThingPoint>();
         }
         protected override void OnDestroy() {
         }

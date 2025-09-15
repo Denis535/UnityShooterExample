@@ -25,20 +25,20 @@ namespace Project.UI {
         public Footer Footer { get; }
 
         public DialogWidgetView() : base( "dialog-widget-view" ) {
-            Add(
-                Card = VisualElementFactory.DialogCard().Children(
-                    Header = VisualElementFactory.Header().Chain( i => i.SetDisplayed( false ) ).Children(
-                        Title = VisualElementFactory.Label( null )
+            this.Add(
+               this.Card = VisualElementFactory.DialogCard().Children(
+                   this.Header = VisualElementFactory.Header().Chain( i => i.SetDisplayed( false ) ).Children(
+                      this.Title = VisualElementFactory.Label( null )
                     ),
-                    Content = VisualElementFactory.Content().Chain( i => i.SetDisplayed( false ) ).Children(
+                   this.Content = VisualElementFactory.Content().Chain( i => i.SetDisplayed( false ) ).Children(
                         VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
-                            Message = VisualElementFactory.Label( null )
+                          this.Message = VisualElementFactory.Label( null )
                         )
                     ),
-                    Footer = VisualElementFactory.Footer().Chain( i => i.SetDisplayed( false ) )
+                   this.Footer = VisualElementFactory.Footer().Chain( i => i.SetDisplayed( false ) )
                 )
             );
-            RegisterCallbackOnce<AttachToPanelEvent>( PlayAnimation );
+            this.RegisterCallbackOnce<AttachToPanelEvent>( PlayAnimation );
         }
         public override void Dispose() {
             base.Dispose();
@@ -72,20 +72,20 @@ namespace Project.UI {
         public Footer Footer { get; }
 
         public InfoDialogWidgetView() : base( "info-dialog-widget-view" ) {
-            Add(
-                Card = VisualElementFactory.InfoDialogCard().Children(
-                    Header = VisualElementFactory.Header().Chain( i => i.SetDisplayed( false ) ).Children(
-                        Title = VisualElementFactory.Label( null )
-                    ),
-                    Content = VisualElementFactory.Content().Chain( i => i.SetDisplayed( false ) ).Children(
-                        VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
-                            Message = VisualElementFactory.Label( null )
-                        )
-                    ),
-                    Footer = VisualElementFactory.Footer().Chain( i => i.SetDisplayed( false ) )
-                )
-            );
-            RegisterCallbackOnce<AttachToPanelEvent>( PlayAnimation );
+            this.Add(
+               this.Card = VisualElementFactory.InfoDialogCard().Children(
+                  this.Header = VisualElementFactory.Header().Chain( i => i.SetDisplayed( false ) ).Children(
+                      this.Title = VisualElementFactory.Label( null )
+                     ),
+                   this.Content = VisualElementFactory.Content().Chain( i => i.SetDisplayed( false ) ).Children(
+                         VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
+                           this.Message = VisualElementFactory.Label( null )
+                         )
+                     ),
+                    this.Footer = VisualElementFactory.Footer().Chain( i => i.SetDisplayed( false ) )
+                 )
+             );
+            this.RegisterCallbackOnce<AttachToPanelEvent>( PlayAnimation );
         }
         public override void Dispose() {
             base.Dispose();
@@ -119,20 +119,20 @@ namespace Project.UI {
         public Footer Footer { get; }
 
         public WarningDialogWidgetView() : base( "warning-dialog-widget-view" ) {
-            Add(
-                Card = VisualElementFactory.WarningDialogCard().Children(
-                    Header = VisualElementFactory.Header().Chain( i => i.SetDisplayed( false ) ).Children(
-                        Title = VisualElementFactory.Label( null )
-                    ),
-                    Content = VisualElementFactory.Content().Chain( i => i.SetDisplayed( false ) ).Children(
-                        VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
-                            Message = VisualElementFactory.Label( null )
-                        )
-                    ),
-                    Footer = VisualElementFactory.Footer().Chain( i => i.SetDisplayed( false ) )
-                )
-            );
-            RegisterCallbackOnce<AttachToPanelEvent>( PlayAnimation );
+            this.Add(
+                this.Card = VisualElementFactory.WarningDialogCard().Children(
+                   this.Header = VisualElementFactory.Header().Chain( i => i.SetDisplayed( false ) ).Children(
+                        this.Title = VisualElementFactory.Label( null )
+                     ),
+                    this.Content = VisualElementFactory.Content().Chain( i => i.SetDisplayed( false ) ).Children(
+                         VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
+                           this.Message = VisualElementFactory.Label( null )
+                         )
+                     ),
+                   this.Footer = VisualElementFactory.Footer().Chain( i => i.SetDisplayed( false ) )
+                 )
+             );
+            this.RegisterCallbackOnce<AttachToPanelEvent>( PlayAnimation );
         }
         public override void Dispose() {
             base.Dispose();
@@ -166,20 +166,20 @@ namespace Project.UI {
         public Footer Footer { get; }
 
         public ErrorDialogWidgetView() : base( "error-dialog-widget-view" ) {
-            Add(
-                Card = VisualElementFactory.ErrorDialogCard().Children(
-                    Header = VisualElementFactory.Header().Chain( i => i.SetDisplayed( false ) ).Children(
-                        Title = VisualElementFactory.Label( null )
-                    ),
-                    Content = VisualElementFactory.Content().Chain( i => i.SetDisplayed( false ) ).Children(
-                        VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
-                            Message = VisualElementFactory.Label( null )
-                        )
-                    ),
-                    Footer = VisualElementFactory.Footer().Chain( i => i.SetDisplayed( false ) )
-                )
-            );
-            RegisterCallbackOnce<AttachToPanelEvent>( PlayAnimation );
+            this.Add(
+                this.Card = VisualElementFactory.ErrorDialogCard().Children(
+                    this.Header = VisualElementFactory.Header().Chain( i => i.SetDisplayed( false ) ).Children(
+                         this.Title = VisualElementFactory.Label( null )
+                      ),
+                   this.Content = VisualElementFactory.Content().Chain( i => i.SetDisplayed( false ) ).Children(
+                          VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
+                            this.Message = VisualElementFactory.Label( null )
+                          )
+                      ),
+                   this.Footer = VisualElementFactory.Footer().Chain( i => i.SetDisplayed( false ) )
+                  )
+              );
+            this.RegisterCallbackOnce<AttachToPanelEvent>( PlayAnimation );
         }
         public override void Dispose() {
             base.Dispose();

@@ -53,22 +53,22 @@ namespace Project.Game {
         }
         protected override void Update() {
             base.Update();
-            if (InputProvider != null) {
-                if (IsAlive) {
-                    Move( InputProvider.GetMoveVector(), InputProvider.IsJumpPressed(), InputProvider.IsCrouchPressed(), InputProvider.IsAcceleratePressed() );
-                    BodyAt( InputProvider.GetBodyTarget() );
-                    HeadAt( InputProvider.GetHeadTarget() );
-                    AimAt( InputProvider.GetWeaponTarget() );
-                    if (InputProvider.IsAimPressed()) {
+            if (this.InputProvider != null) {
+                if (this.IsAlive) {
+                    this.Move( this.InputProvider.GetMoveVector(), this.InputProvider.IsJumpPressed(), this.InputProvider.IsCrouchPressed(), this.InputProvider.IsAcceleratePressed() );
+                    this.BodyAt( this.InputProvider.GetBodyTarget() );
+                    _ = this.HeadAt( this.InputProvider.GetHeadTarget() );
+                    _ = this.AimAt( this.InputProvider.GetWeaponTarget() );
+                    if (this.InputProvider.IsAimPressed()) {
                     }
-                    if (InputProvider.IsFirePressed( out var player )) {
-                        var _ = Weapon?.TryFire( this, player );
+                    if (this.InputProvider.IsFirePressed( out var player )) {
+                        _ = this.Weapon?.TryFire( this, player );
                     }
-                    if (InputProvider.IsInteractPressed( out var interactable )) {
+                    if (this.InputProvider.IsInteractPressed( out var interactable )) {
                         if (interactable is WeaponBase weapon) {
-                            Weapon = weapon;
+                            this.Weapon = weapon;
                         } else {
-                            Weapon = null;
+                            this.Weapon = null;
                         }
                     }
                 }

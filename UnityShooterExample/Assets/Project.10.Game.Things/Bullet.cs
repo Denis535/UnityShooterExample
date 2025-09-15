@@ -41,16 +41,16 @@ namespace Project.Game {
         public PlayerBase? Player { get; private set; } = default!;
 
         protected override void Awake() {
-            Rigidbody = gameObject.RequireComponent<Rigidbody>();
+            this.Rigidbody = this.gameObject.RequireComponent<Rigidbody>();
         }
         protected override void OnDestroy() {
         }
 
         public void OnCollisionEnter(Collision collision) {
-            if (enabled) {
-                var damageInfo = new HitDamageInfo( Force, Rigidbody.position, Rigidbody.linearVelocity.normalized, transform.position, Weapon, Actor, Player );
-                collision.transform.TryDamage( damageInfo, i => i != (IDamageable) Actor, out _ );
-                enabled = false;
+            if (this.enabled) {
+                var damageInfo = new HitDamageInfo( this.Force, this.Rigidbody.position, this.Rigidbody.linearVelocity.normalized, this.transform.position, this.Weapon, this.Actor, this.Player );
+                _ = collision.transform.TryDamage( damageInfo, i => i != (IDamageable) this.Actor, out _ );
+                this.enabled = false;
             }
         }
 

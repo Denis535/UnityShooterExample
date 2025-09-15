@@ -17,18 +17,18 @@ namespace Project.UI {
         public Button Back { get; }
 
         public GameMenuWidgetView() : base( "game-menu-widget-view" ) {
-            Add(
-                Card = VisualElementFactory.Card().Children(
-                    Header = VisualElementFactory.Header().Children(
-                        Title = VisualElementFactory.Label( "Menu" )
-                    ),
-                    Content = VisualElementFactory.Content().Children(
-                        Resume = VisualElementFactory.Resume( "Resume" ),
-                        Settings = VisualElementFactory.Select( "Settings" ),
-                        Back = VisualElementFactory.Back( "Back To Menu" )
-                    )
-                )
-            );
+            this.Add(
+               this.Card = VisualElementFactory.Card().Children(
+                   this.Header = VisualElementFactory.Header().Children(
+                        this.Title = VisualElementFactory.Label( "Menu" )
+                     ),
+                   this.Content = VisualElementFactory.Content().Children(
+                       this.Resume = VisualElementFactory.Resume( "Resume" ),
+                       this.Settings = VisualElementFactory.Select( "Settings" ),
+                       this.Back = VisualElementFactory.Back( "Back To Menu" )
+                     )
+                 )
+             );
         }
         public override void Dispose() {
             base.Dispose();

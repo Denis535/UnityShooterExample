@@ -12,7 +12,7 @@ namespace UnityEngine.Framework {
 
         // Constructor
         public WidgetBase2(IDependencyContainer container) {
-            Container = container;
+            this.Container = container;
         }
         public override void Dispose() {
             base.Dispose();
@@ -26,7 +26,7 @@ namespace UnityEngine.Framework {
 
         // Constructor
         public WidgetBase2(IDependencyContainer container) {
-            Container = container;
+            this.Container = container;
         }
         public override void Dispose() {
             base.Dispose();

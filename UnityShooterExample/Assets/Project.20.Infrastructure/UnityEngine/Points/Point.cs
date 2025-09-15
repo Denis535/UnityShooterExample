@@ -10,15 +10,15 @@ namespace UnityEngine {
 
 #if UNITY_EDITOR
         protected virtual void OnValidate() {
-            gameObject.name = GetType().Name;
+            this.gameObject.name = this.GetType().Name;
         }
 #endif
 
 #if UNITY_EDITOR
         protected virtual void OnDrawGizmos() {
-            var size = HandleUtility.GetHandleSize( transform.position ).Chain( i => Math.Clamp( i, 1f, 20f ) );
+            var size = HandleUtility.GetHandleSize( this.transform.position ).Chain( i => Math.Clamp( i, 1f, 20f ) );
             Gizmos.color = Color.white;
-            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.matrix = this.transform.localToWorldMatrix;
             Gizmos.DrawSphere( Vector3.zero, size * 0.05f );
             Gizmos.DrawFrustum( Vector3.zero, 10f, 0.25f, 0f, 2f );
         }

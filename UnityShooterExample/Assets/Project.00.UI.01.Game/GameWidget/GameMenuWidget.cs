@@ -12,22 +12,22 @@ namespace Project.UI {
         private Router Router { get; }
 
         public GameMenuWidget(IDependencyContainer container) : base( container ) {
-            Router = container.RequireDependency<Router>();
-            View = CreateView( this );
+            this.Router = container.RequireDependency<Router>();
+            this.View = CreateView( this );
         }
         public override void Dispose() {
-            foreach (var child in Node.Children) {
+            foreach (var child in this.Node.Children) {
                 child.Widget().Dispose();
             }
-            View.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         protected override void OnActivate(object? argument) {
-            ShowSelf();
+            this.ShowSelf();
         }
         protected override void OnDeactivate(object? argument) {
-            HideSelf();
+            this.HideSelf();
         }
 
         // Helpers

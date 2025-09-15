@@ -241,8 +241,9 @@ namespace Project.UI {
 
         // Helpers
         private static T Create<T>(string? name, string? @class) where T : VisualElement, new() {
-            var result = new T();
-            result.name = name;
+            var result = new T {
+                name = name
+            };
             result.AddToClassList( "visual-element" );
             result.AddToClassList( @class );
             return result;

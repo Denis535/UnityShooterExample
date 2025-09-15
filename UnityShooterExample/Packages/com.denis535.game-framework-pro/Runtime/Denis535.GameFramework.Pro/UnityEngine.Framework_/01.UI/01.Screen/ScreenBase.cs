@@ -19,14 +19,14 @@ namespace UnityEngine.Framework {
 
         // Constructor
         public ScreenBase(UIDocument document, AudioSource audioSource) {
-            Machine = new TreeMachine<Node2<WidgetBase>, ScreenBase>( this );
-            Document = document;
-            AudioSource = audioSource;
+            this.Machine = new TreeMachine<Node2<WidgetBase>, ScreenBase>( this );
+            this.Document = document;
+            this.AudioSource = audioSource;
         }
         public override void Dispose() {
-            Assert.Operation.Message( $"Screen {this} must have no {Machine.Root} root" ).Valid( Machine.Root == null );
-            Assert.Operation.Message( $"Screen {this} must be released" ).Valid( !Document || Document.rootVisualElement == null || Document.rootVisualElement.childCount == 0 );
-            Assert.Operation.Message( $"Screen {this} must be released" ).Valid( !AudioSource || AudioSource.clip == null );
+            Assert.Operation.Message( $"Screen {this} must have no {this.Machine.Root} root" ).Valid( this.Machine.Root == null );
+            Assert.Operation.Message( $"Screen {this} must be released" ).Valid( !this.Document || this.Document.rootVisualElement == null || this.Document.rootVisualElement.childCount == 0 );
+            Assert.Operation.Message( $"Screen {this} must be released" ).Valid( !this.AudioSource || this.AudioSource.clip == null );
             base.Dispose();
         }
 

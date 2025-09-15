@@ -4,7 +4,6 @@ namespace Project.UI {
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
-    using UnityEngine.Assertions.Must;
     using UnityEngine.Framework;
 
     public class Theme : ThemeBase2 {
@@ -12,47 +11,47 @@ namespace Project.UI {
         public Theme(IDependencyContainer container) : base( container, container.RequireDependency<AudioSource>( "MusicAudioSource" ) ) {
         }
         public override void Dispose() {
-            Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
+            this.Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
             base.Dispose();
         }
 
         public void OnFixedUpdate() {
         }
         public void OnUpdate() {
-            if (Machine.Root != null && ((PlayListBase3) Machine.Root.PlayList()).IsFading) {
-                Volume = Mathf.MoveTowards( Volume, 0, Volume * 1.0f * Time.deltaTime );
-                Pitch = Mathf.MoveTowards( Pitch, 0, Pitch * 0.5f * Time.deltaTime );
+            if (this.Machine.Root != null && ((PlayListBase3) this.Machine.Root.PlayList()).IsFading) {
+                this.Volume = Mathf.MoveTowards( this.Volume, 0, this.Volume * 1.0f * Time.deltaTime );
+                this.Pitch = Mathf.MoveTowards( this.Pitch, 0, this.Pitch * 0.5f * Time.deltaTime );
             }
         }
 
         public void PlayMainTheme() {
-            Machine.SetRoot( new MainPlayList( Container ).State, null, (state, arg) => state.PlayList().Dispose() );
+            this.Machine.SetRoot( new MainPlayList( this.Container ).State, null, (state, arg) => state.PlayList().Dispose() );
         }
         public void PlayGameTheme() {
-            Machine.SetRoot( new GamePlayList( Container ).State, null, (state, arg) => state.PlayList().Dispose() );
+            this.Machine.SetRoot( new GamePlayList( this.Container ).State, null, (state, arg) => state.PlayList().Dispose() );
         }
         public void PlayGameCompletedTheme(bool isPlayerWinner) {
-            Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
+            this.Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
         }
         public void PlayLoadingTheme() {
-            if (Machine.Root?.PlayList() is MainPlayList mainStrategy) {
+            if (this.Machine.Root?.PlayList() is MainPlayList mainStrategy) {
                 mainStrategy.IsFading = true;
             } else {
-                Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
+                this.Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
             }
         }
         public void PlayUnloadingTheme() {
-            Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
+            this.Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
         }
         public void StopTheme() {
-            Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
+            this.Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
         }
 
         public void Pause() {
-            IsPaused = true;
+            this.IsPaused = true;
         }
         public void UnPause() {
-            IsPaused = false;
+            this.IsPaused = false;
         }
 
     }

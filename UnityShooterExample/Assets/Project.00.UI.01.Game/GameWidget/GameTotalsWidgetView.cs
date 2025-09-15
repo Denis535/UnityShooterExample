@@ -27,26 +27,26 @@ namespace Project.UI {
         public Button Back { get; }
 
         public GameTotalsWidgetView_LevelCompleted() : base( "game-totals-widget-view (level-completed)" ) {
-            Add(
-                Card = VisualElementFactory.Card().Children(
-                    Header = VisualElementFactory.Header().Children(
-                        Title = VisualElementFactory.Label( "Level Completed" )
-                    ),
-                    Content = VisualElementFactory.Content().Children(
-                        VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
-                            Message = VisualElementFactory.Label(
-                                "Congratulations!" + Environment.NewLine +
-                                "You have completed the level!" + Environment.NewLine +
-                                "Do you want to continue or back to the menu?"
-                                ).Class( "text-align-middle-center" )
-                        )
-                    ),
-                    Footer = VisualElementFactory.Footer().Children(
-                        Continue = VisualElementFactory.Submit( "Continue" ),
-                        Back = VisualElementFactory.Cancel( "Back To Menu" )
-                    )
-                )
-            );
+            this.Add(
+                this.Card = VisualElementFactory.Card().Children(
+                    this.Header = VisualElementFactory.Header().Children(
+                         this.Title = VisualElementFactory.Label( "Level Completed" )
+                      ),
+                    this.Content = VisualElementFactory.Content().Children(
+                          VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
+                             this.Message = VisualElementFactory.Label(
+                                  "Congratulations!" + Environment.NewLine +
+                                  "You have completed the level!" + Environment.NewLine +
+                                  "Do you want to continue or back to the menu?"
+                                  ).Class( "text-align-middle-center" )
+                          )
+                      ),
+                      this.Footer = VisualElementFactory.Footer().Children(
+                         this.Continue = VisualElementFactory.Submit( "Continue" ),
+                          this.Back = VisualElementFactory.Cancel( "Back To Menu" )
+                      )
+                  )
+              );
         }
         public override void Dispose() {
             base.Dispose();
@@ -65,26 +65,26 @@ namespace Project.UI {
         public Button Back { get; }
 
         public GameTotalsWidgetView_LevelFailed() : base( "game-totals-widget-view (level-failed)" ) {
-            Add(
-                Card = VisualElementFactory.Card().Children(
-                    Header = VisualElementFactory.Header().Children(
-                        Title = VisualElementFactory.Label( "Level Failed" )
-                    ),
-                    Content = VisualElementFactory.Content().Children(
-                        VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
-                            Message = VisualElementFactory.Label(
-                                "We're sorry." + Environment.NewLine +
-                                "You have failed the level." + Environment.NewLine +
-                                "Do you want to retry or back to the menu?"
-                                ).Class( "text-align-middle-center" )
-                        )
-                    ),
-                    Footer = VisualElementFactory.Footer().Children(
-                        Retry = VisualElementFactory.Submit( "Retry" ),
-                        Back = VisualElementFactory.Cancel( "Back To Menu" )
-                    )
-                )
-            );
+            this.Add(
+                this.Card = VisualElementFactory.Card().Children(
+                    this.Header = VisualElementFactory.Header().Children(
+                         this.Title = VisualElementFactory.Label( "Level Failed" )
+                      ),
+                   this.Content = VisualElementFactory.Content().Children(
+                          VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
+                             this.Message = VisualElementFactory.Label(
+                                  "We're sorry." + Environment.NewLine +
+                                  "You have failed the level." + Environment.NewLine +
+                                  "Do you want to retry or back to the menu?"
+                                  ).Class( "text-align-middle-center" )
+                          )
+                      ),
+                     this.Footer = VisualElementFactory.Footer().Children(
+                         this.Retry = VisualElementFactory.Submit( "Retry" ),
+                          this.Back = VisualElementFactory.Cancel( "Back To Menu" )
+                      )
+                  )
+              );
         }
         public override void Dispose() {
             base.Dispose();
@@ -102,24 +102,24 @@ namespace Project.UI {
         public Button Okey { get; }
 
         public GameTotalsWidgetView_GameCompleted() : base( "game-totals-widget-view (game-completed)" ) {
-            Add(
-                Card = VisualElementFactory.Card().Children(
-                    Header = VisualElementFactory.Header().Children(
-                        Title = VisualElementFactory.Label( "Game Completed" )
-                    ),
-                    Content = VisualElementFactory.Content().Children(
-                        VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
-                            Message = VisualElementFactory.Label(
-                                "Congratulations!" + Environment.NewLine +
-                                "You have completed the game!"
-                                ).Class( "text-align-middle-center" )
-                        )
-                    ),
-                    Footer = VisualElementFactory.Footer().Children(
-                        Okey = VisualElementFactory.Submit( "Ok" )
-                    )
-                )
-            );
+            this.Add(
+                 this.Card = VisualElementFactory.Card().Children(
+                     this.Header = VisualElementFactory.Header().Children(
+                        this.Title = VisualElementFactory.Label( "Game Completed" )
+                      ),
+                   this.Content = VisualElementFactory.Content().Children(
+                          VisualElementFactory.ColumnGroup().Class( "gray" ).Class( "medium" ).Class( "grow-1" ).Class( "justify-content-center" ).Class( "align-items-center" ).Children(
+                            this.Message = VisualElementFactory.Label(
+                                  "Congratulations!" + Environment.NewLine +
+                                  "You have completed the game!"
+                                  ).Class( "text-align-middle-center" )
+                          )
+                      ),
+                    this.Footer = VisualElementFactory.Footer().Children(
+                         this.Okey = VisualElementFactory.Submit( "Ok" )
+                      )
+                  )
+              );
         }
         public override void Dispose() {
             base.Dispose();

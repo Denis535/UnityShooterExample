@@ -16,17 +16,17 @@ namespace Project.UI {
         public VisualElement Content { get; }
 
         public MainMenuWidgetView() : base( "main-menu-widget-view" ) {
-            Add(
-                Card = VisualElementFactory.Card().Children(
-                    Header = VisualElementFactory.Header().Children(
-                        Title = VisualElementFactory.Label( "Menu" )
-                    ),
-                    Content = VisualElementFactory.Content()
-                )
-            );
+            this.Add(
+                 this.Card = VisualElementFactory.Card().Children(
+                     this.Header = VisualElementFactory.Header().Children(
+                         this.Title = VisualElementFactory.Label( "Menu" )
+                      ),
+                     this.Content = VisualElementFactory.Content()
+                  )
+              );
         }
         public override void Dispose() {
-            foreach (var view in Content.Children().Cast<ViewBase>()) {
+            foreach (var view in this.Content.Children().Cast<ViewBase>()) {
                 view.Dispose();
             }
             base.Dispose();
@@ -34,18 +34,18 @@ namespace Project.UI {
 
         protected override bool TryAddView(ViewBase view) {
             if (view is MainMenuWidgetView_Initial or MainMenuWidgetView_StartGame or MainMenuWidgetView_SelectLevel or MainMenuWidgetView_SelectCharacter) {
-                Content.Add( view );
-                Title.text = GetTitle( (ViewBase) Content.Children().Last() );
-                SetVisibility( Content.Children().Cast<ViewBase>().ToArray() );
+                this.Content.Add( view );
+                this.Title.text = GetTitle( (ViewBase) this.Content.Children().Last() );
+                SetVisibility( this.Content.Children().Cast<ViewBase>().ToArray() );
                 return true;
             }
             return false;
         }
         protected override bool TryRemoveView(ViewBase view) {
             if (view is MainMenuWidgetView_Initial or MainMenuWidgetView_StartGame or MainMenuWidgetView_SelectLevel or MainMenuWidgetView_SelectCharacter) {
-                Content.Remove( view );
-                Title.text = GetTitle( (ViewBase) Content.Children().Last() );
-                SetVisibility( Content.Children().Cast<ViewBase>().ToArray() );
+                this.Content.Remove( view );
+                this.Title.text = GetTitle( (ViewBase) this.Content.Children().Last() );
+                SetVisibility( this.Content.Children().Cast<ViewBase>().ToArray() );
                 return true;
             }
             return false;
@@ -104,9 +104,9 @@ namespace Project.UI {
 
         public MainMenuWidgetView_Initial() : base( "initial-view" ) {
             this.Add(
-                StartGame = VisualElementFactory.Select( "Start Game" ),
-                Settings = VisualElementFactory.Select( "Settings" ),
-                Quit = VisualElementFactory.Quit( "Quit" )
+              this.StartGame = VisualElementFactory.Select( "Start Game" ),
+               this.Settings = VisualElementFactory.Select( "Settings" ),
+               this.Quit = VisualElementFactory.Quit( "Quit" )
             );
         }
         public override void Dispose() {
@@ -122,9 +122,9 @@ namespace Project.UI {
 
         public MainMenuWidgetView_StartGame() : base( "start-game-view" ) {
             this.Add(
-                NewGame = VisualElementFactory.Select( "New Game" ),
-                Continue = VisualElementFactory.Select( "Continue" ),
-                Back = VisualElementFactory.Back( "Back" )
+               this.NewGame = VisualElementFactory.Select( "New Game" ),
+               this.Continue = VisualElementFactory.Select( "Continue" ),
+               this.Back = VisualElementFactory.Back( "Back" )
             );
         }
         public override void Dispose() {
@@ -142,11 +142,11 @@ namespace Project.UI {
         public MainMenuWidgetView_SelectLevel() : base( "select-level-view" ) {
             this.Add(
                 VisualElementFactory.ColumnScope().Class( "margin-bottom-4px" ).Children(
-                    Level1 = VisualElementFactory.Select( "Level 1" ),
-                    Level2 = VisualElementFactory.Select( "Level 2" ),
-                    Level3 = VisualElementFactory.Select( "Level 3" )
+                  this.Level1 = VisualElementFactory.Select( "Level 1" ),
+                  this.Level2 = VisualElementFactory.Select( "Level 2" ),
+                   this.Level3 = VisualElementFactory.Select( "Level 3" )
                 ),
-                Back = VisualElementFactory.Back( "Back" )
+               this.Back = VisualElementFactory.Back( "Back" )
             );
         }
         public override void Dispose() {
@@ -165,12 +165,12 @@ namespace Project.UI {
         public MainMenuWidgetView_SelectCharacter() : base( "select-character-view" ) {
             this.Add(
                 VisualElementFactory.ColumnScope().Class( "margin-bottom-4px" ).Children(
-                    Gray = VisualElementFactory.Select( "Gray" ),
-                    Red = VisualElementFactory.Select( "Red" ),
-                    Green = VisualElementFactory.Select( "Green" ),
-                    Blue = VisualElementFactory.Select( "Blue" )
+                   this.Gray = VisualElementFactory.Select( "Gray" ),
+                  this.Red = VisualElementFactory.Select( "Red" ),
+                  this.Green = VisualElementFactory.Select( "Green" ),
+                  this.Blue = VisualElementFactory.Select( "Blue" )
                 ),
-                Back = VisualElementFactory.Back( "Back" )
+               this.Back = VisualElementFactory.Back( "Back" )
             );
         }
         public override void Dispose() {

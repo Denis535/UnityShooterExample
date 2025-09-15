@@ -17,10 +17,10 @@ namespace Project.Game {
         public bool IsPaused {
             get => isPaused;
             set {
-                if (value != IsPaused) {
+                if (value != this.IsPaused) {
                     isPaused = value;
                     //Time.timeScale = IsPaused ? 0f : 1f;
-                    OnPauseChangeEvent?.Invoke( IsPaused );
+                    OnPauseChangeEvent?.Invoke( this.IsPaused );
                 }
             }
         }
@@ -29,17 +29,17 @@ namespace Project.Game {
         public GameState State {
             get => state;
             private set {
-                if (State is GameState.None && value is GameState.Playing) {
+                if (this.State is GameState.None && value is GameState.Playing) {
                     state = value;
-                    OnStateChangeEvent?.Invoke( State );
+                    OnStateChangeEvent?.Invoke( this.State );
                     return;
                 }
-                if (State is GameState.Playing && value is GameState.Completed) {
+                if (this.State is GameState.Playing && value is GameState.Completed) {
                     state = value;
-                    OnStateChangeEvent?.Invoke( State );
+                    OnStateChangeEvent?.Invoke( this.State );
                     return;
                 }
-                throw Exceptions.Operation.InvalidOperationException( $"Transition from {State} to {value} is invalid" );
+                throw Exceptions.Operation.InvalidOperationException( $"Transition from {this.State} to {value} is invalid" );
             }
         }
         public event Action<GameState>? OnStateChangeEvent;
@@ -50,64 +50,64 @@ namespace Project.Game {
         private bool IsDirty { get; set; }
 
         public Game2(IDependencyContainer container, GameInfo info, PlayerInfo playerInfo) : base( container ) {
-            Info = info;
-            IsPaused = false;
-            State = GameState.Playing;
-            Player = new Player2( container, playerInfo );
-            World = container.RequireDependency<World>();
+            this.Info = info;
+            this.IsPaused = false;
+            this.State = GameState.Playing;
+            this.Player = new Player2( container, playerInfo );
+            this.World = container.RequireDependency<World>();
             {
-                var point = World.PlayerPoints.Random();
-                Player.Character = SpawnPlayerCharacter( point, playerInfo.CharacterType );
-                Player.Camera = SpawnPlayerCamera();
+                var point = this.World.PlayerPoints.Random();
+                this.Player.Character = this.SpawnPlayerCharacter( point, playerInfo.CharacterType );
+                this.Player.Camera = this.SpawnPlayerCamera();
             }
-            foreach (var point in World.EnemyPoints) {
-                SpawnEnemyCharacter( point );
+            foreach (var point in this.World.EnemyPoints) {
+                this.SpawnEnemyCharacter( point );
             }
-            foreach (var point in World.ThingPoints) {
-                SpawnThing( point );
+            foreach (var point in this.World.ThingPoints) {
+                this.SpawnThing( point );
             }
-            IsDirty = false;
+            this.IsDirty = false;
         }
         public override void Dispose() {
             //Time.timeScale = 1f;
-            Player.Dispose();
+            this.Player.Dispose();
             base.Dispose();
         }
 
         public void OnFixedUpdate() {
         }
         public void OnUpdate() {
-            if (State is GameState.Playing or GameState.Completed && !IsPaused && Cursor.lockState == CursorLockMode.Locked) {
-                Player.CharacterInputProvider.IsEnabled =
-                    Player.State is PlayerState.Playing or PlayerState.Winner or PlayerState.Loser &&
-                    Player.Character != null && Player.Character.IsAlive &&
-                    Player.Camera != null;
-                Player.CameraInputProvider.IsEnabled =
-                    Player.State is PlayerState.Playing or PlayerState.Winner or PlayerState.Loser &&
-                    Player.Character != null &&
-                    Player.Camera != null;
+            if (this.State is GameState.Playing or GameState.Completed && !this.IsPaused && Cursor.lockState == CursorLockMode.Locked) {
+                this.Player.CharacterInputProvider.IsEnabled =
+                   this.Player.State is PlayerState.Playing or PlayerState.Winner or PlayerState.Loser &&
+                   this.Player.Character != null && this.Player.Character.IsAlive &&
+                   this.Player.Camera != null;
+                this.Player.CameraInputProvider.IsEnabled =
+                    this.Player.State is PlayerState.Playing or PlayerState.Winner or PlayerState.Loser &&
+                    this.Player.Character != null &&
+                    this.Player.Camera != null;
             } else {
-                Player.CharacterInputProvider.IsEnabled = false;
-                Player.CameraInputProvider.IsEnabled = false;
+                this.Player.CharacterInputProvider.IsEnabled = false;
+                this.Player.CameraInputProvider.IsEnabled = false;
             }
         }
         public void OnLateUpdate() {
-            if (State is GameState.Playing) {
-                if (IsDirty) {
-                    if (Player.State is PlayerState.Playing) {
-                        if (IsLoser( Player )) {
-                            Player.State = PlayerState.Loser;
-                            OnLoser( Player );
-                        } else if (IsWinner( Player )) {
-                            Player.State = PlayerState.Winner;
-                            OnWinner( Player );
+            if (this.State is GameState.Playing) {
+                if (this.IsDirty) {
+                    if (this.Player.State is PlayerState.Playing) {
+                        if (this.IsLoser( this.Player )) {
+                            this.Player.State = PlayerState.Loser;
+                            this.OnLoser( this.Player );
+                        } else if (this.IsWinner( this.Player )) {
+                            this.Player.State = PlayerState.Winner;
+                            this.OnWinner( this.Player );
                         }
                     }
-                    if (Player.State is PlayerState.Winner or PlayerState.Loser) {
-                        State = GameState.Completed;
-                        OnCompleted();
+                    if (this.Player.State is PlayerState.Winner or PlayerState.Loser) {
+                        this.State = GameState.Completed;
+                        this.OnCompleted();
                     }
-                    IsDirty = false;
+                    this.IsDirty = false;
                 }
             }
         }
@@ -115,7 +115,7 @@ namespace Project.Game {
         protected virtual PlayerCharacter SpawnPlayerCharacter(PlayerPoint point, PlayerInfo.CharacterType_ type) {
             var character = PlayerCharacter.Factory.Create( point.transform.position, point.transform.rotation, (PlayerCharacter.Factory.CharacterType) type );
             character.OnDeathEvent += info => {
-                IsDirty = true;
+                this.IsDirty = true;
             };
             return character;
         }
@@ -126,11 +126,11 @@ namespace Project.Game {
         protected virtual void SpawnEnemyCharacter(EnemyPoint point) {
             var character = EnemyCharacter.Factory.Create( point.transform.position, point.transform.rotation );
             character.OnDeathEvent += info => {
-                IsDirty = true;
+                this.IsDirty = true;
             };
         }
         protected virtual void SpawnThing(ThingPoint point) {
-            var thing = Gun.Factory.Create( point.transform.position, point.transform.rotation );
+            _ = Gun.Factory.Create( point.transform.position, point.transform.rotation );
         }
 
         protected virtual bool IsWinner(Player2 player) {

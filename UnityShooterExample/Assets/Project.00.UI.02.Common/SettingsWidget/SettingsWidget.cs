@@ -10,24 +10,24 @@ namespace Project.UI {
     public class SettingsWidget : WidgetBase2<SettingsWidgetView> {
 
         public SettingsWidget(IDependencyContainer container) : base( container ) {
-            View = CreateView( this );
-            Node.AddChild( new ProfileSettingsWidget( container ).Node, null );
-            Node.AddChild( new VideoSettingsWidget( container ).Node, null );
-            Node.AddChild( new AudioSettingsWidget( container ).Node, null );
+            this.View = CreateView( this );
+            this.Node.AddChild( new ProfileSettingsWidget( container ).Node, null );
+            this.Node.AddChild( new VideoSettingsWidget( container ).Node, null );
+            this.Node.AddChild( new AudioSettingsWidget( container ).Node, null );
         }
         public override void Dispose() {
-            foreach (var child in Node.Children) {
+            foreach (var child in this.Node.Children) {
                 child.Widget().Dispose();
             }
-            View.Dispose();
+            this.View.Dispose();
             base.Dispose();
         }
 
         protected override void OnActivate(object? argument) {
-            ShowSelf();
+            this.ShowSelf();
         }
         protected override void OnDeactivate(object? argument) {
-            HideSelf();
+            this.HideSelf();
         }
 
         // Helpers

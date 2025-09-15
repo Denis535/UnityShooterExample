@@ -20,14 +20,14 @@ namespace Project.Game {
         private WeaponSocket WeaponSocket { get; set; } = default!;
         public WeaponBase? Weapon {
             get {
-                if (WeaponSocket.transform.childCount > 0) {
-                    return WeaponSocket.transform.GetChild( 0 ).gameObject.RequireComponent<WeaponBase>();
+                if (this.WeaponSocket.transform.childCount > 0) {
+                    return this.WeaponSocket.transform.GetChild( 0 ).gameObject.RequireComponent<WeaponBase>();
                 } else {
                     return null;
                 }
             }
             protected set {
-                var prevWeapon = Weapon;
+                var prevWeapon = this.Weapon;
                 if (prevWeapon != null) {
                     prevWeapon.gameObject.SetLayerRecursively( Layers.Entity );
                     prevWeapon.transform.SetParent( null, true );
@@ -35,7 +35,7 @@ namespace Project.Game {
                 }
                 if (value != null) {
                     value.gameObject.SetLayerRecursively( Layers.Entity_Exact );
-                    value.transform.SetParent( WeaponSocket.transform, true );
+                    value.transform.SetParent( this.WeaponSocket.transform, true );
                     value.transform.localPosition = Vector3.zero;
                     value.transform.localRotation = Quaternion.identity;
                     value.IsRigidbody = false;
@@ -44,10 +44,10 @@ namespace Project.Game {
         }
 
         protected override void Awake() {
-            MoveableBody = gameObject.RequireComponent<MoveableBody>();
-            Rigidbody = gameObject.RequireComponent<Rigidbody>();
-            Head = gameObject.transform.Require( "Head" ).gameObject;
-            WeaponSocket = gameObject.RequireComponentInChildren<WeaponSocket>();
+            this.MoveableBody = this.gameObject.RequireComponent<MoveableBody>();
+            this.Rigidbody = this.gameObject.RequireComponent<Rigidbody>();
+            this.Head = this.gameObject.transform.Require( "Head" ).gameObject;
+            this.WeaponSocket = this.gameObject.RequireComponentInChildren<WeaponSocket>();
         }
         protected override void OnDestroy() {
         }
@@ -62,15 +62,15 @@ namespace Project.Game {
         }
 
         protected void Move(Vector3 moveVector, bool isJumpPressed, bool isCrouchPressed, bool isAcceleratePressed) {
-            MoveableBody.Move( moveVector, isJumpPressed, isCrouchPressed, isAcceleratePressed );
+            this.MoveableBody.Move( moveVector, isJumpPressed, isCrouchPressed, isAcceleratePressed );
         }
 
         protected void BodyAt(Vector3? target) {
-            MoveableBody.LookAt( target );
+            this.MoveableBody.LookAt( target );
         }
 
         protected bool HeadAt(Vector3? target) {
-            return LookAt( Head.transform, target );
+            return LookAt( this.Head.transform, target );
             static bool LookAt(Transform transform, Vector3? target) {
                 var rotation = transform.localRotation;
                 if (target != null) {
@@ -87,8 +87,8 @@ namespace Project.Game {
                 var angles = rotation.eulerAngles;
                 if (angles.x > 180) angles.x -= 360;
                 if (angles.y > 180) angles.y -= 360;
-                if (angles.x >= -100 && angles.x <= 100) {
-                    if (angles.y >= -80 && angles.y <= 80) {
+                if (angles.x is >= -100 and <= 100) {
+                    if (angles.y is >= -80 and <= 80) {
                         return true;
                     }
                 }
@@ -97,7 +97,7 @@ namespace Project.Game {
         }
 
         protected bool AimAt(Vector3? target) {
-            return LookAt( WeaponSocket.transform, target );
+            return LookAt( this.WeaponSocket.transform, target );
             static bool LookAt(Transform transform, Vector3? target) {
                 var rotation = transform.localRotation;
                 if (target != null) {
@@ -114,8 +114,8 @@ namespace Project.Game {
                 var angles = rotation.eulerAngles;
                 if (angles.x > 180) angles.x -= 360;
                 if (angles.y > 180) angles.y -= 360;
-                if (angles.x >= -100 && angles.x <= 100) {
-                    if (angles.y >= -80 && angles.y <= 80) {
+                if (angles.x is >= -100 and <= 100) {
+                    if (angles.y is >= -80 and <= 80) {
                         return true;
                     }
                 }
@@ -124,23 +124,23 @@ namespace Project.Game {
         }
 
         void IDamageable.Damage(DamageInfo info) {
-            if (IsAlive) {
-                IsAlive = false;
-                OnDamage( info );
+            if (this.IsAlive) {
+                this.IsAlive = false;
+                this.OnDamage( info );
                 OnDamageEvent?.Invoke( info );
-                OnDeath( info );
-                OnDeathEvent?.Invoke( info );
+                this.OnDeath( info );
+                this.OnDeathEvent?.Invoke( info );
             }
         }
         protected virtual void OnDamage(DamageInfo info) {
         }
         protected virtual void OnDeath(DamageInfo info) {
-            Weapon = null;
-            gameObject.SetLayerRecursively( Layers.Entity );
-            MoveableBody.enabled = false;
-            Rigidbody.isKinematic = false;
+            this.Weapon = null;
+            this.gameObject.SetLayerRecursively( Layers.Entity );
+            this.MoveableBody.enabled = false;
+            this.Rigidbody.isKinematic = false;
             if (info is HitDamageInfo bulletDamageInfo) {
-                Rigidbody.AddForceAtPosition( bulletDamageInfo.Direction * 5, bulletDamageInfo.Point, ForceMode.Impulse );
+                this.Rigidbody.AddForceAtPosition( bulletDamageInfo.Direction * 5, bulletDamageInfo.Point, ForceMode.Impulse );
             }
         }
 

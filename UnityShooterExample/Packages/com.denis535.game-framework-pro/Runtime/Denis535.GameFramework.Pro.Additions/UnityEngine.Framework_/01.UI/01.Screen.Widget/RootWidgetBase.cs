@@ -19,15 +19,15 @@ namespace UnityEngine.Framework {
 
         // OnActivate
         protected override void OnActivate(object? argument) {
-            ShowSelf();
+            this.ShowSelf();
         }
         protected override void OnDeactivate(object? argument) {
-            HideSelf();
+            this.HideSelf();
         }
 
         // Sort
         protected override void Sort(List<NodeBase> children) {
-            children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( a.Widget() ), GetOrderOf( b.Widget() ) ) );
+            children.Sort( (a, b) => Comparer<int>.Default.Compare( this.GetOrderOf( a.Widget() ), this.GetOrderOf( b.Widget() ) ) );
         }
         protected virtual int GetOrderOf(WidgetBase widget) {
             return 0;
@@ -35,20 +35,19 @@ namespace UnityEngine.Framework {
 
         // ShowSelf
         protected override void ShowSelf() {
-            Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"Widget {this} must be activating" ).Valid( Node.Activity is Activity.Activating );
-            Screen!.Document.rootVisualElement.Add( View );
+            Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+            Assert.Operation.Message( $"Widget {this} must be activating" ).Valid( this.Node.Activity is Activity.Activating );
+            this.Screen!.Document.rootVisualElement.Add( this.View );
         }
         protected override void HideSelf() {
-            Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !IsDisposed );
-            Assert.Operation.Message( $"Widget {this} must be deactivating" ).Valid( Node.Activity is Activity.Deactivating );
-            if (Screen!.Document && Screen!.Document.rootVisualElement != null) Screen!.Document.rootVisualElement.Remove( View );
+            Assert.Operation.Message( $"Widget {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+            Assert.Operation.Message( $"Widget {this} must be deactivating" ).Valid( this.Node.Activity is Activity.Deactivating );
+            if (this.Screen!.Document && this.Screen!.Document.rootVisualElement != null) this.Screen!.Document.rootVisualElement.Remove( this.View );
         }
 
         // Helpers
         protected static void OnSubmit(NavigationSubmitEvent evt) {
-            var button = evt.target as Button;
-            if (button != null) {
+            if (evt.target is Button button) {
                 Click( button );
                 evt.StopPropagation();
             }

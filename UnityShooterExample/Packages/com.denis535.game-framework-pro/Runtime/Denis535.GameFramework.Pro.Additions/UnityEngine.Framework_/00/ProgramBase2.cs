@@ -35,7 +35,10 @@ namespace UnityEngine.Framework {
         }
 
         // GetValue
-        Option<object?> IDependencyContainer.GetValue(Type type, object? argument) => GetValue( type, argument );
+        Option<object?> IDependencyContainer.GetValue(Type type, object? argument) {
+            return this.GetValue( type, argument );
+        }
+
         // GetValue
         protected virtual Option<object?> GetValue(Type type, object? argument) {
             return default;
@@ -87,8 +90,8 @@ namespace UnityEngine.Framework {
 #if UNITY_EDITOR
         // OnInspectorGUI
         protected internal override void OnInspectorGUI() {
-            if (didAwake && this) {
-                OnInspectorGUI( Theme, Screen, Router, Application, Game );
+            if (this.didAwake && this) {
+                this.OnInspectorGUI( this.Theme, this.Screen, this.Router, this.Application, this.Game );
             } else {
                 HelpBox.Draw();
             }
@@ -119,12 +122,12 @@ namespace UnityEngine.Framework {
         }
         protected static string? GetDisplayString(WidgetBase widget) {
             var builder = new StringBuilder();
-            builder.AppendHierarchy( widget, i => i.ToString(), i => i.Node.Children.Select( i => i.Widget() ) );
+            _ = builder.AppendHierarchy( widget, i => i.ToString(), i => i.Node.Children.Select( i => i.Widget() ) );
             return builder.ToString();
         }
         protected static string? GetDisplayString(ViewBase view) {
             var builder = new StringBuilder();
-            builder.AppendHierarchy( (VisualElement) view, i => $"{i.GetType().FullName} ({i.name})", i => i.Children() );
+            _ = builder.AppendHierarchy( (VisualElement) view, i => $"{i.GetType().FullName} ({i.name})", i => i.Children() );
             return builder.ToString();
         }
 #endif

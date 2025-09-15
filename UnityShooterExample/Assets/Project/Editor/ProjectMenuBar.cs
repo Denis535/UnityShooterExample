@@ -17,38 +17,38 @@ namespace Project {
         [MenuItem( "Project/Launcher", priority = 0 )]
         public static void LoadLauncher() {
             var path = AssetDatabase.GetAllAssetPaths().Single( i => Path.GetFileName( i ) == "Launcher.unity" );
-            EditorSceneManager.OpenScene( path );
+            _ = EditorSceneManager.OpenScene( path );
         }
         [MenuItem( "Project/Main", priority = 1 )]
         public static void LoadStartup() {
             var path = AssetDatabase.GetAllAssetPaths().Single( i => Path.GetFileName( i ) == "Main.unity" );
-            EditorSceneManager.OpenScene( path );
+            _ = EditorSceneManager.OpenScene( path );
         }
         [MenuItem( "Project/Main Scene", priority = 2 )]
         public static void LoadMainScene() {
             var path = AssetDatabase.GetAllAssetPaths().Single( i => Path.GetFileName( i ) == "MainScene.unity" );
-            EditorSceneManager.OpenScene( path );
+            _ = EditorSceneManager.OpenScene( path );
         }
         [MenuItem( "Project/Game Scene", priority = 3 )]
         public static void LoadGameScene() {
             var path = AssetDatabase.GetAllAssetPaths().Single( i => Path.GetFileName( i ) == "GameScene.unity" );
-            EditorSceneManager.OpenScene( path );
+            _ = EditorSceneManager.OpenScene( path );
         }
 
         [MenuItem( "Project/World 01", priority = 100 )]
         public static void LoadWorld01() {
             var path = AssetDatabase.GetAllAssetPaths().Single( i => Path.GetFileName( i ) == "World_01.unity" );
-            EditorSceneManager.OpenScene( path );
+            _ = EditorSceneManager.OpenScene( path );
         }
         [MenuItem( "Project/World 02", priority = 101 )]
         public static void LoadWorld02() {
             var path = AssetDatabase.GetAllAssetPaths().Single( i => Path.GetFileName( i ) == "World_02.unity" );
-            EditorSceneManager.OpenScene( path );
+            _ = EditorSceneManager.OpenScene( path );
         }
         [MenuItem( "Project/World 03", priority = 101 )]
         public static void LoadWorld03() {
             var path = AssetDatabase.GetAllAssetPaths().Single( i => Path.GetFileName( i ) == "World_03.unity" );
-            EditorSceneManager.OpenScene( path );
+            _ = EditorSceneManager.OpenScene( path );
         }
 
         [MenuItem( "Project/Pre Build", priority = 200 )]
@@ -100,33 +100,33 @@ namespace Project {
 
         [MenuItem( "Project/Embed Package/com.denis535.addressables-extensions", priority = 400 )]
         public static void EmbedPackage_AddressablesExtensions() {
-            UnityEditor.PackageManager.Client.Embed( "com.denis535.addressables-extensions" );
+            _ = UnityEditor.PackageManager.Client.Embed( "com.denis535.addressables-extensions" );
         }
 
         [MenuItem( "Project/Embed Package/com.denis535.addressables-source-generator", priority = 401 )]
         public static void EmbedPackage_AddressablesSourceGenerator() {
-            UnityEditor.PackageManager.Client.Embed( "com.denis535.addressables-source-generator" );
+            _ = UnityEditor.PackageManager.Client.Embed( "com.denis535.addressables-source-generator" );
         }
 
         [MenuItem( "Project/Embed Package/com.denis535.game-framework-pro", priority = 402 )]
         public static void EmbedPackage_GameFrameworkPro() {
-            UnityEditor.PackageManager.Client.Embed( "com.denis535.game-framework-pro" );
+            _ = UnityEditor.PackageManager.Client.Embed( "com.denis535.game-framework-pro" );
         }
 
         [MenuItem( "Project/Embed Package/com.denis535.colorful-project-window", priority = 403 )]
         public static void EmbedPackage_ColorfulProjectWindow() {
-            UnityEditor.PackageManager.Client.Embed( "com.denis535.colorful-project-window" );
+            _ = UnityEditor.PackageManager.Client.Embed( "com.denis535.colorful-project-window" );
         }
 
         [MenuItem( "Project/Embed Package/com.denis535.uitoolkit-theme-style-sheet", priority = 404 )]
         public static void EmbedPackage_UIToolkitThemeStyleSheet() {
-            UnityEditor.PackageManager.Client.Embed( "com.denis535.uitoolkit-theme-style-sheet" );
+            _ = UnityEditor.PackageManager.Client.Embed( "com.denis535.uitoolkit-theme-style-sheet" );
         }
 
         [MenuItem( "Project/Open Project Assets (CSharp)", priority = 500 )]
         public static void OpenProjectAssets_CSharp() {
             foreach (var path in GetProjectAssets_CSharp().Reverse()) {
-                AssetDatabase.OpenAsset( AssetDatabase.LoadAssetAtPath<UnityEngine.Object>( path ) );
+                _ = AssetDatabase.OpenAsset( AssetDatabase.LoadAssetAtPath<UnityEngine.Object>( path ) );
                 Thread.Sleep( 50 );
             }
         }

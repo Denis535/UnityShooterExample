@@ -11,12 +11,12 @@ namespace UnityEngine.Framework {
     public class ProgramEditor : Editor {
 
         // Target
-        protected ProgramBase Target => (ProgramBase) target;
+        protected ProgramBase Target => (ProgramBase) this.target;
 
         // OnInspectorGUI
         public override void OnInspectorGUI() {
             base.OnInspectorGUI();
-            Target.OnInspectorGUI();
+            this.Target.OnInspectorGUI();
         }
         public override bool RequiresConstantRepaint() {
             return EditorApplication.isPlaying;

@@ -10,7 +10,7 @@ namespace Project.App {
         public class Preferences : StorageBase {
 
             internal Preferences() {
-                Load();
+                this.Load();
             }
             public override void Dispose() {
                 base.Dispose();
