@@ -14,7 +14,7 @@ namespace UnityEngine.Framework {
         protected internal StateMachine<State<PlayListBase>, ThemeBase> Machine { get; }
 
         // AudioSource
-        protected AudioSource AudioSource { get; }
+        protected internal AudioSource AudioSource { get; }
 
         // IsRunning
         protected internal bool IsRunning {

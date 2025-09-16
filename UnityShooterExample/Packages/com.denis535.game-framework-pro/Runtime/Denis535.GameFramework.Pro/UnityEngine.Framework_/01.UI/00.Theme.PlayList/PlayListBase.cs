@@ -21,6 +21,9 @@ namespace UnityEngine.Framework {
             }
         }
 
+        // AudioSource
+        protected AudioSource AudioSource => this.Theme.AudioSource;
+
         // IsRunning
         protected bool IsRunning {
             get {
@@ -129,13 +132,5 @@ namespace UnityEngine.Framework {
             return array[ 0 ];
         }
 
-    }
-    public static class StateExtensions {
-        public static PlayListBase PlayList(this StateBase state) {
-            return ((State<PlayListBase>) state).UserData;
-        }
-        public static T PlayList<T>(this StateBase state) where T : PlayListBase {
-            return (T) ((State<PlayListBase>) state).UserData;
-        }
     }
 }

@@ -11,12 +11,8 @@ namespace Project.UI {
 
     public abstract class RootWidgetBase<TView> : ViewableWidgetBase2<TView> where TView : RootWidgetViewBase {
 
-        // Document
-        protected UIDocument Document { get; }
-
         // Constructor
-        public RootWidgetBase(IDependencyContainer container, UIDocument document) : base( container ) {
-            this.Document = document;
+        public RootWidgetBase(IDependencyContainer container) : base( container ) {
         }
         public override void Dispose() {
             base.Dispose();
