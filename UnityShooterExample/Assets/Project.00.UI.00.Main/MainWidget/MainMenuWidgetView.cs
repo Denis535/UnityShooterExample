@@ -32,7 +32,7 @@ namespace Project.UI {
             base.Dispose();
         }
 
-        protected override bool TryAddView(ViewBase view) {
+        public override bool TryAddView(ViewBase view) {
             if (view is MainMenuWidgetView_Initial or MainMenuWidgetView_StartGame or MainMenuWidgetView_SelectLevel or MainMenuWidgetView_SelectCharacter) {
                 this.Content.Add( view );
                 this.Title.text = GetTitle( (ViewBase) this.Content.Children().Last() );
@@ -41,7 +41,7 @@ namespace Project.UI {
             }
             return false;
         }
-        protected override bool TryRemoveView(ViewBase view) {
+        public override bool TryRemoveView(ViewBase view) {
             if (view is MainMenuWidgetView_Initial or MainMenuWidgetView_StartGame or MainMenuWidgetView_SelectLevel or MainMenuWidgetView_SelectCharacter) {
                 this.Content.Remove( view );
                 this.Title.text = GetTitle( (ViewBase) this.Content.Children().Last() );

@@ -22,18 +22,18 @@ namespace UnityEngine.Framework {
                 return disposeCancellationTokenSource.Token;
             }
         }
-        // IsAttachedToParent
-        public bool IsAttachedToParent {
-            get {
-                Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
-                return this.parent != null;
-            }
-        }
         // IsAttachedToPanel
         public bool IsAttachedToPanel {
             get {
                 Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
                 return this.panel != null;
+            }
+        }
+        // IsAttachedToParent
+        public bool IsAttachedToParent {
+            get {
+                Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
+                return this.parent != null;
             }
         }
         // Parent
@@ -87,13 +87,13 @@ namespace UnityEngine.Framework {
         }
 
         // TryAddView
-        protected internal virtual bool TryAddView(ViewBase view) {
+        public virtual bool TryAddView(ViewBase view) {
             Assert.Argument.Message( $"Argument 'view' ({view}) must be non-disposed" ).Valid( !view.IsDisposed );
             Assert.Argument.Message( $"Argument 'view' ({view}) must be non-attached to parent" ).Valid( !view.IsAttachedToParent );
             Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );
             return false;
         }
-        protected internal virtual bool TryRemoveView(ViewBase view) {
+        public virtual bool TryRemoveView(ViewBase view) {
             Assert.Argument.Message( $"Argument 'view' ({view}) must be non-disposed" ).Valid( !view.IsDisposed );
             Assert.Argument.Message( $"Argument 'view' ({view}) must be attached to parent" ).Valid( view.IsAttachedToParent );
             Assert.Operation.Message( $"View {this} must be non-disposed" ).NotDisposed( !this.IsDisposed );

@@ -16,10 +16,10 @@ namespace Project.UI {
             base.Dispose();
         }
 
-        protected override bool TryAddView(ViewBase view) {
+        public override bool TryAddView(ViewBase view) {
             return base.TryAddView( view );
         }
-        protected override bool TryRemoveView(ViewBase view) {
+        public override bool TryRemoveView(ViewBase view) {
             return base.TryRemoveView( view );
         }
 

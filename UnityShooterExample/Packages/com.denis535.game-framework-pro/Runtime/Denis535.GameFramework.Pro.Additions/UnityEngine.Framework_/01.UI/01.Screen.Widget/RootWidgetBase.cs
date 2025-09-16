@@ -1,12 +1,11 @@
 #nullable enable
-namespace Project.UI {
+namespace UnityEngine.Framework {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.TreeMachine.Pro;
     using UnityEngine;
-    using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
     public abstract class RootWidgetBase<TView> : ViewableWidgetBase2<TView> where TView : RootWidgetViewBase {
