@@ -18,10 +18,6 @@ namespace Project.UI {
         public void OnFixedUpdate() {
         }
         public void OnUpdate() {
-            if (this.Machine.Root != null && ((PlayListBase3) this.Machine.Root.PlayList()).IsFading) {
-                this.Volume = Mathf.MoveTowards( this.Volume, 0, this.Volume * 1.0f * Time.deltaTime );
-                this.Pitch = Mathf.MoveTowards( this.Pitch, 0, this.Pitch * 0.5f * Time.deltaTime );
-            }
         }
 
         public void PlayMainTheme() {
@@ -34,8 +30,8 @@ namespace Project.UI {
             this.Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
         }
         public void PlayLoadingTheme() {
-            if (this.Machine.Root?.PlayList() is MainPlayList mainStrategy) {
-                mainStrategy.IsFading = true;
+            if (this.Machine.Root?.PlayList() is MainPlayList mainPlayList) {
+                mainPlayList.Fade();
             } else {
                 this.Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
             }
@@ -48,10 +44,12 @@ namespace Project.UI {
         }
 
         public void Pause() {
-            this.IsPaused = true;
+            var playList = this.Machine.Root!.PlayList<GamePlayList>();
+            playList.Pause();
         }
         public void UnPause() {
-            this.IsPaused = false;
+            var playList = this.Machine.Root!.PlayList<GamePlayList>();
+            playList.UnPause();
         }
 
     }
