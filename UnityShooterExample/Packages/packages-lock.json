@@ -25,15 +25,6 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
-    "com.denis535.game-framework-pro": {
-      "version": "file:com.denis535.game-framework-pro",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.unity.modules.uielements": "1.0.0",
-        "com.unity.modules.audio": "1.0.0"
-      }
-    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,

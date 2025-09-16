@@ -35,7 +35,8 @@
       "scopes": [
         "com.denis535.addressables-extensions",
         "com.denis535.addressables-source-generator",
-        "com.denis535.colorful-project-window"
+        "com.denis535.colorful-project-window",
+        "com.denis535.game-framework-pro"
       ]
     }
   ]
