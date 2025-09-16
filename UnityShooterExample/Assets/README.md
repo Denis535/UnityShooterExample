@@ -6,19 +6,18 @@ And now I want to share my experience with you!
 # Reference
 The project has the following structure:
 - Project
-  * Project - the folder that contains definitions of all modules.
-  * Project.00 - the folder that contains source codes of main Project module.
-  * Project.01.UI - the folder that contains source codes of Project.UI module.
+  * Project - the folder that contains source codes of main Project module.
+  * Project.00.UI - the folder that contains source codes of Project.UI module.
   * Project.05.App - the folder that contains source codes of Project.App module.
-  * Project.06.Game - the folder that contains source codes of Project.Game module.
-  * Project.07.Infrastructure - the folder that contains source codes of Project.Infrastructure module.
+  * Project.10.Game - the folder that contains source codes of Project.Game module.
+  * Project.20.Infrastructure - the folder that contains source codes of Project.Infrastructure module.
 - Assets
-  * Assets.Project - the folder that contains primary built-in assets.
-  * Assets.Project.00 - the folder that contains addressable assets of main Project module.
-  * Assets.Project.01.UI - the folder that contains addressable assets of Project.UI module.
+  * Assets - the folder that contains primary built-in assets.
+  * Assets.Project - the folder that contains addressable assets of main Project module.
+  * Assets.Project.00.UI - the folder that contains addressable assets of Project.UI module.
   * Assets.Project.05.App - the folder that contains addressable assets of Project.App module.
-  * Assets.Project.06.Game - the folder that contains addressable assets of Project.Game module.
-  * Assets.Project.07.Infrastructure - the folder that contains common addressable assets.
+  * Assets.Project.10.Game - the folder that contains addressable assets of Project.Game module.
+  * Assets.Project.20.Infrastructure - the folder that contains common addressable assets.
 - Plugins - the folder that contains various plugins, libraries, frameworks and packages.
 
 The project has the following architecture:
@@ -54,28 +53,17 @@ The project contains the following source codes:
   * Theme.cs
   * Screen.cs
   * Router.cs
-- Project.UI.MainScreen
-  * Internal/MainWidgetView.cs
-  * Internal/MainMenuWidgetView.cs
+- Project.UI.Main
+  * MainPlayList.cs
   * MainWidget.cs
   * MainMenuWidget.cs
-- Project.UI.GameScreen
-  * Internal/GameWidgetView.cs
-  * Internal/PlayerWidgetView.cs
-  * Internal/GameTotalsWidgetView.cs
-  * Internal/GameMenuWidgetView.cs
+- Project.UI.Game
+  * GamePlayList.cs
   * GameWidget.cs
   * PlayerWidget.cs
   * GameTotalsWidget.cs
   * GameMenuWidget.cs
 - Project.UI.Common
-  * Internal/DialogWidgetView.cs
-  * Internal/LoadingWidgetView.cs
-  * Internal/UnloadingWidgetView.cs
-  * Internal/SettingsWidgetView.cs
-  * Internal/ProfileSettingsWidgetView.cs
-  * Internal/VideoSettingsWidgetView.cs
-  * Internal/AudioSettingsWidgetView.cs
   * DialogWidget.cs
   * LoadingWidget.cs
   * UnloadingWidget.cs
@@ -90,13 +78,9 @@ The project contains the following source codes:
   * Storage.VideoSettings.cs
   * Storage.AudioSettings.cs
 - Project.Game
-  * Internal/CharacterInputProvider.cs
-  * Internal/CameraInputProvider.cs
   * Game2.cs
   * Player2.cs
 - Project.Game.Actors
-  * Internal/ICharacterInputProvider.cs
-  * Internal/ICameraInputProvider.cs
   * CharacterBase.cs
   * PlayableCharacterBase.cs
   * PlayableCameraBase.cs
@@ -110,21 +94,16 @@ The project contains the following source codes:
   * Bullet.cs
 - Project.Game.Worlds
   * World.cs
-- Project.Infrastructure
-  * Project/Utils.cs
-  * Project.UI/VisualElement.cs
-  * Project.UI/VisualElementFactory.cs
-  * Project.Game/MoveableBody.cs
 
 The project has the following dependencies:
-- Architecture Game Framework - the framework that helps you develop your project using a modular clean architecture.
-  * https://denis535.github.io/#clean-architecture-game-framework-unity
 - Addressables Extensions           - the addressables additions that gives you the ability to use your assets in more convenient way.
   * https://denis535.github.io/#addressables-extensions-unity
 - Addressables Source Generator     - the addressables additions that gives you the ability to reference your assets and labels in more convenient way with compile time checking support.
   * https://denis535.github.io/#addressables-source-generator-unity
 - Colorful Project Window           - the editor extensions that provides you with the more convenient project window.
   * https://denis535.github.io/#colorful-project-window-unity
+- Game Framework Pro - the framework that helps you develop your project using a modular architecture.
+  * https://denis535.github.io/#game-framework-pro-unity
 - UIToolkit Theme Style Sheet       - the UIToolkit styles and some additions.
   * https://denis535.github.io/#uitoolkit-theme-style-sheet-unity
 
@@ -155,8 +134,8 @@ Secondly, the ```Main``` scene contains the ```Program``` entity:
   "dependencies": {
     "com.denis535.addressables-extensions": "1.0.19",
     "com.denis535.addressables-source-generator": "1.0.43",
-    "com.denis535.clean-architecture-game-framework": "1.5.4",
     "com.denis535.colorful-project-window": "1.1.1",
+    "com.denis535.game-framework-pro": "1.0.0",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "2.2.2",
     "com.unity.ide.visualstudio": "2.0.22",
@@ -188,21 +167,13 @@ Secondly, the ```Main``` scene contains the ```Program``` entity:
       "scopes": [
         "com.denis535.addressables-extensions",
         "com.denis535.addressables-source-generator",
-        "com.denis535.clean-architecture-game-framework",
         "com.denis535.colorful-project-window"
+        "com.denis535.game-framework-pro",
       ]
     }
   ]
 }
 ```
-- Then delete modules in ```Plugins``` folder:
-  * ```Denis535.Addressables.Extensions```
-  * ```Denis535.Addressables.SourceGenerator```
-  * ```Denis535.CleanArchitectureGameFramework```
-  * ```Denis535.CleanArchitectureGameFramework.Additions```
-  * ```Denis535.CleanArchitectureGameFramework.Internal```
-  * ```Denis535.CleanArchitectureGameFramework.Editor```
-  * ```Denis535.ColorfulProjectWindow```
 - Link project with Unity Gaming Services.
 - Install the ```Node.js``` and ```Stylus``` package (if you are going to compile stylus files).
 
