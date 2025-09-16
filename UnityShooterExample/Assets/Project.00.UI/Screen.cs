@@ -3,11 +3,12 @@ namespace Project.UI {
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using Project.App;
     using UnityEngine;
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
 
-    public class Screen : ScreenBase2 {
+    public class Screen : ScreenBase2<Router, Application2> {
 
         public Screen(IDependencyContainer container) : base( container, container.RequireDependency<UIDocument>(), container.RequireDependency<AudioSource>( "SfxAudioSource" ) ) {
             VisualElementFactory.OnPlayClick += evt => { };

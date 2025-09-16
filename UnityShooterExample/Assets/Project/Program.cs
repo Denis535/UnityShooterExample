@@ -34,8 +34,7 @@ namespace Project {
         private static void OnLoad_Editor() {
             var message = new StringBuilder()
                 .AppendLine( "https://u3d.as/3pWS" )
-                .AppendLine( "You can check the latest version and watch the video tutorial: https://denis535.github.io/#unity-shooter-example" )
-                .Append( "Please don't forget to rate it and leave a good comment!" );
+                .Append( "You can check the latest version: https://denis535.github.io/#unity-shooter-example-unity" );
             Debug.Log( message );
             if (!EditorApplication.isPlaying) {
                 UnityEditor.SceneManagement.EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>( "Assets/Assets.Project.00/Main.unity" );

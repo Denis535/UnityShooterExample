@@ -13,7 +13,7 @@ namespace UnityEngine {
             return option.ValueOrDefault;
         }
         public sealed T? GetDependency<T>(object? argument = null) {
-            var option = this.GetValue( typeof( T ), argument );
+            var option = this.GetValue<T>( argument );
             return (T?) option.ValueOrDefault;
         }
 
@@ -24,13 +24,16 @@ namespace UnityEngine {
             return option.Value;
         }
         public sealed T RequireDependency<T>(object? argument = null) {
-            var option = this.GetValue( typeof( T ), argument );
+            var option = this.GetValue<T>( argument );
             Assert.Operation.Message( $"Dependency {typeof( T )} ({argument}) was not found" ).Valid( option.HasValue );
             return (T?) option.Value!;
         }
 
         // GetValue
         protected Option<object?> GetValue(Type type, object? argument);
+        protected sealed Option<object?> GetValue<T>(object? argument) {
+            return this.GetValue( typeof( T ), argument );
+        }
 
     }
 }

@@ -3,10 +3,11 @@ namespace Project.UI {
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using Project.App;
     using UnityEngine;
     using UnityEngine.Framework;
 
-    public class Theme : ThemeBase2 {
+    public class Theme : ThemeBase2<Router, Application2> {
 
         public Theme(IDependencyContainer container) : base( container, container.RequireDependency<AudioSource>( "MusicAudioSource" ) ) {
         }

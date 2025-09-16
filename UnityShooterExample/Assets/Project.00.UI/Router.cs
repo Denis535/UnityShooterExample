@@ -12,13 +12,10 @@ namespace Project.UI {
     using UnityEngine.Framework;
     using UnityEngine.SceneManagement;
 
-    public class Router : RouterBase2 {
+    public class Router : RouterBase2<Theme, Screen, Application2> {
 
         private static readonly Lock @lock = new Lock();
 
-        private Theme Theme => this.Container.RequireDependency<Theme>();
-        private Screen Screen => this.Container.RequireDependency<Screen>();
-        private Application2 Application { get; }
         private static SceneHandle Main { get; } = new SceneHandle( R.Project.Value_Main );
         private SceneHandle MainScene { get; } = new SceneHandle( R.Project.Value_MainScene );
         private SceneHandle GameScene { get; } = new SceneHandle( R.Project.Value_GameScene );
@@ -28,7 +25,6 @@ namespace Project.UI {
         public bool IsWorldSceneLoaded => this.WorldScene != null;
 
         public Router(IDependencyContainer container) : base( container ) {
-            this.Application = container.RequireDependency<Application2>();
         }
         public override void Dispose() {
             using (@lock.Enter()) {

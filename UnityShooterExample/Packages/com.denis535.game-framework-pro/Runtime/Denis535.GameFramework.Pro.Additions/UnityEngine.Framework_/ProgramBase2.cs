@@ -38,8 +38,6 @@ namespace UnityEngine.Framework {
         Option<object?> IDependencyContainer.GetValue(Type type, object? argument) {
             return this.GetValue( type, argument );
         }
-
-        // GetValue
         protected virtual Option<object?> GetValue(Type type, object? argument) {
             return default;
         }
