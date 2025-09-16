@@ -32,8 +32,8 @@ namespace Project.Game {
         }
         public event Action<PlayerState>? OnStateChangeEvent;
 
-        internal CharacterInputProvider CharacterInputProvider { get; }
-        internal CameraInputProvider CameraInputProvider { get; }
+        internal PlayableCharacterInputProvider CharacterInputProvider { get; }
+        internal PlayableCameraInputProvider CameraInputProvider { get; }
 
         public PlayerCharacter? Character {
             get => character;
@@ -67,8 +67,8 @@ namespace Project.Game {
         public Player2(IDependencyContainer container, PlayerInfo info) : base( container ) {
             this.Info = info;
             this.State = PlayerState.Playing;
-            this.CharacterInputProvider = new CharacterInputProvider( this );
-            this.CameraInputProvider = new CameraInputProvider( this );
+            this.CharacterInputProvider = new PlayableCharacterInputProvider( this );
+            this.CameraInputProvider = new PlayableCameraInputProvider( this );
         }
         public override void Dispose() {
             this.CameraInputProvider.Dispose();

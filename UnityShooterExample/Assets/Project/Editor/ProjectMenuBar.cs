@@ -287,49 +287,18 @@ namespace Project {
             var paths4 = paths.Where( i => {
                 return i.dir is
                     "Assets/Project.10.Game" or
-                    "Assets/Project.10.Game.Actors" or
-                    "Assets/Project.10.Game.Things" or
-                    "Assets/Project.10.Game.Worlds" or
-
-                    "Assets/Project.10.Game/Internal" or
-                    "Assets/Project.10.Game.Actors/Internal" or
-                    "Assets/Project.10.Game.Things/Internal" or
-                    "Assets/Project.10.Game.Worlds/Internal";
+                    "Assets/Project.10.Game/Characters/Playable" or
+                    "Assets/Project.10.Game/Characters/NonPlayable" or
+                    "Assets/Project.10.Game/Camera/Playable" or
+                    "Assets/Project.10.Game.Entities" or
+                    "Assets/Project.10.Game.Entities/Characters" or
+                    "Assets/Project.10.Game.Entities/Characters/Playable" or
+                    "Assets/Project.10.Game.Entities/Characters/NonPlayable" or
+                    "Assets/Project.10.Game.Entities/Things" or
+                    "Assets/Project.10.Game.Entities/Camera/Playable" or
+                    "Assets/Project.10.Game.Worlds";
             } )
-            .OrderByDescending( i => i.name == "CharacterBase.cs" )
-            .ThenByDescending( i => i.name == "PlayableCharacterBase.cs" )
-            .ThenByDescending( i => i.name == "PlayableCameraBase.cs" )
-            .ThenByDescending( i => i.name == "NonPlayableCharacterBase.cs" )
-            .ThenByDescending( i => i.name == "WeaponBase.cs" )
-
-            .ThenByDescending( i => i.name == "Game2.cs" )
-            .ThenByDescending( i => i.name == "Player2.cs" )
-
-            .ThenByDescending( i => i.name == "PlayerCharacter.cs" )
-            .ThenByDescending( i => i.name == "PlayerCamera.cs" )
-            .ThenByDescending( i => i.name == "EnemyCharacter.cs" )
-            .ThenByDescending( i => i.name == "Gun.cs" )
-            .ThenByDescending( i => i.name == "Bullet.cs" )
-            .ThenByDescending( i => i.name == "World.cs" )
-
-            .ThenByDescending( i => i.name == "ICharacterInputProvider.cs" )
-            .ThenByDescending( i => i.name == "ICameraInputProvider.cs" )
-            .ThenByDescending( i => i.name == "CharacterInputProvider.cs" )
-            .ThenByDescending( i => i.name == "CameraInputProvider.cs" )
-
             .Select( i => i.path );
-
-            //var paths5 = paths.Where( i => {
-            //    return i.dir is
-            //        "Assets/Project.20.Infrastructure/Project" or
-            //        "Assets/Project.20.Infrastructure/Project.UI" or
-            //        "Assets/Project.20.Infrastructure/Project.App" or
-            //        "Assets/Project.20.Infrastructure/Project.Game" or
-            //        "Assets/Project.20.Infrastructure/Project.Game.Actors" or
-            //        "Assets/Project.20.Infrastructure/Project.Game.Things" or
-            //        "Assets/Project.20.Infrastructure/Project.Game.Worlds";
-            //} )
-            //.Select( i => i.path );
 
             return paths1.Concat( paths2 ).Concat( paths3 ).Concat( paths4 );
         }

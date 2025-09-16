@@ -4,96 +4,34 @@ In this example, I implemented my best ideas for organizing the structure and ar
 And now I want to share my experience with you!
 
 # Reference
-The project has the following structure:
-- Project
-  * Project - the folder that contains source codes of main Project module.
-  * Project.00.UI - the folder that contains source codes of Project.UI module.
-  * Project.05.App - the folder that contains source codes of Project.App module.
-  * Project.10.Game - the folder that contains source codes of Project.Game module.
-  * Project.20.Infrastructure - the folder that contains source codes of Project.Infrastructure module.
-- Assets
-  * Assets - the folder that contains primary built-in assets.
-  * Assets.Project - the folder that contains addressable assets of main Project module.
-  * Assets.Project.00.UI - the folder that contains addressable assets of Project.UI module.
-  * Assets.Project.05.App - the folder that contains addressable assets of Project.App module.
-  * Assets.Project.10.Game - the folder that contains addressable assets of Project.Game module.
-  * Assets.Project.20.Infrastructure - the folder that contains common addressable assets.
-- Plugins - the folder that contains various plugins, libraries, frameworks and packages.
-
-The project has the following architecture:
+The project has the following modules:
 - Project - the root module that contains the entry point.
 - Project.UI - the presentation module that contains UI.
 - Project.App - the application module that contains all entities, services and objects.
 - Project.Game - the domain module that contains all entities of subject area.
-- Project.Game.Actors - the domain module that contains all entities of subject area.
-- Project.Game.Things - the domain module that contains all entities of subject area.
-- Project.Game.Worlds - the domain module that contains all entities of subject area.
+- Project.Game.Entities
+- Project.Game.Worlds
 - Project.Infrastructure - the infrastructure module that contains everything common and any low-level stuff.
 
-The project contains the following scenes:
-- Assets.Project
+The project has the following assets:
+- Assets - the folder that contains primary built-in assets.
+- Assets.Project - the folder that contains addressable assets of main Project module.
+- Assets.Project.UI - the folder that contains addressable assets of Project.UI module.
+- Assets.Project.App - the folder that contains addressable assets of Project.App module.
+- Assets.Project.Game - the folder that contains addressable assets of Project.Game module.
+- Assets.Project.Infrastructure - the folder that contains common addressable assets.
+
+The project has the following scenes:
+- Assets
   * Launcher
-- Assets.Project.00
+- Assets.Project
   * Main
   * MainScene
   * GameScene
-- Assets.Project.06.Game.Worlds
+- Assets.Project.Game.Worlds
   * World_01
   * World_02
   * World_03
-
-The project contains the following source codes:
-- Project
-  * Editor/ProjectMenuBar.cs
-  * Editor/ProjectWindow.cs
-  * Launcher.cs
-  * Program.cs
-  * DebugScreen.cs
-- Project.UI
-  * Theme.cs
-  * Screen.cs
-  * Router.cs
-- Project.UI.Main
-  * MainPlayList.cs
-  * MainWidget.cs
-  * MainMenuWidget.cs
-- Project.UI.Game
-  * GamePlayList.cs
-  * GameWidget.cs
-  * PlayerWidget.cs
-  * GameTotalsWidget.cs
-  * GameMenuWidget.cs
-- Project.UI.Common
-  * DialogWidget.cs
-  * LoadingWidget.cs
-  * UnloadingWidget.cs
-  * SettingsWidget.cs
-  * ProfileSettingsWidget.cs
-  * VideoSettingsWidget.cs
-  * AudioSettingsWidget.cs
-- Project.App
-  * Application2.cs
-  * Storage.cs
-  * Storage.ProfileSettings.cs
-  * Storage.VideoSettings.cs
-  * Storage.AudioSettings.cs
-- Project.Game
-  * Game2.cs
-  * Player2.cs
-- Project.Game.Actors
-  * CharacterBase.cs
-  * PlayableCharacterBase.cs
-  * PlayableCameraBase.cs
-  * NonPlayableCharacterBase.cs
-  * PlayerCharacter.cs
-  * PlayerCamera.cs
-  * EnemyCharacter.cs
-- Project.Game.Things
-  * WeaponBase.cs
-  * Gun.cs
-  * Bullet.cs
-- Project.Game.Worlds
-  * World.cs
 
 The project has the following dependencies:
 - Addressables Extensions           - the addressables additions that gives you the ability to use your assets in more convenient way.

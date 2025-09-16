@@ -23,9 +23,10 @@ The package contains the following namespaces and types:
     - Game - the game entity. It contains informations, rules and states.
     - Player - the player entity. It contains informations and states.
     - Entity - the entity (any scene object). It contains informations, logic and states.
-    - Actor
+    - Character
+    - Technique
     - Thing
-    - Vehicle
+    - Camera
     - World
 
 # Media
