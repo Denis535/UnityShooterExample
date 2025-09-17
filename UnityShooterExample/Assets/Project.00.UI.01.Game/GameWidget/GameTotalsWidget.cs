@@ -13,9 +13,9 @@ namespace Project.UI {
         protected Router Router { get; }
         protected Game2 Game { get; }
 
-        public GameTotalsWidget(IDependencyContainer container) : base( container ) {
-            this.Router = container.RequireDependency<Router>();
-            this.Game = container.RequireDependency<Game2>();
+        public GameTotalsWidget(IDependencyProvider provider) : base( provider ) {
+            this.Router = provider.RequireDependency<Router>();
+            this.Game = provider.RequireDependency<Game2>();
         }
         public override void Dispose() {
             foreach (var child in this.Node.Children) {
@@ -35,7 +35,7 @@ namespace Project.UI {
     }
     public class GameTotalsWidget_LevelCompleted : GameTotalsWidget<GameTotalsWidgetView_LevelCompleted> {
 
-        public GameTotalsWidget_LevelCompleted(IDependencyContainer container) : base( container ) {
+        public GameTotalsWidget_LevelCompleted(IDependencyProvider provider) : base( provider ) {
             this.View = CreateView( this );
         }
         public override void Dispose() {
@@ -53,7 +53,7 @@ namespace Project.UI {
                 widget.Router.ReloadGameScene( gameInfo, playerInfo );
             } );
             view.Back.RegisterCallback<ClickEvent>( evt => {
-                widget.Node.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ).Node, null );
+                widget.Node.AddChild( new DialogWidget( widget.Provider, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ).Node, null );
             } );
             return view;
         }
@@ -61,7 +61,7 @@ namespace Project.UI {
     }
     public class GameTotalsWidget_LevelFailed : GameTotalsWidget<GameTotalsWidgetView_LevelFailed> {
 
-        public GameTotalsWidget_LevelFailed(IDependencyContainer container) : base( container ) {
+        public GameTotalsWidget_LevelFailed(IDependencyProvider provider) : base( provider ) {
             this.View = CreateView( this );
         }
         public override void Dispose() {
@@ -77,7 +77,7 @@ namespace Project.UI {
                 widget.Router.ReloadGameScene( gameInfo, playerInfo );
             } );
             view.Back.RegisterCallback<ClickEvent>( evt => {
-                widget.Node.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ).Node, null );
+                widget.Node.AddChild( new DialogWidget( widget.Provider, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ).Node, null );
             } );
             return view;
         }
@@ -85,7 +85,7 @@ namespace Project.UI {
     }
     public class GameTotalsWidget_GameCompleted : GameTotalsWidget<GameTotalsWidgetView_GameCompleted> {
 
-        public GameTotalsWidget_GameCompleted(IDependencyContainer container) : base( container ) {
+        public GameTotalsWidget_GameCompleted(IDependencyProvider provider) : base( provider ) {
             this.View = CreateView( this );
         }
         public override void Dispose() {

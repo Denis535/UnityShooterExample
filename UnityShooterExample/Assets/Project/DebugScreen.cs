@@ -13,7 +13,7 @@ namespace Project {
     [DefaultExecutionOrder( int.MaxValue )]
     public class DebugScreen : MonoBehaviour {
 
-        private IDependencyContainer Contairner { get; set; } = default!;
+        private IDependencyProvider Contairner { get; set; } = default!;
         private Theme Theme { get; set; } = default!;
         private Screen Screen { get; set; } = default!;
         private Router Router { get; set; } = default!;
@@ -21,7 +21,7 @@ namespace Project {
         private Game2? Game => this.Application.Game;
 
         public void Awake() {
-            this.Contairner = this.gameObject.RequireComponent<IDependencyContainer>();
+            this.Contairner = this.gameObject.RequireComponent<IDependencyProvider>();
             this.Theme = this.Contairner.RequireDependency<Theme>();
             this.Screen = this.Contairner.RequireDependency<Screen>();
             this.Router = this.Contairner.RequireDependency<Router>();

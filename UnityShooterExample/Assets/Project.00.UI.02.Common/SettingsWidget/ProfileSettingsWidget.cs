@@ -13,8 +13,8 @@ namespace Project.UI {
         private Application2 Application { get; }
         private Storage.ProfileSettings ProfileSettings => this.Application.ProfileSettings;
 
-        public ProfileSettingsWidget(IDependencyContainer container) : base( container ) {
-            this.Application = container.RequireDependency<Application2>();
+        public ProfileSettingsWidget(IDependencyProvider provider) : base( provider ) {
+            this.Application = provider.RequireDependency<Application2>();
             this.View = CreateView( this );
         }
         public override void Dispose() {

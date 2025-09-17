@@ -8,7 +8,7 @@ namespace Project.UI {
 
     public class UnloadingWidget : ViewableWidgetBase2<UnloadingWidgetView> {
 
-        public UnloadingWidget(IDependencyContainer container) : base( container ) {
+        public UnloadingWidget(IDependencyProvider provider) : base( provider ) {
             this.View = CreateView( this );
         }
         public override void Dispose() {

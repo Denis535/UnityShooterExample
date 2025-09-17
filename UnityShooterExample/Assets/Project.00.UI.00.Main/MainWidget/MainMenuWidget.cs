@@ -15,9 +15,9 @@ namespace Project.UI {
         private Application2 Application { get; }
         private Storage.ProfileSettings ProfileSettings => this.Application.ProfileSettings;
 
-        public MainMenuWidget(IDependencyContainer container) : base( container ) {
-            this.Router = container.RequireDependency<Router>();
-            this.Application = container.RequireDependency<Application2>();
+        public MainMenuWidget(IDependencyProvider provider) : base( provider ) {
+            this.Router = provider.RequireDependency<Router>();
+            this.Application = provider.RequireDependency<Application2>();
             this.View = CreateView( this );
         }
         public override void Dispose() {
@@ -49,10 +49,10 @@ namespace Project.UI {
                 widget.ShowView( CreateView_StartGame( widget ) );
             } );
             view.Settings.RegisterCallback<ClickEvent>( evt => {
-                widget.Node.AddChild( new SettingsWidget( widget.Container ).Node, null );
+                widget.Node.AddChild( new SettingsWidget( widget.Provider ).Node, null );
             } );
             view.Quit.RegisterCallback<ClickEvent>( evt => {
-                widget.Node.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.Quit() ).OnCancel( "No", null ).Node, null );
+                widget.Node.AddChild( new DialogWidget( widget.Provider, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.Quit() ).OnCancel( "No", null ).Node, null );
             } );
             return view;
         }

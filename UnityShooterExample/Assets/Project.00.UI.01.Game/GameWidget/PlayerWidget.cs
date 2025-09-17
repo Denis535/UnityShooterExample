@@ -12,8 +12,8 @@ namespace Project.UI {
         private Game2 Game { get; }
         private Player2 Player => this.Game.Player;
 
-        public PlayerWidget(IDependencyContainer container) : base( container ) {
-            this.Game = container.RequireDependency<Game2>();
+        public PlayerWidget(IDependencyProvider provider) : base( provider ) {
+            this.Game = provider.RequireDependency<Game2>();
             this.View = CreateView( this );
         }
         public override void Dispose() {

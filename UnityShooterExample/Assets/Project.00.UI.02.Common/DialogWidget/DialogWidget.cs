@@ -7,7 +7,7 @@ namespace Project.UI {
     using UnityEngine;
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
-
+    
     internal interface IDialogWidget<TThis> where TThis : WidgetBase {
         string? Title { get; set; }
         string? Message { get; set; }
@@ -31,7 +31,7 @@ namespace Project.UI {
             }
         }
 
-        public DialogWidget(IDependencyContainer container, string? title, string? message) : base( container ) {
+        public DialogWidget(IDependencyProvider provider, string? title, string? message) : base( provider ) {
             this.View = new DialogWidgetView();
             this.Title = title;
             this.Message = message;
@@ -94,7 +94,7 @@ namespace Project.UI {
             }
         }
 
-        public InfoDialogWidget(IDependencyContainer container, string? title, string? message) : base( container ) {
+        public InfoDialogWidget(IDependencyProvider provider, string? title, string? message) : base( provider ) {
             this.View = new InfoDialogWidgetView();
             this.Title = title;
             this.Message = message;
@@ -154,7 +154,7 @@ namespace Project.UI {
             }
         }
 
-        public WarningDialogWidget(IDependencyContainer container, string? title, string? message) : base( container ) {
+        public WarningDialogWidget(IDependencyProvider provider, string? title, string? message) : base( provider ) {
             this.View = new WarningDialogWidgetView();
             this.Title = title;
             this.Message = message;
@@ -214,7 +214,7 @@ namespace Project.UI {
             }
         }
 
-        public ErrorDialogWidget(IDependencyContainer container, string? title, string? message) : base( container ) {
+        public ErrorDialogWidget(IDependencyProvider provider, string? title, string? message) : base( provider ) {
             this.View = new ErrorDialogWidgetView();
             this.Title = title;
             this.Message = message;

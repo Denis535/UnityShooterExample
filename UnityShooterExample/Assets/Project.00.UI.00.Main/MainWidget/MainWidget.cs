@@ -16,11 +16,11 @@ namespace Project.UI {
         private Router Router { get; }
         private Application2 Application { get; }
 
-        public MainWidget(IDependencyContainer container) : base( container ) {
-            this.Router = container.RequireDependency<Router>();
-            this.Application = container.RequireDependency<Application2>();
+        public MainWidget(IDependencyProvider provider) : base( provider ) {
+            this.Router = provider.RequireDependency<Router>();
+            this.Application = provider.RequireDependency<Application2>();
             this.View = CreateView( this );
-            this.Node.AddChild( new MainMenuWidget( this.Container ).Node, null );
+            this.Node.AddChild( new MainMenuWidget( this.Provider ).Node, null );
         }
         public override void Dispose() {
             foreach (var child in this.Node.Children) {
@@ -38,7 +38,7 @@ namespace Project.UI {
                 this.Node.Children.Select( i => i.Widget() ).OfType<MainMenuWidget>().First().View.style.display = StyleKeyword.Null;
             } catch (OperationCanceledException) {
             } catch (Exception ex) {
-                ((RootWidget) this.Node.Root.Widget()).AddChild( new ErrorDialogWidget( this.Container, "Error", ex.Message ).OnSubmit( "Ok", () => this.Router.Quit() ) );
+                ((RootWidget) this.Node.Root.Widget()).AddChild( new ErrorDialogWidget( this.Provider, "Error", ex.Message ).OnSubmit( "Ok", () => this.Router.Quit() ) );
             }
         }
         protected override void OnDeactivate(object? argument) {

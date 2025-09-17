@@ -13,8 +13,8 @@ namespace Project.UI {
         private Application2 Application { get; }
         private Storage.AudioSettings AudioSettings => this.Application.AudioSettings;
 
-        public AudioSettingsWidget(IDependencyContainer container) : base( container ) {
-            this.Application = container.RequireDependency<Application2>();
+        public AudioSettingsWidget(IDependencyProvider provider) : base( provider ) {
+            this.Application = provider.RequireDependency<Application2>();
             this.View = CreateView( this );
         }
         public override void Dispose() {

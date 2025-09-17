@@ -5,7 +5,7 @@ namespace Project.Game {
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Framework;
-
+    
     public class Player2 : PlayerBase2 {
 
         private PlayerState state;
@@ -64,7 +64,7 @@ namespace Project.Game {
             }
         }
 
-        public Player2(IDependencyContainer container, PlayerInfo info) : base( container ) {
+        public Player2(IDependencyProvider provider, PlayerInfo info) : base( provider ) {
             this.Info = info;
             this.State = PlayerState.Playing;
             this.CharacterInputProvider = new PlayableCharacterInputProvider( this );

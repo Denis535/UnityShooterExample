@@ -8,7 +8,7 @@ namespace Project.UI {
 
     public class LoadingWidget : ViewableWidgetBase2<LoadingWidgetView> {
 
-        public LoadingWidget(IDependencyContainer container) : base( container ) {
+        public LoadingWidget(IDependencyProvider provider) : base( provider ) {
             this.View = CreateView( this );
         }
         public override void Dispose() {

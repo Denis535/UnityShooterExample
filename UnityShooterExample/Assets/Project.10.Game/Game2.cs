@@ -49,12 +49,12 @@ namespace Project.Game {
 
         private bool IsDirty { get; set; }
 
-        public Game2(IDependencyContainer container, GameInfo info, PlayerInfo playerInfo) : base( container ) {
+        public Game2(IDependencyProvider provider, GameInfo info, PlayerInfo playerInfo) : base( provider ) {
             this.Info = info;
             this.IsPaused = false;
             this.State = GameState.Playing;
-            this.Player = new Player2( container, playerInfo );
-            this.World = container.RequireDependency<World>();
+            this.Player = new Player2( provider, playerInfo );
+            this.World = provider.RequireDependency<World>();
             {
                 var point = this.World.PlayerPoints.Random();
                 this.Player.Character = this.SpawnPlayerCharacter( point, playerInfo.CharacterType );

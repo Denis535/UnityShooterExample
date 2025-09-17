@@ -9,7 +9,7 @@ namespace Project.UI {
 
     public class RootWidget : RootWidgetBase<RootWidgetView> {
 
-        public RootWidget(IDependencyContainer container) : base( container ) {
+        public RootWidget(IDependencyProvider provider) : base( provider ) {
             this.View = new RootWidgetView();
             this.View.OnSubmitEvent += OnSubmit;
             this.View.OnCancelEvent += OnCancel;

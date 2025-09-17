@@ -10,7 +10,7 @@ namespace Project.UI {
 
     public class Screen : ScreenBase2<Router, Application2> {
 
-        public Screen(IDependencyContainer container) : base( container, container.RequireDependency<UIDocument>(), container.RequireDependency<AudioSource>( "SfxAudioSource" ) ) {
+        public Screen(IDependencyProvider provider) : base( provider, provider.RequireDependency<UIDocument>(), provider.RequireDependency<AudioSource>( "SfxAudioSource" ) ) {
             VisualElementFactory.OnPlayClick += evt => { };
             VisualElementFactory.OnPlaySelect += evt => { };
             VisualElementFactory.OnPlaySubmit += evt => { };
@@ -21,7 +21,7 @@ namespace Project.UI {
             VisualElementFactory.OnPlayOpenInfoDialog += evt => { };
             VisualElementFactory.OnPlayOpenWarningDialog += evt => { };
             VisualElementFactory.OnPlayOpenErrorDialog += evt => { };
-            this.Machine.SetRoot( new RootWidget( container ).Node, null, (root, arg) => root.Widget().Dispose() );
+            this.Machine.SetRoot( new RootWidget( provider ).Node, null, (root, arg) => root.Widget().Dispose() );
         }
         public override void Dispose() {
             this.Machine.SetRoot( null, null, (root, arg) => root.Widget().Dispose() );
@@ -39,19 +39,19 @@ namespace Project.UI {
 
         public void ShowMainScreen() {
             this.HideScreen();
-            this.Machine.Root!.AddChild( new MainWidget( this.Container ).Node, null );
+            this.Machine.Root!.AddChild( new MainWidget( this.Provider ).Node, null );
         }
         public void ShowGameScreen() {
             this.HideScreen();
-            this.Machine.Root!.AddChild( new GameWidget( this.Container ).Node, null );
+            this.Machine.Root!.AddChild( new GameWidget( this.Provider ).Node, null );
         }
         public void ShowLoadingScreen() {
             this.HideScreen();
-            this.Machine.Root!.AddChild( new LoadingWidget( this.Container ).Node, null );
+            this.Machine.Root!.AddChild( new LoadingWidget( this.Provider ).Node, null );
         }
         public void ShowUnloadingScreen() {
             this.HideScreen();
-            this.Machine.Root!.AddChild( new UnloadingWidget( this.Container ).Node, null );
+            this.Machine.Root!.AddChild( new UnloadingWidget( this.Provider ).Node, null );
         }
         public void HideScreen() {
             _ = this.Machine.Root!.RemoveChildren( null, (child, arg) => child.Widget().Dispose() );

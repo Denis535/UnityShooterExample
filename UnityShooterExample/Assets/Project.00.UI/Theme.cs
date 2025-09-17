@@ -9,7 +9,7 @@ namespace Project.UI {
 
     public class Theme : ThemeBase2<Router, Application2> {
 
-        public Theme(IDependencyContainer container) : base( container, container.RequireDependency<AudioSource>( "MusicAudioSource" ) ) {
+        public Theme(IDependencyProvider provider) : base( provider, provider.RequireDependency<AudioSource>( "MusicAudioSource" ) ) {
         }
         public override void Dispose() {
             this.Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
@@ -22,10 +22,10 @@ namespace Project.UI {
         }
 
         public void PlayMainTheme() {
-            this.Machine.SetRoot( new MainPlayList( this.Container ).State, null, (state, arg) => state.PlayList().Dispose() );
+            this.Machine.SetRoot( new MainPlayList( this.Provider ).State, null, (state, arg) => state.PlayList().Dispose() );
         }
         public void PlayGameTheme() {
-            this.Machine.SetRoot( new GamePlayList( this.Container ).State, null, (state, arg) => state.PlayList().Dispose() );
+            this.Machine.SetRoot( new GamePlayList( this.Provider ).State, null, (state, arg) => state.PlayList().Dispose() );
         }
         public void PlayGameCompletedTheme(bool isPlayerWinner) {
             this.Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );

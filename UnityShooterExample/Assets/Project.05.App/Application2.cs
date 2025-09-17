@@ -21,7 +21,7 @@ namespace Project.App {
         public IAuthenticationService AuthenticationService => Unity.Services.Authentication.AuthenticationService.Instance;
         public Game2? Game { get; private set; }
 
-        public Application2(IDependencyContainer container) : base( container ) {
+        public Application2(IDependencyProvider provider) : base( provider ) {
             this.Storage = new Storage();
             this.ProfileSettings = new Storage.ProfileSettings();
             this.VideoSettings = new Storage.VideoSettings();
@@ -65,7 +65,7 @@ namespace Project.App {
                 Gun.Factory.Load();
                 Bullet.Factory.Load();
             }
-            this.Game = new Game2( this.Container, gameInfo, playerInfo );
+            this.Game = new Game2( this.Provider, gameInfo, playerInfo );
             return this.Game;
         }
         public void StopGame() {

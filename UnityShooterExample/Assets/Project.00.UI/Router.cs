@@ -24,7 +24,7 @@ namespace Project.UI {
         public bool IsGameSceneLoaded => this.GameScene.IsSucceeded;
         public bool IsWorldSceneLoaded => this.WorldScene != null;
 
-        public Router(IDependencyContainer container) : base( container ) {
+        public Router(IDependencyProvider provider) : base( provider ) {
         }
         public override void Dispose() {
             using (@lock.Enter()) {

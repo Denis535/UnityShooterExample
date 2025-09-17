@@ -11,7 +11,7 @@ namespace Project.UI {
 
         private Router Router { get; }
 
-        public GameMenuWidget(IDependencyContainer container) : base( container ) {
+        public GameMenuWidget(IDependencyProvider container) : base( container ) {
             this.Router = container.RequireDependency<Router>();
             this.View = CreateView( this );
         }
@@ -37,10 +37,10 @@ namespace Project.UI {
                 widget.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
             } );
             view.Settings.RegisterCallback<ClickEvent>( evt => {
-                widget.Node.AddChild( new SettingsWidget( widget.Container ).Node, null );
+                widget.Node.AddChild( new SettingsWidget( widget.Provider ).Node, null );
             } );
             view.Back.RegisterCallback<ClickEvent>( evt => {
-                widget.Node.AddChild( new DialogWidget( widget.Container, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ).Node, null );
+                widget.Node.AddChild( new DialogWidget( widget.Provider, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ).Node, null );
             } );
             return view;
         }

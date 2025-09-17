@@ -9,11 +9,11 @@ namespace Project.UI {
 
     public class SettingsWidget : ViewableWidgetBase2<SettingsWidgetView> {
 
-        public SettingsWidget(IDependencyContainer container) : base( container ) {
+        public SettingsWidget(IDependencyProvider provider) : base( provider ) {
             this.View = CreateView( this );
-            this.Node.AddChild( new ProfileSettingsWidget( container ).Node, null );
-            this.Node.AddChild( new VideoSettingsWidget( container ).Node, null );
-            this.Node.AddChild( new AudioSettingsWidget( container ).Node, null );
+            this.Node.AddChild( new ProfileSettingsWidget( provider ).Node, null );
+            this.Node.AddChild( new VideoSettingsWidget( provider ).Node, null );
+            this.Node.AddChild( new AudioSettingsWidget( provider ).Node, null );
         }
         public override void Dispose() {
             foreach (var child in this.Node.Children) {

@@ -20,22 +20,22 @@ namespace Project.UI {
             set => UnityEngine.Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
         }
 
-        public GameWidget(IDependencyContainer container) : base( container ) {
-            this.Game = container.RequireDependency<Game2>();
+        public GameWidget(IDependencyProvider provider) : base( provider ) {
+            this.Game = provider.RequireDependency<Game2>();
             this.Game.OnStateChangeEvent += async i => {
                 try {
                     if (i is GameState.Completed) {
                         if (this.Game.Player.State is PlayerState.Winner) {
                             if (this.Game.Info.Level.IsLast()) {
                                 await Awaitable.WaitForSecondsAsync( 2.5f, this.DisposeCancellationToken );
-                                this.Node.AddChild( new GameTotalsWidget_GameCompleted( this.Container ).Node, null );
+                                this.Node.AddChild( new GameTotalsWidget_GameCompleted( this.Provider ).Node, null );
                             } else {
                                 await Awaitable.WaitForSecondsAsync( 2.5f, this.DisposeCancellationToken );
-                                this.Node.AddChild( new GameTotalsWidget_LevelCompleted( this.Container ).Node, null );
+                                this.Node.AddChild( new GameTotalsWidget_LevelCompleted( this.Provider ).Node, null );
                             }
                         } else if (this.Game.Player.State is PlayerState.Loser) {
                             await Awaitable.WaitForSecondsAsync( 2.5f, this.DisposeCancellationToken );
-                            this.Node.AddChild( new GameTotalsWidget_LevelFailed( this.Container ).Node, null );
+                            this.Node.AddChild( new GameTotalsWidget_LevelFailed( this.Provider ).Node, null );
                         } else {
                             throw Exceptions.Internal.NotSupported( $"PlayerState {this.Game.Player.State} is not supported" );
                         }
@@ -50,7 +50,7 @@ namespace Project.UI {
                     this.View.Focus();
                 }
             };
-            this.Node.AddChild( new PlayerWidget( this.Container ).Node, null );
+            this.Node.AddChild( new PlayerWidget( this.Provider ).Node, null );
         }
         public override void Dispose() {
             foreach (var child in this.Node.Children) {
@@ -114,7 +114,7 @@ namespace Project.UI {
             var view = new GameWidgetView();
             view.RegisterCallback<NavigationCancelEvent>( evt => {
                 if (!widget.Node.Children.Any( i => i.Widget() is GameMenuWidget )) {
-                    widget.Node.AddChild( new GameMenuWidget( widget.Container ).Node, null );
+                    widget.Node.AddChild( new GameMenuWidget( widget.Provider ).Node, null );
                     evt.StopPropagation();
                 }
             } );

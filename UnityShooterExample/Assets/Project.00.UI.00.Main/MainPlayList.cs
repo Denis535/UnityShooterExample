@@ -17,7 +17,7 @@ namespace Project.UI {
             new AssetHandle<AudioClip>( R.Project.UI.Main.Music.Value_Theme )
         }.Chain( Shuffle );
 
-        public MainPlayList(IDependencyContainer container) : base( container ) {
+        public MainPlayList(IDependencyProvider provider) : base( provider ) {
         }
         public override void Dispose() {
             base.Dispose();
