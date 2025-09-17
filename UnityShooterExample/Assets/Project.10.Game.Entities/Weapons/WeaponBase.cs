@@ -6,7 +6,7 @@ namespace Project.Game {
     using UnityEngine;
     using UnityEngine.Framework;
 
-    public abstract class WeaponBase : ThingBase {
+    public abstract class WeaponBase : InteractiveBase {
 
         protected Rigidbody Rigidbody { get; private set; } = default!;
         public bool IsRigidbody {

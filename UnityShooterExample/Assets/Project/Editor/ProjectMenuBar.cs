@@ -294,7 +294,7 @@ namespace Project {
                     "Assets/Project.10.Game.Entities/Characters" or
                     "Assets/Project.10.Game.Entities/Characters/Playable" or
                     "Assets/Project.10.Game.Entities/Characters/NonPlayable" or
-                    "Assets/Project.10.Game.Entities/Things" or
+                    "Assets/Project.10.Game.Entities/Weapons" or
                     "Assets/Project.10.Game.Entities/Camera/Playable" or
                     "Assets/Project.10.Game.Worlds";
             } )

@@ -45,14 +45,6 @@ namespace UnityEngine.AddressableAssets {
             }
             public static class @Game {
                 public static class @Entities {
-                    public static class @Things {
-                        public const string @Value_Bullet = "Project.Game.Entities/Things/Bullet.prefab";
-                        public const string @Value_Gun = "Project.Game.Entities/Things/Gun.prefab";
-                        public const string @Value_Gun_Blue = "Project.Game.Entities/Things/Gun_Blue.prefab";
-                        public const string @Value_Gun_Gray = "Project.Game.Entities/Things/Gun_Gray.prefab";
-                        public const string @Value_Gun_Green = "Project.Game.Entities/Things/Gun_Green.prefab";
-                        public const string @Value_Gun_Red = "Project.Game.Entities/Things/Gun_Red.prefab";
-                    }
                     public static class @Camera {
                         public static class @Playable {
                             public const string @Value_PlayerCamera = "Project.Game.Entities/Camera/Playable/PlayerCamera.prefab";
@@ -73,6 +65,14 @@ namespace UnityEngine.AddressableAssets {
                             public const string @Value_PlayerCharacter_Green = "Project.Game.Entities/Characters/Playable/PlayerCharacter_Green.prefab";
                             public const string @Value_PlayerCharacter_Red = "Project.Game.Entities/Characters/Playable/PlayerCharacter_Red.prefab";
                         }
+                    }
+                    public static class @Weapons {
+                        public const string @Value_Bullet = "Project.Game.Entities/Weapons/Bullet.prefab";
+                        public const string @Value_Gun = "Project.Game.Entities/Weapons/Gun.prefab";
+                        public const string @Value_Gun_Blue = "Project.Game.Entities/Weapons/Gun_Blue.prefab";
+                        public const string @Value_Gun_Gray = "Project.Game.Entities/Weapons/Gun_Gray.prefab";
+                        public const string @Value_Gun_Green = "Project.Game.Entities/Weapons/Gun_Green.prefab";
+                        public const string @Value_Gun_Red = "Project.Game.Entities/Weapons/Gun_Red.prefab";
                     }
                 }
                 public static class @Worlds {

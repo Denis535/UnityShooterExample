@@ -15,11 +15,16 @@ namespace Project {
 
     public class Program : ProgramBase2<Theme, Screen, Router, Application2, Game2> {
 
-        protected override Theme Theme { get; set; } = default!;
-        protected override Screen Screen { get; set; } = default!;
-        protected override Router Router { get; set; } = default!;
-        protected override Application2 Application { get; set; } = default!;
-        protected override Game2? Game => this.Application.Game;
+        private Theme theme = default!;
+        private Screen screen = default!;
+        private Router router = default!;
+        private Application2 application = default!;
+
+        protected override Theme Theme => this.theme;
+        protected override Screen Screen => this.screen;
+        protected override Router Router => this.router;
+        protected override Application2 Application => this.application;
+        protected override Game2? Game => this.application.Game;
 
         //[RuntimeInitializeOnLoadMethod( RuntimeInitializeLoadType.BeforeSplashScreen )]
         //private static void OnLoad() {
@@ -34,7 +39,7 @@ namespace Project {
         private static void OnLoad_Editor() {
             var message = new StringBuilder()
                 .AppendLine( "https://u3d.as/3pWS" )
-                .Append( "You can check the latest version: https://denis535.github.io/#unity-shooter-example-unity" );
+                .Append( "You can check the latest version: https://github.com/Denis535/UnityShooterExample" );
             Debug.Log( message );
             if (!EditorApplication.isPlaying) {
                 UnityEditor.SceneManagement.EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>( "Assets/Assets.Project.00/Main.unity" );
@@ -46,10 +51,10 @@ namespace Project {
         protected override void Awake() {
             base.Awake();
             VisualElementFactory.StringSelector = GetDisplayString;
-            this.Application = new Application2( this );
-            this.Router = new Router( this );
-            this.Screen = new Screen( this );
-            this.Theme = new Theme( this );
+            this.application = new Application2( this );
+            this.router = new Router( this );
+            this.screen = new Screen( this );
+            this.theme = new Theme( this );
         }
         protected override void OnDestroy() {
             this.Theme.Dispose();
@@ -85,31 +90,11 @@ namespace Project {
         }
 
         protected override Option<object?> GetValue(Type type, object? argument) {
-            this.ThrowIfInvalid();
-            // UI
-            if (type.IsAssignableTo( typeof( ThemeBase ) )) {
-                if (this.Theme != null) return Option.Create( (object?) this.Theme );
-                return default;
-            }
-            if (type.IsAssignableTo( typeof( ScreenBase ) )) {
-                if (this.Screen != null) return Option.Create( (object?) this.Screen );
-                return default;
-            }
-            if (type.IsAssignableTo( typeof( RouterBase ) )) {
-                if (this.Router != null) return Option.Create( (object?) this.Router );
-                return default;
-            }
-            // App
-            if (type.IsAssignableTo( typeof( ApplicationBase ) )) {
-                if (this.Application != null) return Option.Create( (object?) this.Application );
-                return default;
-            }
+            var value = base.GetValue( type, argument );
+            if (value.HasValue) return value;
+
             // Game
-            if (type.IsAssignableTo( typeof( GameBase ) )) {
-                if (this.Game != null) return Option.Create( (object?) this.Game );
-                return default;
-            }
-            if (type.IsAssignableTo( typeof( World ) )) {
+            if (type == typeof( World )) {
                 var result = FindAnyObjectByType<World>( FindObjectsInactive.Exclude );
                 if (result is not null) {
                     result.ThrowIfInvalid();
@@ -117,6 +102,7 @@ namespace Project {
                 }
                 return default;
             }
+
             // Misc
             if (type == typeof( AudioSource ) && (string?) argument == "MusicAudioSource") {
                 var result = this.transform.Find( "MusicAudioSource" )?.gameObject.GetComponent<AudioSource?>();
@@ -126,16 +112,16 @@ namespace Project {
                 }
                 return default;
             }
-            if (type == typeof( AudioSource ) && (string?) argument == "SfxAudioSource") {
-                var result = this.transform.Find( "SfxAudioSource" )?.gameObject.GetComponent<AudioSource?>();
+            if (type == typeof( UIDocument )) {
+                var result = this.gameObject.GetComponentInChildren<UIDocument>();
                 if (result is not null) {
                     result.ThrowIfInvalid();
                     return Option.Create( (object?) result );
                 }
                 return default;
             }
-            if (type == typeof( UIDocument )) {
-                var result = this.gameObject.GetComponentInChildren<UIDocument>();
+            if (type == typeof( AudioSource ) && (string?) argument == "SfxAudioSource") {
+                var result = this.transform.Find( "SfxAudioSource" )?.gameObject.GetComponent<AudioSource?>();
                 if (result is not null) {
                     result.ThrowIfInvalid();
                     return Option.Create( (object?) result );

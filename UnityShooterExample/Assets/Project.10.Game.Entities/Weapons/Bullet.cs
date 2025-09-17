@@ -10,7 +10,7 @@ namespace Project.Game {
     public partial class Bullet {
         public static class Factory {
 
-            private static readonly PrefabHandle<Bullet> Prefab = new PrefabHandle<Bullet>( R.Project.Game.Entities.Things.Value_Bullet );
+            private static readonly PrefabHandle<Bullet> Prefab = new PrefabHandle<Bullet>( R.Project.Game.Entities.Weapons.Value_Bullet );
 
             public static void Load() {
                 Prefab.Load().Wait();

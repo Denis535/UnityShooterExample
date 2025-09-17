@@ -119,9 +119,9 @@ namespace Project.Game {
                         return new RaycastHit( point, distance, gameObject, enemy );
                     }
                 }
-                if (entity is ThingBase thing) {
+                if (entity is InteractiveBase interactive) {
                     if (Vector3.Distance( point, character.position ) <= 2.5f) {
-                        return new RaycastHit( point, distance, gameObject, thing );
+                        return new RaycastHit( point, distance, gameObject, interactive );
                     }
                 }
                 return new RaycastHit( point, distance, gameObject, null );

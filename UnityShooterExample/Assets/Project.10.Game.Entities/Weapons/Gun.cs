@@ -11,10 +11,10 @@ namespace Project.Game {
         public static class Factory {
 
             private static readonly PrefabListHandle<Gun> Prefabs = new PrefabListHandle<Gun>( new[] {
-                R.Project.Game.Entities.Things.Value_Gun_Gray,
-                R.Project.Game.Entities.Things.Value_Gun_Red,
-                R.Project.Game.Entities.Things.Value_Gun_Green,
-                R.Project.Game.Entities.Things.Value_Gun_Blue,
+                R.Project.Game.Entities.Weapons.Value_Gun_Gray,
+                R.Project.Game.Entities.Weapons.Value_Gun_Red,
+                R.Project.Game.Entities.Weapons.Value_Gun_Green,
+                R.Project.Game.Entities.Weapons.Value_Gun_Blue,
             } );
 
             public static void Load() {
