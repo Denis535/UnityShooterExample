@@ -45,12 +45,12 @@ namespace Project.UI {
         }
 
         public void Pause() {
-            var playList = this.Machine.Root!.PlayList<GamePlayList>();
-            playList.Pause();
+            var playList = this.Machine.Root?.PlayList<GamePlayList>();
+            playList?.Pause();
         }
         public void UnPause() {
-            var playList = this.Machine.Root!.PlayList<GamePlayList>();
-            playList.UnPause();
+            var playList = this.Machine.Root?.PlayList<GamePlayList>();
+            playList?.UnPause();
         }
 
     }

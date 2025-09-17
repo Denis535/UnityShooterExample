@@ -81,8 +81,7 @@ namespace Project.App {
                 EnemyCharacter.Factory.Unload();
                 Gun.Factory.Unload();
                 Bullet.Factory.Unload();
-                Array.Clear( Utils.RaycastHitBuffer, 0, Utils.RaycastHitBuffer.Length );
-                Array.Clear( Utils.ColliderBuffer, 0, Utils.ColliderBuffer.Length );
+                Utils.Clear();
             }
         }
 

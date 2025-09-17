@@ -71,9 +71,10 @@ namespace Project.Game {
 
         // Helpers
         private static Environment_ GetEnvironment(Transform transform) {
-            var mask = ~(Masks.Entity_Approximate | Masks.Trivial);
             return new Environment_() {
-                Player = Utils.OverlapSphere( transform.position, 8, mask, QueryTriggerInteraction.Ignore ).Select( i => i.transform.root.GetComponent<PlayerCharacter>() ).FirstOrDefault( i => i != null )
+                Player = Utils.OverlapSphere( transform.position, 8, Masks.Entity_Approximate, QueryTriggerInteraction.Ignore )
+                    .Select( i => i.transform.root.GetComponent<PlayerCharacter>() )
+                    .FirstOrDefault( i => i != null )
             };
         }
         // Helpers
