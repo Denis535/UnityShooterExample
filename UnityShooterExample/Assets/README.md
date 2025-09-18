@@ -73,17 +73,18 @@ Secondly, the ```Main``` scene contains the ```Program``` entity:
     "com.denis535.addressables-extensions": "1.0.19",
     "com.denis535.addressables-source-generator": "1.0.43",
     "com.denis535.colorful-project-window": "1.1.1",
-    "com.denis535.game-framework-pro": "1.1.0",
+    "com.denis535.game-framework-pro": "1.1.1",
     "com.unity.2d.sprite": "1.0.0",
-    "com.unity.addressables": "2.2.2",
-    "com.unity.ide.visualstudio": "2.0.22",
-    "com.unity.inputsystem": "1.11.2",
-    "com.unity.nuget.mono-cecil": "1.11.4",
+    "com.unity.addressables": "2.7.3",
+    "com.unity.ide.visualstudio": "2.0.23",
+    "com.unity.inputsystem": "1.14.2",
+    "com.unity.nuget.mono-cecil": "1.11.5",
     "com.unity.profiling.core": "1.0.2",
-    "com.unity.render-pipelines.universal": "17.0.3",
+    "com.unity.recorder": "5.1.2",
+    "com.unity.render-pipelines.universal": "17.1.0",
     "com.unity.services.qos": "1.3.2",
-    "com.unity.terrain-tools": "5.1.2",
-    "com.unity.test-framework": "1.4.5",
+    "com.unity.terrain-tools": "5.3.0",
+    "com.unity.test-framework": "1.5.1",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.assetbundle": "1.0.0",
     "com.unity.modules.audio": "1.0.0",
@@ -105,8 +106,8 @@ Secondly, the ```Main``` scene contains the ```Program``` entity:
       "scopes": [
         "com.denis535.addressables-extensions",
         "com.denis535.addressables-source-generator",
-        "com.denis535.colorful-project-window"
-        "com.denis535.game-framework-pro",
+        "com.denis535.colorful-project-window",
+        "com.denis535.game-framework-pro"
       ]
     }
   ]
