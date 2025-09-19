@@ -20,11 +20,42 @@ namespace Project {
         private Router router = default!;
         private Application2 application = default!;
 
-        protected override Theme Theme => this.theme;
-        protected override Screen Screen => this.screen;
-        protected override Router Router => this.router;
-        protected override Application2 Application => this.application;
-        protected override Game2? Game => this.application.Game;
+        protected override Theme Theme {
+            get {
+                Assert.Operation.Message( $"Theme must be non-null" ).Valid( this.theme != null );
+                Assert.Operation.Message( $"Theme must be non-disposed" ).NotDisposed( !this.theme.IsDisposed );
+                return this.theme;
+            }
+        }
+        protected override Screen Screen {
+            get {
+                Assert.Operation.Message( $"Screen must be non-null" ).Valid( this.screen != null );
+                Assert.Operation.Message( $"Screen must be non-disposed" ).NotDisposed( !this.screen.IsDisposed );
+                return this.screen;
+            }
+        }
+        protected override Router Router {
+            get {
+                Assert.Operation.Message( $"Router must be non-null" ).Valid( this.router != null );
+                Assert.Operation.Message( $"Router must be non-disposed" ).NotDisposed( !this.router.IsDisposed );
+                return this.router;
+            }
+        }
+        protected override Application2 Application {
+            get {
+                Assert.Operation.Message( $"Application must be non-null" ).Valid( this.application != null );
+                Assert.Operation.Message( $"Application must be non-disposed" ).NotDisposed( !this.application.IsDisposed );
+                return this.application;
+            }
+        }
+        protected override Game2? Game {
+            get {
+                var game = this.Application.Game;
+                Assert.Operation.Message( $"Game must be non-null" ).Valid( game != null );
+                Assert.Operation.Message( $"Game must be non-disposed" ).NotDisposed( !game.IsDisposed );
+                return game;
+            }
+        }
 
         //[RuntimeInitializeOnLoadMethod( RuntimeInitializeLoadType.BeforeSplashScreen )]
         //private static void OnLoad() {
