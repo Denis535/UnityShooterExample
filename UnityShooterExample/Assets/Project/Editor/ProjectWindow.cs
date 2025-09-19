@@ -138,13 +138,13 @@ namespace Project {
                     "Packages/com.denis535.addressables-extensions/Runtime/Denis535.Addressables.Extensions",
                     // com.denis535.addressables-source-generator
                     "Packages/com.denis535.addressables-source-generator/Editor/Denis535.Addressables.SourceGenerator",
+                    // com.denis535.colorful-project-window
+                    "Packages/com.denis535.colorful-project-window/Editor/Denis535.ColorfulProjectWindow",
                     // com.denis535.game-frameworl-pro
                     "Packages/com.denis535.game-framework-pro/Runtime/Denis535.GameFramework.Pro",
-                    "Packages/com.denis535.game-framework-pro/Runtime/Denis535.GameFramework.Pro.Additions",
+                    "Packages/com.denis535.game-framework-pro/Runtime/Denis535.GameFramework.Pro.Extensions",
                     "Packages/com.denis535.game-framework-pro/Runtime/Denis535.GameFramework.Pro.Internal",
                     "Packages/com.denis535.game-framework-pro/Editor/Denis535.GameFramework.Pro.Editor", 
-                    // com.denis535.colorful-project-window
-                    "Packages/com.denis535.colorful-project-window/Editor/Denis535.ColorfulProjectWindow", 
                     // com.denis535.uitoolkit-theme-style-sheet
                     "Packages/com.denis535.uitoolkit-theme-style-sheet/Runtime/UIToolkit.ThemeStyleSheet",
                     "Packages/com.denis535.uitoolkit-theme-style-sheet/Editor/UIToolkit.ThemeStyleSheet.Editor",
@@ -168,11 +168,11 @@ namespace Project {
                     "Assets/Project.20.Infrastructure",
                     "Assets/Plugins/Denis535.Addressables.Extensions",
                     "Assets/Plugins/Denis535.Addressables.SourceGenerator",
+                    "Assets/Plugins/Denis535.ColorfulProjectWindow",
                     "Assets/Plugins/Denis535.GameFramework.Pro",
-                    "Assets/Plugins/Denis535.GameFramework.Pro.Additions",
+                    "Assets/Plugins/Denis535.GameFramework.Pro.Extensions",
                     "Assets/Plugins/Denis535.GameFramework.Pro.Internal",
                     "Assets/Plugins/Denis535.GameFramework.Pro.Editor",
-                    "Assets/Plugins/Denis535.ColorfulProjectWindow",
                     "Assets/Plugins/UIToolkit.ThemeStyleSheet",
                     "Assets/Plugins/UIToolkit.ThemeStyleSheet.Editor",
                 };
