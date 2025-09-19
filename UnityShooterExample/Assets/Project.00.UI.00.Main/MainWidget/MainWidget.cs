@@ -38,7 +38,7 @@ namespace Project.UI {
                 this.Node.Children.Select( i => i.Widget() ).OfType<MainMenuWidget>().First().View.style.display = StyleKeyword.Null;
             } catch (OperationCanceledException) {
             } catch (Exception ex) {
-                ((RootWidget) this.Node.Root.Widget()).AddChild( new ErrorDialogWidget( this.Provider, "Error", ex.Message ).OnSubmit( "Ok", () => this.Router.Quit() ) );
+                ((RootWidget) this.Node.Root.Widget()).ShowErrorDialogWidget( new ErrorDialogWidget( this.Provider, "Error", ex.Message ).OnSubmit( "Ok", () => this.Router.Quit() ) );
             }
         }
         protected override void OnDeactivate(object? argument) {

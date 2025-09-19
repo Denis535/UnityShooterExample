@@ -29,29 +29,23 @@ namespace Project.UI {
         }
 
         public void OnFixedUpdate() {
+            this.Machine.Root!.Widget<RootWidget>().OnFixedUpdate();
         }
         public void OnUpdate() {
-            foreach (var child in this.Machine.Root!.Children) {
-                (child.Widget() as MainWidget)?.OnUpdate();
-                (child.Widget() as GameWidget)?.OnUpdate();
-            }
+            this.Machine.Root!.Widget<RootWidget>().OnUpdate();
         }
 
         public void ShowMainScreen() {
-            this.Clear();
-            this.Machine.Root!.Widget<RootWidget>().AddChild( new MainWidget( this.Provider ) );
+            this.Machine.Root!.Widget<RootWidget>().ShowMainWidget( new MainWidget( this.Provider ) );
         }
         public void ShowGameScreen() {
-            this.Clear();
-            this.Machine.Root!.Widget<RootWidget>().AddChild( new GameWidget( this.Provider ) );
+            this.Machine.Root!.Widget<RootWidget>().ShowGameWidget( new GameWidget( this.Provider ) );
         }
         public void ShowLoadingScreen() {
-            this.Clear();
-            this.Machine.Root!.Widget<RootWidget>().AddChild( new LoadingWidget( this.Provider ) );
+            this.Machine.Root!.Widget<RootWidget>().ShowLoadingWidget( new LoadingWidget( this.Provider ) );
         }
         public void ShowUnloadingScreen() {
-            this.Clear();
-            this.Machine.Root!.Widget<RootWidget>().AddChild( new UnloadingWidget( this.Provider ) );
+            this.Machine.Root!.Widget<RootWidget>().ShowUnloadingWidget( new UnloadingWidget( this.Provider ) );
         }
         public void Clear() {
             this.Machine.Root!.Widget<RootWidget>().Clear();

@@ -3,6 +3,7 @@ namespace Project.UI {
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using System.TreeMachine.Pro;
     using UnityEngine;
     using UnityEngine.Framework;
@@ -19,19 +20,41 @@ namespace Project.UI {
             base.Dispose();
         }
 
-        internal void AddChild(MainWidget widget) {
+        public void OnFixedUpdate() {
+        }
+        public void OnUpdate() {
+            foreach (var child in this.Node.Children.Select( i => i.Widget() )) {
+                if (child is MainWidget mainWidget) {
+                    mainWidget.OnUpdate();
+                } else if (child is GameWidget gameWidget) {
+                    gameWidget.OnUpdate();
+                }
+            }
+        }
+
+        internal void ShowMainWidget(MainWidget widget) {
+            this.Clear();
             this.NodeMutable.AddChild( widget.Node, null );
         }
-        internal void AddChild(GameWidget widget) {
+        internal void ShowGameWidget(GameWidget widget) {
+            this.Clear();
             this.NodeMutable.AddChild( widget.Node, null );
         }
-        internal void AddChild(LoadingWidget widget) {
+        internal void ShowLoadingWidget(LoadingWidget widget) {
+            this.Clear();
             this.NodeMutable.AddChild( widget.Node, null );
         }
-        internal void AddChild(UnloadingWidget widget) {
+        internal void ShowUnloadingWidget(UnloadingWidget widget) {
+            this.Clear();
             this.NodeMutable.AddChild( widget.Node, null );
         }
-        internal void AddChild(ErrorDialogWidget widget) {
+        internal void ShowInfoDialogWidget(InfoDialogWidget widget) {
+            this.NodeMutable.AddChild( widget.Node, null );
+        }
+        internal void ShowWarningDialogWidget(WarningDialogWidget widget) {
+            this.NodeMutable.AddChild( widget.Node, null );
+        }
+        internal void ShowErrorDialogWidget(ErrorDialogWidget widget) {
             this.NodeMutable.AddChild( widget.Node, null );
         }
         internal void Clear() {
@@ -46,10 +69,10 @@ namespace Project.UI {
                 // MainScreen
                 MainWidget => 0,
                 // GameScreen
-                GameWidget => 100,
+                GameWidget => 0,
                 // Common
-                LoadingWidget => 200,
-                UnloadingWidget => 201,
+                LoadingWidget => 0,
+                UnloadingWidget => 0,
                 _ => int.MaxValue
             };
         }
