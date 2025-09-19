@@ -6,7 +6,7 @@ namespace Project.Game {
     using UnityEngine;
     using UnityEngine.Framework;
 
-    public abstract class WeaponBase : InteractiveBase {
+    public abstract class WeaponBase : EntityBase {
 
         protected Rigidbody Rigidbody { get; private set; } = default!;
         public bool IsRigidbody {
@@ -22,7 +22,7 @@ namespace Project.Game {
         protected override void OnDestroy() {
         }
 
-        public abstract bool TryFire(PlayerBase? player, CharacterBase character);
+        public abstract bool TryFire(PlayerBase? player, CharacterBase2 character);
 
     }
     public class FireDelay {

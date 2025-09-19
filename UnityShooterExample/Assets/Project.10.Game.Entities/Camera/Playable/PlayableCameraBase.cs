@@ -7,7 +7,7 @@ namespace Project.Game {
     using UnityEngine.Framework;
 
     [DefaultExecutionOrder( ExecutionOrder - 1 )]
-    public abstract class PlayableCameraBase : CameraBase {
+    public abstract class PlayableCameraBase : EntityBase {
 
         public IPlayableCameraInputProvider? InputProvider { get; set; }
 

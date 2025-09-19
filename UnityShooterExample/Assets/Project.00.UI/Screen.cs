@@ -38,23 +38,23 @@ namespace Project.UI {
         }
 
         public void ShowMainScreen() {
-            this.HideScreen();
-            this.Machine.Root!.AddChild( new MainWidget( this.Provider ).Node, null );
+            this.Clear();
+            this.Machine.Root!.Widget<RootWidget>().AddChild( new MainWidget( this.Provider ) );
         }
         public void ShowGameScreen() {
-            this.HideScreen();
-            this.Machine.Root!.AddChild( new GameWidget( this.Provider ).Node, null );
+            this.Clear();
+            this.Machine.Root!.Widget<RootWidget>().AddChild( new GameWidget( this.Provider ) );
         }
         public void ShowLoadingScreen() {
-            this.HideScreen();
-            this.Machine.Root!.AddChild( new LoadingWidget( this.Provider ).Node, null );
+            this.Clear();
+            this.Machine.Root!.Widget<RootWidget>().AddChild( new LoadingWidget( this.Provider ) );
         }
         public void ShowUnloadingScreen() {
-            this.HideScreen();
-            this.Machine.Root!.AddChild( new UnloadingWidget( this.Provider ).Node, null );
+            this.Clear();
+            this.Machine.Root!.Widget<RootWidget>().AddChild( new UnloadingWidget( this.Provider ) );
         }
-        public void HideScreen() {
-            _ = this.Machine.Root!.RemoveChildren( null, (child, arg) => child.Widget().Dispose() );
+        public void Clear() {
+            this.Machine.Root!.Widget<RootWidget>().Clear();
         }
 
     }

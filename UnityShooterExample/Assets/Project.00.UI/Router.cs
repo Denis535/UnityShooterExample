@@ -128,8 +128,8 @@ namespace Project.UI {
             Debug.Log( "Quit" );
 #endif
             using (@lock.Enter()) {
-                this.Theme.StopTheme();
-                this.Screen.HideScreen();
+                this.Theme.Stop();
+                this.Screen.Clear();
                 {
                     if (this.Application.Game != null) this.StopGame();
                     if (this.WorldScene != null) await this.UnloadAsync_WorldScene();

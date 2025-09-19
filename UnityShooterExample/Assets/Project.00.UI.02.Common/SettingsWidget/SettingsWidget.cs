@@ -11,9 +11,9 @@ namespace Project.UI {
 
         public SettingsWidget(IDependencyProvider provider) : base( provider ) {
             this.View = CreateView( this );
-            this.Node.AddChild( new ProfileSettingsWidget( provider ).Node, null );
-            this.Node.AddChild( new VideoSettingsWidget( provider ).Node, null );
-            this.Node.AddChild( new AudioSettingsWidget( provider ).Node, null );
+            this.NodeMutable.AddChild( new ProfileSettingsWidget( provider ).Node, null );
+            this.NodeMutable.AddChild( new VideoSettingsWidget( provider ).Node, null );
+            this.NodeMutable.AddChild( new AudioSettingsWidget( provider ).Node, null );
         }
         public override void Dispose() {
             foreach (var child in this.Node.Children) {
@@ -35,11 +35,11 @@ namespace Project.UI {
             var view = new SettingsWidgetView();
             view.Okey.RegisterCallback<ClickEvent>( evt => {
                 if (evt.GetTarget().IsValidSelf()) {
-                    widget.Node.RemoveSelf( DeactivateReason.Submit, (self, arg) => self.Widget().Dispose() );
+                    widget.NodeMutable.RemoveSelf( DeactivateReason.Submit, (self, arg) => self.Widget().Dispose() );
                 }
             } );
             view.Back.RegisterCallback<ClickEvent>( evt => {
-                widget.Node.RemoveSelf( DeactivateReason.Cancel, (self, arg) => self.Widget().Dispose() );
+                widget.NodeMutable.RemoveSelf( DeactivateReason.Cancel, (self, arg) => self.Widget().Dispose() );
             } );
             return view;
         }

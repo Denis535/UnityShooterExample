@@ -48,7 +48,7 @@ namespace Project.Game {
             base.OnDestroy();
         }
 
-        public override bool TryFire(PlayerBase? player, CharacterBase character) {
+        public override bool TryFire(PlayerBase? player, CharacterBase2 character) {
             if (this.FireDelay.CanFire) {
                 this.FireDelay.Fire();
                 var bullet = Bullet.Factory.Create( player, character, this, this.FirePoint.transform.position, this.FirePoint.transform.rotation, 5 );

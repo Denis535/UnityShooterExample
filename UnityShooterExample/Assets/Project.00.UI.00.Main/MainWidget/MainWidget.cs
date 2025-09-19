@@ -20,7 +20,7 @@ namespace Project.UI {
             this.Router = provider.RequireDependency<Router>();
             this.Application = provider.RequireDependency<Application2>();
             this.View = CreateView( this );
-            this.Node.AddChild( new MainMenuWidget( this.Provider ).Node, null );
+            this.NodeMutable.AddChild( new MainMenuWidget( this.Provider ).Node, null );
         }
         public override void Dispose() {
             foreach (var child in this.Node.Children) {
@@ -45,7 +45,7 @@ namespace Project.UI {
             this.HideSelf();
         }
 
-        protected override void Sort(List<NodeBase> children) {
+        protected override void Sort(List<INode> children) {
             children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( a.Widget() ), GetOrderOf( b.Widget() ) ) );
         }
         private static int GetOrderOf(WidgetBase widget) {

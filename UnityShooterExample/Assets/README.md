@@ -73,7 +73,7 @@ Secondly, the ```Main``` scene contains the ```Program``` entity:
     "com.denis535.addressables-extensions": "1.0.19",
     "com.denis535.addressables-source-generator": "1.0.43",
     "com.denis535.colorful-project-window": "1.1.1",
-    "com.denis535.game-framework-pro": "1.1.1",
+    "com.denis535.game-framework-pro": "1.2.1",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "2.7.3",
     "com.unity.ide.visualstudio": "2.0.23",

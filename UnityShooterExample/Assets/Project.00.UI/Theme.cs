@@ -40,7 +40,7 @@ namespace Project.UI {
         public void PlayUnloadingTheme() {
             this.Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
         }
-        public void StopTheme() {
+        public void Stop() {
             this.Machine.SetRoot( null, null, (state, arg) => state.PlayList().Dispose() );
         }
 

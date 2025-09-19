@@ -20,28 +20,25 @@ namespace Project.UI {
         }
 
         internal void AddChild(MainWidget widget) {
-            this.Node.AddChild( widget.Node, null );
+            this.NodeMutable.AddChild( widget.Node, null );
         }
         internal void AddChild(GameWidget widget) {
-            this.Node.AddChild( widget.Node, null );
+            this.NodeMutable.AddChild( widget.Node, null );
         }
         internal void AddChild(LoadingWidget widget) {
-            this.Node.AddChild( widget.Node, null );
+            this.NodeMutable.AddChild( widget.Node, null );
         }
         internal void AddChild(UnloadingWidget widget) {
-            this.Node.AddChild( widget.Node, null );
-        }
-        internal void AddChild(WarningDialogWidget widget) {
-            this.Node.AddChild( widget.Node, null );
+            this.NodeMutable.AddChild( widget.Node, null );
         }
         internal void AddChild(ErrorDialogWidget widget) {
-            this.Node.AddChild( widget.Node, null );
+            this.NodeMutable.AddChild( widget.Node, null );
         }
         internal void Clear() {
-            _ = this.Node.RemoveChildren( i => i.Widget() is not (DialogWidget or InfoDialogWidget or WarningDialogWidget or ErrorDialogWidget), null, (node, arg) => node.Widget().Dispose() );
+            _ = this.NodeMutable.RemoveChildren( i => i.Widget() is MainWidget or GameWidget or LoadingWidget or UnloadingWidget, null, (node, arg) => node.Widget().Dispose() );
         }
 
-        protected override void Sort(List<NodeBase> children) {
+        protected override void Sort(List<INode> children) {
             base.Sort( children );
         }
         protected override int GetOrderOf(WidgetBase widget) {

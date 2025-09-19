@@ -28,14 +28,14 @@ namespace Project.UI {
                         if (this.Game.Player.State is PlayerState.Winner) {
                             if (this.Game.Info.Level.IsLast()) {
                                 await Awaitable.WaitForSecondsAsync( 2.5f, this.DisposeCancellationToken );
-                                this.Node.AddChild( new GameTotalsWidget_GameCompleted( this.Provider ).Node, null );
+                                this.NodeMutable.AddChild( new GameTotalsWidget_GameCompleted( this.Provider ).Node, null );
                             } else {
                                 await Awaitable.WaitForSecondsAsync( 2.5f, this.DisposeCancellationToken );
-                                this.Node.AddChild( new GameTotalsWidget_LevelCompleted( this.Provider ).Node, null );
+                                this.NodeMutable.AddChild( new GameTotalsWidget_LevelCompleted( this.Provider ).Node, null );
                             }
                         } else if (this.Game.Player.State is PlayerState.Loser) {
                             await Awaitable.WaitForSecondsAsync( 2.5f, this.DisposeCancellationToken );
-                            this.Node.AddChild( new GameTotalsWidget_LevelFailed( this.Provider ).Node, null );
+                            this.NodeMutable.AddChild( new GameTotalsWidget_LevelFailed( this.Provider ).Node, null );
                         } else {
                             throw Exceptions.Internal.NotSupported( $"PlayerState {this.Game.Player.State} is not supported" );
                         }
@@ -50,7 +50,7 @@ namespace Project.UI {
                     this.View.Focus();
                 }
             };
-            this.Node.AddChild( new PlayerWidget( this.Provider ).Node, null );
+            this.NodeMutable.AddChild( new PlayerWidget( this.Provider ).Node, null );
         }
         public override void Dispose() {
             foreach (var child in this.Node.Children) {
@@ -87,7 +87,7 @@ namespace Project.UI {
             }
         }
 
-        protected override void Sort(List<NodeBase> children) {
+        protected override void Sort(List<INode> children) {
             children.Sort( (a, b) => Comparer<int>.Default.Compare( GetOrderOf( a.Widget() ), GetOrderOf( b.Widget() ) ) );
         }
         private static int GetOrderOf(WidgetBase widget) {
@@ -114,7 +114,7 @@ namespace Project.UI {
             var view = new GameWidgetView();
             view.RegisterCallback<NavigationCancelEvent>( evt => {
                 if (!widget.Node.Children.Any( i => i.Widget() is GameMenuWidget )) {
-                    widget.Node.AddChild( new GameMenuWidget( widget.Provider ).Node, null );
+                    widget.NodeMutable.AddChild( new GameMenuWidget( widget.Provider ).Node, null );
                     evt.StopPropagation();
                 }
             } );

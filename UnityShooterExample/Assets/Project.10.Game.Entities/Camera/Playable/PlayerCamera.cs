@@ -114,14 +114,14 @@ namespace Project.Game {
                 var distance = hit.distance;
                 var gameObject = hit.collider.gameObject;
                 var entity = hit.collider.transform.GetComponentsInParent<EntityBase>().LastOrDefault();
+                if (entity is WeaponBase interactive) {
+                    if (Vector3.Distance( point, character.position ) <= 2.5f) {
+                        return new RaycastHit( point, distance, gameObject, interactive );
+                    }
+                }
                 if (entity is EnemyCharacter enemy) {
                     if (Vector3.Distance( point, character.position ) <= 16f) {
                         return new RaycastHit( point, distance, gameObject, enemy );
-                    }
-                }
-                if (entity is InteractiveBase interactive) {
-                    if (Vector3.Distance( point, character.position ) <= 2.5f) {
-                        return new RaycastHit( point, distance, gameObject, interactive );
                     }
                 }
                 return new RaycastHit( point, distance, gameObject, null );

@@ -6,7 +6,7 @@ namespace Project.Game {
     using UnityEngine;
     using UnityEngine.Framework;
 
-    public class World : WorldBase {
+    public class World : EntityBase {
 
         private IReadOnlyList<PlayerPoint> playerPoints = default!;
         private IReadOnlyList<EnemyPoint> enemyPoints = default!;

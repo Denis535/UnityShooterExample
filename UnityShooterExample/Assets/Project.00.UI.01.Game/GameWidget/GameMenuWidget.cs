@@ -34,13 +34,13 @@ namespace Project.UI {
         private static GameMenuWidgetView CreateView(GameMenuWidget widget) {
             var view = new GameMenuWidgetView();
             view.Resume.RegisterCallback<ClickEvent>( evt => {
-                widget.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                widget.NodeMutable.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
             } );
             view.Settings.RegisterCallback<ClickEvent>( evt => {
-                widget.Node.AddChild( new SettingsWidget( widget.Provider ).Node, null );
+                widget.NodeMutable.AddChild( new SettingsWidget( widget.Provider ).Node, null );
             } );
             view.Back.RegisterCallback<ClickEvent>( evt => {
-                widget.Node.AddChild( new DialogWidget( widget.Provider, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ).Node, null );
+                widget.NodeMutable.AddChild( new DialogWidget( widget.Provider, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.UnloadGameScene() ).OnCancel( "No", null ).Node, null );
             } );
             return view;
         }

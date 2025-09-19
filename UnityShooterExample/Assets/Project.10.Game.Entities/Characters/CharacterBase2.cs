@@ -8,7 +8,7 @@ namespace Project.Game {
 
     [RequireComponent( typeof( Rigidbody ) )]
     [RequireComponent( typeof( MoveableBody ) )]
-    public abstract partial class CharacterBase2 : CharacterBase, IDamageable {
+    public abstract partial class CharacterBase2 : EntityBase, IDamageable {
 
         public bool IsAlive { get; private set; } = true;
         public event Action<DamageInfo>? OnDamageEvent;

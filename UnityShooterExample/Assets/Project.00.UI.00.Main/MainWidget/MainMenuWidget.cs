@@ -49,10 +49,10 @@ namespace Project.UI {
                 widget.ShowView( CreateView_StartGame( widget ) );
             } );
             view.Settings.RegisterCallback<ClickEvent>( evt => {
-                widget.Node.AddChild( new SettingsWidget( widget.Provider ).Node, null );
+                widget.NodeMutable.AddChild( new SettingsWidget( widget.Provider ).Node, null );
             } );
             view.Quit.RegisterCallback<ClickEvent>( evt => {
-                widget.Node.AddChild( new DialogWidget( widget.Provider, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.Quit() ).OnCancel( "No", null ).Node, null );
+                widget.NodeMutable.AddChild( new DialogWidget( widget.Provider, "Confirmation", "Are you sure?" ).OnSubmit( "Yes", () => widget.Router.Quit() ).OnCancel( "No", null ).Node, null );
             } );
             return view;
         }

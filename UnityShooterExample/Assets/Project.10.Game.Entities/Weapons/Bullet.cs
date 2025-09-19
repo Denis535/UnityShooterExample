@@ -19,7 +19,7 @@ namespace Project.Game {
                 Prefab.Release();
             }
 
-            public static Bullet Create(PlayerBase? player, CharacterBase character, WeaponBase weapon, Vector3 position, Quaternion rotation, float force) {
+            public static Bullet Create(PlayerBase? player, CharacterBase2 character, WeaponBase weapon, Vector3 position, Quaternion rotation, float force) {
                 var result = GameObject.Instantiate<Bullet>( Prefab.GetValue(), position, rotation, null );
                 result.Rigidbody.AddForce( result.transform.forward * force, ForceMode.Impulse );
                 result.Player = player;
@@ -36,7 +36,7 @@ namespace Project.Game {
 
         private Rigidbody Rigidbody { get; set; } = default!;
         public PlayerBase? Player { get; private set; } = default!;
-        public CharacterBase Character { get; private set; } = default!;
+        public CharacterBase2 Character { get; private set; } = default!;
         public WeaponBase Weapon { get; private set; } = default!;
         public float Force { get; private set; } = default!;
 

@@ -7,7 +7,7 @@ namespace Project.UI {
     using UnityEngine;
     using UnityEngine.Framework;
     using UnityEngine.UIElements;
-    
+
     internal interface IDialogWidget<TThis> where TThis : WidgetBase {
         string? Title { get; set; }
         string? Message { get; set; }
@@ -56,7 +56,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.NodeMutable.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
             this.View.Footer.Add( button );
@@ -68,7 +68,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.NodeMutable.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
             this.View.Footer.Add( button );
@@ -116,7 +116,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.NodeMutable.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
             this.View.Footer.Add( button );
@@ -128,7 +128,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.NodeMutable.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
             this.View.Footer.Add( button );
@@ -176,7 +176,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.NodeMutable.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
             this.View.Footer.Add( button );
@@ -188,7 +188,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.NodeMutable.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
             this.View.Footer.Add( button );
@@ -236,7 +236,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.NodeMutable.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
             this.View.Footer.Add( button );
@@ -248,7 +248,7 @@ namespace Project.UI {
             button.RegisterCallback<ClickEvent>( evt => {
                 if (button.IsValidSelf()) {
                     callback?.Invoke();
-                    if (this.Node.Activity is Activity.Active) this.Node.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
+                    if (this.Node.Activity is Activity.Active) this.NodeMutable.RemoveSelf( null, (self, arg) => self.Widget().Dispose() );
                 }
             } );
             this.View.Footer.Add( button );
