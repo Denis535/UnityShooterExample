@@ -90,25 +90,46 @@ namespace Project {
         }
 
         protected override Option<object?> GetValue(Type type, object? argument) {
-            var value = base.GetValue( type, argument );
-            if (value.HasValue) return value;
-
-            // Game
-            if (type == typeof( World )) {
+            this.ThrowIfInvalid();
+            if (typeof( Theme ).IsAssignableFrom( type )) {
+                Assert.Operation.Message( $"Theme must be non-null" ).Valid( this.Theme != null );
+                Assert.Operation.Message( $"Theme must be non-disposed" ).NotDisposed( !this.Theme.IsDisposed );
+                return Option.Create<object?>( this.Theme );
+            }
+            if (typeof( Screen ).IsAssignableFrom( type )) {
+                Assert.Operation.Message( $"Screen must be non-null" ).Valid( this.Screen != null );
+                Assert.Operation.Message( $"Screen must be non-disposed" ).NotDisposed( !this.Screen.IsDisposed );
+                return Option.Create<object?>( this.Screen );
+            }
+            if (typeof( Router ).IsAssignableFrom( type )) {
+                Assert.Operation.Message( $"Router must be non-null" ).Valid( this.Router != null );
+                Assert.Operation.Message( $"Router must be non-disposed" ).NotDisposed( !this.Router.IsDisposed );
+                return Option.Create<object?>( this.Router );
+            }
+            if (typeof( Application2 ).IsAssignableFrom( type )) {
+                Assert.Operation.Message( $"Application must be non-null" ).Valid( this.Application != null );
+                Assert.Operation.Message( $"Application must be non-disposed" ).NotDisposed( !this.Application.IsDisposed );
+                return Option.Create<object?>( this.Application );
+            }
+            if (typeof( Game2 ).IsAssignableFrom( type )) {
+                Assert.Operation.Message( $"Game must be non-null" ).Valid( this.Game != null );
+                Assert.Operation.Message( $"Game must be non-disposed" ).NotDisposed( !this.Game.IsDisposed );
+                return Option.Create<object?>( this.Game );
+            }
+            if (typeof( World ).IsAssignableFrom( type )) {
                 var result = FindAnyObjectByType<World>( FindObjectsInactive.Exclude );
                 if (result is not null) {
                     result.ThrowIfInvalid();
-                    return Option.Create( (object?) result );
+                    return Option.Create<object?>( result );
                 }
                 return default;
             }
-
             // Misc
             if (type == typeof( AudioSource ) && (string?) argument == "MusicAudioSource") {
                 var result = this.transform.Find( "MusicAudioSource" )?.gameObject.GetComponent<AudioSource?>();
                 if (result is not null) {
                     result.ThrowIfInvalid();
-                    return Option.Create( (object?) result );
+                    return Option.Create<object?>( result );
                 }
                 return default;
             }
@@ -116,7 +137,7 @@ namespace Project {
                 var result = this.gameObject.GetComponentInChildren<UIDocument>();
                 if (result is not null) {
                     result.ThrowIfInvalid();
-                    return Option.Create( (object?) result );
+                    return Option.Create<object?>( result );
                 }
                 return default;
             }
@@ -124,7 +145,7 @@ namespace Project {
                 var result = this.transform.Find( "SfxAudioSource" )?.gameObject.GetComponent<AudioSource?>();
                 if (result is not null) {
                     result.ThrowIfInvalid();
-                    return Option.Create( (object?) result );
+                    return Option.Create<object?>( result );
                 }
                 return default;
             }
