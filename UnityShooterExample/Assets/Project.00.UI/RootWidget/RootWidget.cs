@@ -51,8 +51,7 @@ namespace Project.UI {
                 LoadingWidget => 200,
                 UnloadingWidget => 201,
                 _ => int.MaxValue
-            }
-            ;
+            };
         }
 
     }
