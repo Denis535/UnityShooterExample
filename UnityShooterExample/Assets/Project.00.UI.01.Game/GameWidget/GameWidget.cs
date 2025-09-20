@@ -72,15 +72,15 @@ namespace Project.UI {
             this.HideSelf();
         }
 
-        protected override void OnBeforeDescendantActivate(NodeBase descendant, object? argument) {
+        protected override void OnBeforeDescendantActivate(INode2 descendant, object? argument) {
             this.Game.IsPaused = this.Node.Children.Any( i => i.Widget() is GameMenuWidget );
             this.IsCursorVisible = this.Node.Children.Any( i => i.Widget() is GameMenuWidget or GameTotalsWidget_LevelCompleted or GameTotalsWidget_LevelFailed or GameTotalsWidget_GameCompleted );
         }
-        //protected override void OnAfterDescendantActivate(NodeBase descendant, object? argument) {
+        //protected override void OnAfterDescendantActivate(INode2 descendant, object? argument) {
         //}
-        //protected override void OnBeforeDescendantDeactivate(NodeBase descendant, object? argument) {
+        //protected override void OnBeforeDescendantDeactivate(INode2 descendant, object? argument) {
         //}
-        protected override void OnAfterDescendantDeactivate(NodeBase descendant, object? argument) {
+        protected override void OnAfterDescendantDeactivate(INode2 descendant, object? argument) {
             if (this.Node.Activity is Activity.Active) {
                 this.IsCursorVisible = this.Node.Children.Where( i => i.Activity is Activity.Active ).Any( i => i.Widget() is GameMenuWidget or GameTotalsWidget_LevelCompleted or GameTotalsWidget_LevelFailed or GameTotalsWidget_GameCompleted );
                 this.Game.IsPaused = this.Node.Children.Where( i => i.Activity is Activity.Active ).Any( i => i.Widget() is GameMenuWidget );

@@ -21,7 +21,7 @@ namespace Project.UI {
         }
 
         protected override async void OnActivate(object? argument) {
-            var cancellationToken = this.GetCancellationToken_OnDeactivateCallback();
+            var cancellationToken = this.StateMutable.GetCancellationToken_OnDeactivateCallback();
             try {
                 for (var i = 0; true; i = (i + 1) % this.Clips.Length) {
                     var clip = this.Clips[ i ];
